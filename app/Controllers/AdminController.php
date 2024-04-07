@@ -98,5 +98,35 @@ class AdminController extends BaseController
     
         return view('Register');
     }
+
+    public function manageoffice()
+    {
+        return view('Admin/ManageOffice');
+    } 
+
+    public function manageprofile()
+    {
+        return view('Admin/ManageProfile');
+    } 
+
+    public function manageusers()
+    {
+        return view('Admin/ManageUsers');
+    } 
+
+    public function managedocument()
+    {
+        return view('Admin/ManageDocument');
+    } 
+
+    public function viewtransactions()
+    {
+        return view('Admin/ViewTransactions');
+    } 
+
+    public function archiveddocuments()
+    {
+        return view('Admin/ArchivedDocuments');
+    } 
     
 }

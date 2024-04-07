@@ -63,17 +63,23 @@
             </ul>
           </div>
         </li>
-        <li class="nav-item sidebar-category">
-          <p>Activity Log</p>
-          <span></span>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Activity Log</span>
+          </a>
         </li>
-        <li class="nav-item sidebar-category">
-          <p>Trash</p>
-          <span></span>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Trash</span>
+          </a>
         </li>
-        <li class="nav-item sidebar-category">
-          <p>Log Out</p>
-          <span></span>
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Log Out</span>
+          </a>
         </li>
       </ul>
     </nav>

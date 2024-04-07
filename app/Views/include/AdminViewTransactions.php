@@ -309,8 +309,8 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="card-title">Profile</h4>
-                            <p class="card-description">Manage your profile!</p>
+                            <h4 class="card-title">All Document Transactions</h4>
+                            <p class="card-description">description here</p>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -381,6 +381,8 @@
   <script src="assets/js/template.js"></script>
   <script src="assets/js/settings.js"></script>
   <script src="assets/js/todolist.js"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page -->
   <!-- End custom js for this page -->
 </body>
 

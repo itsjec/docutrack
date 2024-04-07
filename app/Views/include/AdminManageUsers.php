@@ -309,8 +309,14 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h4 class="card-title">Profile</h4>
-                            <p class="card-description">Manage your profile!</p>
+                            <h4 class="card-title">Manage Users</h4>
+                            <p class="card-description">Add, Update, Delete Offices!</p>
+                        </div>
+                        <div class="col-md-6 text-right mb-3">
+                            <button type="button" class="btn btn-primary btn-icon-text">
+                                <i class="mdi mdi-office-building btn-icon-prepend"></i>
+                                Add Users
+                            </button>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -381,6 +387,7 @@
   <script src="assets/js/template.js"></script>
   <script src="assets/js/settings.js"></script>
   <script src="assets/js/todolist.js"></script>
+  <!-- Custom js for this page -->
   <!-- End custom js for this page -->
 </body>
 
