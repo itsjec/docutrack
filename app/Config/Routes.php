@@ -28,5 +28,13 @@ $routes->get('manageofficedocument', 'AdminController::manageofficedocument');
 
 
 
+$routes->get('index', 'OfficeController::index');
+$routes->get('pending', 'OfficeController::pending');
+$routes->get('ongoing', 'OfficeController::ongoing');
+$routes->get('completed', 'OfficeController::completed');
+$routes->get('history', 'OfficeController::history');
+$routes->get('manageprofile', 'OfficeController::manageprofile');
+$routes->get('trash', 'OfficeController::trash');
+
 
 

@@ -72,11 +72,11 @@ class AdminController extends BaseController
                     return redirect()->to('dashboard');
                     break;
                 case 'office_user':
-                    return redirect()->to('office');
+                    return redirect()->to('index');
                     break;
                 case 'guest':
                 default:
-                    return redirect()->to('/');
+                    return redirect()->to('');
                     break;
             }
         } else {
