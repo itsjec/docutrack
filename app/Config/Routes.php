@@ -15,6 +15,18 @@ $routes->get('manageuser', 'AdminController::manageuser');
 $routes->post('users/save', 'AdminController::saveOfficeUser');
 $routes->get('manageguest', 'AdminController::manageguest');
 $routes->post('saveguest', 'AdminController::saveguest');
+$routes->get('managedocument', 'AdminController::managedocument');
+$routes->get('maintenance', 'AdminController::maintenance');
+$routes->post('classifications/save', 'AdminController::saveClassification', ['as' => 'saveClassification']);
+$routes->post('sub-classifications/save', 'AdminController::saveSubClassification');
+$routes->post('documents/getSubClassifications', 'AdminController::getSubClassifications');
+$routes->get('tracking', 'AdminController::tracking');
+$routes->post('documents/save', 'AdminController::saveDocument');
+$routes->post('documents/saveOffice', 'AdminController::saveOfficeDocument');
+$routes->get('manageofficedocument', 'AdminController::manageofficedocument');
+
+
+
 
 
 

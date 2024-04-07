@@ -35,7 +35,10 @@
         <div class="collapse" id="form-elements">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('document/manage_document') ?>">Manage Document</a>
+                    <a class="nav-link" href="<?= site_url('manageofficedocument') ?>">Manage Office Documents</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('managedocument') ?>">Manage Guest Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('document/view_transactions') ?>">View Transactions</a>
@@ -59,6 +62,12 @@
                 </li>
             </ul>
         </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('maintenance') ?>">
+            <i class="typcn typcn-device-desktop menu-icon"></i>
+            <span class="menu-title">Maintenance</span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('/') ?>">

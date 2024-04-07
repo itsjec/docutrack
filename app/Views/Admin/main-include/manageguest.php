@@ -2,9 +2,17 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Guest Users</h4>
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Manage Guest Users</h4>
+                        <p class="card-description">Track and update users.</p>
+                    </div>
+                    <div class="col-4 text-right">
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
+                    </div>
+                </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>First Name</th>
@@ -34,6 +42,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
