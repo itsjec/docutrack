@@ -18,7 +18,10 @@
                     <a class="nav-link" href="<?= site_url('profile/manage_profile') ?>">Manage Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('profile/manage_users') ?>">Manage Users</a>
+                    <a class="nav-link" href="<?= site_url('manageuser') ?>">Manage Office Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('manageguest') ?>">Manage Guest Users</a>
                 </li>
             </ul>
         </div>

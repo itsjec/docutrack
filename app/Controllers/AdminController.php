@@ -135,8 +135,61 @@ class AdminController extends BaseController
 
         $data['offices'] = $officeModel->findAll();
 
-        return view('Admin/ManageOffice', $data);
+        return view('Admin/AdminManageOffice', $data);
     }
+
+    public function manageguest()
+    {
+        $userModel = new UserModel();
+        $data['guestUsers'] = $userModel->select('first_name, last_name, email, image')
+                                        ->where('role', 'guest')
+                                        ->findAll();
+        
+        return view('Admin/AdminManageGuest', $data);
+    }
+    
+    
+    
+    public function saveguest()
+    {
+        $userModel = new UserModel();
+    
+        $firstName = $this->request->getPost('firstName');
+        $lastName = $this->request->getPost('lastName');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+    
+        $userData = [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'office_id' => null,
+            'image' => '',
+            'role' => 'guest',
+        ];
+    
+        $userModel->insert($userData);
+    
+        return redirect()->to('manageguest')->with('success', 'Guest user added successfully.');
+    }
+    
+
+    public function manageuser()
+    {
+        $userModel = new UserModel();
+        $users = $userModel->select('users.*, offices.office_name')
+            ->join('offices', 'offices.office_id = users.office_id', 'left')
+            ->findAll();
+    
+        $officeModel = new OfficeModel();
+        $data['offices'] = $officeModel->findAll();
+        $data['users'] = $users; 
+    
+        return view('Admin/AdminManageUser', $data); 
+    }
+    
+
 
     public function save()
     {
@@ -158,5 +211,36 @@ class AdminController extends BaseController
         return redirect()->back();
     }
     
+    public function saveOfficeUser()
+{
+    $userModel = new UserModel();
+    $officeModel = new OfficeModel();
+
+    $firstName = $this->request->getPost('firstName');
+    $lastName = $this->request->getPost('lastName');
+    $email = $this->request->getPost('email');
+    $password = $this->request->getPost('password');
+    $officeId = $this->request->getPost('officeId');
+
+    $office = $officeModel->find($officeId);
+    if (!$office) {
+        return redirect()->back()->with('error', 'Office not found.');
+    }
+
+    $userData = [
+        'first_name' => $firstName,
+        'last_name' => $lastName,
+        'email' => $email,
+        'password' => password_hash($password, PASSWORD_DEFAULT),
+        'office_id' => $officeId,
+        'image' => '',
+        'role' => 'office_user',
+    ];
+
+    $userModel->insert($userData);
+
+    return redirect()->to('manageuser')->with('success', 'Office user added successfully.');
+}
+
     
 }
