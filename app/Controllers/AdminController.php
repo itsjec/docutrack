@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UserModel;
+use App\Models\OfficeModel;
 
 class AdminController extends BaseController
 {
@@ -12,15 +13,15 @@ class AdminController extends BaseController
         return view('LogIn');
     }
 
+    public function admindashboard()
+    {
+        return view('Admin/AdminDashboard');
+    }
+
     public function __construct()
     {
         $this->session = \Config\Services::session();
-    }
-
-    public function dashboard()
-    {
-        return view('Admin/Dashboard');
-    }   
+    } 
     
     public function login()
     {
@@ -101,32 +102,27 @@ class AdminController extends BaseController
 
     public function manageoffice()
     {
-        return view('Admin/ManageOffice');
-    } 
+        $officeModel = new OfficeModel(); 
 
-    public function manageprofile()
-    {
-        return view('Admin/ManageProfile');
-    } 
+        $data['offices'] = $officeModel->findAll();
 
-    public function manageusers()
-    {
-        return view('Admin/ManageUsers');
-    } 
+        return view('Admin/ManageOffice', $data);
+    }
 
-    public function managedocument()
+    public function save_office()
     {
-        return view('Admin/ManageDocument');
-    } 
+        $officeName = $this->request->getPost('officeName');
 
-    public function viewtransactions()
-    {
-        return view('Admin/ViewTransactions');
-    } 
 
-    public function archiveddocuments()
-    {
-        return view('Admin/ArchivedDocuments');
-    } 
+        $officeModel = new OfficeModel();
+        $data = [
+            'office_name' => $officeName,
+        ];
+        $officeModel->insert($data);
+
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+
     
 }
