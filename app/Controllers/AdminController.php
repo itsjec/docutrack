@@ -138,20 +138,25 @@ class AdminController extends BaseController
         return view('Admin/ManageOffice', $data);
     }
 
-    public function save_office()
+    public function save()
     {
-        $officeName = $this->request->getPost('officeName');
+        $model = new OfficeModel();
 
+        $validation =  \Config\Services::validation();
+        $validation->setRules([
+            'officeName' => 'required',
+        ]);
 
-        $officeModel = new OfficeModel();
-        $data = [
-            'office_name' => $officeName,
-        ];
-        $officeModel->insert($data);
+        if (!$validation->withRequest($this->request)->run()) {
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+        }
 
-        return $this->response->setJSON(['status' => 'success']);
+        $model->save([
+            'office_name' => $this->request->getPost('officeName'),
+        ]);
+
+        return redirect()->back();
     }
-
-
+    
     
 }

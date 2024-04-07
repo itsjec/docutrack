@@ -10,3 +10,5 @@ $routes->post('login', 'AdminController::login');
 $routes->get('dashboard', 'AdminController::admindashboard');
 $routes->get('manageoffice', 'AdminController::adminmanageoffice');
 $routes->match(['get', 'post'], 'register', 'AdminController::register');
+$routes->post('offices/save', 'AdminController::save');
+

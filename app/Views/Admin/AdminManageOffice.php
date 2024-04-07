@@ -44,6 +44,16 @@
   </div>
   <!-- container-scroller -->
 
+<script>
+$('#addOfficeBtn').click(function () {
+    var officeName = $('#officeName').val();
+    $('#addOfficeModal').modal('hide');
+});
+
+</script>
+
+
+
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
