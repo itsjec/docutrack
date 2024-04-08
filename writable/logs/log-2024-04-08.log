@@ -291,3 +291,574 @@ in APPPATH\Views\Office\main-include\ongoing.php on line 17.
  9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
 10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
 11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:34:05 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 245.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:34:11 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 245.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:34:28 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 245.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:53:35 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 274.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStep3()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:53:54 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 274.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStep3()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:56:26 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 275.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStep3()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 04:59:37 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 275.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStep3()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 05:00:54 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 275.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStep3()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:20:18 --> Class 'App\Controllers\OfficesDocumentsModel' not found
+in APPPATH\Controllers\OfficeController.php on line 248.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:20:19 --> Class 'App\Controllers\OfficesDocumentsModel' not found
+in APPPATH\Controllers\OfficeController.php on line 248.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:20:25 --> Class 'App\Controllers\OfficesDocumentsModel' not found
+in APPPATH\Controllers\OfficeController.php on line 248.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:22:43 --> Class 'App\Controllers\OfficesDocumentsModel' not found
+in APPPATH\Controllers\OfficeController.php on line 248.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:24:33 --> Call to undefined method App\Models\OfficeDocumentsModel::updateStatus
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\OfficeController.php(248): CodeIgniter\Model->__call('updateStatus', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:24:40 --> Call to undefined method App\Models\OfficeDocumentsModel::updateStatus
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\OfficeController.php(248): CodeIgniter\Model->__call('updateStatus', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:24:54 --> Call to undefined method App\Models\OfficeDocumentsModel::updateStatus
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\OfficeController.php(248): CodeIgniter\Model->__call('updateStatus', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 06:26:55 --> Call to undefined method App\Models\OfficeDocumentsModel::updateStatus
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\OfficeController.php(248): CodeIgniter\Model->__call('updateStatus', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 07:31:30 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Office\main-include\completed.php on line 85.
+ 1 APPPATH\Views\Office\main-include\completed.php(85): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php', 85, [...])
+ 2 APPPATH\Views\Office\Completed.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\Completed.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Office/Completed', [], true)
+ 6 APPPATH\Controllers\OfficeController.php(239): view('Office/Completed', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->completed()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 07:39:41 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Office\main-include\completed.php on line 87.
+ 1 APPPATH\Views\Office\main-include\completed.php(87): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php', 87, [...])
+ 2 APPPATH\Views\Office\Completed.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\Completed.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Office/Completed', [], true)
+ 6 APPPATH\Controllers\OfficeController.php(239): view('Office/Completed', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->completed()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 07:44:00 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Office\main-include\completed.php on line 87.
+ 1 APPPATH\Views\Office\main-include\completed.php(87): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php', 87, [...])
+ 2 APPPATH\Views\Office\Completed.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\Completed.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Office/Completed', [], true)
+ 6 APPPATH\Controllers\OfficeController.php(239): view('Office/Completed', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->completed()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 07:46:22 --> Class 'App\Controllers\OfficesModel' not found
+in APPPATH\Controllers\OfficeController.php on line 251.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->completed()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 07:46:46 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Office\main-include\completed.php on line 87.
+ 1 APPPATH\Views\Office\main-include\completed.php(87): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php', 87, [...])
+ 2 APPPATH\Views\Office\Completed.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\Completed.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Office/Completed', [], true)
+ 6 APPPATH\Controllers\OfficeController.php(239): view('Office/Completed', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->completed()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 07:49:26 --> Class 'App\Controllers\OfficesModel' not found
+in APPPATH\Controllers\OfficeController.php on line 251.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->completed()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 07:58:52 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(406): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 07:59:16 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(406): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 07:59:32 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(408): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 08:09:25 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 08:11:08 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 08:11:20 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 08:26:25 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(395): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 08:26:25 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(395): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 08:26:46 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(395): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 08:26:46 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(395): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 09:19:36 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Office\main-include\completed.php on line 17.
+ 1 APPPATH\Views\Office\main-include\completed.php(17): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php', 17, [...])
+ 2 APPPATH\Views\Office\Completed.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\main-include\\completed.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Office\\Completed.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Office/Completed', [], true)
+ 6 APPPATH\Controllers\OfficeController.php(390): view('Office/Completed', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->displayOffice()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:28:20 --> mysqli_sql_exception: Column 'document_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 09:28:20 --> Column 'document_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:29:35 --> mysqli_sql_exception: Column 'document_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 09:29:35 --> Column 'document_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(397): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:32:34 --> mysqli_sql_exception: Column 'document_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(395): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-08 09:32:34 --> Column 'document_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\OfficeController.php(395): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:35:49 --> mysqli_sql_exception: Column 'document_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(395): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-08 09:35:49 --> Column 'document_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\OfficeController.php(395): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOut()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:53:15 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 09:53:15 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:54:21 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 09:54:21 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:56:12 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 09:56:12 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 09:59:41 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 09:59:41 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 10:02:53 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 10:02:53 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 10:06:03 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 10:06:03 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 10:06:22 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `of...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `of...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `of...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `of...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 10:06:22 --> Cannot add or update a child row: a foreign key constraint fails (`document_tracking`.`offices_documents`, CONSTRAINT `offices_documents_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `offices_documents` (`document_id`, `office_id`, `status`) VALUES (:document_id:, :office_id:, :status:)', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(398): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->sendOutDocument()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')

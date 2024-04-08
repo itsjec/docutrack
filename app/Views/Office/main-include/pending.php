@@ -23,10 +23,13 @@
                                 <td><?= $document->action ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="btn btn-success btn-sm btn-icon-text mr-3">
-                                            Edit
-                                            <i class="typcn typcn-edit btn-icon-append"></i>
-                                        </a>
+                                    <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3 receive-btn" data-toggle="modal" data-target="#updateStatusModal" data-document-id="<?= $document->document_id ?>">
+                                        <span class="btn-icon-prepend">
+                                            <i class="typcn typcn-edit"></i>
+                                        </span>
+                                        Edit
+                                    </button>
+
                                         <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">
                                             View
                                             <i class="typcn typcn-eye btn-icon-append"></i>
@@ -41,6 +44,27 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Update Status Modal -->
+<div class="modal fade" id="updateStatusModal" tabindex="-1" role="dialog" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateStatusModalLabel">Update Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to change the status to "On Process"?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmUpdateBtn">Confirm</button>
             </div>
         </div>
     </div>

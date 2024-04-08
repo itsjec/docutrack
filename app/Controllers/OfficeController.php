@@ -205,7 +205,16 @@ public function completed()
     $session = session();
     $office_id = $session->get('office_id');
 
+    if (!$office_id) {
+        // Handle error if office_id is not set in the session
+        return 'Error: Office ID not set';
+    }
+
     $db = db_connect();
+
+    // Fetch the offices
+    $officesModel = new OfficeModel();
+    $offices = $officesModel->findAll();
 
     $query = $db->table('offices_documents')
                 ->select('documents.title, documents.tracking_number, documents.sender_user_id, documents.sender_office_id, offices_documents.status, documents.action, offices_documents.document_id')
@@ -213,6 +222,11 @@ public function completed()
                 ->where('offices_documents.office_id', $office_id)
                 ->where('offices_documents.status', 'completed')
                 ->get();
+
+    if (!$query) {
+        // Handle error if query fails
+        return 'Error: Unable to fetch completed documents';
+    }
 
     $documents = $query->getResult();
 
@@ -227,54 +241,170 @@ public function completed()
         $senderOfficeModel = new OfficeModel();
         $senderOffice = $senderOfficeModel->find($sender_office_id);
 
+        if (!$senderUser || !$senderOffice) {
+            // Handle error if sender details not found
+            return 'Error: Sender details not found';
+        }
+
         $senderDetails[$document->document_id] = [
             'sender_user' => $senderUser['first_name'] . ' ' . $senderUser['last_name'],
             'sender_office' => $senderOffice['office_name']
         ];
     }
 
-    $data['documents'] = $documents;
-    $data['senderDetails'] = $senderDetails;
+    $data = [
+        'offices' => $offices,
+        'documents' => $documents,
+        'senderDetails' => $senderDetails
+    ];
 
     return view('Office/Completed', $data);
 }
 
-public function updateStatus() {
+
+
+    public function updateStatus()
+    {
+        $documentId = $this->request->getPost('document_id');
+
+        $db = \Config\Database::connect();
+
+        $db->transStart();
+
+        try {
+            $db->table('offices_documents')
+            ->where('document_id', $documentId)
+            ->update(['status' => 'pending']);
+
+            $db->table('documents')
+            ->where('document_id', $documentId)
+            ->update(['status' => 'received', 'current_office_id' => $this->getCurrentOfficeId($documentId)]);
+
+            $db->transCommit();
+
+            return 'Status updated successfully';
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return 'Error: ' . $e->getMessage();
+        }
+    }
+
+    private function getCurrentOfficeId($documentId)
+    {
+        $db = \Config\Database::connect();
+        $query = $db->table('offices_documents')
+                    ->select('office_id')
+                    ->where('document_id', $documentId)
+                    ->get();
+
+        if ($query->getNumRows() > 0) {
+            return $query->getRow()->office_id;
+        }
+
+        return null;
+    }
+
+    public function updateProcessStatus()
+    {
+        $documentId = $this->request->getPost('document_id');
+
+        $db = \Config\Database::connect();
+
+        $db->transStart();
+
+        try {
+            $db->table('offices_documents')
+            ->where('document_id', $documentId)
+            ->update(['status' => 'on process']);
+
+            $db->table('documents')
+            ->where('document_id', $documentId)
+            ->update(['status' => 'on process']);
+
+            $db->transCommit();
+
+            return 'Status updated successfully';
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return 'Error: ' . $e->getMessage();
+        }
+    }
+
+    public function updateCompletedStatus()
+    {
+        $documentId = $this->request->getPost('document_id');
+
+        $db = \Config\Database::connect();
+
+        $db->transStart();
+
+        try {
+            $db->table('offices_documents')
+            ->where('document_id', $documentId)
+            ->update(['status' => 'completed']);
+
+            $db->table('documents')
+            ->where('document_id', $documentId)
+            ->update(['status' => 'completed']);
+
+            $db->transCommit();
+
+            return 'Status updated successfully';
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return 'Error: ' . $e->getMessage();
+        }
+    }
+
+    public function deleteDocument()
+{
     $documentId = $this->request->getPost('document_id');
-    $officeId = $this->session->get('office_id');
 
-    $documentsModel = new \App\Models\DocumentModel();
-    $officesDocumentsModel = new \App\Models\OfficeDocumentsModel();
-
-    // Start a database transaction
     $db = \Config\Database::connect();
+
     $db->transStart();
 
     try {
-        // Update status in documents table
-        $documentsModel->set('status', 'received')
-            ->set('current_office_id', $officeId)
-            ->where('document_id', $documentId)
-            ->update();
+        $db->table('offices_documents')
+           ->where('document_id', $documentId)
+           ->update(['status' => 'deleted']);
 
-        // Update status in offices_documents table
-        $officesDocumentsModel->set('status', 'receive')
-            ->where('document_id', $documentId)
-            ->update();
+        $db->table('documents')
+           ->where('document_id', $documentId)
+           ->update(['status' => 'deleted']);
 
-        // Commit the transaction
         $db->transCommit();
 
-        // Send a success response
-        echo json_encode(['success' => true]);
+        return 'Document deleted successfully';
     } catch (\Exception $e) {
-        // Roll back the transaction
         $db->transRollback();
-
-        // Send an error response
-        echo json_encode(['success' => false, 'message' => 'An error occurred. Please try again later.']);
+        return 'Error: ' . $e->getMessage();
     }
 }
+
+public function sendOutDocument()
+{
+    $document_id = $this->request->getPost('document_id');
+    $office_id = $this->request->getPost('office_id');
+
+    $sender_office_id = session()->get('office_id');
+
+    $db = \Config\Database::connect();
+    $builder = $db->table('documents');
+    $builder->where('document_id', $document_id);
+    $builder->update(['sender_office_id' => $sender_office_id]);
+
+    $officeDocumentModel = new OfficeDocumentsModel();
+    $officeDocumentModel->insert([
+        'document_id' => $document_id,
+        'office_id' => $office_id,
+        'status' => 'incoming'
+    ]);
+
+    return 'Document sent successfully';
+}
+
+
 
     public function history()
     {

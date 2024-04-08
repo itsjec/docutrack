@@ -23,24 +23,76 @@
                                 <td><?= $document->action ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="btn btn-success btn-sm btn-icon-text mr-3">
-                                            Edit
-                                            <i class="typcn typcn-edit btn-icon-append"></i>
-                                        </a>
+                                    <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3 btn-send-out" data-toggle="modal" data-target="#sendOutModal" data-document-id="<?= $document->document_id ?>">
+                                        Send Out
+                                        <i class="typcn typcn-arrow-sorted-down btn-icon-append"></i>
+                                    </button>
+
+
                                         <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">
                                             View
                                             <i class="typcn typcn-eye btn-icon-append"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-sm btn-icon-text">
+                                        <button type="button" class="btn btn-danger btn-sm btn-icon-text delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document->document_id ?>">
                                             Delete
                                             <i class="typcn typcn-delete-outline btn-icon-append"></i>
-                                        </a>
+                                        </button>
+
                                     </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Document Modal -->
+<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this document?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sendOutModal" tabindex="-1" role="dialog" aria-labelledby="sendOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="sendOutModalLabel">Send Out Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="sendOutForm" method="post" action="<?= site_url('documents/sendOutDocument') ?>">
+                    <input type="hidden" id="document_id" name="document_id" value="">
+                    <label for="office_id">Select Office:</label>
+                    <select class="form-control" id="office_id" name="office_id">
+                        <?php foreach ($offices as $office): ?>
+                            <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="confirmSendOutBtn">Send Out</button>
             </div>
         </div>
     </div>

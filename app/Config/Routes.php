@@ -36,7 +36,12 @@ $routes->get('history', 'OfficeController::history');
 $routes->get('manageprofile', 'OfficeController::manageprofile');
 $routes->get('trash', 'OfficeController::trash');
 $routes->get('incoming', 'OfficeController::incoming');
-$route['update-status/(:num)'] = 'OfficeController/updateStatus/$1';
+$routes->post('documents/updateStatus', 'OfficeController::updateStatus');
+$routes->post('documents/updateProcessStatus', 'OfficeController::updateProcessStatus');
+$routes->post('documents/updateCompletedStatus', 'OfficeController::updateCompletedStatus');
+$routes->post('documents/deleteDocument', 'OfficeController::deleteDocument');
+$routes->post('documents/sendOutDocument', 'OfficeController::sendOutDocument');
+$routes->get('office/getOffices', 'OfficeController::getOffices');
 
 
 

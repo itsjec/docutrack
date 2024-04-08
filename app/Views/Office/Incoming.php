@@ -54,6 +54,39 @@
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
+  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.receive-btn').on('click', function() {
+            var documentId = $(this).data('document-id');
+            $('#confirmUpdateBtn').data('document-id', documentId);
+        });
+
+        $('#confirmUpdateBtn').on('click', function() {
+            var documentId = $(this).data('document-id');
+            $.ajax({
+                url: '<?= site_url('documents/updateStatus') ?>',
+                method: 'POST',
+                data: { document_id: documentId },
+                success: function(response) {
+                    // Handle success response
+                    $('#updateStatusModal').modal('hide');
+                    // Refresh the page or update the status column using JavaScript
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>
+
+
   <!-- Plugin js for this page-->
   <script src="assets/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page-->
