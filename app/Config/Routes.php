@@ -35,6 +35,10 @@ $routes->get('completed', 'OfficeController::completed');
 $routes->get('history', 'OfficeController::history');
 $routes->get('manageprofile', 'OfficeController::manageprofile');
 $routes->get('trash', 'OfficeController::trash');
+$routes->get('incoming', 'OfficeController::incoming');
+$route['update-status/(:num)'] = 'OfficeController/updateStatus/$1';
+
+
 
 
 

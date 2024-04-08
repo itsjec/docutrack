@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\OfficeModel;
 use App\Models\DocumentModel;
+use App\Models\OfficeDocumentsModel;
 use App\Models\DocumentClassificationModel;
 
 class AdminController extends BaseController
@@ -416,6 +417,14 @@ public function saveDocument()
 
             $documentModel->insert($data);
 
+            $officeDocumentModel = new OfficeDocumentsModel();
+            $office_id = $this->request->getVar('receiver_office_id');
+            $officeDocumentModel->insert([
+                'document_id' => $documentModel->getInsertID(),
+                'office_id' => $office_id,
+                'status' => 'incoming'
+            ]);
+
             $response = [
                 'status' => 'success',
                 'trackingNumber' => $data['tracking_number']
@@ -427,6 +436,7 @@ public function saveDocument()
         }
     }
 }
+
 
 public function saveOfficeDocument()
 {
@@ -469,6 +479,14 @@ public function saveOfficeDocument()
             ];
 
             $documentModel->insert($data);
+
+            $officeDocumentModel = new OfficeDocumentsModel();
+            $office_id = $this->request->getVar('receiver_office_id');
+            $officeDocumentModel->insert([
+                'document_id' => $documentModel->getInsertID(),
+                'office_id' => $office_id,
+                'status' => 'incoming'
+            ]);
 
             $response = [
                 'status' => 'success',
