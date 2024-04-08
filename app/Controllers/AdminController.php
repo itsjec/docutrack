@@ -40,55 +40,58 @@ class AdminController extends BaseController
     } 
     
     public function login()
-{
-    // Load the UserModel
-    $userModel = new UserModel();
-
-    // Check if the form is submitted
-    if ($this->request->getMethod() === 'post') {
-        // Get the input data from the form
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
-
-        // Find the user by email
-        $user = $userModel->where('email', $email)->first();
-
-        // If user exists and password is correct
-        if ($user && password_verify($password, $user['password'])) {
-            // Set session data
-            $userData = [
-                'id' => $user['id'],
-                'email' => $user['email'],
-                'isLoggedIn' => true,
-                'role' => $user['role'],
-                'office_id' => $user['office_id'] // Assuming office_id is a field in the users table
-            ];
-
-            // Set session
-            session()->set($userData);
-
-            // Redirect based on user role
-            switch ($user['role']) {
-                case 'admin':
-                    return redirect()->to('dashboard');
-                    break;
-                case 'office_user':
-                    return redirect()->to('index');
-                    break;
-                case 'guest':
-                default:
-                    return redirect()->to('');
-                    break;
+    {
+        // Load the UserModel
+        $userModel = new UserModel();
+    
+        // Check if the form is submitted
+        if ($this->request->getMethod() === 'post') {
+            // Get the input data from the form
+            $email = $this->request->getPost('email');
+            $password = $this->request->getPost('password');
+    
+            // Find the user by email
+            $user = $userModel->where('email', $email)->first();
+    
+            // If user exists and password is correct
+            if ($user && password_verify($password, $user['password'])) {
+                // Set session data
+                $userData = [
+                    'id' => $user['id'],
+                    'email' => $user['email'],
+                    'isLoggedIn' => true,
+                    'role' => $user['role'],
+                    'office_id' => $user['office_id'], // Assuming office_id is a field in the users table
+                    'user_id' => $user['id'] // Set the user_id in the session
+                ];
+    
+                // Set session
+                session()->set($userData);
+    
+                // Redirect based on user role
+                switch ($user['role']) {
+                    case 'admin':
+                        return redirect()->to('dashboard');
+                        break;
+                    case 'office_user':
+                        return redirect()->to('index');
+                        break;
+                    case 'guest':
+                    default:
+                        return redirect()->to('');
+                        break;
+                }
+            } else {
+                // Invalid credentials, show error message
+                session()->setFlashdata('error', 'Invalid email or password.');
             }
-        } else {
-            // Invalid credentials, show error message
-            session()->setFlashdata('error', 'Invalid email or password.');
         }
-    }
 
-    // Show the login form
-    return view('LogIn');
-}
+                // Show the login form
+                return view('LogIn');
+    }
+    
+
 
     
     public function register()
@@ -480,7 +483,7 @@ public function saveOfficeDocument()
 
             $documentModel->insert($data);
 
-            $officeDocumentModel = new OfficeDocumentsModel();
+                        $officeDocumentModel = new OfficeDocumentsModel();
             $office_id = $this->request->getVar('receiver_office_id');
             $officeDocumentModel->insert([
                 'document_id' => $documentModel->getInsertID(),

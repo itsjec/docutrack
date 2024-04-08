@@ -42,7 +42,10 @@ $routes->post('documents/updateCompletedStatus', 'OfficeController::updateComple
 $routes->post('documents/deleteDocument', 'OfficeController::deleteDocument');
 $routes->post('documents/sendOutDocument', 'OfficeController::sendOutDocument');
 $routes->get('office/getOffices', 'OfficeController::getOffices');
+$routes->post('update-document-status/(:num)/(:segment)', 'OfficeControllerController::updateDocumentStatus/$1/$2');
 
+
+$routes->get('userindex', 'UserController::index');
 
 
 

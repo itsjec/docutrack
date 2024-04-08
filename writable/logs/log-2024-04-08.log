@@ -862,3 +862,350 @@ in SYSTEMPATH\Database\BaseConnection.php on line 646.
  5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 12:08:18 --> Cannot redeclare App\Controllers\OfficeController::getCurrentOfficeId()
+in APPPATH\Controllers\OfficeController.php on line 328.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-08 12:13:12 --> Call to a member function get() on null
+in APPPATH\Controllers\OfficeController.php on line 297.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 12:27:33 --> syntax error, unexpected 'return' (T_RETURN), expecting function (T_FUNCTION) or const (T_CONST)
+in APPPATH\Controllers\AdminController.php on line 93.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(285): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Controllers\\AdminController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(263): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\AdminController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\AdminController')
+ 4 [internal function]: spl_autoload_call('App\\Controllers\\AdminController')
+ 5 SYSTEMPATH\CodeIgniter.php(877): class_exists('\\App\\Controllers\\AdminController', true)
+ 6 SYSTEMPATH\CodeIgniter.php(481): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 14:09:01 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5 in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT d.title,...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT d.title,...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT d.title,...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(538): CodeIgniter\Database\BaseConnection->query('SELECT d.title,...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 14:09:01 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(538): CodeIgniter\Database\BaseConnection->query('SELECT d.title, d.tracking_number, CONCAT(u.first_name, \' \', u.last_name) AS sender, t.date_completed, t.current_office_id, t.status
+                            FROM documents d
+                            INNER JOIN transactions t ON d.document_id = t.document_id
+                            INNER JOIN users u ON d.sender_user_id = u.user_id
+                            WHERE t.status = \'Finished\' AND d.sender_office_id = ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 14:10:34 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5 in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT d.title,...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT d.title,...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT d.title,...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(538): CodeIgniter\Database\BaseConnection->query('SELECT d.title,...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 14:10:34 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 5
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(538): CodeIgniter\Database\BaseConnection->query('SELECT d.title, d.tracking_number, CONCAT(u.first_name, \' \', u.last_name) AS sender, t.date_completed, t.current_office_id, t.status
+                            FROM documents d
+                            INNER JOIN transactions t ON d.document_id = t.document_id
+                            INNER JOIN users u ON d.sender_user_id = u.user_id
+                            WHERE t.status = \'Finished\' AND d.sender_office_id = ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 14:49:51 --> mysqli_sql_exception: Unknown column 'admin_id' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `al...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `al...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `al...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `al...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(330): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->updateStatus()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+ERROR - 2024-04-08 15:08:09 --> mysqli_sql_exception: Unknown column 'offices_documents.current_office_id' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(525): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 15:08:09 --> Unknown column 'offices_documents.current_office_id' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.`title`, `documents`.`tracking_number`, CONCAT(users.first_name, " ", users.last_name) AS sender, `offices_documents`.`current_office_id`, `offices_documents`.`status`, `offices_documents`.`date_completed`
+FROM `documents`
+JOIN `offices_documents` ON `documents`.`document_id` = `offices_documents`.`document_id`
+JOIN `users` ON `documents`.`sender_user_id` = `users`.`user_id`
+WHERE `offices_documents`.`status` = :offices_documents.status:
+AND `offices_documents`.`office_id` = :offices_documents.office_id:', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(525): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 15:20:58 --> Argument 2 passed to view() must be of the type array, null given, called in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php on line 527
+in SYSTEMPATH\Common.php on line 1176.
+ 1 APPPATH\Controllers\OfficeController.php(527): view('Office/History', null)
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 15:28:51 --> mysqli_sql_exception: Not unique table/alias: 'documents' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(523): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 15:28:51 --> Not unique table/alias: 'documents'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.`title`
+FROM `documents`
+JOIN `documents` ON `documents`.`document_id` = `offices_documents`.`document_id`
+WHERE `offices_documents`.`office_id` = :offices_documents.office_id:
+AND `offices_documents`.`status` = :offices_documents.status:', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(523): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 15:48:07 --> mysqli_sql_exception: Expression #7 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'document_tracking.offices_documents.date_completed' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(536): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 15:48:07 --> Expression #7 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'document_tracking.offices_documents.date_completed' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(536): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.document_id,
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_office_id,
+                documents.current_office_id,
+                offices_documents.status,
+                offices_documents.date_completed,
+                offices.office_name AS current_office_name
+            FROM offices_documents
+            JOIN documents ON documents.document_id = offices_documents.document_id
+            JOIN offices ON offices.office_id = documents.current_office_id
+            WHERE offices_documents.office_id = 1
+            AND offices_documents.status = \'completed\'
+            GROUP BY documents.document_id
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->history()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 15:54:45 --> mysqli_sql_exception: Unknown column 'offices_documents.date_deleted' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n        SELECT...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n        SELECT...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n        SELECT...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(612): CodeIgniter\Database\BaseConnection->query('\n        SELECT...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->trash()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 15:54:45 --> Unknown column 'offices_documents.date_deleted' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(612): CodeIgniter\Database\BaseConnection->query('
+        SELECT 
+            documents.title, 
+            documents.tracking_number, 
+            documents.description,
+            documents.date_of_letter,
+            offices_documents.date_deleted,
+            offices.office_name AS current_office_name
+        FROM offices_documents
+        JOIN documents ON documents.document_id = offices_documents.document_id
+        JOIN offices ON offices.office_id = documents.current_office_id
+        WHERE offices_documents.office_id = 1
+        AND offices_documents.status = \'deleted\'
+    ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->trash()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 16:03:05 --> mysqli_sql_exception: Expression #5 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'document_tracking.offices_documents.status' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(54): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-08 16:03:05 --> Expression #5 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'document_tracking.offices_documents.status' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.`title`, `documents`.`tracking_number`, `documents`.`sender_user_id`, `documents`.`sender_office_id`, `offices_documents`.`status`, `documents`.`action`, `offices_documents`.`document_id`
+FROM `offices_documents`
+JOIN `documents` ON `documents`.`document_id` = `offices_documents`.`document_id`
+WHERE `offices_documents`.`office_id` = :offices_documents.office_id:
+GROUP BY `offices_documents`.`document_id`', [...], false)
+ 2 APPPATH\Controllers\OfficeController.php(54): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 22:49:01 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12 in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 22:49:02 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_user_id, 
+                documents.sender_office_id, 
+                MAX(offices_documents.status) AS status, 
+                documents.action, 
+                offices_documents.document_id
+            FROM offices_documents
+            JOIN documents ON documents.document_id = offices_documents.document_id
+            WHERE offices_documents.office_id = 
+            GROUP BY offices_documents.document_id
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 22:49:03 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12 in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 22:49:03 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_user_id, 
+                documents.sender_office_id, 
+                MAX(offices_documents.status) AS status, 
+                documents.action, 
+                offices_documents.document_id
+            FROM offices_documents
+            JOIN documents ON documents.document_id = offices_documents.document_id
+            WHERE offices_documents.office_id = 
+            GROUP BY offices_documents.document_id
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-08 22:49:31 --> Invalid file: "User/Index.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('User/Index.php')
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('User/Index', [], true)
+ 3 APPPATH\Controllers\UserController.php(11): view('User/Index')
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-08 23:10:36 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12 in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-08 23:10:36 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_user_id, 
+                documents.sender_office_id, 
+                MAX(offices_documents.status) AS status, 
+                documents.action, 
+                offices_documents.document_id
+            FROM offices_documents
+            JOIN documents ON documents.document_id = offices_documents.document_id
+            WHERE offices_documents.office_id = 
+            GROUP BY offices_documents.document_id
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
