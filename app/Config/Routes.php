@@ -33,6 +33,7 @@ $routes->get('test-insert', 'AdminController::testInsert');
 
 $routes->get('index', 'OfficeController::index');
 $routes->get('pending', 'OfficeController::pending');
+$routes->get('received', 'OfficeController::received');
 $routes->get('ongoing', 'OfficeController::ongoing');
 $routes->get('completed', 'OfficeController::completed');
 $routes->get('history', 'OfficeController::history');
@@ -45,8 +46,7 @@ $routes->post('documents/updateCompletedStatus', 'OfficeController::updateComple
 $routes->post('documents/deleteDocument', 'OfficeController::deleteDocument');
 $routes->post('documents/sendOutDocument', 'OfficeController::sendOutDocument');
 $routes->get('office/getOffices', 'OfficeController::getOffices');
-$routes->post('update-document-status/(:num)/(:segment)', 'OfficeControllerController::updateDocumentStatus/$1/$2');
-
+$routes->get('update-document-status/(:num)/(:segment)', 'OfficeController::updateDocumentStatus/$1/$2');
 
 $routes->get('userindex', 'UserController::index');
 

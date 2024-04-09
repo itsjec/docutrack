@@ -60,11 +60,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <?php if (is_array($documents) && !empty($documents)): ?>
                         <?php foreach ($documents as $document): ?>
                             <tr>
                                 <td><?= $document->tracking_number ?></td>
                                 <td><?= $document->title ?></td>
-                                <td><?= $senderDetails[$document->document_id]['sender_user'] ?> (<?= $senderDetails[$document->document_id]['sender_office'] ?>)</td>
+                                <td><?= $document->sender_office_id ?></td>
                                 <td><?= $document->status ?></td>
                                 <td><?= $document->action ?></td>
                                 <td>
@@ -85,6 +86,12 @@
                                 </td>
                             </tr>
                         <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="6">No documents found.</td>
+                        </tr>
+                    <?php endif; ?>
+
                     </tbody>
                 </table>
             </div>

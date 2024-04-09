@@ -8,10 +8,16 @@ use App\Models\OfficeModel;
 use App\Models\DocumentModel;
 use App\Models\OfficeDocumentsModel;
 use App\Models\ClassificationModel;
-use App\Models\SubClassificationModel;
+use App\Models\DocumentHistoryModel;
+
 
 class AdminController extends BaseController
 {
+    public function __construct()
+    {
+        $this->session = \Config\Services::session();
+    }
+
     public function index()
     {
         return view('LogIn');
@@ -19,13 +25,19 @@ class AdminController extends BaseController
 
     public function tracking()
     {
-        return view('Admin/TrackingNumber');
+        return view('Admin/AdminTracking');
     }
 
     public function admindashboard()
     {
-        return view('Admin/AdminDashboard');
+        $db = \Config\Database::connect();
+
+        $query = $db->query("SELECT * FROM documents");
+        $data['documents'] = $query->getResult();
+
+        return view('Admin/AdminDashboard', $data);
     }
+    
 
     public function adminmanageoffice()
     {
@@ -34,11 +46,6 @@ class AdminController extends BaseController
 
         return view('Admin/AdminManageOffice', $data);
     }
-
-    public function __construct()
-    {
-        $this->session = \Config\Services::session();
-    } 
     
     public function login()
     {
@@ -63,13 +70,11 @@ class AdminController extends BaseController
                     'role' => $user['role']
                 ];
     
-                // If the user is an office_user, store the office_id and user_id in the session
-                if ($user['role'] === 'office_user') {
+                if ($user['role'] === 'office user') {
                     $userData['office_id'] = $user['office_id'];
                     $userData['user_id'] = $user['id'];
                 }
     
-                // Set session
                 session()->set($userData);
     
                 // Redirect based on user role
@@ -162,8 +167,6 @@ class AdminController extends BaseController
         
         return view('Admin/AdminManageGuest', $data);
     }
-    
-    
     
     public function saveguest()
     {
@@ -258,41 +261,44 @@ class AdminController extends BaseController
     return redirect()->to('manageuser')->with('success', 'Office user added successfully.');
 }
 
+
 public function managedocument()
 {
-    $documentModel = new DocumentModel();
-    $documents = $documentModel->select('documents.*, offices.office_name AS receiver_office_name')
-                               ->join('offices', 'offices.office_id = documents.receiver_office_id')
-                               ->findAll();
-
     $userModel = new UserModel();
     $guestUsers = $userModel->where('role', 'guest')->findAll();
 
+    $documentModel = new DocumentModel();
+    $documents = $documentModel
+        ->select('documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, classification.classification_name AS classification, classification.sub_classification AS sub_classification, offices.office_name AS sender_office_name')
+        ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
+        ->join('offices', 'offices.office_id = documents.sender_id', 'left')
+        ->whereIn('sender_id', array_column($guestUsers, 'user_id'))
+        ->findAll();
+
+    $classificationModel = new ClassificationModel();
+    $classifications = $classificationModel->distinct()->findColumn('classification_name');
+    $classificationsDropdown = array_values($classifications); // Reset array keys to start from 0
+
+    $subClassifications = $classificationModel->findAll();
+    $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+
     $officeModel = new OfficeModel();
     $offices = $officeModel->findAll();
-
-    // Fetch sender's first name and last name
-    foreach ($documents as &$document) {
-        $user = $userModel->find($document['sender_user_id']);
-        if ($user) {
-            $document['sender_first_name'] = $user['first_name'];
-            $document['sender_last_name'] = $user['last_name'];
-        } else {
-            $document['sender_first_name'] = 'Unknown';
-            $document['sender_last_name'] = 'User';
-        }
+    $officesDropdown = [];
+    foreach ($offices as $office) {
+        $officesDropdown[$office['office_id']] = $office['office_name'];
     }
 
-    $classificationModel = new DocumentClassificationModel();
-    $classifications = $classificationModel->findAll();
-    $uniqueClassifications = array_unique(array_column($classifications, 'classification'));
+    // Fetch guest users
+    $userModel = new UserModel();
+    $guestUsers = $userModel->where('role', 'guest')->findAll();
 
     $data = [
         'documents' => $documents,
-        'guestUsers' => $guestUsers,
-        'offices' => $offices,
-        'classifications' => $uniqueClassifications,
-        'selectedSubClassification' => ''
+        'classificationsDropdown' => $classificationsDropdown,
+        'subClassificationsDropdown' => $subClassificationsDropdown,
+        'officesDropdown' => $officesDropdown,
+        'guestUsers' => $guestUsers 
     ];
 
     return view('Admin/AdminManageDocument', $data);
@@ -300,11 +306,14 @@ public function managedocument()
 
 
 
+
+
+
 public function manageofficedocument()
 {
     $documentModel = new DocumentModel();
     $documents = $documentModel
-        ->select('documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, classification.classification_name AS classification, classification.sub_classification AS sub_classification, offices.office_name AS sender_office_name')
+        ->select('documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, classification.classification_name AS classification, classification.sub_classification AS sub_classification, offices.office_name AS sender_office_name')
         ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
         ->join('offices', 'offices.office_id = documents.sender_id', 'left')
         ->findAll();
@@ -429,55 +438,59 @@ public function saveDocument()
         'classification' => 'required',
         'sub_classification' => 'required',
         'action' => 'required',
-        'sender_user_id' => 'required',
-        'receiver_office_id' => 'required'
+        'sender_office_id' => 'required',
+        'recipient_office_id' => 'required'
     ];
 
     if (!$this->validate($validationRules)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-    } else {
-        $file = $this->request->getFile('attachment');
-        if ($file->isValid() && $file->getClientMimeType() === 'application/pdf') {
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . '/uploads', $newName);
+    }
 
-            $documentModel = new DocumentModel();
+    $file = $this->request->getFile('attachment');
+    if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
+        return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
+    }
 
-            $data = [
-                'tracking_number' => 'TR-' . uniqid(),
-                'sender_user_id' => $this->request->getVar('sender_user_id'),
-                'sender_office_id' => null,
-                'receiver_office_id' => $this->request->getVar('receiver_office_id'),
-                'current_office_id' => null,
-                'status' => 'pending',
-                'title' => $this->request->getVar('title'),
-                'description' => $this->request->getVar('description'),
-                'action' => $this->request->getVar('action'),
-                'date_of_letter' => date('Y-m-d'),
-                'attachment' => $newName,
-                'classification' => $this->request->getVar('classification'),
-                'sub_classification' => $this->request->getVar('sub_classification')
-            ];
+    $newName = $file->getRandomName();
+    $file->move(ROOTPATH . '/uploads', $newName);
 
-            $documentModel->insert($data);
+    $db = \Config\Database::connect();
 
-            $officeDocumentModel = new OfficeDocumentsModel();
-            $office_id = $this->request->getVar('receiver_office_id');
-            $officeDocumentModel->insert([
-                'document_id' => $documentModel->getInsertID(),
-                'office_id' => $office_id,
-                'status' => 'incoming'
-            ]);
+    $classification = $this->request->getVar('classification');
+    $subClassification = $this->request->getVar('sub_classification');
 
-            $response = [
-                'status' => 'success',
-                'trackingNumber' => $data['tracking_number']
-            ];
+    try {
+        $db->transBegin();
 
-            return $this->response->setJSON($response);
-        } else {
-            return redirect()->back()->withInput()->with('error', 'Invalid file. Please upload a PDF file.');
-        }
+        $trackingNumber = 'TR-' . uniqid();
+
+        $data = [
+            'tracking_number' => $trackingNumber,
+            'sender_id' => $this->request->getVar('sender_office_id'),
+            'sender_office_id' => NULL,
+            'recipient_id' => $this->request->getVar('recipient_office_id'),
+            'status' => 'pending',
+            'title' => $this->request->getVar('title'),
+            'description' => $this->request->getVar('description'),
+            'action' => $this->request->getVar('action'),
+            'date_of_document' => date('Y-m-d'),
+            'attachment' => $newName,
+            'classification_id' => NULL,
+            'classification' => $classification,
+            'sub_classification' => $subClassification,
+            'date_completed' => NULL
+        ];
+
+        $builder = $db->table('documents');
+        $builder->insert($data);
+
+        $db->transCommit();
+
+        // Redirect to the AdminTracking.php page with the tracking number as a URL parameter
+        return redirect()->to(base_url('tracking?trackingNumber=' . $trackingNumber));
+    } catch (\Exception $e) {
+        $db->transRollback();
+        return redirect()->back()->withInput()->with('errors', $e->getMessage());
     }
 }
 
@@ -498,64 +511,77 @@ public function saveOfficeDocument()
 
     if (!$this->validate($validationRules)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
-    } else {
-        $file = $this->request->getFile('attachment');
-        if ($file->isValid() && $file->getClientMimeType() === 'application/pdf') {
-            $newName = $file->getRandomName();
-            $file->move(ROOTPATH . '/uploads', $newName);
+    }
 
-            // Connect to the database
-            $db = \Config\Database::connect();
+    $file = $this->request->getFile('attachment');
+    if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
+        return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
+    }
 
-            // Debugging: Check the values of classification and sub_classification
-            $classification = $this->request->getVar('classification');
-            $subClassification = $this->request->getVar('sub_classification');
-            var_dump($classification);
-            var_dump($subClassification);
+    $newName = $file->getRandomName();
+    $file->move(ROOTPATH . '/uploads', $newName);
 
-            $data = [
-                'tracking_number' => 'TR-' . uniqid(),
-                'sender_id' => NULL,
-                'sender_office_id' => $this->request->getVar('sender_office_id'),
-                'recipient_id' => $this->request->getVar('recipient_office_id'),
-                'status' => 'pending',
-                'title' => $this->request->getVar('title'),
-                'description' => $this->request->getVar('description'),
-                'action' => $this->request->getVar('action'),
-                'date_of_document' => date('Y-m-d'),
-                'attachment' => $newName,
-                'classification_id' => NULL,
-                'classification' => $classification,
-                'sub_classification' => $subClassification,
-                'date_completed' => NULL
-            ];
+    $db = \Config\Database::connect();
 
-            $builder = $db->table('documents');
-            $builder->insert($data);
+    $classification = $this->request->getVar('classification');
+    $subClassification = $this->request->getVar('sub_classification');
 
-            $response = [
-                'status' => 'success',
-                'trackingNumber' => $data['tracking_number']
-            ];
-            session()->setFlashdata('success', 'Document added successfully.');
-            session()->setFlashdata('trackingNumber', $data['tracking_number']);
-            return $this->response->setJSON($response);   
-        }         
+    try {
+        $db->transBegin();
+
+        $trackingNumber = 'TR-' . uniqid();
+
+        $data = [
+            'tracking_number' => $trackingNumber,
+            'sender_id' => NULL,
+            'sender_office_id' => $this->request->getVar('sender_office_id'),
+            'recipient_id' => $this->request->getVar('recipient_office_id'),
+            'status' => 'pending',
+            'title' => $this->request->getVar('title'),
+            'description' => $this->request->getVar('description'),
+            'action' => $this->request->getVar('action'),
+            'date_of_document' => date('Y-m-d'),
+            'attachment' => $newName,
+            'classification_id' => NULL,
+            'classification' => $classification,
+            'sub_classification' => $subClassification,
+            'date_completed' => NULL
+        ];
+
+        $builder = $db->table('documents');
+        $builder->insert($data);
+
+        $db->transCommit();
+
+        // Redirect to the AdminTracking.php page with the tracking number as a URL parameter
+        return redirect()->to(base_url('Admin/AdminTracking.php?trackingNumber=' . $trackingNumber));
+    } catch (\Exception $e) {
+        $db->transRollback();
+        return redirect()->back()->withInput()->with('errors', $e->getMessage());
     }
 }
 
-
-public function testInsert()
+public function updateDocumentStatus($documentId, $newStatus)
 {
-    $result = $this->saveOfficeDocument();
+    $workflowModel = new DocumentHistoryModel();
 
-    echo $result;
-}
+    $userId = session()->get('user_id');
 
+    $officeId = session()->get('office_id');
 
+    $data = [
+        'document_id' => $documentId,
+        'user_id' => $userId,
+        'office_id' => $officeId,
+        'status' => $newStatus,
+        'date_changed' => date('Y-m-d H:i:s'),
+        'is_admin_view' => 0,
+        'is_completed' => ($newStatus == 'completed') ? 1 : 0
+    ];
 
-public function debug(){
-    return view('Admin/Debug');
+    $workflowModel->insert($data);
+
+    return redirect()->back();
 }
 
 }

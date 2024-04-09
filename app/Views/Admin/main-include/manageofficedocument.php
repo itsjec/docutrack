@@ -31,7 +31,7 @@
                             <tr>
                                 <td><?= $document['title'] ?></td>
                                 <td><?= $document['tracking_number'] ?></td>
-                                <td><?= $document['sender_id'] ?></td>
+                                <td><?= $document['sender_office_id'] ?></td>
                                 <td><?= $document['recipient_id'] ?></td>
                                 <td><?= $document['status'] ?></td>
                                 <td><?= $document['date_of_document'] ?></td>
@@ -201,14 +201,16 @@
     </div>
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    document.getElementById('copyButton').addEventListener('click', function() {
-        var trackingNumber = document.getElementById('trackingNumber').innerText;
-        navigator.clipboard.writeText(trackingNumber).then(function() {
-            alert('Tracking number copied to clipboard!');
-        }, function(err) {
-            console.error('Failed to copy tracking number: ', err);
-        });
+        $(document).ready(function() {
+        // Function to display the modal and update the tracking number
+        function displaySuccessModal(trackingNumber) {
+            $('#trackingNumber').text(trackingNumber);
+            $('#successModal').modal('show');
+        }
     });
 
     <!-- Display success message -->

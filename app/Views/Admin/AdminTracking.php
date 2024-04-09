@@ -44,7 +44,7 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-        <?php include ('main-include\manageguestdocument.php'); ?>
+        <?php include ('main-include\tracking.php'); ?>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial -->
@@ -57,38 +57,6 @@
   <!-- container-scroller -->
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-$(document).ready(function() {
-    $('#classification').change(function() {
-        var classification = $(this).val();
-        var subClassificationSelect = $('#sub-classification');
-
-        subClassificationSelect.html('<option value="" disabled selected>Loading...</option>');
-
-        $.ajax({
-            url: '<?= site_url('documents/getSubClassifications') ?>',
-            type: 'POST',
-            dataType: 'json',
-            data: { classification: classification },
-            success: function(response) {
-                subClassificationSelect.html('<option value="" disabled selected>Select Sub-Classification</option>');
-                $.each(response, function(index, subClassification) {
-                    subClassificationSelect.append('<option value="' + subClassification.sub_classification + '">' + subClassification.sub_classification + '</option>');
-                });
-            },
-            error: function() {
-                subClassificationSelect.html('<option value="" disabled selected>Error loading sub-classifications</option>');
-            }
-        });
-    });
-});
-
-    $(document).ready(function() {
-        // Function to display the modal and update the tracking number
-        function displaySuccessModal(trackingNumber) {
-            $('#trackingNumber').text(trackingNumber);
-            $('#successModal').modal('show');
-        }
-    });
     </script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>

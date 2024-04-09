@@ -14,19 +14,6 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <!-- Bootstrap Datepicker CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<!-- Bootstrap JS -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap Datepicker JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
   <!-- endinject -->
   <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
@@ -44,7 +31,7 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-        <?php include ('main-include\manageguestdocument.php'); ?>
+        <?php include ('main-include\received.php'); ?>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial -->
@@ -54,42 +41,37 @@
 </div>
     <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-$(document).ready(function() {
-    $('#classification').change(function() {
-        var classification = $(this).val();
-        var subClassificationSelect = $('#sub-classification');
+    $(document).ready(function() {
+    $('.receive-btn').on('click', function() {
+        var documentId = $(this).data('document-id');
+        $('#confirmUpdateBtn').data('document-id', documentId);
+    });
 
-        subClassificationSelect.html('<option value="" disabled selected>Loading...</option>');
-
+    $('#confirmUpdateBtn').on('click', function() {
+        var documentId = $(this).data('document-id');
         $.ajax({
-            url: '<?= site_url('documents/getSubClassifications') ?>',
-            type: 'POST',
-            dataType: 'json',
-            data: { classification: classification },
+            url: '<?= site_url('documents/updateProcessStatus') ?>',
+            method: 'POST',
+            data: { document_id: documentId },
             success: function(response) {
-                subClassificationSelect.html('<option value="" disabled selected>Select Sub-Classification</option>');
-                $.each(response, function(index, subClassification) {
-                    subClassificationSelect.append('<option value="' + subClassification.sub_classification + '">' + subClassification.sub_classification + '</option>');
-                });
+                // Handle success response
+                $('#updateStatusModal').modal('hide');
+                // Refresh the page or update the status column using JavaScript
             },
-            error: function() {
-                subClassificationSelect.html('<option value="" disabled selected>Error loading sub-classifications</option>');
+            error: function(xhr, status, error) {
+                // Handle error
+                console.error(xhr.responseText);
             }
         });
     });
 });
 
-    $(document).ready(function() {
-        // Function to display the modal and update the tracking number
-        function displaySuccessModal(trackingNumber) {
-            $('#trackingNumber').text(trackingNumber);
-            $('#successModal').modal('show');
-        }
-    });
     </script>
+  <!-- container-scroller -->
+
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
