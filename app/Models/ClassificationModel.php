@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DocumentClassificationModel extends Model
+class ClassificationModel extends Model
 {
     protected $DBGroup          = 'default';
     protected $table            = 'classification';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'classification_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id','classification', 'sub_classification'];
+    protected $allowedFields    = ['classification_id',	'classification_name','sub_classification'];
 
     // Dates
     protected $useTimestamps = false;

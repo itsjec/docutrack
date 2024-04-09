@@ -7,7 +7,8 @@ use App\Models\UserModel;
 use App\Models\OfficeModel;
 use App\Models\DocumentModel;
 use App\Models\OfficeDocumentsModel;
-use App\Models\DocumentClassificationModel;
+use App\Models\ClassificationModel;
+use App\Models\SubClassificationModel;
 
 class AdminController extends BaseController
 {
@@ -41,7 +42,6 @@ class AdminController extends BaseController
     
     public function login()
     {
-        // Load the UserModel
         $userModel = new UserModel();
     
         // Check if the form is submitted
@@ -60,10 +60,14 @@ class AdminController extends BaseController
                     'id' => $user['id'],
                     'email' => $user['email'],
                     'isLoggedIn' => true,
-                    'role' => $user['role'],
-                    'office_id' => $user['office_id'], // Assuming office_id is a field in the users table
-                    'user_id' => $user['id'] // Set the user_id in the session
+                    'role' => $user['role']
                 ];
+    
+                // If the user is an office_user, store the office_id and user_id in the session
+                if ($user['role'] === 'office_user') {
+                    $userData['office_id'] = $user['office_id'];
+                    $userData['user_id'] = $user['id'];
+                }
     
                 // Set session
                 session()->set($userData);
@@ -73,7 +77,7 @@ class AdminController extends BaseController
                     case 'admin':
                         return redirect()->to('dashboard');
                         break;
-                    case 'office_user':
+                    case 'office user':
                         return redirect()->to('index');
                         break;
                     case 'guest':
@@ -86,9 +90,9 @@ class AdminController extends BaseController
                 session()->setFlashdata('error', 'Invalid email or password.');
             }
         }
-
-                // Show the login form
-                return view('LogIn');
+    
+        // Show the login form
+        return view('LogIn');
     }
     
 
@@ -124,7 +128,7 @@ class AdminController extends BaseController
                     'last_name' => $this->request->getVar('last_name'),
                     'email' => $this->request->getVar('email'),
                     'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-                    'image' => $imagePath, 
+                    'picture_path' => $imagePath, 
                     'role' => 'admin',
                     'office_id' => null,
                 ];
@@ -152,7 +156,7 @@ class AdminController extends BaseController
     public function manageguest()
     {
         $userModel = new UserModel();
-        $data['guestUsers'] = $userModel->select('first_name, last_name, email, image')
+        $data['guestUsers'] = $userModel->select('first_name, last_name, email, picture_path')
                                         ->where('role', 'guest')
                                         ->findAll();
         
@@ -191,11 +195,12 @@ class AdminController extends BaseController
         $userModel = new UserModel();
         $users = $userModel->select('users.*, offices.office_name')
             ->join('offices', 'offices.office_id = users.office_id', 'left')
+            ->whereIn('users.role', ['admin', 'office user']) // Filter users by role
             ->findAll();
     
         $officeModel = new OfficeModel();
         $data['offices'] = $officeModel->findAll();
-        $data['users'] = $users; 
+        $data['users'] = $users;
     
         return view('Admin/AdminManageUser', $data); 
     }
@@ -245,7 +250,7 @@ class AdminController extends BaseController
         'password' => password_hash($password, PASSWORD_DEFAULT),
         'office_id' => $officeId,
         'image' => '',
-        'role' => 'office_user',
+        'role' => 'office user',
     ];
 
     $userModel->insert($userData);
@@ -340,42 +345,65 @@ public function getSubClassifications()
 
 public function maintenance()
 {
-    $classificationModel = new DocumentClassificationModel();
-    $data['classifications'] = $classificationModel->findAll();
-    
+    $classificationModel = new ClassificationModel();
+
+    $classifications = $classificationModel->findAll();
+
+    // Fetch unique classification names for the dropdown
+    $distinctClassifications = $classificationModel->distinct()->findColumn('classification_name');
+
+    $classificationsDropdown = [];
+    foreach ($distinctClassifications as $classification) {
+        $classificationsDropdown[] = $classification;
+    }
+
+    $data['classifications'] = $classifications;
+    $data['classificationsDropdown'] = $classificationsDropdown;
+
     return view('Admin/AdminMaintenance', $data);
 }
 
+
 public function saveClassification()
 {
-    $classificationModel = new DocumentClassificationModel();
+    $classificationModel = new ClassificationModel();
 
     $classificationName = $this->request->getPost('classificationName');
-    $subClassificationName = $this->request->getPost('subClassificationName');
 
     $data = [
-        'classification' => $classificationName,
+        'classification_name' => $classificationName,
+        'sub_classification' => NULL 
+    ];
+
+    $classificationModel->insert($data);
+
+    return redirect()->to('maintenance')->with('success', 'Classification added successfully.');
+}
+
+
+public function saveSubClassification()
+{
+    $classificationModel = new ClassificationModel();
+
+    $classificationName = $this->request->getPost('classification');
+    $subClassificationName = $this->request->getPost('subclassification');
+
+    $data = [
+        'classification_name' => $classificationName,
         'sub_classification' => $subClassificationName
     ];
 
     $classificationModel->insert($data);
 
-
-    return redirect()->to('maintenance')->with('success', 'Classification added successfully.');
+    return redirect()->to('maintenance')->with('success', 'Subclassification added successfully.');
 }
 
-public function saveSubClassification()
+
+private function getClassificationName($classificationId)
 {
-    $model = new DocumentClassificationModel();
-
-    $data = [
-        'classification' => $this->request->getPost('classificationId'),
-        'sub_classification' => $this->request->getPost('subClassificationName')
-    ];
-
-    $model->insert($data);
-
-    return redirect()->to('maintenance');
+    $classificationModel = new ClassificationModel();
+    $classification = $classificationModel->find($classificationId);
+    return $classification['classification_name'];
 }
 
 public function saveDocument()

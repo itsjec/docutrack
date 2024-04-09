@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DocumentModel extends Model
+class DocumentHistoryModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'documents';
-    protected $primaryKey       = 'document_id';
+    protected $table            = 'document_history';
+    protected $primaryKey       = 'history_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['title', 'tracking_number', 'sender_id', 'recipient_id',	'description',	'date_of_document',	'status',	'classification_id',	'sub_classification_id',	'action',	'attachment',	'date_completed'];
+    protected $allowedFields    = ['history_id',	'document_id',	'user_id',	'office_id',	'status',	'date_changed',	'is_admin_view',	'is_completed'];
 
     // Dates
     protected $useTimestamps = false;

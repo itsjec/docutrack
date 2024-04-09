@@ -42,12 +42,50 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
         $('#addDocumentBtn').click(function () {
             $('#addDocumentModal').modal('show');
         });
+
     </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    $("#openModal").click(function() {
+        modal.style.display = "block";
+    });
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
+
+    $("#addForm").submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            type: "POST",
+            url: "sub-classifications/save",
+            data: formData,
+            success: function(response) {
+                alert(response);
+                modal.style.display = "none";
+            },
+            error: function() {
+                alert("Error adding subclassification.");
+            }
+        });
+    });
+</script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

@@ -21,7 +21,6 @@
                                 <th>Image</th>
                                 <th>Office</th>
                                 <th>Action</th>
-
                             </tr>
                         </thead>
                         <tbody>
@@ -31,7 +30,7 @@
                                 <td><?= $user['last_name'] ?></td>
                                 <td><?= $user['role'] ?></td>
                                 <td><img src="<?= $user['image'] ?>" alt="User Image" width="50"></td>
-                                <td><?= $user['role'] === 'admin' ? 'N/A' : $offices[$user['office_id']] ?></td>
+                                <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
                                     <a href="<?= base_url('edit/' . $user['id']) ?>" class="btn btn-sm btn-primary">Edit</a>
                                     <a href="<?= base_url('delete/' . $user['id']) ?>" class="btn btn-sm btn-danger">Delete</a>
@@ -39,13 +38,14 @@
                             </tr>
                         <?php endforeach; ?>
                         </tbody>
-
                     </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

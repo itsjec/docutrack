@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DocumentModel extends Model
+class SubClassificationModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'documents';
-    protected $primaryKey       = 'document_id';
+    protected $table            = 'sub_classification';
+    protected $primaryKey       = 'sub_classification_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['title', 'tracking_number', 'sender_id', 'recipient_id',	'description',	'date_of_document',	'status',	'classification_id',	'sub_classification_id',	'action',	'attachment',	'date_completed'];
+    protected $allowedFields    = ['sub_classification_id','classification_id','subclassification_name'];
 
     // Dates
     protected $useTimestamps = false;

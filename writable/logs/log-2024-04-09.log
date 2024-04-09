@@ -1,0 +1,1310 @@
+ERROR - 2024-04-09 01:59:32 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12 in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-09 01:59:32 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GROUP BY offices_documents.document_id' at line 12
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(61): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_user_id, 
+                documents.sender_office_id, 
+                MAX(offices_documents.status) AS status, 
+                documents.action, 
+                offices_documents.document_id
+            FROM offices_documents
+            JOIN documents ON documents.document_id = offices_documents.document_id
+            WHERE offices_documents.office_id = 
+            GROUP BY offices_documents.document_id
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:16:00 --> mysqli_sql_exception: Unknown column 'email' in 'where clause' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT 1\nFROM `...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 1\nFROM `...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 1\nFROM `...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Validation\StrictRules\Rules.php(206): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Validation\Validation.php(309): CodeIgniter\Validation\StrictRules\Rules->is_unique('admin@gmail.com', 'email', Array, NULL, 'email')
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Validation\Validation.php(195): CodeIgniter\Validation\Validation->processRules('email', 'email', 'admin@gmail.com', Array, Array)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Controller.php(150): CodeIgniter\Validation\Validation->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(116): CodeIgniter\Controller->validate(Array, Array)
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->register()
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#13 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#14 {main}
+CRITICAL - 2024-04-09 02:16:00 --> Unknown column 'email' in 'where clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT 1
+FROM `users`
+WHERE `email` = :email:
+ LIMIT 1', [...], false)
+ 2 SYSTEMPATH\Validation\StrictRules\Rules.php(206): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\Validation\Validation.php(309): CodeIgniter\Validation\StrictRules\Rules->is_unique('admin@gmail.com', 'email', [...], null, 'email')
+ 4 SYSTEMPATH\Validation\Validation.php(195): CodeIgniter\Validation\Validation->processRules('email', 'email', 'admin@gmail.com', [...], [...])
+ 5 SYSTEMPATH\Controller.php(150): CodeIgniter\Validation\Validation->run()
+ 6 APPPATH\Controllers\AdminController.php(116): CodeIgniter\Controller->validate([...], [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->register()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:16:18 --> mysqli_sql_exception: Unknown column 'first_name' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(133): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->register()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 02:16:18 --> Unknown column 'first_name' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `users` (`first_name`, `last_name`, `email`, `password`, `picture_path`, `role`, `office_id`) VALUES (:first_name:, :last_name:, :email:, :password:, :picture_path:, :role:, :office_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(133): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->register()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:20:04 --> mysqli_sql_exception: Unknown column 'image' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `first_n...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `first_n...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `first_n...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `first_n...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(160): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->manageguest()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#12 {main}
+CRITICAL - 2024-04-09 02:20:04 --> Unknown column 'image' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `first_name`, `last_name`, `email`, `image`
+FROM `users`
+WHERE `role` = :role:', [...], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(160): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageguest()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:24:45 --> mysqli_sql_exception: Unknown column 'documents.receiver_office_id' in 'on clause' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#12 {main}
+CRITICAL - 2024-04-09 02:24:45 --> Unknown column 'documents.receiver_office_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.*, `offices1`.`office_name` AS `sender_office_name`, `offices2`.`office_name` AS `receiver_office_name`
+FROM `documents`
+JOIN `offices` AS `offices1` ON `offices1`.`office_id` = `documents`.`sender_office_id`
+JOIN `offices` AS `offices2` ON `offices2`.`office_id` = `documents`.`receiver_office_id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 02:41:31 --> Class 'App\Models\DocumentClassificationModel' not found
+in APPPATH\Controllers\AdminController.php on line 347.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 02:41:49 --> Class 'App\Models\ClassificationModel' not found
+in APPPATH\Controllers\AdminController.php on line 347.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 02:42:18 --> Class 'App\Models\ClassificationModel' not found
+in APPPATH\Controllers\AdminController.php on line 347.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:46:35 --> mysqli_sql_exception: Unknown column 'sub_classification.sub_classification' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(353): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 02:46:35 --> Unknown column 'sub_classification.sub_classification' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification`.*, `sub_classification`.`sub_classification`
+FROM `classification`
+LEFT JOIN `sub_classification` ON `classification`.`classification_id` = `sub_classification`.`classification_id`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(353): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:46:58 --> mysqli_sql_exception: Unknown column 'sub_classification.sub_classification_name' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(353): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 02:46:58 --> Unknown column 'sub_classification.sub_classification_name' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification`.*, `sub_classification`.`sub_classification_name`
+FROM `classification`
+LEFT JOIN `sub_classification` ON `classification`.`classification_id` = `sub_classification`.`classification_id`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(353): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:53:35 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(389): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 02:53:35 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(389): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:54:17 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(389): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 02:54:17 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(389): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 02:57:07 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(389): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 02:57:07 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(389): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:00:21 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(389): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:00:21 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `sub_classification_ibfk_1` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(389): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:05:26 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(389): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:05:26 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(389): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:07:59 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(389): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:07:59 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(389): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:15:22 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:15:22 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:31:19 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:31:19 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:32:41 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:32:41 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:36:20 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:36:20 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:42:17 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:42:17 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:48:41 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:48:41 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:52:29 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:52:29 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:53:53 --> mysqli_sql_exception: Unknown column 'documents.receiver_office_id' in 'on clause' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(266): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->managedocument()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#12 {main}
+CRITICAL - 2024-04-09 03:53:53 --> Unknown column 'documents.receiver_office_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.*, `offices`.`office_name` AS `receiver_office_name`
+FROM `documents`
+JOIN `offices` ON `offices`.`office_id` = `documents`.`receiver_office_id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(266): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->managedocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:54:15 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:54:15 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:57:30 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:57:30 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 03:57:46 --> mysqli_sql_exception: Column 'classification_id' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 03:57:46 --> Column 'classification_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 04:10:18 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(391): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 04:10:18 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(391): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 04:11:17 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 04:11:17 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 04:14:49 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(393): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 04:14:49 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(393): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 04:23:49 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(391): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 04:23:49 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`) VALUES (:classification_id:)', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(391): CodeIgniter\Database\BaseBuilder->insert([...])
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 04:25:13 --> Call to a member function table() on null
+in APPPATH\Controllers\AdminController.php on line 390.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 04:53:56 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 04:53:56 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 04:54:37 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`)) in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `su...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `su...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `su...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `su...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(392): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 04:54:37 --> Cannot add or update a child row: a foreign key constraint fails (`docutrack2`.`sub_classification`, CONSTRAINT `fk_classification_id` FOREIGN KEY (`classification_id`) REFERENCES `classification` (`classification_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `sub_classification` (`classification_id`, `subclassification_name`) VALUES (:classification_id:, :subclassification_name:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(392): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 05:14:17 --> mysqli_sql_exception: Table 'docutrack2.sub_classification' doesn't exist in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 05:14:17 --> Table 'docutrack2.sub_classification' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification`.`classification_name`, `sub_classification`.`subclassification_name`
+FROM `classification`
+LEFT JOIN `sub_classification` ON `classification`.`classification_id` = `sub_classification`.`classification_id`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 05:20:31 --> mysqli_sql_exception: Table 'docutrack2.sub_classification' doesn't exist in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 05:20:31 --> Table 'docutrack2.sub_classification' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification`.`classification_name`, `sub_classification`.`subclassification_name`
+FROM `classification`
+LEFT JOIN `sub_classification` ON `classification`.`classification_id` = `sub_classification`.`classification_id`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 05:20:33 --> mysqli_sql_exception: Table 'docutrack2.sub_classification' doesn't exist in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 05:20:33 --> Table 'docutrack2.sub_classification' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification`.`classification_name`, `sub_classification`.`subclassification_name`
+FROM `classification`
+LEFT JOIN `sub_classification` ON `classification`.`classification_id` = `sub_classification`.`classification_id`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 05:20:34 --> mysqli_sql_exception: Table 'docutrack2.sub_classification' doesn't exist in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 05:20:34 --> Table 'docutrack2.sub_classification' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification`.`classification_name`, `sub_classification`.`subclassification_name`
+FROM `classification`
+LEFT JOIN `sub_classification` ON `classification`.`classification_id` = `sub_classification`.`classification_id`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(359): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 08:24:51 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'docutrack2.classification.classification_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(360): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 08:24:51 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'docutrack2.classification.classification_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification_id`, `classification_name`
+FROM `classification`
+GROUP BY `classification_name`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(360): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 08:31:07 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'docutrack2.classification.classification_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `classif...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `classif...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `classif...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classif...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(360): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#10 {main}
+CRITICAL - 2024-04-09 08:31:07 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'docutrack2.classification.classification_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `classification_id`, `classification_name`
+FROM `classification`
+GROUP BY `classification_name`', [], false)
+ 2 APPPATH\Controllers\AdminController.php(360): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 4 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 08:50:54 --> Call to a member function getResultArray() on array
+in APPPATH\Controllers\AdminController.php on line 351.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 08:51:43 --> mysqli_sql_exception: Column 'classification_name' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `cl...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cl...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cl...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cl...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(393): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 08:51:43 --> Column 'classification_name' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `classification` (`classification_name`, `sub_classification`) VALUES (:classification_name:, :sub_classification:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(393): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 08:57:09 --> mysqli_sql_exception: Column 'classification_name' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `cl...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cl...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cl...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cl...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(395): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 08:57:09 --> Column 'classification_name' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `classification` (`classification_name`, `sub_classification`) VALUES (:classification_name:, :sub_classification:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(395): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 08:57:38 --> mysqli_sql_exception: Column 'classification_name' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `cl...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cl...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cl...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cl...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(395): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 08:57:38 --> Column 'classification_name' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `classification` (`classification_name`, `sub_classification`) VALUES (:classification_name:, :sub_classification:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(395): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 08:57:49 --> mysqli_sql_exception: Column 'classification_name' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `cl...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cl...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cl...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cl...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(395): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 08:57:49 --> Column 'classification_name' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `classification` (`classification_name`, `sub_classification`) VALUES (:classification_name:, :sub_classification:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(395): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 09:00:07 --> mysqli_sql_exception: Column 'classification_name' cannot be null in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `cl...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `cl...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `cl...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `cl...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(395): CodeIgniter\Model->insert(Array)
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#13 {main}
+CRITICAL - 2024-04-09 09:00:07 --> Column 'classification_name' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `classification` (`classification_name`, `sub_classification`) VALUES (:classification_name:, :sub_classification:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\AdminController.php(395): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->saveSubClassification()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:01:11 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Admin\main-include\maintenance.php on line 88.
+ 1 APPPATH\Views\Admin\main-include\maintenance.php(88): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\main-include\\maintenance.php', 88, [...])
+ 2 APPPATH\Views\Admin\AdminMaintenance.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\main-include\\maintenance.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\AdminMaintenance.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Admin/AdminMaintenance', [], true)
+ 6 APPPATH\Controllers\AdminController.php(359): view('Admin/AdminMaintenance', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:01:40 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Admin\main-include\maintenance.php on line 88.
+ 1 APPPATH\Views\Admin\main-include\maintenance.php(88): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\main-include\\maintenance.php', 88, [...])
+ 2 APPPATH\Views\Admin\AdminMaintenance.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\main-include\\maintenance.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\AdminMaintenance.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Admin/AdminMaintenance', [], true)
+ 6 APPPATH\Controllers\AdminController.php(359): view('Admin/AdminMaintenance', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:01:46 --> Invalid argument supplied for foreach()
+in APPPATH\Views\Admin\main-include\maintenance.php on line 88.
+ 1 APPPATH\Views\Admin\main-include\maintenance.php(88): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\main-include\\maintenance.php', 88, [...])
+ 2 APPPATH\Views\Admin\AdminMaintenance.php(34): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\main-include\\maintenance.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Admin\\AdminMaintenance.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Admin/AdminMaintenance', [], true)
+ 6 APPPATH\Controllers\AdminController.php(359): view('Admin/AdminMaintenance', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:02:59 --> Invalid argument supplied for foreach()
+in APPPATH\Controllers\AdminController.php on line 356.
+ 1 APPPATH\Controllers\AdminController.php(356): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Controllers\\AdminController.php', 356, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:03:15 --> Invalid argument supplied for foreach()
+in APPPATH\Controllers\AdminController.php on line 356.
+ 1 APPPATH\Controllers\AdminController.php(356): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Controllers\\AdminController.php', 356, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:14:14 --> Invalid argument supplied for foreach()
+in APPPATH\Controllers\AdminController.php on line 356.
+ 1 APPPATH\Controllers\AdminController.php(356): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Invalid argument supplied for foreach()', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Controllers\\AdminController.php', 356, [...])
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-09 09:20:50 --> Cannot redeclare App\Controllers\AdminController::saveSubClassification()
+in APPPATH\Controllers\AdminController.php on line 381.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-09 09:25:11 --> Call to a member function getResult() on array
+in APPPATH\Controllers\AdminController.php on line 353.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->maintenance()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 09:29:35 --> mysqli_sql_exception: Unknown column 'documents.receiver_office_id' in 'on clause' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#12 {main}
+CRITICAL - 2024-04-09 09:29:35 --> Unknown column 'documents.receiver_office_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.*, `offices1`.`office_name` AS `sender_office_name`, `offices2`.`office_name` AS `receiver_office_name`
+FROM `documents`
+JOIN `offices` AS `offices1` ON `offices1`.`office_id` = `documents`.`sender_office_id`
+JOIN `offices` AS `offices2` ON `offices2`.`office_id` = `documents`.`receiver_office_id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 09:31:12 --> mysqli_sql_exception: Unknown column 'documents.receiver_office_id' in 'on clause' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#12 {main}
+CRITICAL - 2024-04-09 09:31:12 --> Unknown column 'documents.receiver_office_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.*, `offices1`.`office_name` AS `sender_office_name`, `offices2`.`office_name` AS `receiver_office_name`
+FROM `documents`
+JOIN `offices` AS `offices1` ON `offices1`.`office_id` = `documents`.`sender_office_id`
+JOIN `offices` AS `offices2` ON `offices2`.`office_id` = `documents`.`receiver_office_id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-09 09:32:48 --> mysqli_sql_exception: Unknown column 'documents.receiver_office_id' in 'on clause' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `documen...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `documen...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `documen...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documen...', Array, false)
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#12 {main}
+CRITICAL - 2024-04-09 09:32:48 --> Unknown column 'documents.receiver_office_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `documents`.*, `offices1`.`office_name` AS `sender_office_name`, `offices2`.`office_name` AS `receiver_office_name`
+FROM `documents`
+JOIN `offices` AS `offices1` ON `offices1`.`office_id` = `documents`.`sender_office_id`
+JOIN `offices` AS `offices2` ON `offices2`.`office_id` = `documents`.`receiver_office_id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(309): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
