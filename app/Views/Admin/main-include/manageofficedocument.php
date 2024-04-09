@@ -13,23 +13,39 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Tracking Number</th>
+                            <th>Sender</th>
+                            <th>Recipient</th>
+                            <th>Status</th>
+                            <th>Date of Document</th>
+                            <th>Comment</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($documents as $document): ?>
                             <tr>
-                                <th>Title</th>
-                                <th>Tracking Number</th>
-                                <th>Sender</th>
-                                <th>Recipient</th>
-                                <th>Current Office</th>
-                                <th>Status</th>
-                                <th>Comment</th>
-                                <th>Action</th>
+                                <td><?= $document['title'] ?></td>
+                                <td><?= $document['tracking_number'] ?></td>
+                                <td><?= $document['sender_id'] ?></td>
+                                <td><?= $document['recipient_id'] ?></td>
+                                <td><?= $document['status'] ?></td>
+                                <td><?= $document['date_of_document'] ?></td>
+                                <td><?= $document['action'] ?></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="#" class="btn btn-sm btn-info">View</a>
+                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Static rows here -->
-                        </tbody>
-                    </table>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+
                 </div>
             </div>
         </div>
@@ -47,64 +63,89 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="addDocumentForm" action="<?= site_url('documents/save') ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
+            <?php if (session()->has('errors')) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            <?php foreach (session('errors') as $error) : ?>
+                                <li><?= esc($error) ?></li>
+                            <?php endforeach ?>
+                        </ul>
                     </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                <?php endif ?>
+
+                <?php if (session()->has('error')) : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= session('error') ?>
                     </div>
-                    <div class="form-group">
-                        <label for="classification">Classification</label>
-                        <select class="form-control" id="classification" name="classification" required>
-                            <option value="" disabled selected>Select Classification</option>
-                            <option value="Classification 1">Classification 1</option>
-                            <option value="Classification 2">Classification 2</option>
-                            <option value="Classification 3">Classification 3</option>
-                        </select>
+                <?php endif ?>
+
+                <!-- Your form here -->
+
+                <form id="addDocumentForm" action="<?= site_url('documents/saveOffice') ?>" method="post" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="title">Title</label>
+                            <input type="text" class="form-control" id="title" name="title" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="sender_office_id">Sender</label>
+                            <select class="form-control" id="sender_office_id" name="sender_office_id" required>
+                                <option value="" disabled selected>Select Sender</option>
+                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label for="recipient_office_id">Recipient</label>
+                            <select class="form-control" id="recipient_office_id" name="recipient_office_id" required>
+                                <option value="" disabled selected>Select Recipient</option>
+                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="classification">Classification</label>
+                            <select class="form-control" id="classification" name="classification" required>
+                                <option value="" disabled selected>Select Classification</option>
+                                <?php foreach ($classificationsDropdown as $classification): ?>
+                                    <option value="<?= $classification ?>"><?= $classification ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="sub-classification">Sub-Classification</label>
+                            <select id="sub-classification" name="sub_classification" class="form-control" required>
+                                <option value="" disabled selected>Select Sub-Classification</option>
+                                <?php foreach ($subClassificationsDropdown as $subClassification): ?>
+                                    <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="date_of_document">Date of Document</label>
+                            <input type="text" class="form-control" id="date_of_document" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="sub-classification">Sub-Classification</label>
-                        <select id="sub-classification" name="sub_classification" class="form-control" required>
-                            <option value="" disabled selected>Select Sub-Classification</option>
-                            <option value="Sub-Classification 1">Sub-Classification 1</option>
-                            <option value="Sub-Classification 2">Sub-Classification 2</option>
-                            <option value="Sub-Classification 3">Sub-Classification 3</option>
-                        </select>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="attachment">Attachment (PDF)</label>
+                            <input type="file" class="form-control-file" id="attachment" name="attachment" accept=".pdf" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="action">Action</label>
+                            <input type="text" class="form-control" id="action" name="action">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="date_of_letter">Date of Letter</label>
-                        <input type="text" class="form-control" id="date_of_letter" name="date_of_letter" value="YYYY-MM-DD" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="action">Action</label>
-                        <input type="text" class="form-control" id="action" name="action">
-                    </div>
-                    <div class="form-group">
-                        <label for="sender_office_id">Sender</label>
-                        <select class="form-control" id="sender_office_id" name="sender_office_id">
-                            <option value="Sender 1">Sender 1</option>
-                            <option value="Sender 2">Sender 2</option>
-                            <option value="Sender 3">Sender 3</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="receiver_office_id">Receiver</label>
-                        <select class="form-control" id="receiver_office_id" name="receiver_office_id">
-                            <option value="Receiver 1">Receiver 1</option>
-                            <option value="Receiver 2">Receiver 2</option>
-                            <option value="Receiver 3">Receiver 3</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="attachment">Attachment (PDF)</label>
-                        <input type="file" class="form-control-file" id="attachment" name="attachment" accept=".pdf" required>
-                    </div>
-                    <input type="hidden" name="current_office_id" value="">
-                    <input type="hidden" name="status" value="pending">
-                    <input type="hidden" name="tracking_number" value="">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save changes</button>
@@ -116,7 +157,7 @@
 </div>
 
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <!-- Display validation errors -->
 <?php if (session('validationErrors')) : ?>
     <div class="alert alert-danger">

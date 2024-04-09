@@ -24,6 +24,9 @@ $routes->get('tracking', 'AdminController::tracking');
 $routes->post('documents/save', 'AdminController::saveDocument');
 $routes->post('documents/saveOffice', 'AdminController::saveOfficeDocument');
 $routes->get('manageofficedocument', 'AdminController::manageofficedocument');
+$routes->get('test-insert', 'AdminController::testInsert');
+
+
 
 
 

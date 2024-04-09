@@ -55,36 +55,32 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script>
-        $('#addDocumentBtn').click(function () {
-            $('#addDocumentModal').modal('show');
-        });
+$(document).ready(function() {
+    $('#classification').change(function() {
+        var classification = $(this).val();
+        var subClassificationSelect = $('#sub-classification');
 
-        $(document).ready(function() {
-        $('#classification').change(function() {
-            var classification = $(this).val();
-            var subClassificationSelect = $('#sub-classification');
+        subClassificationSelect.html('<option value="" disabled selected>Loading...</option>');
 
-            subClassificationSelect.html('<option value="" disabled selected>Loading...</option>');
-
-            $.ajax({
-                url: '<?= site_url('documents/getSubClassifications') ?>',
-                type: 'POST',
-                dataType: 'json',
-                data: { classification: classification },
-                success: function(response) {
-                    subClassificationSelect.html('<option value="" disabled selected>Select Sub-Classification</option>');
-                    $.each(response, function(index, subClassification) {
-                        subClassificationSelect.append('<option value="' + subClassification.sub_classification + '">' + subClassification.sub_classification + '</option>');
-                    });
-                },
-                error: function() {
-                    subClassificationSelect.html('<option value="" disabled selected>Error loading sub-classifications</option>');
-                }
-            });
+        $.ajax({
+            url: '<?= site_url('documents/getSubClassifications') ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: { classification: classification },
+            success: function(response) {
+                subClassificationSelect.html('<option value="" disabled selected>Select Sub-Classification</option>');
+                $.each(response, function(index, subClassification) {
+                    subClassificationSelect.append('<option value="' + subClassification.sub_classification + '">' + subClassification.sub_classification + '</option>');
+                });
+            },
+            error: function() {
+                subClassificationSelect.html('<option value="" disabled selected>Error loading sub-classifications</option>');
+            }
         });
     });
+});
 
     $(document).ready(function(){
         $('#addDocumentForm').submit(function(e){
