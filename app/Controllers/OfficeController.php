@@ -10,10 +10,10 @@ use App\Models\DocumentClassificationModel;
 use App\Models\OfficeDocumentsModel;
 use App\Models\TransactionModel;
 use App\Models\DocumentHistoryModel;
+use ResponseTrait;
 
 class OfficeController extends BaseController
 {
-
 
     public function __construct()
     {
@@ -348,35 +348,31 @@ class OfficeController extends BaseController
 }
 
 
-public function updateStatusToReceived($documentId)
-{
-    $db = db_connect();
-
-    $documentModel = new \App\Models\DocumentModel();
-
-    // Find the document by ID
-    $document = $documentModel->find($documentId);
-
-    if (!$document) {
-        return "Document not found";
+    public function updateStatus()
+    {
+        $documentId = $this->request->getPost('document_id');
+    
+        $documentModel = new DocumentModel();
+    
+        $db = \Config\Database::connect();
+    
+        $db->transStart();
+    
+        try {
+            $updatedRows = $documentModel->update($documentId, ['status' => 'received']);
+            
+            if ($updatedRows === 0) {
+                return 'Error: No rows updated';
+            }
+    
+            $db->transCommit();
+    
+            return 'Status updated successfully';
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return 'Error: ' . $e->getMessage();
+        }
     }
-
-    // Update the status to "received"
-    $updated = $documentModel->update($documentId, ['status' => 'received']);
-
-    var_dump($updated); // Check if the update was successful
-
-    $updatedDocument = $documentModel->find($documentId);
-    var_dump($updatedDocument); // Check the updated document
-
-    if ($updated && $updatedDocument && $updatedDocument['status'] === 'received') {
-        return "Status updated successfully";
-    } else {
-        return "Failed to update status to 'received'";
-    }
-}
-
-
 
     private function getCurrentOfficeId($documentId)
     {
@@ -436,6 +432,24 @@ public function updateStatusToReceived($documentId)
         }
     }
     
+    public function getDocumentInfo()
+    {
+        $documentId = $this->request->getPost('document_id');
+    
+        $model = new DocumentModel();
+        $document = $model->find($documentId);
+    
+        if (!$document) {
+            return $this->fail('Document not found.');
+        }
+    
+        return $this->respond([
+            'title' => $document['title'],
+            'tracking_number' => $document['tracking_number']
+        ]);
+    }
+    
+
 
     public function updateCompletedStatus()
     {

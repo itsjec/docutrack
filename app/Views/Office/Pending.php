@@ -44,30 +44,42 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
+$(document).ready(function() {
     $('.receive-btn').on('click', function() {
-        var documentId = $(this).data('document-id');
-        $('#confirmUpdateBtn').data('document-id', documentId);
-    });
+      var documentId = $(this).data('document-id');
+      var documentTitle = $(this).data('document-title');
+      var trackingNumber = $(this).data('tracking-number');
 
-    $('#confirmUpdateBtn').on('click', function() {
+      // Update modal content with fetched data
+      $('#documentTitle').text(documentTitle);
+      $('#trackingNumber').text(trackingNumber);
+
+      $('#confirmReceiveBtn').data('document-id', documentId);
+
+      // Show the modal
+      $('#receiveDocumentModal').modal('show');
+  });
+
+
+    $('#confirmReceiveBtn').on('click', function() {
         var documentId = $(this).data('document-id');
         $.ajax({
-            url: '<?= site_url('documents/updateProcessStatus') ?>',
+            url: '<?= site_url('documents/updateStatus') ?>',
             method: 'POST',
             data: { document_id: documentId },
             success: function(response) {
-                // Handle success response
-                $('#updateStatusModal').modal('hide');
-                // Refresh the page or update the status column using JavaScript
+                $('#receiveDocumentModal').modal('hide');
+                console.log(response);
+                location.reload();
             },
             error: function(xhr, status, error) {
-                // Handle error
                 console.error(xhr.responseText);
             }
         });
     });
 });
+
+</script>
 
     </script>
   <!-- container-scroller -->

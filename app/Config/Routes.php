@@ -40,6 +40,7 @@ $routes->get('history', 'OfficeController::history');
 $routes->get('manageprofile', 'OfficeController::manageprofile');
 $routes->get('trash', 'OfficeController::trash');
 $routes->get('incoming', 'OfficeController::incoming');
+$routes->get('documents/getDocumentInfo', 'OfficeController::getDocumentInfo');
 $routes->post('documents/updateStatus', 'OfficeController::updateStatus');
 $routes->post('documents/updateProcessStatus', 'OfficeController::updateProcessStatus');
 $routes->post('documents/updateCompletedStatus', 'OfficeController::updateCompletedStatus');
