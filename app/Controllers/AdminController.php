@@ -64,15 +64,15 @@ class AdminController extends BaseController
             if ($user && password_verify($password, $user['password'])) {
                 // Set session data
                 $userData = [
-                    'id' => $user['id'],
+                    'id' => $user['user_id'],
                     'email' => $user['email'],
                     'isLoggedIn' => true,
                     'role' => $user['role']
                 ];
-    
+                
                 if ($user['role'] === 'office user') {
                     $userData['office_id'] = $user['office_id'];
-                    $userData['user_id'] = $user['id'];
+                    $userData['user_id'] = $user['user_id'];
                 }
     
                 session()->set($userData);

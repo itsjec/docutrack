@@ -18,7 +18,14 @@
                             <tr>
                                 <td><?= $document->tracking_number ?></td>
                                 <td><?= $document->title ?></td>
-                                <td><?= $senderDetails[$document->document_id]['sender_user'] ?> (<?= $senderDetails[$document->document_id]['sender_office'] ?>)</td>
+                                <td>
+                                    <?php if (isset($senderDetails[$document->document_id])): ?>
+                                        <?php echo $senderDetails[$document->document_id]['sender_user']; ?>
+                                        <?php if ($document->sender_office_id != null): ?>
+                                            <?php echo ' ' . $senderDetails[$document->document_id]['sender_office']; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= $document->status ?></td>
                                 <td><?= $document->action ?></td>
                                 <td>

@@ -44,32 +44,45 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
+$(document).ready(function() {
     $('.receive-btn').on('click', function() {
-        var documentId = $(this).data('document-id');
-        $('#confirmUpdateBtn').data('document-id', documentId);
-    });
+      var documentId = $(this).data('document-id');
+      var documentTitle = $(this).data('document-title');
+      var trackingNumber = $(this).data('tracking-number');
 
-    $('#confirmUpdateBtn').on('click', function() {
-        var documentId = $(this).data('document-id');
-        $.ajax({
-            url: '<?= site_url('documents/updateProcessStatus') ?>',
-            method: 'POST',
-            data: { document_id: documentId },
-            success: function(response) {
-                // Handle success response
-                $('#updateStatusModal').modal('hide');
-                // Refresh the page or update the status column using JavaScript
-            },
-            error: function(xhr, status, error) {
-                // Handle error
-                console.error(xhr.responseText);
-            }
-        });
-    });
+      // Update modal content with fetched data
+      $('#documentTitle').text(documentTitle);
+      $('#trackingNumber').text(trackingNumber);
+
+      // Set the document ID as a data attribute on the Confirm button
+      $('#confirmReceiveBtn').data('document-id', documentId);
+
+      // Show the modal
+      $('#receiveDocumentModal').modal('show');
+  });
+
+    $("#confirmReceiveBtn").click(function(event) {
+      event.preventDefault(); // Prevent the default button behavior
+
+      let docId = $(this).data("document-id");
+      console.log("Document ID:", docId); // Log the document ID
+      $.ajax({
+          url: 'documents/update-document-status/' + docId + '/on process',
+          type: 'POST',
+          success: function(response) {
+              console.log(response);
+              $("#receiveDocumentModal").modal('hide');
+              location.reload(); // Reload the page
+          },
+          error: function(xhr, status, error) {
+              console.error(xhr.responseText);
+          }
+      });
+  });
+
 });
 
-    </script>
+</script>
   <!-- container-scroller -->
 
   <!-- base:js -->

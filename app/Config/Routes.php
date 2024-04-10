@@ -47,10 +47,16 @@ $routes->post('documents/updateCompletedStatus', 'OfficeController::updateComple
 $routes->post('documents/deleteDocument', 'OfficeController::deleteDocument');
 $routes->post('documents/sendOutDocument', 'OfficeController::sendOutDocument');
 $routes->get('office/getOffices', 'OfficeController::getOffices');
-$routes->get('update-document-status/(:num)/(:segment)', 'OfficeController::updateDocumentStatus/$1/$2');
+$routes->post('documents/update-document-status/(:num)/(:segment)', 'OfficeController::updateDocumentStatus/$1/$2');
+$routes->post('documents/update-document-completed-status/(:num)/(:segment)', 'OfficeController::updateDocumentCompletedStatus/$1/$2');
+$routes->post('documents/update-document-deleted-status/(:num)/(:segment)', 'OfficeController::updateDocumentDeletedStatus/$1/$2');
+$routes->post('documents/update-document-recipient-and-status/(:num)/(:num)/(:segment)', 'OfficeController::updateDocumentRecipientAndStatus/$1/$2/$3');
+$routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1');
+
+
 
 $routes->get('userindex', 'UserController::index');
 
 
-
+$routes->get('test-insert-document-history', 'OfficeController::testInsertDocumentHistory');
 

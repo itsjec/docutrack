@@ -18,18 +18,22 @@
                             <tr>
                                 <td><?= $document->tracking_number ?></td>
                                 <td><?= $document->title ?></td>
-                                <td><?= $senderDetails[$document->document_id]['sender_user'] ?> (<?= $senderDetails[$document->document_id]['sender_office'] ?>)</td>
+                                <td> <?php if ($document->sender_office_id): ?>
+                                        <?= $senderDetails[$document->document_id]['sender_office'] ?>
+                                    <?php else: ?>
+                                        <?= $senderDetails[$document->document_id]['sender_user'] ?>
+                                    <?php endif; ?>
+</td>
                                 <td><?= $document->status ?></td>
                                 <td><?= $document->action ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                    <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3 receive-btn" data-toggle="modal" data-target="#updateStatusModal" data-document-id="<?= $document->document_id ?>">
+                                    <button type="button" class="btn btn-success btn-sm btn-icon-text mr-3 receive-btn" data-toggle="modal" data-target="#receiveDocumentModal" data-document-id="<?= $document->document_id ?>" data-document-title="<?= $document->title ?>" data-tracking-number="<?= $document->tracking_number ?>">
                                         <span class="btn-icon-prepend">
                                             <i class="typcn typcn-edit"></i>
                                         </span>
-                                        Edit
+                                        Process Document
                                     </button>
-
                                         <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">
                                             View
                                             <i class="typcn typcn-eye btn-icon-append"></i>
@@ -50,21 +54,23 @@
 </div>
 
 <!-- Update Status Modal -->
-<div class="modal fade" id="updateStatusModal" tabindex="-1" role="dialog" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
+<div class="modal fade" id="receiveDocumentModal" tabindex="-1" role="dialog" aria-labelledby="receiveDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateStatusModalLabel">Update Status</h5>
+                <h5 class="modal-title" id="receiveDocumentModalLabel">Process Document</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                Are you sure you want to change the status to "On Process"?
+                Are you sure you want to process the document entitled <span id="documentTitle"></span>?
+                <br>
+                Tracking Number: <span id="trackingNumber"></span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="confirmUpdateBtn">Confirm</button>
+                <button type="button" class="btn btn-primary" id="confirmReceiveBtn">Confirm</button>
             </div>
         </div>
     </div>

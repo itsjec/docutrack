@@ -42,60 +42,83 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
-    $(document).ready(function() {
-    $('.delete-btn').on('click', function() {
+$('.delete-btn').on('click', function() {
+      var documentId = $(this).data('document-id');
+      var documentTitle = $(this).data('document-title');
+      var trackingNumber = $(this).data('tracking-number');
+
+      $('#documentTitleDelete').text(documentTitle);
+      $('#trackingNumberDelete').text(trackingNumber);
+
+      $('#confirmDeleteBtn').data('document-id', documentId);
+
+      $('#deleteDocumentModal').modal('show');
+  });
+
+    $("#confirmDeleteBtn").click(function(event) {
+      event.preventDefault(); // Prevent the default button behavior
+
+      let docId = $(this).data("document-id");
+      console.log("Document ID:", docId); // Log the document ID
+      $.ajax({
+          url: 'documents/update-document-deleted-status/' + docId + '/deleted',
+          type: 'POST',
+          success: function(response) {
+              console.log(response);
+              $("#deleteDocumentModal").modal('hide');
+              location.reload(); // Reload the page
+          },
+          error: function(xhr, status, error) {
+              console.error(xhr.responseText);
+          }
+      });
+  });
+
+
+  var currentDocumentId;
+
+  function setDocumentId(button) {
+    window.currentDocumentId = button.getAttribute('data-document-id');
+}
+
+function updateRecipientId(documentId, recipientId) {
+    $('#document_id').val(documentId);
+    $('#recipient_id').val(recipientId);
+}
+
+$(document).ready(function() {
+    $('.btn-send-out').on('click', function() {
         var documentId = $(this).data('document-id');
-        $('#confirmDeleteBtn').data('document-id', documentId);
+        var recipientId = $('#office_id').val(); 
+        updateRecipientId(documentId, recipientId);
     });
 
-    $('#confirmDeleteBtn').on('click', function() {
-        var documentId = $(this).data('document-id');
+    $('#confirmSendOutBtn').on('click', function() {
+        var documentId = $('.btn-send-out').data('document-id'); 
+        var recipientId = $('#recipient_id').val(); 
+
         $.ajax({
-            url: '<?= site_url('documents/deleteDocument') ?>',
-            method: 'POST',
-            data: { document_id: documentId },
+            url: 'documents/update-document-recipient-and-status/' + documentId + '/' + recipientId + '/pending',
+            type: 'POST',
+            data: { recipient_id: recipientId },
             success: function(response) {
-                // Handle success response
-                $('#deleteDocumentModal').modal('hide');
-                // Refresh the page or update the table using JavaScript
+                console.log(response);
+                $('#sendOutModal').modal('hide');
+                location.reload(); // Reload the page
             },
             error: function(xhr, status, error) {
-                // Handle error
                 console.error(xhr.responseText);
             }
         });
     });
 });
 
-$(document).ready(function() {
-    $('.btn-send-out').on('click', function() {
-        var documentId = $(this).data('document-id');
-        $('#document_id').val(documentId);
-    });
-
-    $('#confirmSendOutBtn').on('click', function() {
-        if (confirm('Are you sure you want to send out this document?')) {
-            $.ajax({
-                url: '<?= site_url('documents/sendOutDocument') ?>',
-                type: 'POST',
-                data: $('#sendOutForm').serialize(),
-                success: function(response) {
-                    alert(response); // Display success message
-                    location.reload(); // Reload the page
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText); // Log the error message
-                    alert('Error sending out document. Please try again.'); // Display error message
-                }
-            });
-        }
-    });
-});
 
 
-    </script>
+</script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

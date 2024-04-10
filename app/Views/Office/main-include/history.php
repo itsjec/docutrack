@@ -19,10 +19,16 @@
                             <tr>
                                 <td><?= $document->tracking_number ?></td>
                                 <td><?= $document->title ?></td>
-                                <td><?= $senderDetails[$document->document_id]['sender_user'] ?> (<?= $senderDetails[$document->document_id]['sender_office'] ?>)</td>
-                                <td><?= $document->current_office_id ?></td>
-                                <td><?= $document->status ?></td>
-                                <td><?= $document->date_completed ?></td>
+                                <td>
+                                    <?php if ($document->sender_office_id !== null): ?>
+                                        <?= $senderDetails[$document->document_id]['sender_office'] ?>
+                                    <?php else: ?>
+                                        <?= $senderDetails[$document->document_id]['sender_user'] ?>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?= $document->recipient_office_name ?></td>
+                                <td><?= $document->history_status ?></td>
+                                <td><?= date('F j, Y', strtotime($document->date_completed)) ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">

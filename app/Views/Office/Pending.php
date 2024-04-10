@@ -54,6 +54,7 @@ $(document).ready(function() {
       $('#documentTitle').text(documentTitle);
       $('#trackingNumber').text(trackingNumber);
 
+      // Set the document ID as a data attribute on the Confirm button
       $('#confirmReceiveBtn').data('document-id', documentId);
 
       // Show the modal
@@ -61,22 +62,25 @@ $(document).ready(function() {
   });
 
 
-    $('#confirmReceiveBtn').on('click', function() {
-        var documentId = $(this).data('document-id');
-        $.ajax({
-            url: '<?= site_url('documents/updateStatus') ?>',
-            method: 'POST',
-            data: { document_id: documentId },
-            success: function(response) {
-                $('#receiveDocumentModal').modal('hide');
-                console.log(response);
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    });
+    $("#confirmReceiveBtn").click(function(event) {
+      event.preventDefault(); // Prevent the default button behavior
+
+      let docId = $(this).data("document-id");
+      console.log("Document ID:", docId); // Log the document ID
+      $.ajax({
+          url: 'documents/update-document-status/' + docId + '/received',
+          type: 'POST',
+          success: function(response) {
+              console.log(response);
+              $("#receiveDocumentModal").modal('hide');
+              location.reload(); // Reload the page
+          },
+          error: function(xhr, status, error) {
+              console.error(xhr.responseText);
+          }
+      });
+  });
+
 });
 
 </script>

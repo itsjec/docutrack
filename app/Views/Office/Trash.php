@@ -42,6 +42,33 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <script>
+    document.getElementById('deleteDocumentBtn').addEventListener('click', function() {
+        $('#deleteConfirmationModal').modal('show');
+    });
+</script>
+<script>
+    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
+        var documentId = <?php echo $document->id; ?>; 
+        $.ajax({
+            url: 'documents/delete/' + documentId, // Update the URL to include the document ID
+            method: 'DELETE', // Use DELETE method for RESTful deletion
+            success: function(response) {
+                // Handle success response
+                $('#deleteConfirmationModal').modal('hide');
+                // Refresh the page or update the document list
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                // Handle error response
+                console.error(xhr.responseText);
+            }
+        });
+    });
+</script>
+
 
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
