@@ -21,7 +21,7 @@
               Effortlessly Track Your Documents Online!
             </h1>
             <p>Simply Enter Your Document Tracking Number Below:</p>
-            <form action="<?= route_to('searchResults') ?>" method="POST" class="narrow-w form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
+            <form action="<?= route_to('guestsearchResults') ?>" method="POST" class="narrow-w form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
             <?= csrf_field() ?>   
             <input
                 name="tracking_number" placeholder="Enter Document Tracking Number..."

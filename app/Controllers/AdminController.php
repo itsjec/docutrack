@@ -48,57 +48,62 @@ class AdminController extends BaseController
     }
     
     public function login()
-    {
-        $userModel = new UserModel();
-    
-        // Check if the form is submitted
-        if ($this->request->getMethod() === 'post') {
-            // Get the input data from the form
-            $email = $this->request->getPost('email');
-            $password = $this->request->getPost('password');
-    
-            // Find the user by email
-            $user = $userModel->where('email', $email)->first();
-    
-            // If user exists and password is correct
-            if ($user && password_verify($password, $user['password'])) {
-                // Set session data
-                $userData = [
-                    'id' => $user['user_id'],
-                    'email' => $user['email'],
-                    'isLoggedIn' => true,
-                    'role' => $user['role']
-                ];
-                
-                if ($user['role'] === 'office user') {
-                    $userData['office_id'] = $user['office_id'];
-                    $userData['user_id'] = $user['user_id'];
-                }
-    
-                session()->set($userData);
-    
-                // Redirect based on user role
-                switch ($user['role']) {
-                    case 'admin':
-                        return redirect()->to('dashboard');
-                        break;
-                    case 'office user':
-                        return redirect()->to('index');
-                        break;
-                    case 'guest':
-                    default:
-                        return redirect()->to('');
-                        break;
-                }
-            } else {
-                // Invalid credentials, show error message
-                session()->setFlashdata('error', 'Invalid email or password.');
+{
+    $userModel = new UserModel();
+
+    // Check if the form is submitted
+    if ($this->request->getMethod() === 'post') {
+        // Get the input data from the form
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+
+        // Find the user by email
+        $user = $userModel->where('email', $email)->first();
+
+        // If user exists and password is correct
+        if ($user && password_verify($password, $user['password'])) {
+            // Set session data
+            $userData = [
+                'id' => $user['user_id'],
+                'email' => $user['email'],
+                'isLoggedIn' => true,
+                'role' => $user['role']
+            ];
+
+            if ($user['role'] === 'office user') {
+                $userData['office_id'] = $user['office_id'];
+                $userData['user_id'] = $user['user_id'];
             }
+
+            if ($user['role'] === 'guest') {
+                $userData['user_id'] = $user['user_id'];
+            }
+
+            session()->set($userData);
+
+            // Redirect based on user role
+            switch ($user['role']) {
+                case 'admin':
+                    return redirect()->to('dashboard');
+                    break;
+                case 'office user':
+                    return redirect()->to('index');
+                    break;
+                case 'guest':
+                default:
+                    return redirect()->to('indexloggedin');
+                    break;
+            }
+        } else {
+            // Invalid credentials, show error message
+            session()->setFlashdata('error', 'Invalid email or password.');
         }
-    
-        // Show the login form
-        return view('LogIn');
     }
+
+    // Show the login form
+    return view('LogIn');
+}
+
     
 
 

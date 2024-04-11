@@ -29,6 +29,11 @@
     <link rel="stylesheet" href="assets2/css/aos.css" />
     <link rel="stylesheet" href="assets2/css/style.css" />
 
+    <link rel="stylesheet" href="assets2/css/Results.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   </head>
   <body>
     <div class="site-mobile-menu site-navbar-target">
@@ -40,10 +45,7 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <?php include ('include\navbar.php'); ?>
-    <?php include ('main-include\index.php'); ?>
-    
-    <?php include ('include\footer.php'); ?>
+    <?php include ('main-include\searchresults.php'); ?>
 
     <!-- Preloader -->
     <div id="overlayer"></div>

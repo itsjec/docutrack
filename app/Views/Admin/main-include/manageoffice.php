@@ -24,8 +24,8 @@
                                 <tr>
                                     <td><?= $office['office_name'] ?></td>
                                     <td>
-                                        <a href="<?= base_url('edit/' . $office['id']) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                        <a href="<?= base_url('delete/' . $office['id']) ?>" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="<?= base_url('edit/' . $office['office_id']) ?>" class="btn btn-sm btn-primary">Edit</a>
+                                        <a href="<?= base_url('delete/' . $office['office_id']) ?>" class="btn btn-sm btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

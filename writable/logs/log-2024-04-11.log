@@ -39,3 +39,153 @@ in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
  6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 12:41:53 --> include(LoggedIn\include\navbar.php): failed to open stream: No such file or directory
+in APPPATH\Views\Users\LoggedIn\Index.php on line 43.
+ 1 APPPATH\Views\Users\LoggedIn\Index.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(LoggedIn\\include\\navbar.php): failed to open stream: No such file or directory', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php', 43, [])
+ 2 APPPATH\Views\Users\LoggedIn\Index.php(43): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Users/LoggedIn/Index', [], true)
+ 6 APPPATH\Controllers\UserController.php(16): view('Users/LoggedIn/Index')
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->indexloggedin()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 12:42:37 --> include(Users\LoggedIn\include\navbar.php): failed to open stream: No such file or directory
+in APPPATH\Views\Users\LoggedIn\Index.php on line 43.
+ 1 APPPATH\Views\Users\LoggedIn\Index.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(Users\\LoggedIn\\include\\navbar.php): failed to open stream: No such file or directory', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php', 43, [])
+ 2 APPPATH\Views\Users\LoggedIn\Index.php(43): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Users/LoggedIn/Index', [], true)
+ 6 APPPATH\Controllers\UserController.php(16): view('Users/LoggedIn/Index')
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->indexloggedin()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 12:42:51 --> include(..\include\navbar.php): failed to open stream: No such file or directory
+in APPPATH\Views\Users\LoggedIn\Index.php on line 43.
+ 1 APPPATH\Views\Users\LoggedIn\Index.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(..\\include\\navbar.php): failed to open stream: No such file or directory', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php', 43, [])
+ 2 APPPATH\Views\Users\LoggedIn\Index.php(43): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Users/LoggedIn/Index', [], true)
+ 6 APPPATH\Controllers\UserController.php(16): view('Users/LoggedIn/Index')
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->indexloggedin()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 12:42:52 --> include(..\include\navbar.php): failed to open stream: No such file or directory
+in APPPATH\Views\Users\LoggedIn\Index.php on line 43.
+ 1 APPPATH\Views\Users\LoggedIn\Index.php(43): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(..\\include\\navbar.php): failed to open stream: No such file or directory', 'C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php', 43, [])
+ 2 APPPATH\Views\Users\LoggedIn\Index.php(43): include()
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Views\\Users\\LoggedIn\\Index.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Users/LoggedIn/Index', [], true)
+ 6 APPPATH\Controllers\UserController.php(16): view('Users/LoggedIn/Index')
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->indexloggedin()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 13:23:56 --> Class 'App\Controllers\DocumentModel' not found
+in APPPATH\Controllers\UserController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->searchResults()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-11 14:36:29 --> mysqli_sql_exception: Unknown column 'document_history.comment' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n        SELECT...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n        SELECT...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n        SELECT...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\UserController.php(108): CodeIgniter\Database\BaseConnection->query('\n        SELECT...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\UserController->transaction()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-11 14:36:29 --> Unknown column 'document_history.comment' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\UserController.php(108): CodeIgniter\Database\BaseConnection->query('
+        SELECT 
+            documents.document_id,
+            documents.tracking_number, 
+            documents.title, 
+            document_history.status,
+            offices.office_name as current_office,
+            document_history.comment,
+            document_history.date_deleted
+        FROM documents
+        JOIN (
+            SELECT *
+            FROM document_history dh
+            WHERE dh.date_deleted = (
+                SELECT MAX(dh2.date_deleted)
+                FROM document_history dh2
+                WHERE dh2.document_id = dh.document_id
+            )
+        ) AS document_history ON documents.document_id = document_history.document_id
+        JOIN offices ON document_history.office_id = offices.office_id
+        GROUP BY documents.document_id
+    ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->transaction()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-11 14:46:31 --> mysqli_sql_exception: Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'document_history.status' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n            SE...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n            SE...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n            SE...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\UserController.php(132): CodeIgniter\Database\BaseConnection->query('\n            SE...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\UserController->transaction()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-11 14:46:31 --> Expression #3 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'document_history.status' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\UserController.php(132): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.title, 
+                documents.tracking_number,
+                document_history.status,
+                offices.office_name as current_office
+            FROM documents
+            JOIN (
+                SELECT *
+                FROM document_history dh
+                WHERE dh.date_deleted = (
+                    SELECT MAX(dh2.date_deleted)
+                    FROM document_history dh2
+                    WHERE dh2.document_id = dh.document_id
+                )
+            ) AS document_history ON documents.document_id = document_history.document_id
+            JOIN offices ON document_history.office_id = offices.office_id
+            WHERE document_history.user_id = 8
+            GROUP BY documents.document_id
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\UserController->transaction()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 14:48:49 --> syntax error, unexpected 'public' (T_PUBLIC), expecting ';' or '{'
+in APPPATH\Controllers\UserController.php on line 105.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(285): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\app\\Controllers\\UserController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(263): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\UserController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\UserController')
+ 4 [internal function]: spl_autoload_call('App\\Controllers\\UserController')
+ 5 SYSTEMPATH\CodeIgniter.php(877): class_exists('\\App\\Controllers\\UserController', true)
+ 6 SYSTEMPATH\CodeIgniter.php(481): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')

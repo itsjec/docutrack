@@ -1,0 +1,211 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row mb-3 {
+    text-align: center;
+    max-width: 800px; 
+    margin: 50px auto; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+
+.steps {
+    border: 1px solid #e7e7e7
+}
+
+.banner{
+    width: 100%;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(../images/Mindoro.png);
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    margin: 50px auto; 
+    padding: 20px; 
+    box-sizing: border-box; 
+}
+
+.content h1{
+    font-size: 40px;
+    margin-top: 80px;
+    color: #fff;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.steps-header {
+    padding: .375rem;
+    border-bottom: 1px solid #e7e7e7
+}
+
+.steps-header .progress {
+    height: .25rem;
+}
+
+.steps-body {
+    display: table;
+    table-layout: fixed;
+    width: 100%
+}
+
+.step {
+    display: table-cell;
+    position: relative;
+    padding: 1rem .75rem;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    border-right: 1px dashed #dfdfdf;
+    color: #fff;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none
+}
+
+.step:last-child {
+    border-right: 0
+}
+
+.step-text{
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-top: 35px;
+}
+
+.step-indicator {
+    display: block;
+    position: absolute;
+    top: .75rem;
+    left: .75rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid #e7e7e7;
+    border-radius: 50%;
+    background-color: #fff;
+    font-size: .875rem;
+    line-height: 1.375rem
+}
+
+.has-indicator {
+    padding-right: 1.5rem;
+    padding-left: 2.375rem
+}
+
+.has-indicator .step-indicator {
+    top: 50%;
+    margin-top: -.75rem
+}
+
+.step-icon {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 0 auto;
+    margin-bottom: .75rem;
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    color: #fff;
+}
+
+.step:hover {
+    color: #e24fff;
+    text-decoration: none
+}
+
+.step:hover .step-indicator {
+    -webkit-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+    border-color: transparent;
+    background-color: #f4f4f4
+}
+
+.step:hover .step-icon {
+    color: #e24fff;
+}
+
+.step-active,
+.step-active:hover {
+    color: #e24fff;
+    pointer-events: none;
+    cursor: default
+}
+
+.step-active .step-indicator,
+.step-active:hover .step-indicator {
+    border-color: transparent;
+    background-color: #e24fff;
+    color: #fff
+}
+
+.step-active .step-icon,
+.step-active:hover .step-icon {
+    color: #e24fff;
+}
+
+.step-completed .step-indicator,
+.step-completed:hover .step-indicator {
+    border-color: transparent;
+    background-color: rgba(51, 203, 129, 0.12);
+    color: #33cb81;
+    line-height: 1.25rem
+}
+
+.step-completed .step-indicator .feather,
+.step-completed:hover .step-indicator .feather {
+    width: .875rem;
+    height: .875rem
+}
+
+@media (max-width: 575.98px) {
+    .steps-header {
+        display: none
+    }
+    .steps-body,
+    .step {
+        display: block
+    }
+    .step {
+        border-right: 0;
+        border-bottom: 1px dashed #e7e7e7
+    }
+    .step:last-child {
+        border-bottom: 0
+    }
+    .has-indicator {
+        padding: 1rem .75rem
+    }
+    .has-indicator .step-indicator {
+        display: inline-block;
+        position: static;
+        margin: 0;
+        margin-right: 0.75rem
+    }
+}
+
+.bg-secondary {
+    background-color: #f7f7f7 !important;
+    color: white !important;
+}
+
+.bg-secondary.p-4.text-dark.text-center {
+    color: white !important;
+}
+
+.progress-bar {
+    background-color: #e24fff !important;
+}
+
+

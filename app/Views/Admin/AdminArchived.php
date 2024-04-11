@@ -23,6 +23,7 @@
       <!-- partial:partials/_settings-panel.html -->
       <div class="container-fluid page-body-wrapper">
         <div class="theme-setting-wrapper">
+        
         <?php include ('include\setting.php'); ?>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->

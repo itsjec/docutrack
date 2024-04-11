@@ -4,11 +4,15 @@
           <div class="site-navigation">
             <a href="index.html" class="logo m-0 float-start">Property</a>
 
-            <ul
-              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
-            >
+            <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
               <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="<?= site_url('/') ?>">Log In</a></li>
+              <li><a href="<?= site_url('transactions') ?>">Transactions</a></li>
+              <li class="has-children">
+                <a href="properties.html">Profile</a>
+                <ul class="dropdown">
+                  <li><a href="<?= site_url('userindex') ?>">Log Out</a></li>
+                </ul>
+              </li>
             </ul>
             <a
               href="#"

@@ -58,6 +58,18 @@ $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1'
 
 
 $routes->get('userindex', 'UserController::index');
+$routes->post('searchResults', 'UserController::searchResults');
+$routes->get('indexloggedin', 'UserController::indexloggedin');
+$routes->post('adminsearchResults', 'UserController::searchResults', ['as' => 'adminsearchResults']);
+$routes->get('viewdetails', 'UserController::viewdetails');
+$routes->get('adminviewdetails', 'UserController::viewdetails');
+
+$routes->post('searchguestResults', 'UserController::guestsearchResults', ['as' => 'searchguestResults']);
+$routes->get('guestviewdetails', 'UserController::guestviewdetails');
+$routes->post('guestsearchResults', 'UserController::guestsearchResults');
+$routes->get('transactions', 'UserController::transaction');
+
+
 
 
 $routes->get('test-insert-document-history', 'OfficeController::testInsertDocumentHistory');
