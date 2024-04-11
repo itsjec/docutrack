@@ -596,6 +596,4 @@ public function completed()
             return $this->response->setStatusCode(500)->setJSON(['message' => 'Failed to delete document']);
         }
     }
-    
-
 }

@@ -41,10 +41,10 @@
                     <a class="nav-link" href="<?= site_url('managedocument') ?>">Manage Guest Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('document/view_transactions') ?>">View Transactions</a>
+                    <a class="nav-link" href="<?= site_url('viewtransactions') ?>">View Transactions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('document/archived_documents') ?>">Archived Documents</a>
+                    <a class="nav-link" href="<?= site_url('archived') ?>">Archived Documents</a>
                 </li>
             </ul>
         </div>

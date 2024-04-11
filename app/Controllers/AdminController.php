@@ -305,10 +305,6 @@ public function managedocument()
 }
 
 
-
-
-
-
 public function manageofficedocument()
 {
     $documentModel = new DocumentModel();
@@ -486,7 +482,6 @@ public function saveDocument()
 
         $db->transCommit();
 
-        // Redirect to the AdminTracking.php page with the tracking number as a URL parameter
         return redirect()->to(base_url('tracking?trackingNumber=' . $trackingNumber));
     } catch (\Exception $e) {
         $db->transRollback();
@@ -553,13 +548,14 @@ public function saveOfficeDocument()
 
         $db->transCommit();
 
-        // Redirect to the AdminTracking.php page with the tracking number as a URL parameter
-        return redirect()->to(base_url('Admin/AdminTracking.php?trackingNumber=' . $trackingNumber));
+        return redirect()->to(base_url('tracking?trackingNumber=' . $trackingNumber));
     } catch (\Exception $e) {
         $db->transRollback();
         return redirect()->back()->withInput()->with('errors', $e->getMessage());
     }
 }
+
+
 
 public function updateDocumentStatus($documentId, $newStatus)
 {
@@ -583,5 +579,100 @@ public function updateDocumentStatus($documentId, $newStatus)
 
     return redirect()->back();
 }
+
+public function admintransactions()
+{
+    $db = db_connect();
+
+    $query = $db->query("
+        SELECT 
+            documents.document_id,
+            documents.tracking_number, 
+            documents.title, 
+            documents.sender_id, 
+            documents.sender_office_id,
+            documents.recipient_id,
+            documents.status, 
+            document_history.user_id,
+            document_history.office_id as current_office_id,
+            document_history.status as history_status,
+            document_history.date_changed,
+            document_history.date_completed,
+            offices.office_name as recipient_office_name
+        FROM documents
+        JOIN document_history ON documents.document_id = document_history.document_id
+        LEFT JOIN offices ON documents.recipient_id = offices.office_id
+        WHERE document_history.status = 'completed'
+    ");
+
+    if (!$query) {
+        // Handle error if query fails
+        return 'Error: Unable to fetch completed documents';
+    }
+
+    $documents = $query->getResult();
+
+    $senderDetails = [];
+    foreach ($documents as $document) {
+        $sender_user_id = $document->sender_id;
+        $sender_office_id = $document->sender_office_id;
+
+        if ($sender_office_id === null) {
+            $userModel = new UserModel();
+            $user = $userModel->find($sender_user_id);
+            $sender_name = $user['first_name'] . ' ' . $user['last_name'];
+            $sender_office = '';
+        } else {
+            $officeModel = new OfficeModel();
+            $office = $officeModel->find($sender_office_id);
+            $sender_name = '';
+            $sender_office = $office['office_name'];
+        }
+
+        $senderDetails[$document->document_id] = [
+            'sender_user' => $sender_name,
+            'sender_office' => $sender_office
+        ];
+    }
+
+    $data = [
+        'documents' => $documents,
+        'senderDetails' => $senderDetails
+    ];
+
+    return view('Admin/AdminViewTransactions', $data);
+}
+
+public function archived()
+{
+    $db = db_connect();
+
+    $query = $db->query("
+        SELECT 
+            document_history.document_id,
+            documents.tracking_number, 
+            documents.title, 
+            CONCAT(users.first_name, ' ', users.last_name) AS deleted_by,
+            document_history.date_deleted
+        FROM document_history
+        JOIN documents ON documents.document_id = document_history.document_id
+        JOIN users ON users.user_id = document_history.user_id
+        WHERE document_history.status = 'deleted'
+    ");
+
+    if (!$query) {
+        // Handle error if query fails
+        return 'Error: Unable to fetch deleted documents';
+    }
+
+    $documents = $query->getResult();
+
+    $data = [
+        'documents' => $documents
+    ];
+
+    return view('Admin/AdminArchived', $data);
+}
+
 
 }

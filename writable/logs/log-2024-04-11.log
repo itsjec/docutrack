@@ -1,0 +1,41 @@
+ERROR - 2024-04-11 11:29:16 --> mysqli_sql_exception: Unknown column 'document_history.date_deleted' in 'field list' in C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\n        SELECT...', 0)
+#1 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\n        SELECT...')
+#2 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\n        SELECT...')
+#3 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\app\Controllers\AdminController.php(650): CodeIgniter\Database\BaseConnection->query('\n        SELECT...')
+#4 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->archived()
+#5 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#6 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\Jec\Downloads\laragon-6.0.0\laragon-6.0.0\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Do...')
+#9 {main}
+CRITICAL - 2024-04-11 11:29:16 --> Unknown column 'document_history.date_deleted' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\AdminController.php(650): CodeIgniter\Database\BaseConnection->query('
+        SELECT 
+            document_history.document_id,
+            documents.tracking_number, 
+            documents.title, 
+            CONCAT(users.first_name, \' \', users.last_name) AS deleted_by,
+            document_history.date_deleted
+        FROM document_history
+        JOIN documents ON documents.document_id = document_history.document_id
+        JOIN users ON users.user_id = document_history.user_id
+        WHERE document_history.status = \'deleted\'
+    ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->archived()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-11 11:29:32 --> Invalid file: "Admine/AdminArchived.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Admine/AdminArchived.php')
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render('Admine/AdminArchived', [], true)
+ 3 APPPATH\Controllers\AdminController.php(674): view('Admine/AdminArchived', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->archived()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\Jec\\Downloads\\laragon-6.0.0\\laragon-6.0.0\\www\\docutrack\\public\\index.php')

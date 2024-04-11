@@ -8,6 +8,8 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'AdminController::index');
 $routes->post('login', 'AdminController::login');
 $routes->get('dashboard', 'AdminController::admindashboard');
+$routes->get('archived', 'AdminController::archived');
+$routes->get('viewtransactions', 'AdminController::admintransactions');
 $routes->get('manageoffice', 'AdminController::adminmanageoffice');
 $routes->match(['get', 'post'], 'register', 'AdminController::register');
 $routes->post('offices/save', 'AdminController::save');
