@@ -86,27 +86,6 @@
         });
     });
 
-    $(document).ready(function(){
-        $('#addDocumentForm').submit(function(e){
-            e.preventDefault();
-            $.ajax({
-                url: $(this).attr('action'),
-                type: $(this).attr('method'),
-                data: new FormData(this),
-                processData: false,
-                contentType: false,
-                success: function(response){
-                    $('#addDocumentModal').modal('hide');
-                    $('#successModal').modal('show');
-                    $('#trackingNumber').text(response.trackingNumber);
-                },
-                error: function(){
-                    alert('An error occurred. Please try again.');
-                }
-            });
-        });
-    });
-
 
     </script>
   <!-- base:js -->
