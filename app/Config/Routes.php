@@ -23,6 +23,7 @@ $routes->post('classifications/save', 'AdminController::saveClassification', ['a
 $routes->post('sub-classifications/save', 'AdminController::saveSubClassification');
 $routes->post('documents/getSubClassifications', 'AdminController::getSubClassifications');
 $routes->get('tracking', 'AdminController::tracking');
+$routes->get('officetracking', 'AdminController::officetracking');
 $routes->post('documents/save', 'AdminController::saveDocument');
 $routes->post('documents/saveOffice', 'AdminController::saveOfficeDocument');
 $routes->get('manageofficedocument', 'AdminController::manageofficedocument');

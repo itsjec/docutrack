@@ -28,6 +28,11 @@ class AdminController extends BaseController
         return view('Admin/AdminTracking');
     }
 
+    public function officetracking()
+    {
+        return view('Admin/AdminTracking');
+    }
+
     public function admindashboard()
     {
         $db = \Config\Database::connect();
@@ -501,63 +506,43 @@ public function saveOfficeDocument()
 
     $validationRules = [
         'title' => 'required',
-        'description' => 'required',
+        'sender_office_id' => 'required',
+        'recipient_office_id' => 'required',
         'classification' => 'required',
         'sub_classification' => 'required',
-        'action' => 'required',
-        'sender_office_id' => 'required',
-        'recipient_office_id' => 'required'
+        'date_of_document' => 'required',
+        'attachment' => 'uploaded[attachment]|mime_in[attachment,application/pdf]',
     ];
 
     if (!$this->validate($validationRules)) {
         return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
     }
 
-    $file = $this->request->getFile('attachment');
-    if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
-        return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
-    }
+    $attachment = $this->request->getFile('attachment');
+    $attachmentName = $attachment->getRandomName();
+    $attachment->move(ROOTPATH . 'public/uploads', $attachmentName);
 
-    $newName = $file->getRandomName();
-    $file->move(ROOTPATH . '/uploads', $newName);
+    $trackingNumber = 'TR-' . uniqid();
 
-    $db = \Config\Database::connect();
+    $documentModel = new \App\Models\DocumentModel();
+    $documentModel->insert([
+        'tracking_number' => $trackingNumber,
+        'sender_id' => NULL,
+        'title' => $this->request->getPost('title'),
+        'sender_office_id' => $this->request->getPost('sender_office_id'),
+        'recipient_id' => $this->request->getPost('recipient_office_id'),
+        'status' => 'pending',
+        'classification' => $this->request->getPost('classification'),
+        'sub_classification' => $this->request->getPost('sub_classification'),
+        'date_of_document' => date('Y-m-d'),
+        'attachment' => $attachmentName,
+        'action' => $this->request->getPost('action'),
+        'description' => $this->request->getPost('description'),
+        'classification_id' => NULL,
+        'date_completed' => NULL
+    ]);
 
-    $classification = $this->request->getVar('classification');
-    $subClassification = $this->request->getVar('sub_classification');
-
-    try {
-        $db->transBegin();
-
-        $trackingNumber = 'TR-' . uniqid();
-
-        $data = [
-            'tracking_number' => $trackingNumber,
-            'sender_id' => NULL,
-            'sender_office_id' => $this->request->getVar('sender_office_id'),
-            'recipient_id' => $this->request->getVar('recipient_office_id'),
-            'status' => 'pending',
-            'title' => $this->request->getVar('title'),
-            'description' => $this->request->getVar('description'),
-            'action' => $this->request->getVar('action'),
-            'date_of_document' => date('Y-m-d'),
-            'attachment' => $newName,
-            'classification_id' => NULL,
-            'classification' => $classification,
-            'sub_classification' => $subClassification,
-            'date_completed' => NULL
-        ];
-
-        $builder = $db->table('documents');
-        $builder->insert($data);
-
-        $db->transCommit();
-
-        return redirect()->to(base_url('tracking?trackingNumber=' . $trackingNumber));
-    } catch (\Exception $e) {
-        $db->transRollback();
-        return redirect()->back()->withInput()->with('errors', $e->getMessage());
-    }
+    return redirect()->to(base_url('officetracking?trackingNumber=' . $trackingNumber));
 }
 
 

@@ -15,7 +15,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Manage Users</h4>
+                        <h4 class="card-title">Manage Office Users</h4>
                         <p class="card-description">Track and update users.</p>
                     </div>
                     <div class="col-4 text-right">
@@ -40,15 +40,11 @@
                                 <td><?= $user['first_name'] ?></td>
                                 <td><?= $user['last_name'] ?></td>
                                 <td><?= $user['role'] ?></td>
-                                <td><img src="<?= $user['image'] ?>" alt="User Image" width="50"></td>
+                                <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
-                                    <a href="<?= base_url('edit/' . $user['id']) ?>" class="btn btn-sm btn-primary">
-                                        <span class="mdi mdi-pencil"></span> Edit
-                                    </a>
-                                    <a href="<?= base_url('delete/' . $user['id']) ?>" class="btn btn-sm btn-danger">
-                                        <span class="mdi mdi-delete"></span> Delete
-                                    </a>
+                                    <a href="<?= base_url('edit/' . $user['user_id']) ?>" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-sm btn-danger">Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
