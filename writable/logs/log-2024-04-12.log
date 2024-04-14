@@ -1,0 +1,128 @@
+ERROR - 2024-04-12 23:27:57 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'on process'' at line 11 in C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\r\n        SELEC...', 0)
+#1 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\r\n        SELEC...')
+#2 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\r\n        SELEC...')
+#3 C:\Users\HP-USER\Documents\GitHub\docutrack\app\Controllers\OfficeController.php(128): CodeIgniter\Database\BaseConnection->query('\r\n        SELEC...')
+#4 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->ongoing()
+#5 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\HP-USER\Documents\GitHub\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USE...')
+#9 {main}
+CRITICAL - 2024-04-12 23:27:57 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'on process'' at line 11
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(128): CodeIgniter\Database\BaseConnection->query('
+        SELECT 
+            documents.title, 
+            documents.tracking_number, 
+            documents.sender_id, 
+            documents.sender_office_id, 
+            documents.status, 
+            documents.action, 
+            documents.document_id
+        FROM documents
+        WHERE documents.recipient_id = 
+        AND documents.status = \'on process\'
+    ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->ongoing()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USER\\Documents\\GitHub\\docutrack\\public\\index.php')
+ERROR - 2024-04-12 23:28:02 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'received'' at line 11 in C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\r\n        SELEC...', 0)
+#1 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\r\n        SELEC...')
+#2 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\r\n        SELEC...')
+#3 C:\Users\HP-USER\Documents\GitHub\docutrack\app\Controllers\OfficeController.php(181): CodeIgniter\Database\BaseConnection->query('\r\n        SELEC...')
+#4 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->received()
+#5 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\HP-USER\Documents\GitHub\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USE...')
+#9 {main}
+CRITICAL - 2024-04-12 23:28:02 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'received'' at line 11
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(181): CodeIgniter\Database\BaseConnection->query('
+        SELECT 
+            documents.title, 
+            documents.tracking_number, 
+            documents.sender_id, 
+            documents.sender_office_id, 
+            documents.status, 
+            documents.action, 
+            documents.document_id
+        FROM documents
+        WHERE documents.recipient_id = 
+        AND documents.status = \'received\'
+    ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->received()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USER\\Documents\\GitHub\\docutrack\\public\\index.php')
+ERROR - 2024-04-12 23:28:03 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'pending'' at line 11 in C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\r\n            S...', 0)
+#1 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\r\n            S...')
+#2 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\r\n            S...')
+#3 C:\Users\HP-USER\Documents\GitHub\docutrack\app\Controllers\OfficeController.php(81): CodeIgniter\Database\BaseConnection->query('\r\n            S...')
+#4 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->pending()
+#5 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\HP-USER\Documents\GitHub\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USE...')
+#9 {main}
+CRITICAL - 2024-04-12 23:28:03 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'pending'' at line 11
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(81): CodeIgniter\Database\BaseConnection->query('
+            SELECT 
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_id, 
+                documents.sender_office_id, 
+                documents.status, 
+                documents.action, 
+                documents.document_id
+            FROM documents
+            WHERE documents.recipient_id = 
+            AND documents.status = \'pending\'
+        ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->pending()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USER\\Documents\\GitHub\\docutrack\\public\\index.php')
+ERROR - 2024-04-12 23:28:14 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'received'' at line 11 in C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query('\r\n        SELEC...', 0)
+#1 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute('\r\n        SELEC...')
+#2 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery('\r\n        SELEC...')
+#3 C:\Users\HP-USER\Documents\GitHub\docutrack\app\Controllers\OfficeController.php(181): CodeIgniter\Database\BaseConnection->query('\r\n        SELEC...')
+#4 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(919): App\Controllers\OfficeController->received()
+#5 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+#6 C:\Users\HP-USER\Documents\GitHub\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 C:\Users\HP-USER\Documents\GitHub\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#8 C:\Users\HP-USER\Documents\GitHub\docutrack\system\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USE...')
+#9 {main}
+CRITICAL - 2024-04-12 23:28:14 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND documents.status = 'received'' at line 11
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 APPPATH\Controllers\OfficeController.php(181): CodeIgniter\Database\BaseConnection->query('
+        SELECT 
+            documents.title, 
+            documents.tracking_number, 
+            documents.sender_id, 
+            documents.sender_office_id, 
+            documents.status, 
+            documents.action, 
+            documents.document_id
+        FROM documents
+        WHERE documents.recipient_id = 
+        AND documents.status = \'received\'
+    ')
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->received()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\OfficeController))
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\HP-USER\\Documents\\GitHub\\docutrack\\public\\index.php')
