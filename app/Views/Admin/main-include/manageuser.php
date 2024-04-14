@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <!-- Material Design Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+</head>
+<body>
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -32,8 +43,12 @@
                                 <td><img src="<?= $user['image'] ?>" alt="User Image" width="50"></td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
-                                    <a href="<?= base_url('edit/' . $user['id']) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="<?= base_url('delete/' . $user['id']) ?>" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="<?= base_url('edit/' . $user['id']) ?>" class="btn btn-sm btn-primary">
+                                        <span class="mdi mdi-pencil"></span> Edit
+                                    </a>
+                                    <a href="<?= base_url('delete/' . $user['id']) ?>" class="btn btn-sm btn-danger">
+                                        <span class="mdi mdi-delete"></span> Delete
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -45,8 +60,6 @@
     </div>
 </div>
 
-
-
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -57,48 +70,52 @@
                 </button>
             </div>
             <div class="modal-body">
-    <form id="addUserForm" action="<?= site_url('users/save') ?>" method="post">
-        <div class="form-group">
-            <label for="officeId">Office</label>
-            <select class="form-control" id="officeId" name="officeId">
-                <?php foreach ($offices as $office): ?>
-                    <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col">
-                    <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
-                </div>
-                <div class="col">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
-                </div>
-                <div class="col">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
-                    <meter max="4" id="password-strength-meter"></meter>
-                </div>
-            </div>
-        </div>
+                <form id="addUserForm" action="<?= site_url('users/save') ?>" method="post">
+                    <div class="form-group">
+                        <label for="officeId">Office</label>
+                        <select class="form-control" id="officeId" name="officeId">
+                            <?php foreach ($offices as $office): ?>
+                                <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+                            </div>
+                            <div class="col">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                            </div>
+                            <div class="col">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+                                <meter max="4" id="password-strength-meter"></meter>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </form>
+    </div>
 </div>
 
+<!-- JavaScript for password strength meter -->
 <script>
     document.getElementById('password').addEventListener('input', function () {
         var password = document.getElementById('password').value;
@@ -125,3 +142,6 @@
         }
     });
 </script>
+
+</body>
+</html>

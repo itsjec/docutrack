@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deleted Documents</title>
+    <!-- Material Design Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+</head>
+<body>
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -27,7 +38,9 @@
                                     <td><?= $document->deleted_by ?></td>
                                     <td><?= $document->date_deleted ?></td>
                                     <td>
-                                    <a href="#" class="btn btn-sm btn-danger" id="deleteDocumentBtn">Delete</a>
+                                        <a href="#" class="btn btn-sm btn-danger" id="deleteDocumentBtn">
+                                            <i class="mdi mdi-delete"></i> Delete
+                                        </a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -59,3 +72,9 @@
     </div>
   </div>
 </div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+</body>
+</html>

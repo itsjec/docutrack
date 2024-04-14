@@ -1,11 +1,21 @@
-<!-- Manage Documents Table -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Office Documents</title>
+    <!-- Material Design Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+</head>
+<body>
+
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Manage Guest Documents</h4>
+                        <h4 class="card-title">Manage Office Documents</h4>
                         <p class="card-description">Track and update documents.</p>
                     </div>
                     <div class="col-4 text-right">
@@ -31,15 +41,21 @@
                             <tr>
                                 <td><?= $document['title'] ?></td>
                                 <td><?= $document['tracking_number'] ?></td>
-                                <td><?= $document['sender_id'] ?></td>
+                                <td><?= $document['sender_office_id'] ?></td>
                                 <td><?= $document['recipient_id'] ?></td>
                                 <td><?= $document['status'] ?></td>
                                 <td><?= $document['date_of_document'] ?></td>
                                 <td><?= $document['action'] ?></td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="#" class="btn btn-sm btn-info">View</a>
-                                    <a href="#" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="#" class="btn btn-sm btn-primary">
+                                        <i class="mdi mdi-pencil"></i> Edit
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-info">
+                                        <i class="mdi mdi-eye"></i> View
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-danger">
+                                        <i class="mdi mdi-delete"></i> Delete
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -81,7 +97,7 @@
 
                 <!-- Your form here -->
 
-                <form id="addDocumentForm" action="<?= site_url('documents/save') ?>" method="post" enctype="multipart/form-data">
+                <form id="addDocumentForm" action="<?= site_url('documents/saveOffice') ?>" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="title">Title</label>
@@ -91,11 +107,13 @@
                             <label for="sender_office_id">Sender</label>
                             <select class="form-control" id="sender_office_id" name="sender_office_id" required>
                                 <option value="" disabled selected>Select Sender</option>
-                                <?php foreach ($guestUsers as $user): ?>
-                                    <option value="<?= $user['user_id'] ?>"><?= $user['first_name'] ?> <?= $user['last_name'] ?></option>
+                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
                                 <?php endforeach; ?>
                             </select>
+
                         </div>
+
                         <div class="form-group col-md-4">
                             <label for="recipient_office_id">Recipient</label>
                             <select class="form-control" id="recipient_office_id" name="recipient_office_id" required>
@@ -154,8 +172,9 @@
     </div>
 </div>
 
-
+<!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <!-- Display validation errors -->
 <?php if (session('validationErrors')) : ?>
     <div class="alert alert-danger">
@@ -177,50 +196,5 @@
     <div class="alert alert-success"><?= session('success') ?></div>
 <?php endif; ?>
 
-
-<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="successModalLabel">Success!</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Document added successfully. 
-                <h1><span id="trackingNumber"></span></h1>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="copyButton">Copy</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script>
-        $(document).ready(function() {
-        // Function to display the modal and update the tracking number
-        function displaySuccessModal(trackingNumber) {
-            $('#trackingNumber').text(trackingNumber);
-            $('#successModal').modal('show');
-        }
-    });
-
-    <!-- Display success message -->
-<?php if (session('success')) : ?>
-    <div class="alert alert-success"><?= session('success') ?></div>
-    <!-- Trigger the success modal -->
-    <script>
-        $(document).ready(function(){
-            $('#successModal').modal('show');
-            $('#trackingNumber').text('<?= session('trackingNumber') ?>');
-        });
-    </script>
-<?php endif; ?>
-
-</script>
+</body>
+</html>
