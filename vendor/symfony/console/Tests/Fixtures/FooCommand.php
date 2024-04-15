@@ -6,10 +6,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FooCommand extends Command
 {
-    public InputInterface $input;
-    public OutputInterface $output;
+    public $input;
+    public $output;
 
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('foo:bar')
@@ -18,7 +18,7 @@ class FooCommand extends Command
         ;
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output): void
+    protected function interact(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('interact called');
     }

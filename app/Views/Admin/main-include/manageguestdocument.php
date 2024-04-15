@@ -9,65 +9,66 @@
 </head>
 <body>
 
-<div class="row">
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-8">
-                        <h4 class="card-title">Manage Office Documents</h4>
-                        <p class="card-description">Track and update documents.</p>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h4 class="card-title">Manage Office Documents</h4>
+                            <p class="card-description">Track and update documents.</p>
+                        </div>
+                        <div class="col-4 text-right">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#addDocumentModal">Add Document</button>
+                        </div>
                     </div>
-                    <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addDocumentModal">Add Document</button>
-                    </div>
-                </div>
-                <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Tracking Number</th>
-                            <th>Sender</th>
-                            <th>Recipient</th>
-                            <th>Status</th>
-                            <th>Date of Document</th>
-                            <th>Comment</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($documents as $document): ?>
+                    <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
                             <tr>
-                                <td><?= $document['title'] ?></td>
-                                <td><?= $document['tracking_number'] ?></td>
-                                <td><?= $document['sender_office_id'] ?></td>
-                                <td><?= $document['recipient_id'] ?></td>
-                                <td><?= $document['status'] ?></td>
-                                <td><?= $document['date_of_document'] ?></td>
-                                <td><?= $document['action'] ?></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-primary">
-                                        <i class="mdi mdi-pencil"></i> Edit
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-info">
-                                        <i class="mdi mdi-eye"></i> View
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-danger">
-                                        <i class="mdi mdi-delete"></i> Delete
-                                    </a>
-                                </td>
+                                <th>Title</th>
+                                <th>Tracking Number</th>
+                                <th>Sender</th>
+                                <th>Recipient</th>
+                                <th>Status</th>
+                                <th>Date of Document</th>
+                                <th>Comment</th>
+                                <th>Action</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($documents as $document): ?>
+                                <tr>
+                                    <td><?= $document['title'] ?></td>
+                                    <td><?= $document['tracking_number'] ?></td>
+                                    <td><?= $document['sender_office_id'] ?></td>
+                                    <td><?= $document['recipient_id'] ?></td>
+                                    <td><?= $document['status'] ?></td>
+                                    <td><?= $document['date_of_document'] ?></td>
+                                    <td><?= $document['action'] ?></td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-primary">
+                                            <i class="mdi mdi-pencil"></i> Edit
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-info">
+                                            <i class="mdi mdi-eye"></i> View
+                                        </a>
+                                        <a href="#" class="btn btn-sm btn-danger">
+                                            <i class="mdi mdi-delete"></i> Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- Add Document Modal -->
 <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

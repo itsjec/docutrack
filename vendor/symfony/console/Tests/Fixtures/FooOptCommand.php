@@ -10,7 +10,7 @@ class FooOptCommand extends Command
     public $input;
     public $output;
 
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('foo:bar')
@@ -20,7 +20,7 @@ class FooOptCommand extends Command
         ;
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output): void
+    protected function interact(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('interact called');
     }

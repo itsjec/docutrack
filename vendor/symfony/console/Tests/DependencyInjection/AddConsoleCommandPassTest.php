@@ -12,7 +12,6 @@
 namespace Symfony\Component\Console\Tests\DependencyInjection;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Command\LazyCommand;
 use Symfony\Component\Console\CommandLoader\ContainerCommandLoader;
@@ -64,6 +63,7 @@ class AddConsoleCommandPassTest extends TestCase
         $container = new ContainerBuilder();
         $command = $container
             ->register('my-command', MyCommand::class)
+            ->setPublic(false)
             ->addTag('console.command', ['command' => 'my:command'])
             ->addTag('console.command', ['command' => 'my:alias'])
         ;
@@ -85,6 +85,7 @@ class AddConsoleCommandPassTest extends TestCase
         $container = new ContainerBuilder();
         $container
             ->register('with-default-name', NamedCommand::class)
+            ->setPublic(false)
             ->addTag('console.command')
         ;
 
@@ -102,6 +103,7 @@ class AddConsoleCommandPassTest extends TestCase
         $container = new ContainerBuilder();
         $container
             ->register('with-default-name', NamedCommand::class)
+            ->setPublic(false)
             ->addTag('console.command', ['command' => 'new-name'])
         ;
 
@@ -180,6 +182,8 @@ class AddConsoleCommandPassTest extends TestCase
 
     public function testProcessThrowAnExceptionIfTheServiceIsAbstract()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The service "my-command" tagged "console.command" must not be abstract.');
         $container = new ContainerBuilder();
         $container->setResourceTracking(false);
         $container->addCompilerPass(new AddConsoleCommandPass(), PassConfig::TYPE_BEFORE_REMOVING);
@@ -189,14 +193,13 @@ class AddConsoleCommandPassTest extends TestCase
         $definition->setAbstract(true);
         $container->setDefinition('my-command', $definition);
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The service "my-command" tagged "console.command" must not be abstract.');
-
         $container->compile();
     }
 
     public function testProcessThrowAnExceptionIfTheServiceIsNotASubclassOfCommand()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The service "my-command" tagged "console.command" must be a subclass of "Symfony\Component\Console\Command\Command".');
         $container = new ContainerBuilder();
         $container->setResourceTracking(false);
         $container->addCompilerPass(new AddConsoleCommandPass(), PassConfig::TYPE_BEFORE_REMOVING);
@@ -204,9 +207,6 @@ class AddConsoleCommandPassTest extends TestCase
         $definition = new Definition('SplObjectStorage');
         $definition->addTag('console.command');
         $container->setDefinition('my-command', $definition);
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The service "my-command" tagged "console.command" must be a subclass of "Symfony\Component\Console\Command\Command".');
 
         $container->compile();
     }
@@ -217,10 +217,10 @@ class AddConsoleCommandPassTest extends TestCase
         $className = 'Symfony\Component\Console\Tests\DependencyInjection\MyCommand';
 
         $definition1 = new Definition($className);
-        $definition1->addTag('console.command');
+        $definition1->addTag('console.command')->setPublic(false);
 
         $definition2 = new Definition($className);
-        $definition2->addTag('console.command');
+        $definition2->addTag('console.command')->setPublic(false);
 
         $container->setDefinition('my-command1', $definition1);
         $container->setDefinition('my-command2', $definition2);
@@ -242,7 +242,7 @@ class AddConsoleCommandPassTest extends TestCase
         $childId = 'my-child-command';
 
         $parentDefinition = new Definition(/* no class */);
-        $parentDefinition->setAbstract(true);
+        $parentDefinition->setAbstract(true)->setPublic(false);
 
         $childDefinition = new ChildDefinition($parentId);
         $childDefinition->addTag('console.command')->setPublic(true);
@@ -267,7 +267,7 @@ class AddConsoleCommandPassTest extends TestCase
         $childId = 'my-child-command';
 
         $parentDefinition = new Definition($className);
-        $parentDefinition->setAbstract(true);
+        $parentDefinition->setAbstract(true)->setPublic(false);
 
         $childDefinition = new ChildDefinition($parentId);
         $childDefinition->addTag('console.command')->setPublic(true);
@@ -283,6 +283,8 @@ class AddConsoleCommandPassTest extends TestCase
 
     public function testProcessOnChildDefinitionWithoutClass()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('The definition for "my-child-command" has no class.');
         $container = new ContainerBuilder();
         $container->addCompilerPass(new AddConsoleCommandPass(), PassConfig::TYPE_BEFORE_REMOVING);
 
@@ -290,16 +292,13 @@ class AddConsoleCommandPassTest extends TestCase
         $childId = 'my-child-command';
 
         $parentDefinition = new Definition();
-        $parentDefinition->setAbstract(true);
+        $parentDefinition->setAbstract(true)->setPublic(false);
 
         $childDefinition = new ChildDefinition($parentId);
         $childDefinition->addTag('console.command')->setPublic(true);
 
         $container->setDefinition($parentId, $parentDefinition);
         $container->setDefinition($childId, $childDefinition);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The definition for "my-child-command" has no class.');
 
         $container->compile();
     }
@@ -309,20 +308,23 @@ class MyCommand extends Command
 {
 }
 
-#[AsCommand(name: 'default')]
 class NamedCommand extends Command
 {
+    protected static $defaultName = 'default';
 }
 
-#[AsCommand(name: '%cmd%|%cmdalias%', description: 'Creates a 80% discount')]
 class EscapedDefaultsFromPhpCommand extends Command
 {
+    protected static $defaultName = '%cmd%|%cmdalias%';
+    protected static $defaultDescription = 'Creates a 80% discount';
 }
 
-#[AsCommand(name: '|cmdname|cmdalias', description: 'Just testing')]
 class DescribedCommand extends Command
 {
-    public static int $initCounter = 0;
+    public static $initCounter = 0;
+
+    protected static $defaultName = '|cmdname|cmdalias';
+    protected static $defaultDescription = 'Just testing';
 
     public function __construct()
     {

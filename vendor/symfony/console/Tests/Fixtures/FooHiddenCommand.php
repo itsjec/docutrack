@@ -6,12 +6,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FooHiddenCommand extends Command
 {
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('foo:hidden')
             ->setAliases(['afoohidden'])
-            ->setHidden()
+            ->setHidden(true)
         ;
     }
 

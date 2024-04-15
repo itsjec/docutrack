@@ -36,12 +36,66 @@ class AdminController extends BaseController
     public function admindashboard()
     {
         $db = \Config\Database::connect();
-
+    
+        // Query to get the total number of documents
+        $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
+        $totalDocuments = $totalQuery->getRow()->total;
+    
+        // Query to get the total number of documents with each status
+        $statusQuery = $db->query("SELECT status, COUNT(*) AS total FROM documents GROUP BY status");
+        $statuses = $statusQuery->getResult();
+    
+        // Prepare data for Chart.js for statuses
+        $statusLabels = [];
+        $statusCounts = [];
+        foreach ($statuses as $status) {
+            $statusLabels[] = $status->status;
+            $statusCounts[] = $status->total;
+        }
+    
+        // Query to get the number of documents per office
+        $officeQuery = $db->query("SELECT o.office_name, COUNT(d.document_id) AS total FROM documents d
+                                    JOIN offices o ON d.recipient_id = o.office_id
+                                    GROUP BY d.recipient_id");
+        $offices = $officeQuery->getResult();
+    
+        // Prepare data for Chart.js for offices
+        $officeLabels = [];
+        $officeCounts = [];
+        foreach ($offices as $office) {
+            $officeLabels[] = $office->office_name;
+            $officeCounts[] = $office->total;
+        }
+    
+        // Query to get the number of users with each role
+        $userQuery = $db->query("SELECT role, COUNT(*) AS total FROM users GROUP BY role");
+        $roles = $userQuery->getResult();
+    
+        // Prepare data for Chart.js for users
+        $userLabels = [];
+        $userCounts = [];
+        foreach ($roles as $role) {
+            $userLabels[] = $role->role;
+            $userCounts[] = $role->total;
+        }
+    
+        // Load the existing data for the dashboard
         $query = $db->query("SELECT * FROM documents");
         $data['documents'] = $query->getResult();
-
+    
+        // Pass data to the view
+        $data['statusLabels'] = json_encode($statusLabels);
+        $data['statusCounts'] = json_encode($statusCounts);
+        $data['officeLabels'] = json_encode($officeLabels);
+        $data['officeCounts'] = json_encode($officeCounts);
+        $data['userLabels'] = json_encode($userLabels);
+        $data['userCounts'] = json_encode($userCounts);
+        $data['totalDocuments'] = $totalDocuments;
+    
+        // Load the dashboard view with the charts
         return view('Admin/AdminDashboard', $data);
     }
+    
     
 
     public function adminmanageoffice()
@@ -664,5 +718,26 @@ public function archived()
     return view('Admin/AdminArchived', $data);
 }
 
+    public function documentStatusChart(){
+        $db = db_connect();
+            $builder = $db->table('documents');
+            $builder->select('status, COUNT(*) as count');
+            $builder->groupBy('status');
+            $query = $builder->get();
 
+            $statusData = $query->getResultArray();
+
+            $labels = [];
+            $data = [];
+
+            foreach ($statusData as $row) {
+                $labels[] = $row['status'];
+                $data[] = $row['count'];
+            }
+
+            return view('dashboard', [
+                'labels' => json_encode($labels),
+                'data' => json_encode($data)
+            ]);
+        }
 }

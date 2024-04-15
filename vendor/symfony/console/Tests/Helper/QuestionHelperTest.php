@@ -286,7 +286,9 @@ class QuestionHelperTest extends AbstractQuestionHelperTestCase
             $suggestionBase = $inputWords ? implode(' ', $inputWords).' ' : '';
 
             return array_map(
-                fn ($word) => $suggestionBase.$word.' ',
+                function ($word) use ($suggestionBase) {
+                    return $suggestionBase.$word.' ';
+                },
                 $knownWords
             );
         };
@@ -677,6 +679,8 @@ EOD;
 
     public function testAmbiguousChoiceFromChoicelist()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('The provided answer is ambiguous. Value should be one of "env_2" or "env_3".');
         $possibleChoices = [
             'env_1' => 'My first environment',
             'env_2' => 'My environment',
@@ -690,13 +694,10 @@ EOD;
         $question = new ChoiceQuestion('Please select the environment to load', $possibleChoices);
         $question->setMaxAttempts(1);
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('The provided answer is ambiguous. Value should be one of "env_2" or "env_3".');
-
         $dialog->ask($this->createStreamableInputInterfaceMock($this->getInputStream("My environment\n")), $this->createOutputInterface(), $question);
     }
 
-    public static function answerProvider(): array
+    public static function answerProvider()
     {
         return [
             ['env_1', 'env_1'],
@@ -713,6 +714,9 @@ EOD;
         $this->assertEquals('not yet', $dialog->ask($this->createStreamableInputInterfaceMock(null, false), $this->createOutputInterface(), $question));
     }
 
+    /**
+     * @requires function mb_strwidth
+     */
     public function testChoiceOutputFormattingQuestionForUtf8Keys()
     {
         $question = 'Lorem ipsum?';
@@ -744,18 +748,22 @@ EOD;
     {
         $this->expectException(MissingInputException::class);
         $this->expectExceptionMessage('Aborted.');
-        (new QuestionHelper())->ask($this->createStreamableInputInterfaceMock($this->getInputStream('')), $this->createOutputInterface(), new Question('What\'s your name?'));
+        $dialog = new QuestionHelper();
+        $dialog->ask($this->createStreamableInputInterfaceMock($this->getInputStream('')), $this->createOutputInterface(), new Question('What\'s your name?'));
     }
 
     public function testAskThrowsExceptionOnMissingInputForChoiceQuestion()
     {
         $this->expectException(MissingInputException::class);
         $this->expectExceptionMessage('Aborted.');
-        (new QuestionHelper())->ask($this->createStreamableInputInterfaceMock($this->getInputStream('')), $this->createOutputInterface(), new ChoiceQuestion('Choice', ['a', 'b']));
+        $dialog = new QuestionHelper();
+        $dialog->ask($this->createStreamableInputInterfaceMock($this->getInputStream('')), $this->createOutputInterface(), new ChoiceQuestion('Choice', ['a', 'b']));
     }
 
     public function testAskThrowsExceptionOnMissingInputWithValidator()
     {
+        $this->expectException(MissingInputException::class);
+        $this->expectExceptionMessage('Aborted.');
         $dialog = new QuestionHelper();
 
         $question = new Question('What\'s your name?');
@@ -764,9 +772,6 @@ EOD;
                 throw new \Exception('A value is required.');
             }
         });
-
-        $this->expectException(MissingInputException::class);
-        $this->expectExceptionMessage('Aborted.');
 
         $dialog->ask($this->createStreamableInputInterfaceMock($this->getInputStream('')), $this->createOutputInterface(), $question);
     }
@@ -867,6 +872,7 @@ EOD;
             $dialog->ask($this->createStreamableInputInterfaceMock($inputStream), $this->createOutputInterface(), $question);
         } finally {
             $reflection = new \ReflectionProperty(QuestionHelper::class, 'stty');
+            $reflection->setAccessible(true);
             $reflection->setValue(null, true);
         }
     }
@@ -952,7 +958,7 @@ EOD;
 
 class AutocompleteValues implements \IteratorAggregate
 {
-    private array $values;
+    private $values;
 
     public function __construct(array $values)
     {

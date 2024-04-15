@@ -14,7 +14,6 @@ namespace Symfony\Component\Console\Tests\Completion\Output;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Completion\CompletionSuggestions;
 use Symfony\Component\Console\Completion\Output\CompletionOutputInterface;
-use Symfony\Component\Console\Completion\Suggestion;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\StreamOutput;
 
@@ -29,8 +28,8 @@ abstract class CompletionOutputTestCase extends TestCase
     public function testOptionsOutput()
     {
         $options = [
-            new InputOption('option1', 'o', InputOption::VALUE_NONE, 'First Option'),
-            new InputOption('negatable', null, InputOption::VALUE_NEGATABLE, 'Can be negative'),
+            new InputOption('option1', 'o', InputOption::VALUE_NONE),
+            new InputOption('negatable', null, InputOption::VALUE_NEGATABLE),
         ];
         $suggestions = new CompletionSuggestions();
         $suggestions->suggestOptions($options);
@@ -43,11 +42,7 @@ abstract class CompletionOutputTestCase extends TestCase
     public function testValuesOutput()
     {
         $suggestions = new CompletionSuggestions();
-        $suggestions->suggestValues([
-            new Suggestion('Green', 'Beans are green'),
-            new Suggestion('Red', 'Rose are red'),
-            new Suggestion('Yellow', 'Canaries are yellow'),
-        ]);
+        $suggestions->suggestValues(['Green', 'Red', 'Yellow']);
         $stream = fopen('php://memory', 'rw+');
         $this->getCompletionOutput()->write($suggestions, new StreamOutput($stream));
         fseek($stream, 0);

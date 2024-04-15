@@ -1,6 +1,8 @@
 <?php
 
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\SignalableCommandInterface;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
@@ -18,9 +20,9 @@ require $vendor.'/vendor/autoload.php';
         return [SIGINT];
     }
 
-    public function handleSignal(int $signal, int|false $previousExitCode = 0): int|false
+    public function handleSignal(int $signal): void
     {
-        exit(0);
+        exit;
     }
 })
     ->setCode(function(InputInterface $input, OutputInterface $output) {

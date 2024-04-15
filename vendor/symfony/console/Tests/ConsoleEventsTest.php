@@ -13,7 +13,6 @@ namespace Symfony\Component\Console\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -30,20 +29,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class ConsoleEventsTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        if (\function_exists('pcntl_signal')) {
-            pcntl_async_signals(false);
-            // We reset all signals to their default value to avoid side effects
-            for ($i = 1; $i <= 15; ++$i) {
-                if (9 === $i) {
-                    continue;
-                }
-                pcntl_signal($i, \SIG_DFL);
-            }
-        }
-    }
-
     public function testEventAliases()
     {
         $container = new ContainerBuilder();
@@ -73,7 +58,7 @@ class ConsoleEventsTest extends TestCase
 
 class EventTraceSubscriber implements EventSubscriberInterface
 {
-    public array $observedEvents = [];
+    public $observedEvents = [];
 
     public static function getSubscribedEvents(): array
     {
@@ -90,9 +75,10 @@ class EventTraceSubscriber implements EventSubscriberInterface
     }
 }
 
-#[AsCommand(name: 'fail')]
 class FailingCommand extends Command
 {
+    protected static $defaultName = 'fail';
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         throw new \RuntimeException('I failed. Sorry.');

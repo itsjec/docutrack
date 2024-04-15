@@ -18,11 +18,17 @@
  */
 function handleSignal($signal)
 {
-    $name = match ($signal) {
-        \SIGTERM => 'SIGTERM',
-        \SIGINT => 'SIGINT',
-        default => $signal.' (unknown)',
-    };
+    switch ($signal) {
+        case \SIGTERM:
+            $name = 'SIGTERM';
+            break;
+        case \SIGINT:
+            $name = 'SIGINT';
+            break;
+        default:
+            $name = $signal.' (unknown)';
+            break;
+    }
 
     echo "signal $name\n";
 }

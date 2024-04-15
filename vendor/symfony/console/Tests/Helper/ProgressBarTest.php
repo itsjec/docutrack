@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\StreamOutput;
  */
 class ProgressBarTest extends TestCase
 {
-    private string|false $colSize;
+    private $colSize;
 
     protected function setUp(): void
     {
@@ -63,69 +63,6 @@ class ProgressBarTest extends TestCase
             '    0 [>---------------------------]'.
             $this->generateOutput('    1 [->--------------------------]'),
             stream_get_contents($output->getStream())
-        );
-    }
-
-    public function testResumeNoMax()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 0, 0);
-        $bar->start(null, 15);
-        $bar->advance();
-
-        rewind($output->getStream());
-
-        $this->assertEquals(
-            '   15 [--------------->------------]'.
-            $this->generateOutput('   16 [---------------->-----------]'),
-            stream_get_contents($output->getStream())
-        );
-    }
-
-    public function testResumeWithMax()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 5000, 0);
-        $bar->start(null, 1000);
-
-        rewind($output->getStream());
-
-        $this->assertEquals(
-            ' 1000/5000 [=====>----------------------]  20%',
-            stream_get_contents($output->getStream())
-        );
-    }
-
-    public function testRegularTimeEstimation()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 1_200, 0);
-        $bar->start();
-
-        $bar->advance();
-        $bar->advance();
-
-        sleep(1);
-
-        $this->assertEquals(
-            600.0,
-            $bar->getEstimated()
-        );
-    }
-
-    public function testResumedTimeEstimation()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 1_200, 0);
-        $bar->start(null, 599);
-        $bar->advance();
-
-        sleep(1);
-
-        $this->assertEquals(
-            1_200.0,
-            $bar->getEstimated()
-        );
-
-        $this->assertEquals(
-            600.0,
-            $bar->getRemaining()
         );
     }
 
@@ -864,30 +801,11 @@ And, as in uffish thought he stood, The Jabberwock, with eyes of flame, Came whi
 
     public function testAddingPlaceholderFormatter()
     {
-        ProgressBar::setPlaceholderFormatterDefinition('remaining_steps', fn (ProgressBar $bar) => $bar->getMaxSteps() - $bar->getProgress());
+        ProgressBar::setPlaceholderFormatterDefinition('remaining_steps', function (ProgressBar $bar) {
+            return $bar->getMaxSteps() - $bar->getProgress();
+        });
         $bar = new ProgressBar($output = $this->getOutputStream(), 3, 0);
         $bar->setFormat(' %remaining_steps% [%bar%]');
-
-        $bar->start();
-        $bar->advance();
-        $bar->finish();
-
-        rewind($output->getStream());
-        $this->assertEquals(
-            ' 3 [>---------------------------]'.
-            $this->generateOutput(' 2 [=========>------------------]').
-            $this->generateOutput(' 0 [============================]'),
-            stream_get_contents($output->getStream())
-        );
-    }
-
-    public function testAddingInstancePlaceholderFormatter()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 3, 0);
-        $bar->setFormat(' %countdown% [%bar%]');
-        $bar->setPlaceholderFormatter('countdown', $function = fn (ProgressBar $bar) => $bar->getMaxSteps() - $bar->getProgress());
-
-        $this->assertSame($function, $bar->getPlaceholderFormatter('countdown'));
 
         $bar->start();
         $bar->advance();
@@ -1001,18 +919,6 @@ And, as in uffish thought he stood, The Jabberwock, with eyes of flame, Came whi
         rewind($output->getStream());
         $this->assertEquals(
             '  0/10 [>---------------------------]   0%',
-            stream_get_contents($output->getStream())
-        );
-    }
-
-    public function testSetFormatWithTimes()
-    {
-        $bar = new ProgressBar($output = $this->getOutputStream(), 15, 0);
-        $bar->setFormat('%current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s%/%remaining:-6s%');
-        $bar->start();
-        rewind($output->getStream());
-        $this->assertEquals(
-            ' 0/15 [>---------------------------]   0% < 1 sec/< 1 sec/< 1 sec',
             stream_get_contents($output->getStream())
         );
     }

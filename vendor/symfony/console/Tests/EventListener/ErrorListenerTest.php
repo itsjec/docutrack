@@ -136,16 +136,11 @@ class NonStringInput extends Input
     {
     }
 
-    public function getParameterOption($values, $default = false, $onlyParams = false): mixed
+    public function getParameterOption($values, $default = false, $onlyParams = false)
     {
     }
 
-    public function parse(): void
+    public function parse()
     {
-    }
-
-    public function __toString(): string
-    {
-        return '';
     }
 }

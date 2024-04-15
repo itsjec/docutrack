@@ -24,8 +24,8 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class CommandTesterTest extends TestCase
 {
-    protected Command $command;
-    protected CommandTester $tester;
+    protected $command;
+    protected $tester;
 
     protected function setUp(): void
     {
@@ -36,6 +36,12 @@ class CommandTesterTest extends TestCase
 
         $this->tester = new CommandTester($this->command);
         $this->tester->execute(['foo' => 'bar'], ['interactive' => false, 'decorated' => false, 'verbosity' => Output::VERBOSITY_VERBOSE]);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->command = null;
+        $this->tester = null;
     }
 
     public function testExecute()
@@ -154,6 +160,8 @@ class CommandTesterTest extends TestCase
 
     public function testCommandWithWrongInputsNumber()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Aborted.');
         $questions = [
             'What\'s your name?',
             'How are you?',
@@ -172,15 +180,13 @@ class CommandTesterTest extends TestCase
 
         $tester = new CommandTester($command);
         $tester->setInputs(['a', 'Bobby', 'Fine']);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Aborted.');
-
         $tester->execute([]);
     }
 
     public function testCommandWithQuestionsButNoInputs()
     {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Aborted.');
         $questions = [
             'What\'s your name?',
             'How are you?',
@@ -198,10 +204,6 @@ class CommandTesterTest extends TestCase
         });
 
         $tester = new CommandTester($command);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Aborted.');
-
         $tester->execute([]);
     }
 

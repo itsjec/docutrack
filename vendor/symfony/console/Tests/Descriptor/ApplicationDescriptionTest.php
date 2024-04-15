@@ -43,6 +43,9 @@ final class ApplicationDescriptionTest extends TestCase
 
 final class TestApplication extends Application
 {
+    /**
+     * {@inheritdoc}
+     */
     protected function getDefaultCommands(): array
     {
         return [];

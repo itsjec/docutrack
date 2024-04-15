@@ -65,9 +65,11 @@ class StopwatchTest extends TestCase
         $stopwatch = new Stopwatch();
 
         $sections = new \ReflectionProperty(Stopwatch::class, 'sections');
+        $sections->setAccessible(true);
         $section = $sections->getValue($stopwatch);
 
         $events = new \ReflectionProperty(Section::class, 'events');
+        $events->setAccessible(true);
 
         $events->setValue(end($section), ['foo' => new StopwatchEvent(microtime(true) * 1000)]);
 

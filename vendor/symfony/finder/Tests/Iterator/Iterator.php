@@ -13,7 +13,7 @@ namespace Symfony\Component\Finder\Tests\Iterator;
 
 class Iterator implements \Iterator
 {
-    protected array $values = [];
+    protected $values = [];
 
     public function __construct(array $values = [])
     {
@@ -43,12 +43,20 @@ class Iterator implements \Iterator
         next($this->values);
     }
 
-    public function current(): mixed
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
+    public function current()
     {
         return current($this->values);
     }
 
-    public function key(): mixed
+    /**
+     * @return mixed
+     */
+    #[\ReturnTypeWillChange]
+    public function key()
     {
         return key($this->values);
     }

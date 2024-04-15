@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class DescriptorCommandMbString extends Command
 {
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('descriptor:åèä')

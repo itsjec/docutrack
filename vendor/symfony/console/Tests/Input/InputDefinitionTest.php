@@ -18,7 +18,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class InputDefinitionTest extends TestCase
 {
-    protected static string $fixtures;
+    protected static $fixtures;
 
     protected $multi;
     protected $foo;

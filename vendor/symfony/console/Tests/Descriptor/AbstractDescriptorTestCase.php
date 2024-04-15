@@ -48,9 +48,6 @@ abstract class AbstractDescriptorTestCase extends TestCase
     /** @dataProvider getDescribeApplicationTestData */
     public function testDescribeApplication(Application $application, $expectedDescription)
     {
-        // the "completion" command has dynamic help information depending on the shell
-        $application->find('completion')->setHelp('');
-
         $this->assertDescription($expectedDescription, $application);
     }
 

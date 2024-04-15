@@ -6,7 +6,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class TestAmbiguousCommandRegistering2 extends Command
 {
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('test-ambiguous2')

@@ -17,11 +17,11 @@ class MockSplFileInfo extends \SplFileInfo
     public const TYPE_FILE = 2;
     public const TYPE_UNKNOWN = 3;
 
-    private ?string $contents = null;
-    private ?string $mode = null;
-    private ?int $type = null;
-    private ?string $relativePath = null;
-    private ?string $relativePathname = null;
+    private $contents = null;
+    private $mode = null;
+    private $type = null;
+    private $relativePath = null;
+    private $relativePathname = null;
 
     public function __construct($param)
     {
@@ -89,13 +89,18 @@ class MockSplFileInfo extends \SplFileInfo
     public function setType($type)
     {
         if (\is_string($type)) {
-            $this->type = match ($type) {
-                'directory',
-                'd' => self::TYPE_DIRECTORY,
-                'file',
-                'f' => self::TYPE_FILE,
-                default => self::TYPE_UNKNOWN,
-            };
+            switch ($type) {
+                case 'directory':
+                case 'd':
+                    $this->type = self::TYPE_DIRECTORY;
+                    break;
+                case 'file':
+                case 'f':
+                    $this->type = self::TYPE_FILE;
+                    break;
+                default:
+                    $this->type = self::TYPE_UNKNOWN;
+            }
         } else {
             $this->type = $type;
         }

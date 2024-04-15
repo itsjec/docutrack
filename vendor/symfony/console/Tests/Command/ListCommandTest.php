@@ -131,7 +131,7 @@ EOF;
     {
         yield 'option --format' => [
             ['--format', ''],
-            ['txt', 'xml', 'json', 'md', 'rst'],
+            ['txt', 'xml', 'json', 'md'],
         ];
 
         yield 'namespace' => [

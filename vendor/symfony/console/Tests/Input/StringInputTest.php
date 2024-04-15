@@ -27,6 +27,7 @@ class StringInputTest extends TestCase
         $input = new StringInput($input);
         $r = new \ReflectionClass(ArgvInput::class);
         $p = $r->getProperty('tokens');
+        $p->setAccessible(true);
         $this->assertEquals($tokens, $p->getValue($input), $message);
     }
 

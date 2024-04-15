@@ -23,8 +23,15 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class ImmutableEventDispatcherTest extends TestCase
 {
-    private MockObject&EventDispatcherInterface $innerDispatcher;
-    private ImmutableEventDispatcher $dispatcher;
+    /**
+     * @var MockObject&EventDispatcherInterface
+     */
+    private $innerDispatcher;
+
+    /**
+     * @var ImmutableEventDispatcher
+     */
+    private $dispatcher;
 
     protected function setUp(): void
     {
@@ -68,7 +75,7 @@ class ImmutableEventDispatcherTest extends TestCase
     public function testAddListenerDisallowed()
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->dispatcher->addListener('event', fn () => 'foo');
+        $this->dispatcher->addListener('event', function () { return 'foo'; });
     }
 
     public function testAddSubscriberDisallowed()
@@ -82,7 +89,7 @@ class ImmutableEventDispatcherTest extends TestCase
     public function testRemoveListenerDisallowed()
     {
         $this->expectException(\BadMethodCallException::class);
-        $this->dispatcher->removeListener('event', fn () => 'foo');
+        $this->dispatcher->removeListener('event', function () { return 'foo'; });
     }
 
     public function testRemoveSubscriberDisallowed()

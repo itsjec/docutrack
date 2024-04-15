@@ -76,7 +76,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             '.foo/.bar',
             '.foo/bar',
             '.git',
-            'Zephire.php',
             'foo',
             'foo bar',
             'foo/bar.tmp',
@@ -93,7 +92,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             'test.py',
             'toto',
             'toto/.git',
-            'zebulon.php',
         ];
 
         $sortByType = [
@@ -106,7 +104,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             '.bar',
             '.foo/.bar',
             '.foo/bar',
-            'Zephire.php',
             'foo bar',
             'foo/bar.tmp',
             'qux/baz_100_1.py',
@@ -119,7 +116,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             'qux_2_0.php',
             'test.php',
             'test.py',
-            'zebulon.php',
         ];
 
         $sortByAccessedTime = [
@@ -132,7 +128,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 '.foo/.bar',
                 '.foo/bar',
                 'test.py',
-                'Zephire.php',
                 'foo',
                 'toto',
                 'toto/.git',
@@ -146,7 +141,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 'qux_10_2.php',
                 'qux_12_0.php',
                 'qux_2_0.php',
-                'zebulon.php',
             ],
             // This file was accessed after sleeping for 1 sec
             ['.bar'],
@@ -159,7 +153,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 '.foo/.bar',
                 '.foo/bar',
                 '.bar',
-                'Zephire.php',
                 'foo',
                 'foo/bar.tmp',
                 'toto',
@@ -174,7 +167,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 'qux_10_2.php',
                 'qux_12_0.php',
                 'qux_2_0.php',
-                'zebulon.php',
             ],
             ['test.php'],
             ['test.py'],
@@ -187,7 +179,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 '.foo/.bar',
                 '.foo/bar',
                 '.bar',
-                'Zephire.php',
                 'foo',
                 'foo/bar.tmp',
                 'toto',
@@ -202,7 +193,6 @@ class SortableIteratorTest extends RealIteratorTestCase
                 'qux_10_2.php',
                 'qux_12_0.php',
                 'qux_2_0.php',
-                'zebulon.php',
             ],
             ['test.php'],
             ['test.py'],
@@ -214,7 +204,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             '.foo/.bar',
             '.foo/bar',
             '.git',
-            'Zephire.php',
             'foo',
             'foo/bar.tmp',
             'foo bar',
@@ -231,7 +220,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             'test.py',
             'toto',
             'toto/.git',
-            'zebulon.php',
         ];
 
         $customComparison = [
@@ -240,7 +228,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             '.foo/.bar',
             '.foo/bar',
             '.git',
-            'Zephire.php',
             'foo',
             'foo bar',
             'foo/bar.tmp',
@@ -257,7 +244,6 @@ class SortableIteratorTest extends RealIteratorTestCase
             'test.py',
             'toto',
             'toto/.git',
-            'zebulon.php',
         ];
 
         return [
@@ -267,7 +253,7 @@ class SortableIteratorTest extends RealIteratorTestCase
             [SortableIterator::SORT_BY_CHANGED_TIME, self::toAbsolute($sortByChangedTime)],
             [SortableIterator::SORT_BY_MODIFIED_TIME, self::toAbsolute($sortByModifiedTime)],
             [SortableIterator::SORT_BY_NAME_NATURAL, self::toAbsolute($sortByNameNatural)],
-            [fn (\SplFileInfo $a, \SplFileInfo $b) => strcmp($a->getRealPath(), $b->getRealPath()), self::toAbsolute($customComparison)],
+            [function (\SplFileInfo $a, \SplFileInfo $b) { return strcmp($a->getRealPath(), $b->getRealPath()); }, self::toAbsolute($customComparison)],
         ];
     }
 }

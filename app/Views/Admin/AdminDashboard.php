@@ -14,6 +14,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
   <link rel="stylesheet" href="assets/css/style.css">
+  
   <!-- endinject -->
 </head>
 <body>
@@ -33,7 +34,6 @@
         <?php include ('main-include\dashboard.php'); ?>
             </div>
             <!-- content-wrapper ends -->
-            <?php include ('include\footer.php'); ?>
             <!-- partial -->
         </div>
         <!-- main-panel ends -->
@@ -42,7 +42,7 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
@@ -50,6 +50,94 @@
   <script src="assets/vendors/chart.js/Chart.min.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
+
+  <script>
+    var ctx1 = document.getElementById('status-chart').getContext('2d');
+    var myChart = new Chart(ctx1, {
+        type: 'pie',
+        data: {
+            labels: <?= $statusLabels ?>,
+            datasets: [{
+                label: 'Number of Documents',
+                data: <?= $statusCounts ?>,
+                backgroundColor: [
+                    '#FFC234', // Color for 'pending'
+                    '#36A2EB', // Color for 'on process'
+                    '#FF9F40', // Color for 'received'
+                    '#4BC0C0', // Color for 'completed'
+                    '#e74a3b'  // Color for 'deleted'
+                ],
+                borderColor: 'transparent',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var ctx2 = document.getElementById('office-chart').getContext('2d');
+
+    // Create gradient
+    var gradient = ctx2.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, '#9220b9');
+    gradient.addColorStop(1, '#E8078D');
+
+    var officeChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: <?= $officeLabels ?>,
+            datasets: [{
+                label: 'Number of Documents',
+                data: <?= $officeCounts ?>,
+                backgroundColor: gradient,
+                borderColor: 'transparent',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    var ctx3 = document.getElementById('user-chart').getContext('2d');
+    var userChart = new Chart(ctx3, {
+        type: 'doughnut',
+        data: {
+            labels: <?= $userLabels ?>,
+            datasets: [{
+                label: 'Number of Users',
+                data: <?= $userCounts ?>,
+                backgroundColor: [
+                    '#C36EB8', 
+                    '#C42D9B'  // Color for 'office user'
+                ],
+                borderColor: [
+                    'transparent',
+                    'transparent'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+</script>
+
   <script src="assets/js/off-canvas.js"></script>
   <script src="assets/js/hoverable-collapse.js"></script>
   <script src="assets/js/template.js"></script>

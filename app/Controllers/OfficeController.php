@@ -33,13 +33,11 @@ class OfficeController extends BaseController
                                       ->where('status', 'pending')
                                       ->countAllResults();
     
-        // Count received documents
         $received_documents_count = $db->table('documents')
                                        ->where('recipient_id', $officeId)
                                        ->where('status', 'on process')
                                        ->countAllResults();
     
-        // Count total documents for the office
         $total_documents_count = $db->table('documents')
                                      ->where('recipient_id', $officeId)
                                      ->countAllResults();

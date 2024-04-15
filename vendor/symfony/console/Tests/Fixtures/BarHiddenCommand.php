@@ -6,12 +6,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class BarHiddenCommand extends Command
 {
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('bar:hidden')
             ->setAliases(['abarhidden'])
-            ->setHidden()
+            ->setHidden(true)
         ;
     }
 

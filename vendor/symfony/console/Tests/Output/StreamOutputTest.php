@@ -17,7 +17,6 @@ use Symfony\Component\Console\Output\StreamOutput;
 
 class StreamOutputTest extends TestCase
 {
-    /** @var resource */
     protected $stream;
 
     protected function setUp(): void
@@ -27,7 +26,7 @@ class StreamOutputTest extends TestCase
 
     protected function tearDown(): void
     {
-        unset($this->stream);
+        $this->stream = null;
     }
 
     public function testConstructor()

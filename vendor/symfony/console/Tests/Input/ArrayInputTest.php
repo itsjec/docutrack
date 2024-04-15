@@ -74,7 +74,7 @@ class ArrayInputTest extends TestCase
         $this->assertEquals($expectedOptions, $input->getOptions(), $message);
     }
 
-    public static function provideOptions(): array
+    public static function provideOptions()
     {
         return [
             [
@@ -133,7 +133,7 @@ class ArrayInputTest extends TestCase
         new ArrayInput($parameters, $definition);
     }
 
-    public static function provideInvalidInput(): array
+    public static function provideInvalidInput()
     {
         return [
             [

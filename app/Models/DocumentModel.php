@@ -15,6 +15,7 @@ class DocumentModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['title','tracking_number','sender_id','recipient_id','description','date_of_document','status','classification_id','sub_classification','action','attachment','date_completed','classification','sender_office_id'	];
 
+
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

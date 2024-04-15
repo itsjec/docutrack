@@ -17,7 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 
 class DescriptorCommand2 extends Command
 {
-    protected function configure(): void
+    protected function configure()
     {
         $this
             ->setName('descriptor:command2')
