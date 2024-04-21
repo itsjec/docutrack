@@ -43,8 +43,8 @@
                                 <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
-                                    <a href="<?= base_url('edit/' . $user['user_id']) ?>" class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-sm btn-danger">Delete</a>
+                                    <a href="<?= base_url('edit/' . $user['user_id']) ?>" class="btn btn-sm btn-primary"><i class="mdi mdi-pencil"></i> Edit</a>
+                                    <a href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i> Delete</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
