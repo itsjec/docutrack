@@ -64,6 +64,7 @@
                             <td><?= $document->tracking_number ?></td>
                             <td><?= $document->sender ?></td>
                             <td><?= $document->status ?></td>
+                            <td><?= $document->action ?></td>
                             <td>
                                     <div class="d-flex align-items-center">
                                         <a href="#" class="btn btn-success btn-sm btn-icon-text mr-3">

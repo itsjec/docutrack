@@ -83,7 +83,7 @@ class AdminController extends BaseController
         $data['userCounts'] = json_encode($userCounts);
         $data['totalDocuments'] = $totalDocuments;
         $data['totalUsers'] = array_sum($userCounts); 
-    
+
         return view('Admin/AdminDashboard', $data);
     }
     

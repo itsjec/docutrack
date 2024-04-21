@@ -1,3 +1,4 @@
+<div class="content-wrapper">
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -18,14 +19,11 @@
                             <tr>
                                 <td><?= $document->tracking_number ?></td>
                                 <td><?= $document->title ?></td>
-                                <td>
-                                    <?php if (isset($senderDetails[$document->document_id])): ?>
-                                        <?php echo $senderDetails[$document->document_id]['sender_id']; ?>
-                                        <?php if ($document->sender_office_id != null): ?>
-                                            <?php echo ' ' . $senderDetails[$document->document_id]['sender_office_id']; ?>
-                                        <?php endif; ?>
-                                    <?php endif; ?>
-                                </td>
+                                <td> <?php if ($document->sender_office_id === null): ?>
+                <?= $senderDetails[$document->document_id]['sender_user'] ?>
+            <?php else: ?>
+                <?= $senderDetails[$document->document_id]['sender_office'] ?>
+            <?php endif; ?></td>
                                 <td><?= $document->status ?></td>
                                 <td><?= $document->action ?></td>
                                 <td>
@@ -53,6 +51,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Receive Document Modal -->

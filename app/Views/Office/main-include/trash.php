@@ -1,3 +1,4 @@
+<div class="content-wrapper">
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
@@ -16,7 +17,6 @@
                                 <th>Tracking Number</th>
                                 <th>Deleted By</th>
                                 <th>Date Deleted</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -26,9 +26,6 @@
                                     <td><?= $document->tracking_number ?></td>
                                     <td><?= $document->deleted_by ?></td>
                                     <td><?= $document->date_deleted ?></td>
-                                    <td>
-                                    <a href="#" class="btn btn-sm btn-danger" id="deleteDocumentBtn">Delete</a>
-                                    </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -38,7 +35,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -54,7 +51,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn" onclick="deleteDocument(<?= $document->id ?>)">Delete</button>
       </div>
     </div>
   </div>

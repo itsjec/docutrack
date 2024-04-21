@@ -122,7 +122,24 @@ $(document).ready(function() {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get current date
+    const currentDate = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const formattedDate = monthNames[currentDate.getMonth()] + " " + currentDate.getDate();
+    
+    // Update the date in the element
+    document.getElementById("currentDateText").textContent = formattedDate;
 
+    // Add click event listener to the calendar icon
+    document.getElementById("calendarIcon").addEventListener("click", function() {
+      // Handle calendar icon click event here
+      alert("Calendar icon clicked!");
+    });
+  });
+</script>
 
 
 

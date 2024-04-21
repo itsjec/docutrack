@@ -50,26 +50,42 @@
     });
 </script>
 <script>
-    document.getElementById('confirmDeleteBtn').addEventListener('click', function() {
-        var documentId = <?php echo $document->id; ?>; 
-        $.ajax({
-            url: 'documents/delete/' + documentId, // Update the URL to include the document ID
-            method: 'DELETE', // Use DELETE method for RESTful deletion
-            success: function(response) {
-                // Handle success response
-                $('#deleteConfirmationModal').modal('hide');
-                // Refresh the page or update the document list
-                window.location.reload();
-            },
-            error: function(xhr, status, error) {
-                // Handle error response
-                console.error(xhr.responseText);
-            }
-        });
+function deleteDocument(documentId) {
+    $.ajax({
+        url: 'deleteDocument/' + documentId,
+        type: 'DELETE',
+        success: function(result) {
+            console.log(result);
+            window.location.reload();
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert('An error occurred while deleting the document.');
+        }
     });
+}
+
 </script>
 
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get current date
+    const currentDate = new Date();
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    const formattedDate = monthNames[currentDate.getMonth()] + " " + currentDate.getDate();
+    
+    // Update the date in the element
+    document.getElementById("currentDateText").textContent = formattedDate;
+
+    // Add click event listener to the calendar icon
+    document.getElementById("calendarIcon").addEventListener("click", function() {
+      // Handle calendar icon click event here
+      alert("Calendar icon clicked!");
+    });
+  });
+</script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

@@ -20,6 +20,12 @@ class OfficeController extends BaseController
 
     public function index()
     {
+        $userId = session('user_id');
+    
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
+    
         $officeId = session('office_id');
     
         $documentModel = new \App\Models\DocumentModel();
@@ -27,7 +33,6 @@ class OfficeController extends BaseController
     
         $db = \Config\Database::connect();
     
-        // Count pending documents
         $pending_documents_count = $db->table('documents')
                                       ->where('recipient_id', $officeId)
                                       ->where('status', 'pending')
@@ -54,10 +59,11 @@ class OfficeController extends BaseController
             'documents' => $documents,
             'pending_documents_count' => $pending_documents_count,
             'received_documents_count' => $received_documents_count,
-            'total_documents_count' => $total_documents_count
+            'total_documents_count' => $total_documents_count,
+            'user_name' => $userName
         ]);
-    }    
-
+    }
+    
 
     public function pending()
 {
@@ -108,7 +114,7 @@ class OfficeController extends BaseController
     $data['documents'] = $documents;
     $data['senderDetails'] = $senderDetails;
 
-    return view('Office/Ongoing', $data);
+    return view('Office/Pending', $data);
 }
     
 public function ongoing()
@@ -336,29 +342,29 @@ public function completed()
             return redirect()->back();
         }
 
-        public function updateDocumentDeletedStatus($documentId, $newStatus)
-        {
-            $documentModel = new DocumentModel(); 
-            $workflowModel = new DocumentHistoryModel();
-        
-            $documentModel->update($documentId, ['status' => $newStatus]);
-        
-            $userId = session()->get('user_id');
-            $officeId = session()->get('office_id');
-        
-            $data = [
-                'document_id' => $documentId,
-                'user_id' => $userId,
-                'office_id' => $officeId,
-                'status' => $newStatus,
-                'date_changed' => date('Y-m-d H:i:s'),
-                'date_completed' => NULL,
-                'date_deleted' => date('Y-m-d H:i:s')
-            ];
-            $workflowModel->insert($data);
-        
-            return redirect()->back();
-        }
+    public function updateDocumentDeletedStatus($documentId, $newStatus)
+    {
+        $documentModel = new DocumentModel(); 
+        $workflowModel = new DocumentHistoryModel();
+
+        $documentModel->update($documentId, ['status' => $newStatus]);
+
+        $userId = session()->get('user_id');
+        $officeId = session()->get('office_id');
+
+        $data = [
+            'document_id' => $documentId,
+            'user_id' => $userId,
+            'office_id' => $officeId,
+            'status' => $newStatus,
+            'date_changed' => date('Y-m-d H:i:s'),
+            'date_deleted' => $newStatus === 'deleted' ? date('Y-m-d H:i:s') : null
+        ];
+        $workflowModel->insert($data);
+
+        return redirect()->back();
+    }
+
 
         public function updateDocumentRecipientAndStatus($documentId, $newRecipientId, $newStatus)
         {
@@ -528,44 +534,40 @@ public function completed()
     }
 
     public function trash()
-{
-    $session = session();
-    $office_id = $session->get('office_id');
-
-    if (!$office_id) {
-        // Handle error if office_id is not set in the session
-        return 'Error: Office ID not set';
+    {
+        $session = session();
+        $office_id = $session->get('office_id');
+    
+        if (!$office_id) {
+            return 'Error: Office ID not set';
+        }
+    
+        $db = db_connect();
+    
+        $query = $db->query("
+            SELECT 
+                documents.document_id AS id,
+                documents.tracking_number, 
+                documents.title, 
+                CONCAT(users.first_name, ' ', users.last_name) AS deleted_by,
+                document_history.date_deleted
+            FROM document_history
+            JOIN documents ON documents.document_id = document_history.document_id
+            JOIN users ON users.user_id = document_history.user_id
+            WHERE document_history.office_id = $office_id
+            AND document_history.status = 'deleted'
+        ");
+    
+        $documents = $query->getResult();
+    
+        $data = [
+            'documents' => $documents
+        ];
+    
+        return view('Office/Trash', $data);
     }
-
-    $db = db_connect();
-
-    $query = $db->query("
-        SELECT 
-            document_history.document_id,
-            documents.tracking_number, 
-            documents.title, 
-            CONCAT(users.first_name, ' ', users.last_name) AS deleted_by,
-            document_history.date_deleted
-        FROM document_history
-        JOIN documents ON documents.document_id = document_history.document_id
-        JOIN users ON users.user_id = document_history.user_id
-        WHERE document_history.office_id = $office_id
-        AND document_history.status = 'deleted'
-    ");
-
-    if (!$query) {
-        // Handle error if query fails
-        return 'Error: Unable to fetch deleted documents';
-    }
-
-    $documents = $query->getResult();
-
-    $data = [
-        'documents' => $documents
-    ];
-
-    return view('Office/Trash', $data);
-}
+    
+    
 
     public function testInsertDocumentHistory()
     {
@@ -584,19 +586,21 @@ public function completed()
         return 'Document history inserted successfully for testing';
     }
     
-
-    public function delete($documentId)
+    public function deleteDocument($documentId)
     {
-        $db = db_connect();
-    
-        $deleteQuery = $db->query("DELETE FROM documents WHERE document_id = $documentId");
-        
-        if ($deleteQuery) {
-            // Deletion successful
-            return $this->response->setJSON(['message' => 'Document deleted successfully']);
+        $documentModel = new DocumentModel();
+        $result = $documentModel->delete($documentId);
+
+        if ($result) {
+            $response = ['success' => true];
         } else {
-            // Deletion failed
-            return $this->response->setStatusCode(500)->setJSON(['message' => 'Failed to delete document']);
+            $response = ['success' => false];
         }
+
+        return $this->response->setJSON($response);
     }
+
+
 }
+
+

@@ -11,32 +11,32 @@
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item nav-profile dropdown">
-            <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
+          <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
               <img src="images/faces/face5.jpg" alt="profile"/>
-              <span class="nav-profile-name">Eugenia Mullins</span>
+              <span class="nav-profile-name">Admin</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
                 <i class="typcn typcn-cog-outline text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a class="dropdown-item" href = "/">
                 <i class="typcn typcn-eject text-primary"></i>
                 Logout
               </a>
             </div>
           </li>
           <li class="nav-item nav-user-status dropdown">
-              <p class="mb-0">Last login was 23 hours ago.</p>
+              <p class="mb-0">Currently Logged In.</p>
           </li>
         </ul>
         <ul class="navbar-nav navbar-nav-right">
-          <li class="nav-item nav-date dropdown">
-            <a class="nav-link d-flex justify-content-center align-items-center" href="javascript:;">
-              <h6 class="date mb-0">Today : Mar 23</h6>
-              <i class="typcn typcn-calendar"></i>
-            </a>
-          </li>
+        <li class="nav-item nav-date dropdown">
+          <a id="currentDate" class="nav-link d-flex justify-content-center align-items-center" href="javascript:;">
+            <h6 class="date mb-0">Today: <span id="currentDateText"></span></h6>
+            <i id="calendarIcon" class="typcn typcn-calendar"></i>
+          </a>
+        </li>
           <li class="nav-item dropdown">
             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
               <i class="typcn typcn-cog-outline mx-0"></i>

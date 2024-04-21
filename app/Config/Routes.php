@@ -57,6 +57,8 @@ $routes->post('documents/update-document-completed-status/(:num)/(:segment)', 'O
 $routes->post('documents/update-document-deleted-status/(:num)/(:segment)', 'OfficeController::updateDocumentDeletedStatus/$1/$2');
 $routes->post('documents/update-document-recipient-and-status/(:num)/(:num)/(:segment)', 'OfficeController::updateDocumentRecipientAndStatus/$1/$2/$3');
 $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1');
+$routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
+
 
 
 

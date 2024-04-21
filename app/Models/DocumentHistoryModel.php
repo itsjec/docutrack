@@ -13,7 +13,7 @@ class DocumentHistoryModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['document_id','user_id','office_id','status','date_changed','date_completed'];
+    protected $allowedFields    = ['document_id','user_id','office_id','status','date_changed','date_completed', 'date_deleted'];
 
 
     // Dates

@@ -1,3 +1,4 @@
+<div class="content-wrapper">
 <div class="row">
     <div class="col-md-12">
         <div class="card">
@@ -52,7 +53,7 @@
         </div>
     </div>
 </div>
-
+</div>
 <!-- Update Status Modal -->
 <div class="modal fade" id="receiveDocumentModal" tabindex="-1" role="dialog" aria-labelledby="receiveDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
