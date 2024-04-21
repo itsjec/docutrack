@@ -1,5 +1,4 @@
-
-    <div class="banner">
+<div class="banner">
             <div class="content">
                 <h1>Document: <?= $document['tracking_number'] ?></h1>
                 <div class="row mb-3">
@@ -10,7 +9,7 @@
                         <div class="bg-secondary p-4 text-dark text-center"><span class="font-weight-semibold mr-2">Status:</span><?= $document['status'] ?></div>
                     </div>
                     <div class="col-sm-4 mb-2">
-                        <div class="bg-secondary p-4 text-dark text-center"><span class="font-weight-semibold mr-2">Expected date:</span><?= $document['deadline'] ?></div>
+                        <div class="bg-secondary p-4 text-dark text-center"><span class="font-weight-semibold mr-2">Date Received:</span><?= date('F j, Y', strtotime($document['date_of_document'])) ?></div>
                     </div>
                 </div>
 
@@ -63,3 +62,5 @@
 
             </div>
         </div>
+    </div>
+</div>

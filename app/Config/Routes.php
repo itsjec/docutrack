@@ -29,6 +29,9 @@ $routes->post('documents/saveOffice', 'AdminController::saveOfficeDocument');
 $routes->get('manageofficedocument', 'AdminController::manageofficedocument');
 $routes->get('test-insert', 'AdminController::testInsert');
 $routes->get('document-status-chart', 'AdminController::documentStatusChart');
+$routes->post('documents/deleteDocument', 'AdminController::deleteDocument');
+
+
 
 
 
@@ -43,6 +46,7 @@ $routes->get('ongoing', 'OfficeController::ongoing');
 $routes->get('completed', 'OfficeController::completed');
 $routes->get('history', 'OfficeController::history');
 $routes->get('manageprofile', 'OfficeController::manageprofile');
+$routes->post('/office/updateProfile', 'OfficeController::updateProfile');
 $routes->get('trash', 'OfficeController::trash');
 $routes->get('incoming', 'OfficeController::incoming');
 $routes->get('documents/getDocumentInfo', 'OfficeController::getDocumentInfo');

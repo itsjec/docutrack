@@ -25,7 +25,7 @@
                                     <td><?= $document->title ?></td>
                                     <td><?= $document->tracking_number ?></td>
                                     <td><?= $document->deleted_by ?></td>
-                                    <td><?= $document->date_deleted ?></td>
+                                    <td><?= date('F j, Y', strtotime($document->date_deleted)) ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

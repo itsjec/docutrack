@@ -23,6 +23,12 @@
 
 <!-- Bootstrap JS -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <!-- Bootstrap Datepicker JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -55,7 +61,7 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
         $('#addDocumentBtn').click(function () {
             $('#addDocumentModal').modal('show');
@@ -89,24 +95,9 @@
 
     </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Get current date
-    const currentDate = new Date();
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const formattedDate = monthNames[currentDate.getMonth()] + " " + currentDate.getDate();
-    
-    // Update the date in the element
-    document.getElementById("currentDateText").textContent = formattedDate;
 
-    // Add click event listener to the calendar icon
-    document.getElementById("calendarIcon").addEventListener("click", function() {
-      // Handle calendar icon click event here
-      alert("Calendar icon clicked!");
-    });
-  });
-</script>
+
+
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

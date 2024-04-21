@@ -36,6 +36,7 @@ class AdminController extends BaseController
     public function admindashboard()
     {
         $db = \Config\Database::connect();
+
     
         $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
         $totalDocuments = $totalQuery->getRow()->total;
@@ -365,11 +366,12 @@ public function manageofficedocument()
 {
     $documentModel = new DocumentModel();
     $documents = $documentModel
-        ->select('documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name')
+        ->select('documents.document_id, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name')
         ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
         ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
         ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
         ->findAll();
+
 
     $classificationModel = new ClassificationModel();
     $classifications = $classificationModel->distinct()->findColumn('classification_name');
@@ -733,5 +735,21 @@ public function archived()
                 'labels' => json_encode($labels),
                 'data' => json_encode($data)
             ]);
+        }
+        public function deleteDocument()
+        {
+            $documentModel = new DocumentModel();
+    
+            if ($this->request->isAJAX()) {
+                $documentId = $this->request->getPost('documentId');
+
+                $result = $documentModel->delete($documentId);
+    
+                if ($result) {
+                    return $this->response->setJSON(['success' => true]);
+                } else {
+                    return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
+                }
+            }
         }
 }

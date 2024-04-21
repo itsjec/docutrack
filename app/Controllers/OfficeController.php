@@ -33,6 +33,7 @@ class OfficeController extends BaseController
     
         $db = \Config\Database::connect();
     
+        // Count pending documents
         $pending_documents_count = $db->table('documents')
                                       ->where('recipient_id', $officeId)
                                       ->where('status', 'pending')
@@ -67,6 +68,13 @@ class OfficeController extends BaseController
 
     public function pending()
 {
+
+    $userId = session('user_id');
+    
+    $userModel = new \App\Models\UserModel();
+    $user = $userModel->find($userId);
+    $userName = $user['first_name'] . ' ' . $user['last_name'];
+
     $session = session();
     $office_id = $session->get('office_id');
 
@@ -110,15 +118,25 @@ class OfficeController extends BaseController
             'sender_office' => $sender_office
         ];
     }
-
-    $data['documents'] = $documents;
-    $data['senderDetails'] = $senderDetails;
+    $data = [
+        'documents' => $documents,
+        'senderDetails' => $senderDetails,
+        'user_name' => $userName
+    ];
+    
 
     return view('Office/Pending', $data);
 }
     
 public function ongoing()
 {
+
+    $userId = session('user_id');
+    
+    $userModel = new \App\Models\UserModel();
+    $user = $userModel->find($userId);
+    $userName = $user['first_name'] . ' ' . $user['last_name'];
+
     $session = session();
     $office_id = $session->get('office_id');
 
@@ -163,8 +181,11 @@ public function ongoing()
         ];
     }
 
-    $data['documents'] = $documents;
-    $data['senderDetails'] = $senderDetails;
+   $data = [
+        'documents' => $documents,
+        'senderDetails' => $senderDetails,
+        'user_name' => $userName
+    ];
 
     return view('Office/Ongoing', $data);
 }
@@ -172,6 +193,13 @@ public function ongoing()
 
 public function received()
 {
+
+    $userId = session('user_id');
+    
+    $userModel = new \App\Models\UserModel();
+    $user = $userModel->find($userId);
+    $userName = $user['first_name'] . ' ' . $user['last_name'];
+
     $session = session();
     $office_id = $session->get('office_id');
 
@@ -220,8 +248,11 @@ public function received()
         }
     }
 
-    $data['documents'] = $documents;
-    $data['senderDetails'] = $senderDetails;
+   $data = [
+        'documents' => $documents,
+        'senderDetails' => $senderDetails,
+        'user_name' => $userName
+    ];
 
     return view('Office/Received', $data);
 }
@@ -230,6 +261,13 @@ public function received()
 
 public function completed()
 {
+
+    $userId = session('user_id');
+    
+    $userModel = new \App\Models\UserModel();
+    $user = $userModel->find($userId);
+    $userName = $user['first_name'] . ' ' . $user['last_name'];
+
     $session = session();
     $office_id = $session->get('office_id');
 
@@ -290,7 +328,8 @@ public function completed()
     $data = [
         'offices' => $offices,
         'documents' => $documents,
-        'senderDetails' => $senderDetails
+        'senderDetails' => $senderDetails,
+        'user_name' => $userName
     ];
 
     return view('Office/Completed', $data);
@@ -456,6 +495,13 @@ public function completed()
     
     public function history()
     {
+
+        $userId = session('user_id');
+    
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
+
         $session = session();
         $office_id = $session->get('office_id');
     
@@ -517,10 +563,11 @@ public function completed()
             ];
         }
     
-        $data = [
-            'documents' => $documents,
-            'senderDetails' => $senderDetails
-        ];
+   $data = [
+        'documents' => $documents,
+        'senderDetails' => $senderDetails,
+        'user_name' => $userName
+    ];
     
         return view('Office/History', $data);
     }
@@ -530,11 +577,68 @@ public function completed()
 
     public function manageprofile()
     {
-        return view('Office/ManageProfile');
+        $userId = session('user_id');
+        
+        if (!$userId) {
+            return 'Error: User ID not set';
+        }
+    
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+    
+        if (!$user) {
+            return 'Error: User not found';
+        }
+    
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
+    
+        $data = [
+            'user' => $user,
+            'user_name' => $userName
+        ];
+    
+        return view('Office/ManageProfile', $data);
     }
 
+    public function updateProfile()
+    {
+        $request = service('request');
+        $userModel = new \App\Models\UserModel();
+
+        $userId = session('user_id');
+        $user = $userModel->find($userId);
+
+        if (!$user) {
+            return 'Error: User not found';
+        }
+
+        $profileImage = $request->getFile('profileImage');
+        if ($profileImage && $profileImage->isValid()) {
+            $newName = $profileImage->getRandomName();
+            $profileImage->move(ROOTPATH . '/uploads', $newName);
+            $user['picture_path'] = $newName;
+        }
+
+        $user['first_name'] = $request->getVar('firstName');
+        $user['last_name'] = $request->getVar('lastName');
+        $user['email'] = $request->getVar('email');
+        $user['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
+
+        $userModel->update($userId, $user);
+
+        return redirect()->to('/manageprofile');
+    }
+
+    
     public function trash()
     {
+
+        $userId = session('user_id');
+    
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
+
         $session = session();
         $office_id = $session->get('office_id');
     
@@ -561,8 +665,10 @@ public function completed()
         $documents = $query->getResult();
     
         $data = [
-            'documents' => $documents
+            'documents' => $documents,
+            'user_name' => $userName
         ];
+
     
         return view('Office/Trash', $data);
     }

@@ -25,15 +25,38 @@ class UserController extends BaseController
     {
         $request = \Config\Services::request();
         $trackingNumber = $request->getPost('tracking_number');
-
+    
         $documentModel = new DocumentModel();
         $document = $documentModel->where('tracking_number', $trackingNumber)->first();
-
+    
         $officeModel = new OfficeModel();
-        $office = $officeModel->where('office_id', $document['recipient'])->first();
-
-        return view('Users/SearchResults', ['document' => $document, 'office' => $office]);
+        $office = null;
+        if ($document && isset($document['recipient_id'])) {
+            $office = $officeModel->where('office_id', $document['recipient_id'])->first();
+        }
+    
+        $progressPercentage = 0;
+        if ($document && isset($document['status'])) {
+            switch ($document['status']) {
+                case 'pending':
+                    $progressPercentage = 25;
+                    break;
+                case 'received':
+                    $progressPercentage = 50;
+                    break;
+                case 'on process':
+                    $progressPercentage = 75;
+                    break;
+                case 'completed':
+                    $progressPercentage = 100;
+                    break;
+            }
+        }
+    
+        return view('Users/SearchResults', ['document' => $document, 'office' => $office, 'progressPercentage' => $progressPercentage]);
     }
+    
+    
 
     public function viewdetails()
     {
@@ -49,7 +72,7 @@ class UserController extends BaseController
         $admins = $adminModel->findAll();
     
         $officeModel = new OfficeModel(); 
-        $office = $officeModel->find($document['recipient']);
+        $office = $officeModel->find($document['recipient_id']);
     
         $data = [
             'tracking_number' => $trackingNumber,
@@ -65,14 +88,35 @@ class UserController extends BaseController
     {
         $request = \Config\Services::request();
         $trackingNumber = $request->getPost('tracking_number');
-
+    
         $documentModel = new DocumentModel();
         $document = $documentModel->where('tracking_number', $trackingNumber)->first();
-
+    
         $officeModel = new OfficeModel();
-        $office = $officeModel->where('office_id', $document['recipient_id'])->first();
-
-        return view('LoggedIn/SearchResults', ['document' => $document, 'office' => $office]);
+        $office = null;
+        if ($document && isset($document['recipient_id'])) {
+            $office = $officeModel->where('office_id', $document['recipient_id'])->first();
+        }
+    
+        $progressPercentage = 0;
+        if ($document && isset($document['status'])) {
+            switch ($document['status']) {
+                case 'pending':
+                    $progressPercentage = 25;
+                    break;
+                case 'received':
+                    $progressPercentage = 50;
+                    break;
+                case 'on process':
+                    $progressPercentage = 75;
+                    break;
+                case 'completed':
+                    $progressPercentage = 100;
+                    break;
+            }
+        }
+    
+        return view('Users/SearchResults', ['document' => $document, 'office' => $office, 'progressPercentage' => $progressPercentage]);
     }
 
     public function guestviewdetails()
@@ -105,44 +149,41 @@ class UserController extends BaseController
     {
         $session = session();
         $user_id = $session->get('user_id');
-    
+        
         if (!$user_id) {
             return 'Error: User ID not set';
         }
-    
+        
         $db = db_connect();
-    
+        
         $query = $db->query("
             SELECT 
                 documents.title, 
-                documents.tracking_number,
-                document_history.status,
-                offices.office_name as current_office
+                documents.tracking_number, 
+                documents.status, 
+                (SELECT dh.office_id 
+                 FROM document_history dh 
+                 WHERE dh.document_id = documents.document_id 
+                 ORDER BY dh.date_changed DESC 
+                 LIMIT 1) AS current_office 
             FROM documents
-            JOIN (
-                SELECT dh.*
-                FROM document_history dh
-                JOIN (
-                    SELECT document_id, MAX(date_changed) AS max_date_changed
-                    FROM document_history
-                    WHERE user_id = $user_id
-                    GROUP BY document_id
-                ) AS latest ON dh.document_id = latest.document_id AND dh.date_changed = latest.max_date_changed
-            ) AS document_history ON documents.document_id = document_history.document_id
-            JOIN offices ON document_history.office_id = offices.office_id
+            WHERE documents.sender_id = $user_id
         ");
-    
+        
         if (!$query) {
             return 'Error: Unable to fetch transaction history';
         }
-    
+        
         $documents = $query->getResult();
-    
+        
         $data = [
             'documents' => $documents
         ];
-    
+        
         return view('LoggedIn/Transactions', $data);
     }
+    
+    
+    
     
 }

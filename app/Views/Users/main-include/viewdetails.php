@@ -21,10 +21,10 @@
                                             <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z"></path>
                                         </svg>
                                     </div>
-                                    <div class="tracking-date"><?= date('Y-m-d', strtotime($workflow['date_changed'])) ?><span><?= date('H:i:s', strtotime($workflow['date_changed'])) ?></span></div>
+                                    <div class="tracking-date"><?= date('F j, Y', strtotime($workflow['date_changed'])) ?><span><?= date('H:i:s', strtotime($workflow['date_changed'])) ?></span></div>
                                     <div class="tracking-content">
-                                        Document with Tracking Number <?= $tracking_number ?> is <?= $workflow['status'] ?> by <?= $admins[$workflow['admin_id'] - 1]['first_name'] ?? 'Unknown' ?> <?= $admins[$workflow['admin_id'] - 1]['last_name'] ?? 'User' ?>
-                                        on <?= date('Y-m-d H:i:s', strtotime($workflow['date_changed'])) ?>
+                                        Document with Tracking Number <?= $tracking_number ?> is <?= $workflow['status'] ?> by <?= $admins[$workflow['user_id'] - 1]['first_name'] ?? 'Unknown' ?> <?= $admins[$workflow['user_id'] - 1]['last_name'] ?? 'User' ?>
+                                        on <?= date('F j, Y H:i:s', strtotime($workflow['date_changed'])) ?>
                                         <span>Current Office: <?= $office ? $office['office_name'] : 'Unknown Office' ?></span>
                                     </div>
                                 </div>

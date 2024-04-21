@@ -9653,7 +9653,7 @@ textarea {
   transform: translate(-50%, -50%); }
 
 .menu-bg-wrap {
-  background-color: #005555;
+  background: linear-gradient(135deg, #9220b9, #C36EB8);
   padding: 20px 30px;
   position: relative;
   float: left;

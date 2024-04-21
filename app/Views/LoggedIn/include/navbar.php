@@ -1,11 +1,11 @@
 <nav class="site-nav">
       <div class="container">
-        <div class="menu-bg-wrap">
+        <div class="menu-bg-wrap" style="background: linear-gradient(135deg, #9220b9, #C36EB8);">
           <div class="site-navigation">
             <a href="index.html" class="logo m-0 float-start">Property</a>
 
             <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
-              <li class="active"><a href="index.html">Home</a></li>
+              <li class="active"><a href="userindex">Home</a></li>
               <li><a href="<?= site_url('transactions') ?>">Transactions</a></li>
               <li class="has-children">
                 <a href="properties.html">Profile</a>

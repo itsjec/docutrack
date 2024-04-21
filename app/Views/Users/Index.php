@@ -19,8 +19,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+      rel="stylesheet"/>
 
     <link rel="stylesheet" href="assets2/fonts/icomoon/style.css" />
     <link rel="stylesheet" href="assets2/fonts/flaticon/font/flaticon.css" />

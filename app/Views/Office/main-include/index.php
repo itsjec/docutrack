@@ -67,17 +67,9 @@
                             <td><?= $document->action ?></td>
                             <td>
                                     <div class="d-flex align-items-center">
-                                        <a href="#" class="btn btn-success btn-sm btn-icon-text mr-3">
-                                            Edit
-                                            <i class="typcn typcn-edit btn-icon-append"></i>
-                                        </a>
                                         <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">
                                             View
                                             <i class="typcn typcn-eye btn-icon-append"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger btn-sm btn-icon-text">
-                                            Delete
-                                            <i class="typcn typcn-delete-outline btn-icon-append"></i>
                                         </a>
                                     </div>
                                 </td>

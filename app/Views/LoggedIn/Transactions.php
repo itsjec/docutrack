@@ -38,7 +38,7 @@
     </title>
   </head>
   <body>
-    <div class="site-mobile-menu site-navbar-target">
+  <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
           <span class="icofont-close js-menu-toggle"></span>
@@ -47,95 +47,52 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <nav class="site-nav">
-      <div class="container">
-        <div class="menu-bg-wrap">
-          <div class="site-navigation">
-            <a href="index.html" class="logo m-0 float-start">Property</a>
+    <?php include ('include\navbar.php'); ?>
 
-            <ul
-              class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
-            >
-              <li class="active"><a href="index.html">Home</a></li>
-              <li class="has-children">
-                <a href="properties.html">Properties</a>
-                <ul class="dropdown">
-                  <li><a href="#">Buy Property</a></li>
-                  <li><a href="#">Sell Property</a></li>
-                  <li class="has-children">
-                    <a href="#">Dropdown</a>
-                    <ul class="dropdown">
-                      <li><a href="#">Sub Menu One</a></li>
-                      <li><a href="#">Sub Menu Two</a></li>
-                      <li><a href="#">Sub Menu Three</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="services.html">Services</a></li>
-              <li><a href="about.html">About</a></li>
-              <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-
-            <a
-              href="#"
-              class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
-              data-toggle="collapse"
-              data-target="#main-navbar"
-            >
-              <span></span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <div class="hero">
-      <div class="hero-slide">
-        <div
-          class="img overlay"
-          style="background-image: url('images/hero_bg_3.jpg')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('images/hero_bg_2.jpg')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('images/hero_bg_1.jpg')"
-        ></div>
-      </div>
-
-      <div class="container">
-      <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="table-responsive pt-3">
-                <table class="table table-striped project-orders-table">
-                    <thead>
-                        <tr>
-                            <th>Title</th>
-                            <th>Tracking Number</th>
-                            <th>Status</th>
-                            <th>Current Office</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($documents as $document): ?>
-                            <tr>
-                                <td><?= $document->title ?></td>
-                                <td><?= $document->tracking_number ?></td>
-                                <td><?= $document->status ?></td>
-                                <td><?= $document->current_office ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+    <!-- Other HTML content above -->
+    <div class="container" style="margin-top: 150px;"> <!-- Adjust the margin-top value as needed -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="table-responsive pt-3">
+                        <table class="table table-striped project-orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Tracking Number</th>
+                                    <th>Status</th>
+                                    <th>Current Office</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($documents as $document): ?>
+                                    <tr>
+                                        <td><?= $document->title ?></td>
+                                        <td><?= $document->tracking_number ?></td>
+                                        <td><?= $document->status ?></td>
+                                        <td><?= $document->current_office ?></td>
+                                        <td>
+                                            <a href="#" class="btn btn-info btn-sm btn-icon-text">
+                                                View
+                                                <i class="typcn typcn-eye btn-icon-append"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-      </div>
+    <!-- Other HTML content below -->
+
     </div>
+</div>
+
+
   
 </div>
 
