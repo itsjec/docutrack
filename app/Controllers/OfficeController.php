@@ -58,53 +58,58 @@ class OfficeController extends BaseController
         ]);
     }    
 
-    
+
     public function pending()
-    {
-        $session = session();
-        $office_id = $session->get('office_id');
-    
-        $db = db_connect();
-    
-        $query = $db->query("
-            SELECT 
-                documents.title, 
-                documents.tracking_number, 
-                documents.sender_id, 
-                documents.sender_office_id, 
-                documents.status, 
-                documents.action, 
-                documents.document_id
-            FROM documents
-            WHERE documents.recipient_id = $office_id
-            AND documents.status = 'pending'
-        ");
-    
-        $documents = $query->getResult();
-    
-        $senderDetails = [];
-        foreach ($documents as $document) {
-            $sender_user_id = $document->sender_id;
-            $sender_office_id = $document->sender_office_id;
-    
-            $senderUserModel = new UserModel();
-            $senderUser = $senderUserModel->find($sender_user_id);
-    
-            $senderOfficeModel = new OfficeModel();
-            $senderOffice = $senderOfficeModel->find($sender_office_id);
-    
-            $senderDetails[$document->document_id] = [
-                'sender_user' => $senderUser['first_name'] . ' ' . $senderUser['last_name'],
-                'sender_office' => ($sender_office_id != null) ? $senderOffice['office_name'] : 'N/A'
-            ];
+{
+    $session = session();
+    $office_id = $session->get('office_id');
+
+    $db = db_connect();
+
+    $query = $db->query("
+        SELECT 
+            documents.title, 
+            documents.tracking_number, 
+            documents.sender_id, 
+            documents.sender_office_id, 
+            documents.status, 
+            documents.action, 
+            documents.document_id
+        FROM documents
+        WHERE documents.recipient_id = $office_id
+        AND documents.status = 'pending'
+    ");
+
+    $documents = $query->getResult();
+
+    $senderDetails = [];
+    foreach ($documents as $document) {
+        $sender_id = $document->sender_id;
+        $sender_office_id = $document->sender_office_id;
+
+        if ($sender_office_id === null) {
+            $userModel = new UserModel();
+            $user = $userModel->find($sender_id);
+            $sender_name = $user['first_name'] . ' ' . $user['last_name'];
+            $sender_office = 'N/A';
+        } else {
+            $officeModel = new OfficeModel();
+            $office = $officeModel->find($sender_office_id);
+            $sender_name = 'N/A';
+            $sender_office = $office['office_name'];
         }
-    
-        $data['documents'] = $documents;
-        $data['senderDetails'] = $senderDetails;
-    
-        return view('Office/Pending', $data);
+
+        $senderDetails[$document->document_id] = [
+            'sender_user' => $sender_name,
+            'sender_office' => $sender_office
+        ];
     }
-    
+
+    $data['documents'] = $documents;
+    $data['senderDetails'] = $senderDetails;
+
+    return view('Office/Ongoing', $data);
+}
     
 public function ongoing()
 {

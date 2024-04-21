@@ -10,7 +10,6 @@
                     </div>
                     <i class="typcn typcn-briefcase icon-xl text-secondary"></i>
                   </div>
-                  <canvas id="expense-chart" height="80"></canvas>
                 </div>
               </div>
             </div>
@@ -24,7 +23,6 @@
                     </div>
                     <i class="typcn typcn-chart-pie icon-xl text-secondary"></i>
                   </div>
-                  <canvas id="budget-chart" height="80"></canvas>
                 </div>
               </div>
             </div>
@@ -38,7 +36,6 @@
                     </div>
                     <i class="typcn typcn-clipboard icon-xl text-secondary"></i>
                   </div>
-                  <canvas id="balance-chart" height="80"></canvas>
                 </div>
               </div>
             </div>

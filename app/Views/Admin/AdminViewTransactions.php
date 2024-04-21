@@ -33,9 +33,6 @@
         <div class="main-panel">
         <?php include ('main-include\viewtransactions.php'); ?>
             </div>
-            <!-- content-wrapper ends -->
-            <?php include ('include\footer.php'); ?>
-            <!-- partial -->
         </div>
         <!-- main-panel ends -->
         </div>

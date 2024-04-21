@@ -42,7 +42,7 @@
                                 <tr>
                                     <td><?= $document['title'] ?></td>
                                     <td><?= $document['tracking_number'] ?></td>
-                                    <td><?= $document['sender_office_id'] ?></td>
+                                    <td><?= $document['sender_id'] ?></td>
                                     <td><?= $document['recipient_id'] ?></td>
                                     <td><?= $document['status'] ?></td>
                                     <td><?= $document['date_of_document'] ?></td>
@@ -96,9 +96,7 @@
                     </div>
                 <?php endif ?>
 
-                <!-- Your form here -->
-
-                <form id="addDocumentForm" action="<?= site_url('documents/saveOffice') ?>" method="post" enctype="multipart/form-data">
+                <form id="addDocumentForm" action="<?= site_url('documents/save') ?>" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="title">Title</label>
@@ -108,12 +106,12 @@
                             <label for="sender_office_id">Sender</label>
                             <select class="form-control" id="sender_office_id" name="sender_office_id" required>
                                 <option value="" disabled selected>Select Sender</option>
-                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
-                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                                <?php foreach ($guestUsersNames as $user_id => $user_name): ?>
+                                    <option value="<?= $user_id ?>"><?= $user_name ?></option>
                                 <?php endforeach; ?>
                             </select>
-
                         </div>
+
 
                         <div class="form-group col-md-4">
                             <label for="recipient_office_id">Recipient</label>

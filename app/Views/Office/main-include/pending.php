@@ -20,9 +20,9 @@
                                 <td><?= $document->title ?></td>
                                 <td>
                                     <?php if (isset($senderDetails[$document->document_id])): ?>
-                                        <?php echo $senderDetails[$document->document_id]['sender_user']; ?>
+                                        <?php echo $senderDetails[$document->document_id]['sender_id']; ?>
                                         <?php if ($document->sender_office_id != null): ?>
-                                            <?php echo ' ' . $senderDetails[$document->document_id]['sender_office']; ?>
+                                            <?php echo ' ' . $senderDetails[$document->document_id]['sender_office_id']; ?>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </td>

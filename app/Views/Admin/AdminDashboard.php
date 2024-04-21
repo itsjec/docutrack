@@ -118,7 +118,7 @@
                 data: <?= $userCounts ?>,
                 backgroundColor: [
                     '#C36EB8', 
-                    '#C42D9B'  // Color for 'office user'
+                    '#C42D9B' 
                 ],
                 borderColor: [
                     'transparent',

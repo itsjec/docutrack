@@ -30,22 +30,19 @@ class AdminController extends BaseController
 
     public function officetracking()
     {
-        return view('Admin/AdminTracking');
+        return view('Admin/AdminOfficeTracking');
     }
 
     public function admindashboard()
     {
         $db = \Config\Database::connect();
     
-        // Query to get the total number of documents
         $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
         $totalDocuments = $totalQuery->getRow()->total;
     
-        // Query to get the total number of documents with each status
         $statusQuery = $db->query("SELECT status, COUNT(*) AS total FROM documents GROUP BY status");
         $statuses = $statusQuery->getResult();
     
-        // Prepare data for Chart.js for statuses
         $statusLabels = [];
         $statusCounts = [];
         foreach ($statuses as $status) {
@@ -53,13 +50,11 @@ class AdminController extends BaseController
             $statusCounts[] = $status->total;
         }
     
-        // Query to get the number of documents per office
         $officeQuery = $db->query("SELECT o.office_name, COUNT(d.document_id) AS total FROM documents d
                                     JOIN offices o ON d.recipient_id = o.office_id
                                     GROUP BY d.recipient_id");
         $offices = $officeQuery->getResult();
     
-        // Prepare data for Chart.js for offices
         $officeLabels = [];
         $officeCounts = [];
         foreach ($offices as $office) {
@@ -67,11 +62,9 @@ class AdminController extends BaseController
             $officeCounts[] = $office->total;
         }
     
-        // Query to get the number of users with each role
         $userQuery = $db->query("SELECT role, COUNT(*) AS total FROM users GROUP BY role");
         $roles = $userQuery->getResult();
     
-        // Prepare data for Chart.js for users
         $userLabels = [];
         $userCounts = [];
         foreach ($roles as $role) {
@@ -79,11 +72,9 @@ class AdminController extends BaseController
             $userCounts[] = $role->total;
         }
     
-        // Load the existing data for the dashboard
         $query = $db->query("SELECT * FROM documents");
         $data['documents'] = $query->getResult();
     
-        // Pass data to the view
         $data['statusLabels'] = json_encode($statusLabels);
         $data['statusCounts'] = json_encode($statusCounts);
         $data['officeLabels'] = json_encode($officeLabels);
@@ -91,8 +82,8 @@ class AdminController extends BaseController
         $data['userLabels'] = json_encode($userLabels);
         $data['userCounts'] = json_encode($userCounts);
         $data['totalDocuments'] = $totalDocuments;
+        $data['totalUsers'] = array_sum($userCounts); 
     
-        // Load the dashboard view with the charts
         return view('Admin/AdminDashboard', $data);
     }
     
@@ -353,16 +344,20 @@ public function managedocument()
         $officesDropdown[$office['office_id']] = $office['office_name'];
     }
 
-    // Fetch guest users
     $userModel = new UserModel();
     $guestUsers = $userModel->where('role', 'guest')->findAll();
+
+    $guestUsersNames = [];
+    foreach ($guestUsers as $user) {
+        $guestUsersNames[$user['user_id']] = $user['first_name'] . ' ' . $user['last_name'];
+    }
 
     $data = [
         'documents' => $documents,
         'classificationsDropdown' => $classificationsDropdown,
         'subClassificationsDropdown' => $subClassificationsDropdown,
         'officesDropdown' => $officesDropdown,
-        'guestUsers' => $guestUsers 
+        'guestUsersNames' => $guestUsersNames, // Pass the guest users' names to the view
     ];
 
     return view('Admin/AdminManageDocument', $data);
