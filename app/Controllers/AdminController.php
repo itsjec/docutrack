@@ -324,9 +324,9 @@ public function managedocument()
 
     $documentModel = new DocumentModel();
     $documents = $documentModel
-        ->select('documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, classification.classification_name AS classification, classification.sub_classification AS sub_classification, offices.office_name AS sender_office_name')
-        ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
-        ->join('offices', 'offices.office_id = documents.sender_id', 'left')
+        ->select('documents.*, users.first_name, users.last_name, offices.office_name')
+        ->join('users', 'users.user_id = documents.sender_id', 'left')
+        ->join('offices', 'offices.office_id = documents.recipient_id', 'left')
         ->whereIn('sender_id', array_column($guestUsers, 'user_id'))
         ->findAll();
 
@@ -343,9 +343,6 @@ public function managedocument()
     foreach ($offices as $office) {
         $officesDropdown[$office['office_id']] = $office['office_name'];
     }
-
-    $userModel = new UserModel();
-    $guestUsers = $userModel->where('role', 'guest')->findAll();
 
     $guestUsersNames = [];
     foreach ($guestUsers as $user) {
@@ -368,9 +365,10 @@ public function manageofficedocument()
 {
     $documentModel = new DocumentModel();
     $documents = $documentModel
-        ->select('documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, classification.classification_name AS classification, classification.sub_classification AS sub_classification, offices.office_name AS sender_office_name')
+        ->select('documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name')
         ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
-        ->join('offices', 'offices.office_id = documents.sender_id', 'left')
+        ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
+        ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
         ->findAll();
 
     $classificationModel = new ClassificationModel();
@@ -396,6 +394,7 @@ public function manageofficedocument()
 
     return view('Admin/AdminManageOfficeDocument', $data);
 }
+
 
 
 

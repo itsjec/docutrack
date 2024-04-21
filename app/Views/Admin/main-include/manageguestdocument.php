@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="card-title">Manage Office Documents</h4>
+                            <h4 class="card-title">Manage Guest Documents</h4>
                             <p class="card-description">Track and update documents.</p>
                         </div>
                         <div class="col-4 text-right">
@@ -42,8 +42,8 @@
                                 <tr>
                                     <td><?= $document['title'] ?></td>
                                     <td><?= $document['tracking_number'] ?></td>
-                                    <td><?= $document['sender_id'] ?></td>
-                                    <td><?= $document['recipient_id'] ?></td>
+                                    <td><?= $document['first_name'] ?> <?= $document['last_name'] ?></td>
+                                    <td><?= $document['office_name'] ?></td>
                                     <td><?= $document['status'] ?></td>
                                     <td><?= $document['date_of_document'] ?></td>
                                     <td><?= $document['action'] ?></td>
