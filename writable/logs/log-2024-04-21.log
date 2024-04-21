@@ -1336,3 +1336,17 @@ in APPPATH\Controllers\OfficeController.php on line 603.
  3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
  4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-21 17:48:14 --> Too few arguments to function App\Controllers\OfficeController::updateProfile(), 0 passed in C:\laragon\www\docutrack\system\CodeIgniter.php on line 919 and exactly 1 expected
+in APPPATH\Controllers\OfficeController.php on line 603.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateProfile()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-21 17:50:03 --> Too few arguments to function App\Controllers\OfficeController::updateProfile(), 0 passed in C:\laragon\www\docutrack\system\CodeIgniter.php on line 919 and exactly 1 expected
+in APPPATH\Controllers\OfficeController.php on line 603.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->updateProfile()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')

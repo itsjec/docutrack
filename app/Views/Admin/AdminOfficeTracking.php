@@ -4,7 +4,6 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
   <!-- base:css -->
   <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -27,8 +26,6 @@
 <!-- Bootstrap Datepicker JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-  <!-- endinject -->
-  <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
 <body>
   <div class="container-scroller">

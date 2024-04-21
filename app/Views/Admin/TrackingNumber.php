@@ -4,7 +4,6 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
   <!-- base:css -->
   <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">

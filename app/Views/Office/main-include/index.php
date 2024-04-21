@@ -1,11 +1,11 @@
 <div class="content-wrapper">
 <div class="row">
             <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
+              <div class="card" style="background: linear-gradient(135deg, #9220b9, #C36EB8);">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                     <div>
-                      <p class="mb-2 text-md-center text-lg-left">Pending Documents</p>
+                      <p class="mb-2 text-md-center text-lg-left" >Pending Documents</p>
                       <h1 class="mb-0"><?= $pending_documents_count ?></h1>
                     </div>
                     <i class="typcn typcn-briefcase icon-xl text-secondary"></i>
@@ -14,7 +14,7 @@
               </div>
             </div>
             <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
+              <div class="card" style="background: linear-gradient(135deg, #9220b9, #C36EB8);">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                     <div>
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="col-md-4 grid-margin stretch-card">
-              <div class="card">
+              <div class="card" style="background: linear-gradient(135deg, #9220b9, #C36EB8);">
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                     <div>

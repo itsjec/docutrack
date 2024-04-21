@@ -29,7 +29,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password"  value="<?= $user['password'] ?>" required>
+                            <input type="password" class="form-control" id="password" name="password">
                         </div>
                         <div class="form-group">
                             <label for="profileImage">Profile Picture</label>
