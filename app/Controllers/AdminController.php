@@ -9,6 +9,7 @@ use App\Models\DocumentModel;
 use App\Models\OfficeDocumentsModel;
 use App\Models\ClassificationModel;
 use App\Models\DocumentHistoryModel;
+use SimpleSoftwareIO\QrCode\Generator;
 
 
 class AdminController extends BaseController
@@ -25,6 +26,7 @@ class AdminController extends BaseController
 
     public function tracking()
     {
+
         return view('Admin/AdminTracking');
     }
 

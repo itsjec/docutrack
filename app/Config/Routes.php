@@ -66,7 +66,9 @@ $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1'
 $routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
 
 
-
+//ha    tdog
+$routes->get('track', 'UserController::track');
+//hagtod
 
 $routes->get('userindex', 'UserController::index');
 $routes->post('searchResults', 'UserController::searchResults');
@@ -92,3 +94,6 @@ $routes->get('test-insert-document-history', 'OfficeController::testInsertDocume
 
 $routes->get('/qr-code', 'QrCodeController::index');
 $routes->post('/qr-code/generate', 'QrCodeController::generate');
+
+$routes->match(['get', 'post'], 'qr-codes', 'QrCodeGeneratorController::index');
+
