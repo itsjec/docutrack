@@ -39,10 +39,6 @@
                                             View
                                             <i class="typcn typcn-eye btn-icon-append"></i>
                                         </a>
-                                        <a href="#" class="btn btn-danger btn-sm btn-icon-text">
-                                            Delete
-                                            <i class="typcn typcn-delete-outline btn-icon-append"></i>
-                                        </a>
                                     </div>
                                 </td>
                             </tr>

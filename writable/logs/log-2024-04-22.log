@@ -1,0 +1,767 @@
+CRITICAL - 2024-04-22 05:14:07 --> Undefined array key "first_name"
+in APPPATH\Controllers\OfficeController.php on line 27.
+ 1 APPPATH\Controllers\OfficeController.php(27): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\OfficeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:28:39 --> Attempt to read property "document_id" on array
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 201.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(201): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:28:53 --> Attempt to read property "document_id" on array
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 201.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(201): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:29:39 --> Attempt to read property "title" on array
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 201.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(201): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:29:41 --> Attempt to read property "title" on array
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 201.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(201): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:30:18 --> Attempt to read property "title" on array
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 201.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(201): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:30:19 --> Attempt to read property "title" on array
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 201.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(201): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 05:31:38 --> Undefined variable $document
+in APPPATH\Views\Admin\main-include\manageofficedocument.php on line 12.
+ 1 APPPATH\Views\Admin\main-include\manageofficedocument.php(12): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminManageOfficeDocument.php(50): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\manageofficedocument.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminManageOfficeDocument.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(397): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->manageofficedocument()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 05:43:17 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+#6 C:\laragon\www\docutrack\app\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+#7 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#10 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#12 {main}
+CRITICAL - 2024-04-22 05:43:17 --> Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+ 4 APPPATH\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 05:43:19 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+#6 C:\laragon\www\docutrack\app\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+#7 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#10 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#12 {main}
+CRITICAL - 2024-04-22 05:43:19 --> Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+ 4 APPPATH\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 05:43:19 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+#6 C:\laragon\www\docutrack\app\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+#7 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#10 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#12 {main}
+CRITICAL - 2024-04-22 05:43:19 --> Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+ 4 APPPATH\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 05:43:19 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+#6 C:\laragon\www\docutrack\app\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+#7 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#10 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#12 {main}
+CRITICAL - 2024-04-22 05:43:19 --> Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+ 4 APPPATH\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 05:46:31 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+#6 C:\laragon\www\docutrack\app\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+#7 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#10 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#12 {main}
+CRITICAL - 2024-04-22 05:46:31 --> Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+ 4 APPPATH\Controllers\AdminController.php(746): CodeIgniter\BaseModel->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocument()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 06:24:59 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert()
+#6 C:\laragon\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert()
+#7 C:\laragon\www\docutrack\app\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#10 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#11 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#13 {main}
+CRITICAL - 2024-04-22 06:24:59 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert()
+ 5 APPPATH\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 06:25:01 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert()
+#6 C:\laragon\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert()
+#7 C:\laragon\www\docutrack\app\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#10 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#11 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#13 {main}
+CRITICAL - 2024-04-22 06:25:01 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert()
+ 5 APPPATH\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 06:25:08 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert()
+#6 C:\laragon\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert()
+#7 C:\laragon\www\docutrack\app\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#10 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#11 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#13 {main}
+CRITICAL - 2024-04-22 06:25:08 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert()
+ 5 APPPATH\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 06:25:23 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert()
+#6 C:\laragon\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert()
+#7 C:\laragon\www\docutrack\app\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#10 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#11 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#13 {main}
+CRITICAL - 2024-04-22 06:25:23 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert()
+ 5 APPPATH\Controllers\AdminController.php(779): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 06:28:58 --> mysqli_sql_exception: Column 'office_id' cannot be null in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(788): CodeIgniter\Model->doInsert()
+#6 C:\laragon\www\docutrack\system\Model.php(715): CodeIgniter\BaseModel->insert()
+#7 C:\laragon\www\docutrack\app\Controllers\AdminController.php(780): CodeIgniter\Model->insert()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#10 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#11 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#13 {main}
+CRITICAL - 2024-04-22 06:28:58 --> Column 'office_id' cannot be null
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert()
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert()
+ 5 APPPATH\Controllers\AdminController.php(780): CodeIgniter\Model->insert()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->updateDocumentDeletedStatus()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 06:50:40 --> Cannot use object of type stdClass as array
+in APPPATH\Views\Admin\main-include\archived.php on line 42.
+ 1 APPPATH\Views\Admin\AdminArchived.php(32): include()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminArchived.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 5 APPPATH\Controllers\AdminController.php(714): view()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->archived()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+ERROR - 2024-04-22 06:58:30 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`)) in C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\docutrack\system\Database\MySQLi\Connection.php(306): mysqli->query()
+#1 C:\laragon\www\docutrack\system\Database\BaseConnection.php(692): CodeIgniter\Database\MySQLi\Connection->execute()
+#2 C:\laragon\www\docutrack\system\Database\BaseConnection.php(606): CodeIgniter\Database\BaseConnection->simpleQuery()
+#3 C:\laragon\www\docutrack\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+#4 C:\laragon\www\docutrack\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\docutrack\system\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+#6 C:\laragon\www\docutrack\app\Controllers\AdminController.php(784): CodeIgniter\BaseModel->delete()
+#7 C:\laragon\www\docutrack\system\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocumentpermanent()
+#8 C:\laragon\www\docutrack\system\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+#9 C:\laragon\www\docutrack\system\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+#10 C:\laragon\www\docutrack\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\docutrack\system\Commands\Server\rewrite.php(47): require_once('...')
+#12 {main}
+CRITICAL - 2024-04-22 06:58:30 --> Cannot delete or update a parent row: a foreign key constraint fails (`docutrack2`.`document_history`, CONSTRAINT `document_history_ibfk_1` FOREIGN KEY (`document_id`) REFERENCES `documents` (`document_id`))
+in SYSTEMPATH\Database\BaseConnection.php on line 646.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete()
+ 4 APPPATH\Controllers\AdminController.php(784): CodeIgniter\BaseModel->delete()
+ 5 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->deleteDocumentpermanent()
+ 6 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 07:41:23 --> Attempt to read property "title" on array
+in APPPATH\Views\Admin\main-include\archived.php on line 35.
+ 1 APPPATH\Views\Admin\main-include\archived.php(35): CodeIgniter\Debug\Exceptions->errorHandler()
+ 2 APPPATH\Views\Admin\AdminArchived.php(32): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\main-include\\archived.php')
+ 3 SYSTEMPATH\View\View.php(226): include('C:\\laragon\\www\\docutrack\\app\\Views\\Admin\\AdminArchived.php')
+ 4 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 6 APPPATH\Controllers\AdminController.php(704): view()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\AdminController->archived()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:04:47 --> Invalid file: "qr_code_view.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 3 APPPATH\Controllers\QrCodeController.php(14): view()
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:04:49 --> Invalid file: "qr_code_view.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile()
+ 2 SYSTEMPATH\Common.php(1188): CodeIgniter\View\View->render()
+ 3 APPPATH\Controllers\QrCodeController.php(14): view()
+ 4 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 5 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 6 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:05:09 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:06:02 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(306): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(285): CodeIgniter\Autoloader\Autoloader->includeFile()
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(263): CodeIgniter\Autoloader\Autoloader->loadInNamespace()
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass()
+ 5 SYSTEMPATH\CodeIgniter.php(877): class_exists()
+ 6 SYSTEMPATH\CodeIgniter.php(481): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:06:04 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(306): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(285): CodeIgniter\Autoloader\Autoloader->includeFile()
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(263): CodeIgniter\Autoloader\Autoloader->loadInNamespace()
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass()
+ 5 SYSTEMPATH\CodeIgniter.php(877): class_exists()
+ 6 SYSTEMPATH\CodeIgniter.php(481): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:06:05 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(306): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(285): CodeIgniter\Autoloader\Autoloader->includeFile()
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(263): CodeIgniter\Autoloader\Autoloader->loadInNamespace()
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass()
+ 5 SYSTEMPATH\CodeIgniter.php(877): class_exists()
+ 6 SYSTEMPATH\CodeIgniter.php(481): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:06:06 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 11.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(306): include_once()
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(285): CodeIgniter\Autoloader\Autoloader->includeFile()
+ 3 SYSTEMPATH\Autoloader\Autoloader.php(263): CodeIgniter\Autoloader\Autoloader->loadInNamespace()
+ 4 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass()
+ 5 SYSTEMPATH\CodeIgniter.php(877): class_exists()
+ 6 SYSTEMPATH\CodeIgniter.php(481): CodeIgniter\CodeIgniter->startController()
+ 7 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:06:18 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:07:06 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:07:45 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:07:48 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:08:49 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevel" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:08:54 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevel" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:09:11 --> Class "Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin" not found
+in APPPATH\Controllers\QrCodeController.php on line 27.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:09:32 --> Class "Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin" not found
+in APPPATH\Controllers\QrCodeController.php on line 27.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:09:37 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevel" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:09:42 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevel" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:10:51 --> Endroid\QrCode\QrCode::setEncoding(): Argument #1 ($encoding) must be of type Endroid\QrCode\Encoding\Encoding, string given, called in C:\laragon\www\docutrack\app\Controllers\QrCodeController.php on line 20
+in VENDORPATH\endroid\qr-code\src\QrCode.php on line 48.
+ 1 APPPATH\Controllers\QrCodeController.php(20): Endroid\QrCode\QrCode->setEncoding()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:11:10 --> Endroid\QrCode\QrCode::setEncoding(): Argument #1 ($encoding) must be of type Endroid\QrCode\Encoding\Encoding, string given, called in C:\laragon\www\docutrack\app\Controllers\QrCodeController.php on line 20
+in VENDORPATH\endroid\qr-code\src\QrCode.php on line 48.
+ 1 APPPATH\Controllers\QrCodeController.php(20): Endroid\QrCode\QrCode->setEncoding()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:12:08 --> Class "Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevel" not found
+in APPPATH\Controllers\QrCodeController.php on line 24.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:13:07 --> Call to undefined method Endroid\QrCode\ErrorCorrectionLevel::low()
+in APPPATH\Controllers\QrCodeController.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:14:27 --> Cannot instantiate enum Endroid\QrCode\ErrorCorrectionLevel
+in APPPATH\Controllers\QrCodeController.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:14:32 --> Cannot instantiate enum Endroid\QrCode\ErrorCorrectionLevel
+in APPPATH\Controllers\QrCodeController.php on line 23.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:19:35 --> Class "App\Libraries\phpqrcode\QRcode" not found
+in APPPATH\Controllers\QrCodeController.php on line 19.
+ 1 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 2 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 3 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:28:41 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(28): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:51:32 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(31): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:57:18 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(31): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:58:54 --> estimated data exceeds 540212 bits
+in VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php on line 180.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php(194): chillerlan\QRCode\Data\QRData->estimateTotalBitLength()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php(77): chillerlan\QRCode\Data\QRData->getMinimumVersion()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php(65): chillerlan\QRCode\Data\QRData->setData()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(244): chillerlan\QRCode\Data\QRData->__construct()
+ 5 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->getQRMatrix()
+ 6 APPPATH\Controllers\QrCodeController.php(17): chillerlan\QRCode\QRCode->render()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 08:58:55 --> estimated data exceeds 540212 bits
+in VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php on line 180.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php(194): chillerlan\QRCode\Data\QRData->estimateTotalBitLength()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php(77): chillerlan\QRCode\Data\QRData->getMinimumVersion()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\Data\QRData.php(65): chillerlan\QRCode\Data\QRData->setData()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(244): chillerlan\QRCode\Data\QRData->__construct()
+ 5 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->getQRMatrix()
+ 6 APPPATH\Controllers\QrCodeController.php(17): chillerlan\QRCode\QRCode->render()
+ 7 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 8 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 9 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:01:36 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(28): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:05:52 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(28): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:07:39 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:07:40 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:07:41 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:07:42 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:07:42 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:07:54 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:07:56 --> Cannot declare class App\Controllers\QrCodeController, because the name is already in use
+in APPPATH\Views\qr_code_view.php on line 7.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-04-22 09:10:02 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(26): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:10:09 --> ext-gd not loaded
+in VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php on line 90.
+ 1 VENDORPATH\chillerlan\php-qrcode\src\Output\QRGdImage.php(70): chillerlan\QRCode\Output\QRGdImage->checkGD()
+ 2 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(310): chillerlan\QRCode\Output\QRGdImage->__construct()
+ 3 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(235): chillerlan\QRCode\QRCode->initOutputInterface()
+ 4 VENDORPATH\chillerlan\php-qrcode\src\QRCode.php(226): chillerlan\QRCode\QRCode->renderMatrix()
+ 5 APPPATH\Controllers\QrCodeController.php(26): chillerlan\QRCode\QRCode->render()
+ 6 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->generate()
+ 7 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:37:34 --> imagepng(): Argument #1 ($image) must be of type GdImage, string given
+in APPPATH\Controllers\QrCodeController.php on line 23.
+ 1 APPPATH\Controllers\QrCodeController.php(23): imagepng()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:37:43 --> imagepng(): Argument #1 ($image) must be of type GdImage, string given
+in APPPATH\Controllers\QrCodeController.php on line 23.
+ 1 APPPATH\Controllers\QrCodeController.php(23): imagepng()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')
+CRITICAL - 2024-04-22 09:37:44 --> imagepng(): Argument #1 ($image) must be of type GdImage, string given
+in APPPATH\Controllers\QrCodeController.php on line 23.
+ 1 APPPATH\Controllers\QrCodeController.php(23): imagepng()
+ 2 SYSTEMPATH\CodeIgniter.php(919): App\Controllers\QrCodeController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(494): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH\CodeIgniter.php(353): CodeIgniter\CodeIgniter->handleRequest()
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\docutrack\\public\\index.php')

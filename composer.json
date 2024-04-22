@@ -14,6 +14,8 @@
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
+        "chillerlan/php-qrcode": "^5.0",
+        "endroid/qr-code": "^5.0",
         "laminas/laminas-escaper": "^2.9",
         "psr/log": "^1.1"
     },

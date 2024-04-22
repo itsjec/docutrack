@@ -622,8 +622,9 @@ public function completed()
         $user['first_name'] = $request->getVar('firstName');
         $user['last_name'] = $request->getVar('lastName');
         $user['email'] = $request->getVar('email');
-        $user['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
-
+        if ($request->getVar('password') != null || $request->getVar('password') != ''){
+            $user['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
+        }
         $userModel->update($userId, $user);
 
         return redirect()->to('/manageprofile');

@@ -54,9 +54,9 @@
                                         <a href="#" class="btn btn-sm btn-info">
                                             <i class="mdi mdi-eye"></i> View
                                         </a>
-                                        <a href="#" class="btn btn-sm btn-danger">
-                                            <i class="mdi mdi-delete"></i> Delete
-                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
+                                        <i class="mdi mdi-delete"></i> Delete
+                                    </button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -69,6 +69,29 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the document?
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Add Document Modal -->
 <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

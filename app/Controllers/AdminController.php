@@ -329,6 +329,7 @@ public function managedocument()
         ->join('users', 'users.user_id = documents.sender_id', 'left')
         ->join('offices', 'offices.office_id = documents.recipient_id', 'left')
         ->whereIn('sender_id', array_column($guestUsers, 'user_id'))
+        ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
         ->findAll();
 
     $classificationModel = new ClassificationModel();
@@ -362,6 +363,7 @@ public function managedocument()
 }
 
 
+
 public function manageofficedocument()
 {
     $documentModel = new DocumentModel();
@@ -370,8 +372,8 @@ public function manageofficedocument()
         ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
         ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
         ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
+        ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
         ->findAll();
-
 
     $classificationModel = new ClassificationModel();
     $classifications = $classificationModel->distinct()->findColumn('classification_name');
@@ -396,6 +398,7 @@ public function manageofficedocument()
 
     return view('Admin/AdminManageOfficeDocument', $data);
 }
+
 
 
 
@@ -685,27 +688,19 @@ public function admintransactions()
 
 public function archived()
 {
-    $db = db_connect();
+    $documentModel = new DocumentModel();
 
-    $query = $db->query("
-        SELECT 
-            document_history.document_id,
-            documents.tracking_number, 
-            documents.title, 
-            CONCAT(users.first_name, ' ', users.last_name) AS deleted_by,
-            document_history.date_deleted
-        FROM document_history
-        JOIN documents ON documents.document_id = document_history.document_id
-        JOIN users ON users.user_id = document_history.user_id
-        WHERE document_history.status = 'deleted'
-    ");
+    $documents = $documentModel
+        ->select('documents.document_id, documents.tracking_number, documents.title, CONCAT(users.first_name, " ", users.last_name) AS deleted_by, document_history.date_deleted')
+        ->join('document_history', 'documents.document_id = document_history.document_id')
+        ->join('users', 'users.user_id = document_history.user_id')
+        ->where('document_history.status', 'deleted')
+        ->findAll();
 
-    if (!$query) {
-        // Handle error if query fails
-        return 'Error: Unable to fetch deleted documents';
-    }
-
-    $documents = $query->getResult();
+    // Convert the array to objects
+    $documents = array_map(function ($item) {
+        return (object)$item;
+    }, $documents);
 
     $data = [
         'documents' => $documents
@@ -713,6 +708,7 @@ public function archived()
 
     return view('Admin/AdminArchived', $data);
 }
+
 
     public function documentStatusChart(){
         $db = db_connect();
@@ -752,4 +748,38 @@ public function archived()
                 }
             }
         }
+
+        public function updateDocumentDeletedStatus($documentId, $newStatus)
+        {
+            try {
+                $documentModel = new DocumentModel();
+                $workflowModel = new DocumentHistoryModel();
+        
+                $documentModel->update($documentId, ['status' => $newStatus]);
+        
+                $data = [
+                    'document_id' => $documentId,
+                    'user_id' => null,
+                    'office_id' => null,
+                    'status' => $newStatus,
+                    'date_changed' => date('Y-m-d H:i:s'),
+                    'date_deleted' => $newStatus === 'deleted' ? date('Y-m-d H:i:s') : null
+                ];
+                $workflowModel->insert($data);
+        
+                return redirect()->back();
+            } catch (\Exception $e) {
+                var_dump($e->getMessage());
+                exit;
+            }
+        }        
+
+        public function deleteDocumentpermanent($documentId)
+        {
+            $documentModel = new DocumentModel();
+            $documentModel->delete($documentId);
+            return redirect()->to('Admin/AdminArchived');
+        }
+
+        
 }

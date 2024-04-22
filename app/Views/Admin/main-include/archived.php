@@ -26,8 +26,6 @@
                             <tr>
                                 <th>Title</th>
                                 <th>Tracking Number</th>
-                                <th>Deleted By</th>
-                                <th>Date Deleted</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -36,12 +34,10 @@
                                 <tr>
                                     <td><?= $document->title ?></td>
                                     <td><?= $document->tracking_number ?></td>
-                                    <td><?= $document->deleted_by ?></td>
-                                    <td><?= $document->date_deleted ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-danger" id="deleteDocumentBtn">
-                                            <i class="mdi mdi-delete"></i> Delete
-                                        </a>
+                                    <button type="button" class="btn btn-sm btn-danger delete-btn" onclick="deleteDocument(<?= $document->document_id ?>)">
+                                        <i class="mdi mdi-delete"></i> Delete
+                                    </button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -54,26 +50,27 @@
 </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete this document?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
-      </div>
+<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the document?
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
 
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

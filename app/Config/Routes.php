@@ -30,6 +30,8 @@ $routes->get('manageofficedocument', 'AdminController::manageofficedocument');
 $routes->get('test-insert', 'AdminController::testInsert');
 $routes->get('document-status-chart', 'AdminController::documentStatusChart');
 $routes->post('documents/deleteDocument', 'AdminController::deleteDocument');
+$routes->post('admin/update-document-deleted-status/(:num)/(:any)', 'AdminController::updateDocumentDeletedStatus/$1/$2');
+$routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentpermanent/$1');
 
 
 
@@ -83,3 +85,10 @@ $routes->get('transactions', 'UserController::transaction');
 
 $routes->get('test-insert-document-history', 'OfficeController::testInsertDocumentHistory');
 
+
+
+
+
+
+$routes->get('/qr-code', 'QrCodeController::index');
+$routes->post('/qr-code/generate', 'QrCodeController::generate');
