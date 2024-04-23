@@ -450,12 +450,13 @@ public function completed()
         public function sendOutDocument()
         {
             $documentId = $this->request->getPost('document_id');
-            $officeId = $this->request->getPost('office_id');
-
-            $this->updateDocumentRecipientAndStatus($documentId, $officeId, 'pending');
-
+            $recipientId = $this->request->getPost('recipient_id');
+        
+            $this->updateDocumentRecipientAndStatus($documentId, $recipientId, 'pending');
+        
             return 'Document sent out successfully'; 
         }
+        
 
 
 

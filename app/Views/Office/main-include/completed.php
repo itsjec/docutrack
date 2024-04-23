@@ -95,9 +95,10 @@
             </div>
             <div class="modal-body">
                 <form id="sendOutForm" method="post" action="<?= site_url('documents/sendOutDocument') ?>">
-                <input type="hidden" id="recipient_id" name="recipient_id" value="">
+                    <input type="hidden" id="document_id" name="document_id" value="">
+                    <input type="hidden" id="recipient_id" name="recipient_id" value="">
                     <label for="office_id">Select Office:</label>
-                    <select class="form-control" id="office_id" name="office_id" onchange="updateRecipientId(this.value)">
+                    <select class="form-control" id="office_id" name="office_id" onchange="updateRecipientId()">
                         <?php foreach ($offices as $office): ?>
                             <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
                         <?php endforeach; ?>
@@ -111,3 +112,4 @@
         </div>
     </div>
 </div>
+

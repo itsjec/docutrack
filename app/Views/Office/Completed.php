@@ -74,33 +74,28 @@ $('.delete-btn').on('click', function() {
       });
   });
 
-
   var currentDocumentId;
 
-  function setDocumentId(button) {
-    window.currentDocumentId = button.getAttribute('data-document-id');
-}
-
-function updateRecipientId(documentId, recipientId) {
+function updateRecipientId() {
+    var documentId = $('.btn-send-out').data('document-id');
+    var recipientId = $('#office_id').val(); 
     $('#document_id').val(documentId);
     $('#recipient_id').val(recipientId);
 }
 
 $(document).ready(function() {
     $('.btn-send-out').on('click', function() {
-        var documentId = $(this).data('document-id');
-        var recipientId = $('#office_id').val(); 
-        updateRecipientId(documentId, recipientId);
+        currentDocumentId = $(this).data('document-id');
+        updateRecipientId();
     });
 
     $('#confirmSendOutBtn').on('click', function() {
-        var documentId = $('.btn-send-out').data('document-id'); 
+        var documentId = $('#document_id').val(); 
         var recipientId = $('#recipient_id').val(); 
 
         $.ajax({
-            url: 'documents/update-document-recipient-and-status/' + documentId + '/' + recipientId + '/pending',
+            url: '<?= site_url('documents/update-document-recipient-and-status/') ?>' + documentId + '/' + recipientId + '/pending',
             type: 'POST',
-            data: { recipient_id: recipientId },
             success: function(response) {
                 console.log(response);
                 $('#sendOutModal').modal('hide');
