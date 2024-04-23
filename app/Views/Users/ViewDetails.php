@@ -42,7 +42,7 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <?php include ('main-include\viewdetails.php'); ?>
+    <?php include ('main-include/viewdetails.php'); ?>
 
     <!-- Preloader -->
     <div id="overlayer"></div>

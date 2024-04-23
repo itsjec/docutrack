@@ -45,7 +45,7 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <?php include ('main-include\searchresults.php'); ?>
+    <?php include ('main-include/searchresults.php'); ?>
 
     <!-- Preloader -->
     <div id="overlayer"></div>
