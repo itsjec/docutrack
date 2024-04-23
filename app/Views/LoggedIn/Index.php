@@ -40,10 +40,10 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <?php include ('include\navbar.php'); ?>
-    <?php include ('main-include\index.php'); ?>
+    <?php include ('include/navbar.php'); ?>
+    <?php include ('main-include/index.php'); ?>
     
-    <?php include ('include\footer.php'); ?>
+    <?php include ('include/footer.php'); ?>
 
     <!-- Preloader -->
     <div id="overlayer"></div>
