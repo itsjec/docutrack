@@ -17,19 +17,19 @@
 </head>
 <body>
   <div class="container-scroller">
-  <?php include ('include\partialnavbar.php'); ?>
+  <?php include ('include/partialnavbar.php'); ?>
       <!-- partial:partials/_settings-panel.html -->
       <div class="container-fluid page-body-wrapper">
         <div class="theme-setting-wrapper">
-        <?php include ('include\setting.php'); ?>
+        <?php include ('include/setting.php'); ?>
         <!-- partial -->
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
-        <?php include ('include\partialsidebar.php'); ?>
+        <?php include ('include/partialsidebar.php'); ?>
         </nav>
         <!-- partial -->
         <div class="main-panel">
-        <?php include ('main-include\ongoing.php'); ?>
+        <?php include ('main-include/ongoing.php'); ?>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial -->
