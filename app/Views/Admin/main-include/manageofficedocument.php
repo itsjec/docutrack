@@ -37,29 +37,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($documents as $document): ?>
-                            <tr>
-                                <td><?= $document['title'] ?></td>
-                                <td><?= $document['tracking_number'] ?></td>
-                                <td><?= $document['sender_office_name'] ?></td>
-                                <td><?= $document['recipient_office_name'] ?></td>
-                                <td><?= $document['status'] ?></td>
-                                <td><?= $document['date_of_document'] ?></td>
-                                <td><?= $document['action'] ?></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-primary">
-                                        <i class="mdi mdi-pencil"></i> Edit
-                                    </a>
-                                    <a href="#" class="btn btn-sm btn-info">
-                                        <i class="mdi mdi-eye"></i> View
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
-                                        <i class="mdi mdi-delete"></i> Delete
-                                    </button>
-
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
+                    <?php foreach ($documents as $document): ?>
+                        <tr>
+                            <td><?= $document['title'] ?></td>
+                            <td><?= $document['tracking_number'] ?></td>
+                            <td><?= $document['sender_office_name'] ?></td>
+                            <td><?= $document['recipient_office_name'] ?></td>
+                            <td><?= $document['status'] ?></td>
+                            <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
+                            <td><?= $document['action'] ?></td>
+                            <td>
+                            <button type="button" class="btn btn-sm btn-primary edit-btn"
+                                    data-toggle="modal" data-target="#editDocumentModal"
+                                    data-documentid="<?= $document['document_id'] ?>"
+                                    data-title="<?= $document['title'] ?>"
+                                    data-sender-office-id="<?= $document['sender_office_id'] ?>"
+                                    data-recipient-office-id="<?= $document['recipient_id'] ?>"
+                                    data-classification="<?= $document['classification'] ?>"
+                                    data-sub-classification="<?= $document['sub_classification'] ?>"
+                                    data-date-of-document="<?= $document['date_of_document'] ?>"
+                                    data-action="<?= $document['action'] ?>"
+                                    data-description="<?= $document['description'] ?>">
+                                <i class="mdi mdi-pencil"></i> Edit
+                            </button>
+                                <a href="#" class="btn btn-sm btn-info">
+                                    <i class="mdi mdi-eye"></i> View
+                                </a>
+                                <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
+                                    <i class="mdi mdi-delete"></i> Delete
+                                </button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
 
@@ -68,6 +77,88 @@
         </div>
     </div>
 </div>
+</div>
+
+
+<div class="modal fade" id="editDocumentModal" tabindex="-1" role="dialog" aria-labelledby="editDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDocumentModalLabel">Edit Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form here -->
+                <form id="editDocumentForm" action="<?= site_url('documents/updateDocument') ?>" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="editDocumentId" name="id">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="editTitle">Title</label>
+                            <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editSenderOfficeId">Sender</label>
+                            <select class="form-control" id="editSenderOfficeId" name="sender_office_id" required>
+                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editRecipientOfficeId">Recipient</label>
+                            <select class="form-control" id="editRecipientOfficeId" name="recipient_office_id" required>
+                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="editClassification">Classification</label>
+                        <select class="form-control" id="editClassification" name="classification" required>
+                            <?php foreach ($classificationsDropdown as $classification): ?>
+                                <option value="<?= $classification ?>"><?= $classification ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="editSubClassification">Sub-Classification</label>
+                        <select id="editSubClassification" name="sub_classification" class="form-control" required>
+                            <?php foreach ($subClassificationsDropdown as $subClassification): ?>
+                                <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                        <div class="form-group col-md-4">
+                            <label for="editDateOfDocument">Date of Document</label>
+                            <input type="text" class="form-control" id="editDateOfDocument" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="editAttachment">Attachment (PDF)</label>
+                            <input type="file" class="form-control-file" id="editAttachment" name="attachment" accept=".pdf">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editAction">Action</label>
+                            <input type="text" class="form-control" id="editAction" name="action">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editDescription">Description</label>
+                            <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
@@ -230,6 +321,72 @@
     });
 </script>
 
+<script>
+$(document).ready(function() {
+    $('.edit-btn').on('click', function() {
+        var documentId = $(this).data('documentid');
+        var title = $(this).data('title');
+        var senderOfficeId = $(this).data('sender-office-id');
+        var recipientOfficeId = $(this).data('recipient-office-id');
+        var classification = $(this).data('classification');
+        var subClassification = $(this).data('sub-classification');
+        var dateOfDocument = $(this).data('date-of-document');
+        var action = $(this).data('action');
+        var description = $(this).data('description');
+
+        $('#editDocumentId').val(documentId);
+        $('#editTitle').val(title);
+        $('#editSenderOfficeId').val(senderOfficeId);
+        $('#editRecipientOfficeId').val(recipientOfficeId);
+        $('#editDateOfDocument').val(dateOfDocument);
+        $('#editAction').val(action);
+        $('#editDescription').val(description);
+
+        // Set the selected option for classification dropdown
+        $('#editClassification option').each(function() {
+            if ($(this).val() == classification) {
+                $(this).prop('selected', true);
+            } else {
+                $(this).prop('selected', false);
+            }
+        });
+
+        // Set the selected option for sub_classification dropdown
+        $('#editSubClassification option').each(function() {
+            if ($(this).val() == subClassification) {
+                $(this).prop('selected', true);
+            } else {
+                $(this).prop('selected', false);
+            }
+        });
+
+        $('#editDocumentModal').modal('show');
+    });
+
+    $('#editDocumentForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: 'documents/updateDocument',
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Handle success response
+                $('#editDocumentModal').modal('hide');
+                // Reload or update the document list
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
 
 <!-- jQuery -->
 

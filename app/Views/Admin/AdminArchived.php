@@ -65,14 +65,14 @@ $('.delete-btn').on('click', function() {
     $('#deleteDocumentModal').modal('show');
 });
 
-$('#confirm-delete-btn').click(function(event) {
+$('#delete-btn').click(function(event) {
     event.preventDefault();
 
     let docId = $('#delete-btn').data("document-id");
 
     $.ajax({
         url: 'admin/delete-document/' + docId,
-        type: 'GET',
+        type: 'POST',
         success: function(response) {
             console.log(response);
             $("#deleteDocumentModal").modal('hide');

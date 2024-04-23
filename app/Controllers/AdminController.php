@@ -219,10 +219,10 @@ class AdminController extends BaseController
     public function manageguest()
     {
         $userModel = new UserModel();
-        $data['guestUsers'] = $userModel->select('first_name, last_name, email, picture_path')
-                                        ->where('role', 'guest')
-                                        ->findAll();
-        
+        $data['guestUsers'] = $userModel->select('user_id, first_name, last_name, email, picture_path')
+        ->where('role', 'guest')
+        ->findAll();
+
         return view('Admin/AdminManageGuest', $data);
     }
     
@@ -368,14 +368,14 @@ public function managedocument()
 
 public function manageofficedocument()
 {
-    $documentModel = new DocumentModel();
+    $documentModel = new \App\Models\DocumentModel(); 
     $documents = $documentModel
-        ->select('documents.document_id, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name')
-        ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
-        ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
-        ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
-        ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
-        ->findAll();
+    ->select('documents.document_id, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, classification.classification_name AS classification, classification.sub_classification AS sub_classification')
+    ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
+    ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
+    ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
+    ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
+    ->findAll();
 
     $classificationModel = new ClassificationModel();
     $classifications = $classificationModel->distinct()->findColumn('classification_name');
@@ -395,7 +395,7 @@ public function manageofficedocument()
         'documents' => $documents,
         'classificationsDropdown' => $classificationsDropdown,
         'subClassificationsDropdown' => $subClassificationsDropdown,
-        'officesDropdown' => $officesDropdown
+        'officesDropdown' => $officesDropdown,
     ];
 
     return view('Admin/AdminManageOfficeDocument', $data);
@@ -693,10 +693,8 @@ public function archived()
     $documentModel = new DocumentModel();
 
     $documents = $documentModel
-        ->select('documents.document_id, documents.tracking_number, documents.title, CONCAT(users.first_name, " ", users.last_name) AS deleted_by, document_history.date_deleted')
-        ->join('document_history', 'documents.document_id = document_history.document_id')
-        ->join('users', 'users.user_id = document_history.user_id')
-        ->where('document_history.status', 'deleted')
+    ->select('documents.document_id, documents.tracking_number, documents.title, NULL AS deleted_by, NULL AS date_deleted')
+    ->where('documents.status', 'deleted')
         ->findAll();
 
     // Convert the array to objects
@@ -734,6 +732,7 @@ public function archived()
                 'data' => json_encode($data)
             ]);
         }
+
         public function deleteDocument()
         {
             $documentModel = new DocumentModel();
@@ -776,12 +775,99 @@ public function archived()
             }
         }        
 
-        public function deleteDocumentpermanent($documentId)
+        public function deleteDocumentPermanent($documentId)
         {
-            $documentModel = new DocumentModel();
-            $documentModel->delete($documentId);
+            $documentHistoryModel = new DocumentHistoryModel();
+            $documentHistoryModel->where('document_id', $documentId)->delete();
             return redirect()->to('Admin/AdminArchived');
         }
 
+        public function updateUser()
+        {
+            $userId = $this->request->getPost('userId');
+            $userModel = new UserModel();
+
+            $userData = [
+                'office_id' => $this->request->getPost('officeId'),
+                'first_name' => $this->request->getPost('firstName'),
+                'last_name' => $this->request->getPost('lastName'),
+                'email' => $this->request->getPost('email'),
+            ];
+
+            $password = $this->request->getPost('password');
+            if (!empty($password)) {
+                $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+            }
+
+            $userModel->update($userId, $userData);
+
+            return redirect()->to('manageuser');
+        }
+
+        public function updateGuestUser()
+        {
+            $userId = $this->request->getPost('userId');
+            $userModel = new UserModel();
+
+            $userData = [
+                'first_name' => $this->request->getPost('firstName'),
+                'last_name' => $this->request->getPost('lastName'),
+                'email' => $this->request->getPost('email'),
+            ];
+
+            $password = $this->request->getPost('password');
+            if (!empty($password)) {
+                $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+            }
+
+            $userModel->update($userId, $userData);
+
+            return redirect()->to('manageguest');
+        }
+        
+public function updateDocument()
+{
+    $documentId = $this->request->getPost('id');
+    $documentModel = new DocumentModel();
+
+    $documentData = [
+        'title' => $this->request->getPost('title'),
+        'sender_office_id' => $this->request->getPost('sender_office_id'),
+        'recipient_id' => $this->request->getPost('recipient_office_id'),
+        'classification' => $this->request->getPost('classification'),
+        'sub_classification' => $this->request->getPost('sub_classification'),
+        'action' => $this->request->getPost('action'),
+        'description' => $this->request->getPost('description'),
+    ];
+
+    if ($this->request->getFile('attachment')->isValid()) {
+        $attachment = $this->request->getFile('attachment');
+        $attachment->move(WRITEPATH . 'uploads');
+        $documentData['attachment'] = $attachment->getName();
+    }
+
+    if (!empty($documentData)) {
+        $result = $documentModel->set($documentData)->where('document_id', $documentId)->update();
+        if ($result) {
+            // Reload the page if update was successful
+            echo '<script>window.location.reload();</script>';
+            exit();
+        }
+    }
+
+    return redirect()->to('manageofficedocument')->with('success', 'Document updated successfully.');
+}
+
+        
+
+        public function getDocument()
+        {
+            $documentId = $this->request->getPost('id');
+            $documentModel = new DocumentModel();
+            $document = $documentModel->find($documentId);
+        
+            return $this->response->setJSON($document);
+        }
+        
         
 }

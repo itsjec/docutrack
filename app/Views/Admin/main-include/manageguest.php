@@ -34,22 +34,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($guestUsers as $user): ?>
-                                <tr>
-                                    <td><?= $user['first_name'] ?></td>
-                                    <td><?= $user['last_name'] ?></td>
-                                    <td><?= $user['email'] ?></td>
-                                    <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
-                                    <td>
-                                        <a href="#" class="btn btn-sm btn-primary">
-                                            <span class="mdi mdi-pencil"></span> Edit
-                                        </a>
-                                        <a href="#" class="btn btn-sm btn-danger">
-                                            <span class="mdi mdi-delete"></span> Delete
-                                        </a>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                        <?php foreach ($guestUsers as $user): ?>
+                            <tr>
+                                <td><?= $user['first_name'] ?></td>
+                                <td><?= $user['last_name'] ?></td>
+                                <td><?= $user['email'] ?></td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-primary edit-btn" 
+                                        data-toggle="modal" 
+                                        data-target="#editUserModal" 
+                                        data-userid="<?= $user['user_id'] ?>" 
+                                        data-firstname="<?= $user['first_name'] ?>" 
+                                        data-lastname="<?= $user['last_name'] ?>" 
+                                        data-email="<?= $user['email'] ?>">
+                                        <i class="mdi mdi-pencil"></i> Edit
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
@@ -58,6 +60,46 @@
     </div>
 </div>
 </div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" action="<?= site_url('updateguest') ?>" method="post">
+                <input type="hidden" id="editUserId" name="userId">
+                    <div class="form-group">
+                        <label for="editFirstName">First Name</label>
+                        <input type="text" class="form-control" id="editFirstName" name="firstName" placeholder="Enter first name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editLastName">Last Name</label>
+                        <input type="text" class="form-control" id="editLastName" name="lastName" placeholder="Enter last name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="email" placeholder="Enter email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPassword">Password</label>
+                        <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter password">
+                        <meter max="4" id="editPassword-strength-meter"></meter>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -131,6 +173,23 @@
                 meter.style.color = 'darkgreen';
                 break;
         }
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.edit-btn').on('click', function(){
+            var userId = $(this).data('userid');
+            var firstName = $(this).data('firstname');
+            var lastName = $(this).data('lastname');
+            var email = $(this).data('email');
+
+            $('#editUserId').val(userId);
+            $('#editFirstName').val(firstName);
+            $('#editLastName').val(lastName);
+            $('#editEmail').val(email);
+        });
     });
 </script>
 

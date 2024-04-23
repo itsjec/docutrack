@@ -92,6 +92,28 @@ $('#addOfficeBtn').click(function () {
       alert("Calendar icon clicked!");
     });
   });
+
+  $('.delete-user-btn').on('click', function() {
+    var userId = $(this).data('user-id');
+    $('#confirm-delete-btn').data('user-id', userId);
+    $('#deleteUserModal').modal('show');
+});
+
+$('.edit-btn').on('click', function() {
+    var userId = $(this).data('user-id');
+    var firstName = $(this).data('first-name');
+    var lastName = $(this).data('last-name');
+    var email = $(this).data('email');
+    var officeId = $(this).data('office-id');
+
+    $('#editUserId').val(userId);
+    $('#editFirstName').val(firstName);
+    $('#editLastName').val(lastName);
+    $('#editEmail').val(email);
+    $('#editOfficeId').val(officeId);
+
+    $('#editUserModal').modal('show');
+});
 </script>
 
 

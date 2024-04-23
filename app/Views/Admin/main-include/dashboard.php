@@ -76,10 +76,11 @@
                                         <td><?= $document->action ?></td>
                                         <td>
                                             <div class="d-flex align-items-center">
-                                                <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">
-                                                    View
-                                                    <i class="typcn typcn-eye btn-icon-append"></i>
-                                                </a>
+                                            <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3" onclick="openPdf('http://localhost:8080/public/uploads/1712936838_67a299de09cadcf0215d.pdf')">
+                                                View
+                                                <i class="typcn typcn-eye btn-icon-append"></i>
+                                            </a>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -98,3 +99,8 @@
         </div>
     </div>
 </div>
+<script>
+function openPdf(url) {
+    window.open(url, '_blank');
+}
+</script>

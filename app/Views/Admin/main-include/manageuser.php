@@ -43,7 +43,14 @@
                                 <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
-                                    <a href="<?= base_url('edit/' . $user['user_id']) ?>" class="btn btn-sm btn-primary"><i class="mdi mdi-pencil"></i> Edit</a>
+                                <a href="#" class="btn btn-sm btn-primary edit-btn"
+                                        data-user-id="<?= $user['user_id'] ?>"
+                                        data-first-name="<?= $user['first_name'] ?>"
+                                        data-last-name="<?= $user['last_name'] ?>"
+                                        data-email="<?= $user['email'] ?>"
+                                        data-office-id="<?= $user['office_id'] ?>">
+                                            <i class="mdi mdi-pencil"></i> Edit
+                                    </a>
                                     <a href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i> Delete</a>
                                 </td>
                             </tr>
@@ -55,6 +62,61 @@
         </div>
     </div>
 </div>
+</div>
+
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit User Account</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm" action="<?= site_url('users/update') ?>" method="post">
+                    <input type="hidden" id="editUserId" name="userId">
+                    <div class="form-group">
+                        <label for="editOfficeId">Office</label>
+                        <select class="form-control" id="editOfficeId" name="officeId">
+                            <?php foreach ($offices as $office): ?>
+                                <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="editFirstName">First Name</label>
+                                <input type="text" class="form-control" id="editFirstName" name="firstName" placeholder="Enter first name" required>
+                            </div>
+                            <div class="col">
+                                <label for="editLastName">Last Name</label>
+                                <input type="text" class="form-control" id="editLastName" name="lastName" placeholder="Enter last name" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                <label for="editEmail">Email</label>
+                                <input type="email" class="form-control" id="editEmail" name="email" placeholder="Enter email" required>
+                            </div>
+                            <div class="col">
+                                <label for="editPassword">Password</label>
+                                <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter password">
+                                <meter max="4" id="editPassword-strength-meter"></meter>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">

@@ -44,7 +44,7 @@
                                 <td><?= $document['sender_office_name'] ?></td>
                                 <td><?= $document['recipient_office_name'] ?></td>
                                 <td><?= $document['status'] ?></td>
-                                <td><?= $document['date_of_document'] ?></td>
+                                <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
                                 <td><?= $document['action'] ?></td>
                                 <td>
                                     <a href="#" class="btn btn-sm btn-primary">

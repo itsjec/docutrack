@@ -35,10 +35,8 @@
                                     <td><?= $document->title ?></td>
                                     <td><?= $document->tracking_number ?></td>
                                     <td>
-                                    <button type="button" class="btn btn-sm btn-danger delete-btn" onclick="deleteDocument(<?= $document->document_id ?>)">
-                                        <i class="mdi mdi-delete"></i> Delete
-                                    </button>
-                                    </td>
+                                    <button type="button" class="btn btn-sm btn-danger delete-btn" data-document-id="<?= $document->document_id ?>">Delete
+                        </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>

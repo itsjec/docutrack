@@ -32,7 +32,12 @@ $routes->get('document-status-chart', 'AdminController::documentStatusChart');
 $routes->post('documents/deleteDocument', 'AdminController::deleteDocument');
 $routes->post('admin/update-document-deleted-status/(:num)/(:any)', 'AdminController::updateDocumentDeletedStatus/$1/$2');
 $routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentpermanent/$1');
-
+$routes->post('admin/delete-document/(:num)', 'AdminController::deleteDocumentPermanent/$1');
+$routes->post('admin/delete-user/(:num)', 'AdminController::deleteUser/$1');
+$routes->post('users/update', 'AdminController::updateUser');
+$routes->post('updateguest', 'AdminController::updateGuestUser');
+$routes->post('documents/updateDocument', 'AdminController::updateDocument');
+$routes->post('documents/getDocument', 'AdminController::getDocument');
 
 
 
