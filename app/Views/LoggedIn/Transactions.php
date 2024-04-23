@@ -47,7 +47,7 @@
       <div class="site-mobile-menu-body"></div>
     </div>
 
-    <?php include ('include\navbar.php'); ?>
+    <?php include ('include/navbar.php'); ?>
 
     <!-- Other HTML content above -->
     <div class="container" style="margin-top: 150px;"> <!-- Adjust the margin-top value as needed -->
