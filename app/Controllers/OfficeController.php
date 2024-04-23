@@ -187,7 +187,7 @@ public function ongoing()
         'user_name' => $userName
     ];
 
-    return view('Office/Ongoing', $data);
+    return view('Office/OnGoing', $data);
 }
 
 
