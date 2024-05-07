@@ -42,8 +42,7 @@
 
     <?php include ('include/navbar.php'); ?>
     <?php include ('main-include/index.php'); ?>
-    
-    <?php include ('include/footer.php'); ?>
+  
 
     <!-- Preloader -->
     <div id="overlayer"></div>

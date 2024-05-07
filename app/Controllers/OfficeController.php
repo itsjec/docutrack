@@ -16,6 +16,7 @@ class OfficeController extends BaseController
     public function __construct()
     {
         $this->session = \Config\Services::session();
+        $this->db = \Config\Database::connect();
     }
 
     public function index()
@@ -708,7 +709,80 @@ public function completed()
         return $this->response->setJSON($response);
     }
 
+    public function allDocuments()
+    {
+        $userId = session('user_id');
+    
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
 
-}
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+    
+        $data = [
+            'user_name' => $userName,
+            'searchResults' => [],
+            'offices' => $offices
+        ];
+    
+        return view('Office/Search', $data);
+    }
+    
+
+    public function search()
+    {
+        $userId = session('user_id');
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
+    
+        $searchQuery = $this->request->getVar('search');
+        $statusFilter = $this->request->getVar('status');
+        $sortOption = $this->request->getVar('sort');
+    
+        $session = session();
+        $officeId = $session->get('office_id');
+    
+        $query = $this->db->table('documents')
+            ->groupStart()
+            ->like('title', $searchQuery)
+            ->orLike('tracking_number', $searchQuery)
+            ->groupEnd()
+            ->where('recipient_id', $officeId);
+    
+        if (!empty($statusFilter)) {
+            $query->where('status', $statusFilter);
+        }
+    
+        switch ($sortOption) {
+            case 'title_asc':
+                $query->orderBy('title', 'ASC');
+                break;
+            case 'title_desc':
+                $query->orderBy('title', 'DESC');
+                break;
+            case 'date_asc':
+                $query->orderBy('date_of_document', 'ASC');
+                break;
+            case 'date_desc':
+                $query->orderBy('date_of_document', 'DESC');
+                break;
+            default:
+                $query->orderBy('title', 'ASC');
+        }
+    
+        $searchResults = $query->get()->getResultArray();
+    
+        $data = [
+            'searchResults' => $searchResults,
+            'user_name' => $userName
+        ];
+    
+        return view('Office/Search', $data);
+    }
+    
+    }
+
 
 

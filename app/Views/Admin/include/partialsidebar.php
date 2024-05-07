@@ -43,6 +43,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('archived') ?>">Archived Documents</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('all') ?>">All Documents</a>
+                </li>
             </ul>
         </div>
     </li>

@@ -35,7 +35,7 @@
                 <div class="d-sm-flex flex-wrap justify-content-between align-items-center text-center pt-4">
                     <div class="custom-control custom-checkbox mt-2 mr-3">
                         <input class="custom-control-input" type="checkbox" id="notify-me" checked>
-                    </div><a class="btn btn-primary btn-sm mt-2" href="userindex" data-toggle="modal">Return Home</a>
+                    </div><a class="btn btn-primary" href="indexloggedin" data-toggle="modal">Return Home</a>
             </div>
             </div>
         </div>

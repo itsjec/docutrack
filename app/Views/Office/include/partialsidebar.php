@@ -26,6 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('completed') ?>">Completed</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('allDocuments') ?>">All Documents</a>
+                </li>
             </ul>
         </div>
     </li>

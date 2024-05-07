@@ -1,3 +1,5 @@
+
+
 <div class="banner">
             <div class="content">
                 <h1>Document: <?= $document['tracking_number'] ?></h1>
@@ -57,7 +59,7 @@
                     <div class="custom-control custom-checkbox mt-2 mr-3">
                         <input class="custom-control-input" type="checkbox" id="notify-me" checked>
                     </div>
-                    <a class="btn btn-primary btn-sm mt-2" href="viewdetails?tracking_number=<?= $document['tracking_number'] ?>" data-toggle="modal">View Document Details</a>
+                    <a class="btn btn-primary" href="viewdetails?tracking_number=<?= $document['tracking_number'] ?>" data-toggle="modal">View Document Details</a>
                 </div>
 
             </div>

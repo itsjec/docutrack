@@ -21,10 +21,6 @@
       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
-  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
-  <link rel="stylesheet" href="assets/css/style.css">
 
     <link rel="stylesheet" href="assets2/fonts/icomoon/style.css" />
     <link rel="stylesheet" href="assets2/fonts/flaticon/font/flaticon.css" />
@@ -33,12 +29,17 @@
     <link rel="stylesheet" href="assets2/css/aos.css" />
     <link rel="stylesheet" href="assets2/css/style.css" />
 
-    <title>
-      Property &mdash; Free Bootstrap 5 Website Template by Untree.co
-    </title>
+    <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
+  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
+  
   </head>
   <body>
-  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
         <div class="site-mobile-menu-close">
           <span class="icofont-close js-menu-toggle"></span>
@@ -48,58 +49,8 @@
     </div>
 
     <?php include ('include/navbar.php'); ?>
-
-    <!-- Other HTML content above -->
-    <div class="container" style="margin-top: 150px;"> <!-- Adjust the margin-top value as needed -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="table-responsive pt-3">
-                        <table class="table table-striped project-orders-table">
-                            <thead>
-                                <tr>
-                                    <th>Title</th>
-                                    <th>Tracking Number</th>
-                                    <th>Status</th>
-                                    <th>Current Office</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($documents as $document): ?>
-                                    <tr>
-                                        <td><?= $document->title ?></td>
-                                        <td><?= $document->tracking_number ?></td>
-                                        <td><?= $document->status ?></td>
-                                        <td><?= $document->current_office ?></td>
-                                        <td>
-                                            <a href="#" class="btn btn-info btn-sm btn-icon-text">
-                                                View
-                                                <i class="typcn typcn-eye btn-icon-append"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Other HTML content below -->
-
-    </div>
-</div>
-
-
+    <?php include ('main-include/transactions.php'); ?>
   
-</div>
-
-      </div>
-      <!-- /.container -->
-    </div>
-    <!-- /.site-footer -->
 
     <!-- Preloader -->
     <div id="overlayer"></div>

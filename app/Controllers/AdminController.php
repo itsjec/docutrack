@@ -17,6 +17,7 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->session = \Config\Services::session();
+        $this->db = \Config\Database::connect();
     }
 
     public function index()
@@ -39,45 +40,45 @@ class AdminController extends BaseController
     {
         $db = \Config\Database::connect();
 
-    
+
         $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
         $totalDocuments = $totalQuery->getRow()->total;
-    
+
         $statusQuery = $db->query("SELECT status, COUNT(*) AS total FROM documents GROUP BY status");
         $statuses = $statusQuery->getResult();
-    
+
         $statusLabels = [];
         $statusCounts = [];
         foreach ($statuses as $status) {
             $statusLabels[] = $status->status;
             $statusCounts[] = $status->total;
         }
-    
+
         $officeQuery = $db->query("SELECT o.office_name, COUNT(d.document_id) AS total FROM documents d
                                     JOIN offices o ON d.recipient_id = o.office_id
                                     GROUP BY d.recipient_id");
         $offices = $officeQuery->getResult();
-    
+
         $officeLabels = [];
         $officeCounts = [];
         foreach ($offices as $office) {
             $officeLabels[] = $office->office_name;
             $officeCounts[] = $office->total;
         }
-    
+
         $userQuery = $db->query("SELECT role, COUNT(*) AS total FROM users GROUP BY role");
         $roles = $userQuery->getResult();
-    
+
         $userLabels = [];
         $userCounts = [];
         foreach ($roles as $role) {
             $userLabels[] = $role->role;
             $userCounts[] = $role->total;
         }
-    
+
         $query = $db->query("SELECT * FROM documents");
         $data['documents'] = $query->getResult();
-    
+
         $data['statusLabels'] = json_encode($statusLabels);
         $data['statusCounts'] = json_encode($statusCounts);
         $data['officeLabels'] = json_encode($officeLabels);
@@ -85,12 +86,12 @@ class AdminController extends BaseController
         $data['userLabels'] = json_encode($userLabels);
         $data['userCounts'] = json_encode($userCounts);
         $data['totalDocuments'] = $totalDocuments;
-        $data['totalUsers'] = array_sum($userCounts); 
+        $data['totalUsers'] = array_sum($userCounts);
 
         return view('Admin/AdminDashboard', $data);
     }
-    
-    
+
+
 
     public function adminmanageoffice()
     {
@@ -99,117 +100,104 @@ class AdminController extends BaseController
 
         return view('Admin/AdminManageOffice', $data);
     }
-    
+
     public function login()
-{
-    $userModel = new UserModel();
+    {
+        $userModel = new UserModel();
 
-    // Check if the form is submitted
-    if ($this->request->getMethod() === 'post') {
-        // Get the input data from the form
-        $email = $this->request->getPost('email');
-        $password = $this->request->getPost('password');
+        if ($this->request->getMethod() === 'post') {
+            $email = $this->request->getPost('email');
+            $password = $this->request->getPost('password');
 
-        // Find the user by email
-        $user = $userModel->where('email', $email)->first();
+            $user = $userModel->where('email', $email)->first();
 
-        // If user exists and password is correct
-        if ($user && password_verify($password, $user['password'])) {
-            // Set session data
-            $userData = [
-                'id' => $user['user_id'],
-                'email' => $user['email'],
-                'isLoggedIn' => true,
-                'role' => $user['role']
-            ];
+            if ($user && password_verify($password, $user['password'])) {
+                $userData = [
+                    'id' => $user['user_id'],
+                    'email' => $user['email'],
+                    'isLoggedIn' => true,
+                    'role' => $user['role']
+                ];
 
-            if ($user['role'] === 'office user') {
-                $userData['office_id'] = $user['office_id'];
-                $userData['user_id'] = $user['user_id'];
+                if ($user['role'] === 'office user') {
+                    $userData['office_id'] = $user['office_id'];
+                    $userData['user_id'] = $user['user_id'];
+                }
+
+                if ($user['role'] === 'guest') {
+                    $userData['user_id'] = $user['user_id'];
+                }
+
+                session()->set($userData);
+
+                switch ($user['role']) {
+                    case 'admin':
+                        return redirect()->to('dashboard');
+                        break;
+                    case 'office user':
+                        return redirect()->to('index');
+                        break;
+                    case 'guest':
+                    default:
+                        return redirect()->to('indexloggedin');
+                        break;
+                }
+            } else {
+                session()->setFlashdata('error', 'Invalid email or password.');
             }
-
-            if ($user['role'] === 'guest') {
-                $userData['user_id'] = $user['user_id'];
-            }
-
-            session()->set($userData);
-
-            // Redirect based on user role
-            switch ($user['role']) {
-                case 'admin':
-                    return redirect()->to('dashboard');
-                    break;
-                case 'office user':
-                    return redirect()->to('index');
-                    break;
-                case 'guest':
-                default:
-                    return redirect()->to('indexloggedin');
-                    break;
-            }
-        } else {
-            // Invalid credentials, show error message
-            session()->setFlashdata('error', 'Invalid email or password.');
         }
+        return view('LogIn');
     }
 
-    // Show the login form
-    return view('LogIn');
-}
-
-    
-
-
-    
     public function register()
     {
         helper(['form']);
-    
+
         if ($this->request->getMethod() === 'post') {
-    
+
             $rules = [
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => 'required|valid_email|is_unique[users.email]',
                 'password' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/]',
             ];
-    
+
             $errors = [
                 'password' => [
                     'regex_match' => 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.'
                 ]
             ];
-    
+
             if (!$this->validate($rules, $errors)) {
                 $data['validation'] = $this->validator;
             } else {
-    
-                $imagePath = ''; 
-    
+
+                $imagePath = '';
+
                 $userData = [
                     'first_name' => $this->request->getVar('first_name'),
                     'last_name' => $this->request->getVar('last_name'),
                     'email' => $this->request->getVar('email'),
                     'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-                    'picture_path' => $imagePath, 
-                    'role' => 'admin',
+                    'picture_path' => $imagePath,
+                    'role' => 'guest',
                     'office_id' => null,
                 ];
-    
+
                 $userModel = new UserModel();
                 $userModel->insert($userData);
-    
+
                 return redirect()->to('/');
             }
         }
-    
+
         return view('Register');
     }
-    
+
 
     public function manageoffice()
     {
-        $officeModel = new OfficeModel(); 
+        $officeModel = new OfficeModel();
 
         $data['offices'] = $officeModel->findAll();
 
@@ -220,21 +208,21 @@ class AdminController extends BaseController
     {
         $userModel = new UserModel();
         $data['guestUsers'] = $userModel->select('user_id, first_name, last_name, email, picture_path')
-        ->where('role', 'guest')
-        ->findAll();
+            ->where('role', 'guest')
+            ->findAll();
 
         return view('Admin/AdminManageGuest', $data);
     }
-    
+
     public function saveguest()
     {
         $userModel = new UserModel();
-    
+
         $firstName = $this->request->getPost('firstName');
         $lastName = $this->request->getPost('lastName');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-    
+
         $userData = [
             'first_name' => $firstName,
             'last_name' => $lastName,
@@ -244,12 +232,12 @@ class AdminController extends BaseController
             'image' => '',
             'role' => 'guest',
         ];
-    
+
         $userModel->insert($userData);
-    
+
         return redirect()->to('manageguest')->with('success', 'Guest user added successfully.');
     }
-    
+
 
     public function manageuser()
     {
@@ -258,21 +246,21 @@ class AdminController extends BaseController
             ->join('offices', 'offices.office_id = users.office_id', 'left')
             ->whereIn('users.role', ['admin', 'office user']) // Filter users by role
             ->findAll();
-    
+
         $officeModel = new OfficeModel();
         $data['offices'] = $officeModel->findAll();
         $data['users'] = $users;
-    
-        return view('Admin/AdminManageUser', $data); 
+
+        return view('Admin/AdminManageUser', $data);
     }
-    
+
 
 
     public function save()
     {
         $model = new OfficeModel();
 
-        $validation =  \Config\Services::validation();
+        $validation = \Config\Services::validation();
         $validation->setRules([
             'officeName' => 'required',
         ]);
@@ -287,349 +275,349 @@ class AdminController extends BaseController
 
         return redirect()->back();
     }
-    
+
     public function saveOfficeUser()
-{
-    $userModel = new UserModel();
-    $officeModel = new OfficeModel();
+    {
+        $userModel = new UserModel();
+        $officeModel = new OfficeModel();
 
-    $firstName = $this->request->getPost('firstName');
-    $lastName = $this->request->getPost('lastName');
-    $email = $this->request->getPost('email');
-    $password = $this->request->getPost('password');
-    $officeId = $this->request->getPost('officeId');
+        $firstName = $this->request->getPost('firstName');
+        $lastName = $this->request->getPost('lastName');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+        $officeId = $this->request->getPost('officeId');
 
-    $office = $officeModel->find($officeId);
-    if (!$office) {
-        return redirect()->back()->with('error', 'Office not found.');
+        $office = $officeModel->find($officeId);
+        if (!$office) {
+            return redirect()->back()->with('error', 'Office not found.');
+        }
+
+        $userData = [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $email,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'office_id' => $officeId,
+            'image' => '',
+            'role' => 'office user',
+        ];
+
+        $userModel->insert($userData);
+
+        return redirect()->to('manageuser')->with('success', 'Office user added successfully.');
     }
 
-    $userData = [
-        'first_name' => $firstName,
-        'last_name' => $lastName,
-        'email' => $email,
-        'password' => password_hash($password, PASSWORD_DEFAULT),
-        'office_id' => $officeId,
-        'image' => '',
-        'role' => 'office user',
-    ];
 
-    $userModel->insert($userData);
+    public function managedocument()
+    {
+        $userModel = new UserModel();
+        $guestUsers = $userModel->where('role', 'guest')->findAll();
 
-    return redirect()->to('manageuser')->with('success', 'Office user added successfully.');
-}
+        $documentModel = new DocumentModel();
+        $documents = $documentModel
+            ->select('documents.*, users.first_name, users.last_name, offices.office_name')
+            ->join('users', 'users.user_id = documents.sender_id', 'left')
+            ->join('offices', 'offices.office_id = documents.recipient_id', 'left')
+            ->whereIn('sender_id', array_column($guestUsers, 'user_id'))
+            ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
+            ->findAll();
 
+        $classificationModel = new ClassificationModel();
+        $classifications = $classificationModel->distinct()->findColumn('classification_name');
+        $classificationsDropdown = array_values($classifications); // Reset array keys to start from 0
 
-public function managedocument()
-{
-    $userModel = new UserModel();
-    $guestUsers = $userModel->where('role', 'guest')->findAll();
+        $subClassifications = $classificationModel->findAll();
+        $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
 
-    $documentModel = new DocumentModel();
-    $documents = $documentModel
-        ->select('documents.*, users.first_name, users.last_name, offices.office_name')
-        ->join('users', 'users.user_id = documents.sender_id', 'left')
-        ->join('offices', 'offices.office_id = documents.recipient_id', 'left')
-        ->whereIn('sender_id', array_column($guestUsers, 'user_id'))
-        ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
-        ->findAll();
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+        $officesDropdown = [];
+        foreach ($offices as $office) {
+            $officesDropdown[$office['office_id']] = $office['office_name'];
+        }
 
-    $classificationModel = new ClassificationModel();
-    $classifications = $classificationModel->distinct()->findColumn('classification_name');
-    $classificationsDropdown = array_values($classifications); // Reset array keys to start from 0
+        $guestUsersNames = [];
+        foreach ($guestUsers as $user) {
+            $guestUsersNames[$user['user_id']] = $user['first_name'] . ' ' . $user['last_name'];
+        }
 
-    $subClassifications = $classificationModel->findAll();
-    $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+        $data = [
+            'documents' => $documents,
+            'classificationsDropdown' => $classificationsDropdown,
+            'subClassificationsDropdown' => $subClassificationsDropdown,
+            'officesDropdown' => $officesDropdown,
+            'guestUsersNames' => $guestUsersNames, // Pass the guest users' names to the view
+        ];
 
-    $officeModel = new OfficeModel();
-    $offices = $officeModel->findAll();
-    $officesDropdown = [];
-    foreach ($offices as $office) {
-        $officesDropdown[$office['office_id']] = $office['office_name'];
+        return view('Admin/AdminManageDocument', $data);
     }
 
-    $guestUsersNames = [];
-    foreach ($guestUsers as $user) {
-        $guestUsersNames[$user['user_id']] = $user['first_name'] . ' ' . $user['last_name'];
+
+
+    public function manageofficedocument()
+    {
+        $documentModel = new \App\Models\DocumentModel();
+        $documents = $documentModel
+            ->select('documents.document_id, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, classification.classification_name AS classification, classification.sub_classification AS sub_classification')
+            ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
+            ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
+            ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
+            ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
+            ->findAll();
+
+        $classificationModel = new ClassificationModel();
+        $classifications = $classificationModel->distinct()->findColumn('classification_name');
+        $classificationsDropdown = array_values($classifications); // Reset array keys to start from 0
+
+        $subClassifications = $classificationModel->findAll();
+        $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+        $officesDropdown = [];
+        foreach ($offices as $office) {
+            $officesDropdown[$office['office_id']] = $office['office_name'];
+        }
+
+        $data = [
+            'documents' => $documents,
+            'classificationsDropdown' => $classificationsDropdown,
+            'subClassificationsDropdown' => $subClassificationsDropdown,
+            'officesDropdown' => $officesDropdown,
+        ];
+
+        return view('Admin/AdminManageOfficeDocument', $data);
     }
 
-    $data = [
-        'documents' => $documents,
-        'classificationsDropdown' => $classificationsDropdown,
-        'subClassificationsDropdown' => $subClassificationsDropdown,
-        'officesDropdown' => $officesDropdown,
-        'guestUsersNames' => $guestUsersNames, // Pass the guest users' names to the view
-    ];
-
-    return view('Admin/AdminManageDocument', $data);
-}
 
 
 
-public function manageofficedocument()
-{
-    $documentModel = new \App\Models\DocumentModel(); 
-    $documents = $documentModel
-    ->select('documents.document_id, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, classification.classification_name AS classification, classification.sub_classification AS sub_classification')
-    ->join('classification', 'classification.classification_id = documents.classification_id', 'left')
-    ->join('offices AS sender', 'sender.office_id = documents.sender_office_id', 'left')
-    ->join('offices AS recipient', 'recipient.office_id = documents.recipient_id', 'left')
-    ->where('documents.status !=', 'deleted') // Exclude documents with status 'deleted'
-    ->findAll();
 
-    $classificationModel = new ClassificationModel();
-    $classifications = $classificationModel->distinct()->findColumn('classification_name');
-    $classificationsDropdown = array_values($classifications); // Reset array keys to start from 0
+    public function getSubClassifications()
+    {
+        $classification = $this->request->getPost('classification');
 
-    $subClassifications = $classificationModel->findAll();
-    $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+        $classificationModel = new ClassificationModel();
+        $subClassifications = $classificationModel
+            ->where('classification_name', $classification)
+            ->where('sub_classification !=', null)
+            ->where('sub_classification !=', '')
+            ->findAll();
 
-    $officeModel = new OfficeModel();
-    $offices = $officeModel->findAll();
-    $officesDropdown = [];
-    foreach ($offices as $office) {
-        $officesDropdown[$office['office_id']] = $office['office_name'];
+        return $this->response->setJSON($subClassifications);
     }
 
-    $data = [
-        'documents' => $documents,
-        'classificationsDropdown' => $classificationsDropdown,
-        'subClassificationsDropdown' => $subClassificationsDropdown,
-        'officesDropdown' => $officesDropdown,
-    ];
-
-    return view('Admin/AdminManageOfficeDocument', $data);
-}
-
-
-
-
-
-public function getSubClassifications()
-{
-    $classification = $this->request->getPost('classification');
-
-    $classificationModel = new ClassificationModel();
-    $subClassifications = $classificationModel
-        ->where('classification_name', $classification)
-        ->where('sub_classification !=', null)
-        ->where('sub_classification !=', '')
-        ->findAll();
-
-    return $this->response->setJSON($subClassifications);
-}
-
-public function getClassifications()
-{
-    return $this->distinct()->findColumn('classification_name');
-}
-
-
-
-public function maintenance()
-{
-    $classificationModel = new ClassificationModel();
-
-    $classifications = $classificationModel->findAll();
-
-    // Fetch unique classification names for the dropdown
-    $distinctClassifications = $classificationModel->distinct()->findColumn('classification_name');
-
-    $classificationsDropdown = [];
-    foreach ($distinctClassifications as $classification) {
-        $classificationsDropdown[] = $classification;
+    public function getClassifications()
+    {
+        return $this->distinct()->findColumn('classification_name');
     }
 
-    $data['classifications'] = $classifications;
-    $data['classificationsDropdown'] = $classificationsDropdown;
-
-    return view('Admin/AdminMaintenance', $data);
-}
 
 
-public function saveClassification()
-{
-    $classificationModel = new ClassificationModel();
+    public function maintenance()
+    {
+        $classificationModel = new ClassificationModel();
 
-    $classificationName = $this->request->getPost('classificationName');
+        $classifications = $classificationModel->findAll();
 
-    $data = [
-        'classification_name' => $classificationName,
-        'sub_classification' => NULL 
-    ];
+        // Fetch unique classification names for the dropdown
+        $distinctClassifications = $classificationModel->distinct()->findColumn('classification_name');
 
-    $classificationModel->insert($data);
+        $classificationsDropdown = [];
+        foreach ($distinctClassifications as $classification) {
+            $classificationsDropdown[] = $classification;
+        }
 
-    return redirect()->to('maintenance')->with('success', 'Classification added successfully.');
-}
+        $data['classifications'] = $classifications;
+        $data['classificationsDropdown'] = $classificationsDropdown;
 
-
-public function saveSubClassification()
-{
-    $classificationModel = new ClassificationModel();
-
-    $classificationName = $this->request->getPost('classification');
-    $subClassificationName = $this->request->getPost('subclassification');
-
-    $data = [
-        'classification_name' => $classificationName,
-        'sub_classification' => $subClassificationName
-    ];
-
-    $classificationModel->insert($data);
-
-    return redirect()->to('maintenance')->with('success', 'Subclassification added successfully.');
-}
-
-
-private function getClassificationName($classificationId)
-{
-    $classificationModel = new ClassificationModel();
-    $classification = $classificationModel->find($classificationId);
-    return $classification['classification_name'];
-}
-
-public function saveDocument()
-{
-    helper(['form', 'url']);
-
-    $validationRules = [
-        'title' => 'required',
-        'description' => 'required',
-        'classification' => 'required',
-        'sub_classification' => 'required',
-        'action' => 'required',
-        'sender_office_id' => 'required',
-        'recipient_office_id' => 'required'
-    ];
-
-    if (!$this->validate($validationRules)) {
-        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        return view('Admin/AdminMaintenance', $data);
     }
 
-    $file = $this->request->getFile('attachment');
-    if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
-        return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
+
+    public function saveClassification()
+    {
+        $classificationModel = new ClassificationModel();
+
+        $classificationName = $this->request->getPost('classificationName');
+
+        $data = [
+            'classification_name' => $classificationName,
+            'sub_classification' => NULL
+        ];
+
+        $classificationModel->insert($data);
+
+        return redirect()->to('maintenance')->with('success', 'Classification added successfully.');
     }
 
-    $newName = $file->getRandomName();
-    $file->move(ROOTPATH . '/uploads', $newName);
 
-    $db = \Config\Database::connect();
+    public function saveSubClassification()
+    {
+        $classificationModel = new ClassificationModel();
 
-    $classification = $this->request->getVar('classification');
-    $subClassification = $this->request->getVar('sub_classification');
+        $classificationName = $this->request->getPost('classification');
+        $subClassificationName = $this->request->getPost('subclassification');
 
-    try {
-        $db->transBegin();
+        $data = [
+            'classification_name' => $classificationName,
+            'sub_classification' => $subClassificationName
+        ];
+
+        $classificationModel->insert($data);
+
+        return redirect()->to('maintenance')->with('success', 'Subclassification added successfully.');
+    }
+
+
+    private function getClassificationName($classificationId)
+    {
+        $classificationModel = new ClassificationModel();
+        $classification = $classificationModel->find($classificationId);
+        return $classification['classification_name'];
+    }
+
+    public function saveDocument()
+    {
+        helper(['form', 'url']);
+
+        $validationRules = [
+            'title' => 'required',
+            'description' => 'required',
+            'classification' => 'required',
+            'sub_classification' => 'required',
+            'action' => 'required',
+            'sender_office_id' => 'required',
+            'recipient_office_id' => 'required'
+        ];
+
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $file = $this->request->getFile('attachment');
+        if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
+            return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
+        }
+
+        $newName = $file->getRandomName();
+        $file->move(ROOTPATH . '/uploads', $newName);
+
+        $db = \Config\Database::connect();
+
+        $classification = $this->request->getVar('classification');
+        $subClassification = $this->request->getVar('sub_classification');
+
+        try {
+            $db->transBegin();
+
+            $trackingNumber = 'TR-' . uniqid();
+
+            $data = [
+                'tracking_number' => $trackingNumber,
+                'sender_id' => $this->request->getVar('sender_office_id'),
+                'sender_office_id' => NULL,
+                'recipient_id' => $this->request->getVar('recipient_office_id'),
+                'status' => 'pending',
+                'title' => $this->request->getVar('title'),
+                'description' => $this->request->getVar('description'),
+                'action' => $this->request->getVar('action'),
+                'date_of_document' => date('Y-m-d'),
+                'attachment' => $newName,
+                'classification_id' => NULL,
+                'classification' => $classification,
+                'sub_classification' => $subClassification,
+                'date_completed' => NULL
+            ];
+
+            $builder = $db->table('documents');
+            $builder->insert($data);
+
+            $db->transCommit();
+
+            return redirect()->to(base_url('tracking?trackingNumber=' . $trackingNumber));
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return redirect()->back()->withInput()->with('errors', $e->getMessage());
+        }
+    }
+
+
+    public function saveOfficeDocument()
+    {
+        helper(['form', 'url']);
+
+        $validationRules = [
+            'title' => 'required',
+            'sender_office_id' => 'required',
+            'recipient_office_id' => 'required',
+            'classification' => 'required',
+            'sub_classification' => 'required',
+            'date_of_document' => 'required',
+            'attachment' => 'uploaded[attachment]|mime_in[attachment,application/pdf]',
+        ];
+
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $attachment = $this->request->getFile('attachment');
+        $attachmentName = $attachment->getRandomName();
+        $attachment->move(ROOTPATH . 'public/uploads', $attachmentName);
 
         $trackingNumber = 'TR-' . uniqid();
 
-        $data = [
+        $documentModel = new \App\Models\DocumentModel();
+        $documentModel->insert([
             'tracking_number' => $trackingNumber,
-            'sender_id' => $this->request->getVar('sender_office_id'),
-            'sender_office_id' => NULL,
-            'recipient_id' => $this->request->getVar('recipient_office_id'),
+            'sender_id' => NULL,
+            'title' => $this->request->getPost('title'),
+            'sender_office_id' => $this->request->getPost('sender_office_id'),
+            'recipient_id' => $this->request->getPost('recipient_office_id'),
             'status' => 'pending',
-            'title' => $this->request->getVar('title'),
-            'description' => $this->request->getVar('description'),
-            'action' => $this->request->getVar('action'),
+            'classification' => $this->request->getPost('classification'),
+            'sub_classification' => $this->request->getPost('sub_classification'),
             'date_of_document' => date('Y-m-d'),
-            'attachment' => $newName,
+            'attachment' => $attachmentName,
+            'action' => $this->request->getPost('action'),
+            'description' => $this->request->getPost('description'),
             'classification_id' => NULL,
-            'classification' => $classification,
-            'sub_classification' => $subClassification,
             'date_completed' => NULL
+        ]);
+
+        return redirect()->to(base_url('officetracking?trackingNumber=' . $trackingNumber));
+    }
+
+
+
+    public function updateDocumentStatus($documentId, $newStatus)
+    {
+        $workflowModel = new DocumentHistoryModel();
+
+        $userId = session()->get('user_id');
+
+        $officeId = session()->get('office_id');
+
+        $data = [
+            'document_id' => $documentId,
+            'user_id' => $userId,
+            'office_id' => $officeId,
+            'status' => $newStatus,
+            'date_changed' => date('Y-m-d H:i:s'),
+            'is_admin_view' => 0,
+            'is_completed' => ($newStatus == 'completed') ? 1 : 0
         ];
 
-        $builder = $db->table('documents');
-        $builder->insert($data);
+        $workflowModel->insert($data);
 
-        $db->transCommit();
-
-        return redirect()->to(base_url('tracking?trackingNumber=' . $trackingNumber));
-    } catch (\Exception $e) {
-        $db->transRollback();
-        return redirect()->back()->withInput()->with('errors', $e->getMessage());
-    }
-}
-
-
-public function saveOfficeDocument()
-{
-    helper(['form', 'url']);
-
-    $validationRules = [
-        'title' => 'required',
-        'sender_office_id' => 'required',
-        'recipient_office_id' => 'required',
-        'classification' => 'required',
-        'sub_classification' => 'required',
-        'date_of_document' => 'required',
-        'attachment' => 'uploaded[attachment]|mime_in[attachment,application/pdf]',
-    ];
-
-    if (!$this->validate($validationRules)) {
-        return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        return redirect()->back();
     }
 
-    $attachment = $this->request->getFile('attachment');
-    $attachmentName = $attachment->getRandomName();
-    $attachment->move(ROOTPATH . 'public/uploads', $attachmentName);
+    public function admintransactions()
+    {
+        $db = db_connect();
 
-    $trackingNumber = 'TR-' . uniqid();
-
-    $documentModel = new \App\Models\DocumentModel();
-    $documentModel->insert([
-        'tracking_number' => $trackingNumber,
-        'sender_id' => NULL,
-        'title' => $this->request->getPost('title'),
-        'sender_office_id' => $this->request->getPost('sender_office_id'),
-        'recipient_id' => $this->request->getPost('recipient_office_id'),
-        'status' => 'pending',
-        'classification' => $this->request->getPost('classification'),
-        'sub_classification' => $this->request->getPost('sub_classification'),
-        'date_of_document' => date('Y-m-d'),
-        'attachment' => $attachmentName,
-        'action' => $this->request->getPost('action'),
-        'description' => $this->request->getPost('description'),
-        'classification_id' => NULL,
-        'date_completed' => NULL
-    ]);
-
-    return redirect()->to(base_url('officetracking?trackingNumber=' . $trackingNumber));
-}
-
-
-
-public function updateDocumentStatus($documentId, $newStatus)
-{
-    $workflowModel = new DocumentHistoryModel();
-
-    $userId = session()->get('user_id');
-
-    $officeId = session()->get('office_id');
-
-    $data = [
-        'document_id' => $documentId,
-        'user_id' => $userId,
-        'office_id' => $officeId,
-        'status' => $newStatus,
-        'date_changed' => date('Y-m-d H:i:s'),
-        'is_admin_view' => 0,
-        'is_completed' => ($newStatus == 'completed') ? 1 : 0
-    ];
-
-    $workflowModel->insert($data);
-
-    return redirect()->back();
-}
-
-public function admintransactions()
-{
-    $db = db_connect();
-
-    $query = $db->query("
+        $query = $db->query("
         SELECT 
             documents.document_id,
             documents.tracking_number, 
@@ -650,224 +638,284 @@ public function admintransactions()
         WHERE document_history.status = 'completed'
     ");
 
-    if (!$query) {
-        // Handle error if query fails
-        return 'Error: Unable to fetch completed documents';
-    }
-
-    $documents = $query->getResult();
-
-    $senderDetails = [];
-    foreach ($documents as $document) {
-        $sender_user_id = $document->sender_id;
-        $sender_office_id = $document->sender_office_id;
-
-        if ($sender_office_id === null) {
-            $userModel = new UserModel();
-            $user = $userModel->find($sender_user_id);
-            $sender_name = $user['first_name'] . ' ' . $user['last_name'];
-            $sender_office = '';
-        } else {
-            $officeModel = new OfficeModel();
-            $office = $officeModel->find($sender_office_id);
-            $sender_name = '';
-            $sender_office = $office['office_name'];
+        if (!$query) {
+            // Handle error if query fails
+            return 'Error: Unable to fetch completed documents';
         }
 
-        $senderDetails[$document->document_id] = [
-            'sender_user' => $sender_name,
-            'sender_office' => $sender_office
+        $documents = $query->getResult();
+
+        $senderDetails = [];
+        foreach ($documents as $document) {
+            $sender_user_id = $document->sender_id;
+            $sender_office_id = $document->sender_office_id;
+
+            if ($sender_office_id === null) {
+                $userModel = new UserModel();
+                $user = $userModel->find($sender_user_id);
+                $sender_name = $user['first_name'] . ' ' . $user['last_name'];
+                $sender_office = '';
+            } else {
+                $officeModel = new OfficeModel();
+                $office = $officeModel->find($sender_office_id);
+                $sender_name = '';
+                $sender_office = $office['office_name'];
+            }
+
+            $senderDetails[$document->document_id] = [
+                'sender_user' => $sender_name,
+                'sender_office' => $sender_office
+            ];
+        }
+
+        $data = [
+            'documents' => $documents,
+            'senderDetails' => $senderDetails
         ];
+
+        return view('Admin/AdminViewTransactions', $data);
     }
 
-    $data = [
-        'documents' => $documents,
-        'senderDetails' => $senderDetails
-    ];
+    public function archived()
+    {
+        $documentModel = new DocumentModel();
 
-    return view('Admin/AdminViewTransactions', $data);
-}
+        $documents = $documentModel
+            ->select('documents.document_id, documents.tracking_number, documents.title, NULL AS deleted_by, NULL AS date_deleted')
+            ->where('documents.status', 'deleted')
+            ->findAll();
 
-public function archived()
-{
-    $documentModel = new DocumentModel();
+        // Convert the array to objects
+        $documents = array_map(function ($item) {
+            return (object) $item;
+        }, $documents);
 
-    $documents = $documentModel
-    ->select('documents.document_id, documents.tracking_number, documents.title, NULL AS deleted_by, NULL AS date_deleted')
-    ->where('documents.status', 'deleted')
-        ->findAll();
+        $data = [
+            'documents' => $documents
+        ];
 
-    // Convert the array to objects
-    $documents = array_map(function ($item) {
-        return (object)$item;
-    }, $documents);
-
-    $data = [
-        'documents' => $documents
-    ];
-
-    return view('Admin/AdminArchived', $data);
-}
+        return view('Admin/AdminArchived', $data);
+    }
 
 
-    public function documentStatusChart(){
+    public function documentStatusChart()
+    {
         $db = db_connect();
-            $builder = $db->table('documents');
-            $builder->select('status, COUNT(*) as count');
-            $builder->groupBy('status');
-            $query = $builder->get();
+        $builder = $db->table('documents');
+        $builder->select('status, COUNT(*) as count');
+        $builder->groupBy('status');
+        $query = $builder->get();
 
-            $statusData = $query->getResultArray();
+        $statusData = $query->getResultArray();
 
-            $labels = [];
-            $data = [];
+        $labels = [];
+        $data = [];
 
-            foreach ($statusData as $row) {
-                $labels[] = $row['status'];
-                $data[] = $row['count'];
-            }
-
-            return view('dashboard', [
-                'labels' => json_encode($labels),
-                'data' => json_encode($data)
-            ]);
+        foreach ($statusData as $row) {
+            $labels[] = $row['status'];
+            $data[] = $row['count'];
         }
 
-        public function deleteDocument()
-        {
-            $documentModel = new DocumentModel();
-    
-            if ($this->request->isAJAX()) {
-                $documentId = $this->request->getPost('documentId');
-
-                $result = $documentModel->delete($documentId);
-    
-                if ($result) {
-                    return $this->response->setJSON(['success' => true]);
-                } else {
-                    return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
-                }
-            }
-        }
-
-        public function updateDocumentDeletedStatus($documentId, $newStatus)
-        {
-            try {
-                $documentModel = new DocumentModel();
-                $workflowModel = new DocumentHistoryModel();
-        
-                $documentModel->update($documentId, ['status' => $newStatus]);
-        
-                $data = [
-                    'document_id' => $documentId,
-                    'user_id' => null,
-                    'office_id' => null,
-                    'status' => $newStatus,
-                    'date_changed' => date('Y-m-d H:i:s'),
-                    'date_deleted' => $newStatus === 'deleted' ? date('Y-m-d H:i:s') : null
-                ];
-                $workflowModel->insert($data);
-        
-                return redirect()->back();
-            } catch (\Exception $e) {
-                var_dump($e->getMessage());
-                exit;
-            }
-        }        
-
-        public function deleteDocumentPermanent($documentId)
-        {
-            $documentHistoryModel = new DocumentHistoryModel();
-            $documentHistoryModel->where('document_id', $documentId)->delete();
-            return redirect()->to('Admin/AdminArchived');
-        }
-
-        public function updateUser()
-        {
-            $userId = $this->request->getPost('userId');
-            $userModel = new UserModel();
-
-            $userData = [
-                'office_id' => $this->request->getPost('officeId'),
-                'first_name' => $this->request->getPost('firstName'),
-                'last_name' => $this->request->getPost('lastName'),
-                'email' => $this->request->getPost('email'),
-            ];
-
-            $password = $this->request->getPost('password');
-            if (!empty($password)) {
-                $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
-            }
-
-            $userModel->update($userId, $userData);
-
-            return redirect()->to('manageuser');
-        }
-
-        public function updateGuestUser()
-        {
-            $userId = $this->request->getPost('userId');
-            $userModel = new UserModel();
-
-            $userData = [
-                'first_name' => $this->request->getPost('firstName'),
-                'last_name' => $this->request->getPost('lastName'),
-                'email' => $this->request->getPost('email'),
-            ];
-
-            $password = $this->request->getPost('password');
-            if (!empty($password)) {
-                $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
-            }
-
-            $userModel->update($userId, $userData);
-
-            return redirect()->to('manageguest');
-        }
-        
-public function updateDocument()
-{
-    $documentId = $this->request->getPost('id');
-    $documentModel = new DocumentModel();
-
-    $documentData = [
-        'title' => $this->request->getPost('title'),
-        'sender_office_id' => $this->request->getPost('sender_office_id'),
-        'recipient_id' => $this->request->getPost('recipient_office_id'),
-        'classification' => $this->request->getPost('classification'),
-        'sub_classification' => $this->request->getPost('sub_classification'),
-        'action' => $this->request->getPost('action'),
-        'description' => $this->request->getPost('description'),
-    ];
-
-    if ($this->request->getFile('attachment')->isValid()) {
-        $attachment = $this->request->getFile('attachment');
-        $attachment->move(WRITEPATH . 'uploads');
-        $documentData['attachment'] = $attachment->getName();
+        return view('dashboard', [
+            'labels' => json_encode($labels),
+            'data' => json_encode($data)
+        ]);
     }
 
-    if (!empty($documentData)) {
-        $result = $documentModel->set($documentData)->where('document_id', $documentId)->update();
-        if ($result) {
-            // Reload the page if update was successful
-            echo '<script>window.location.reload();</script>';
-            exit();
+    public function deleteDocument()
+    {
+        $documentModel = new DocumentModel();
+
+        if ($this->request->isAJAX()) {
+            $documentId = $this->request->getPost('documentId');
+
+            $result = $documentModel->delete($documentId);
+
+            if ($result) {
+                return $this->response->setJSON(['success' => true]);
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
+            }
         }
     }
 
-    return redirect()->to('manageofficedocument')->with('success', 'Document updated successfully.');
-}
-
-        
-
-        public function getDocument()
-        {
-            $documentId = $this->request->getPost('id');
+    public function updateDocumentDeletedStatus($documentId, $newStatus)
+    {
+        try {
             $documentModel = new DocumentModel();
-            $document = $documentModel->find($documentId);
-        
-            return $this->response->setJSON($document);
+            $workflowModel = new DocumentHistoryModel();
+
+            $documentModel->update($documentId, ['status' => $newStatus]);
+
+            $data = [
+                'document_id' => $documentId,
+                'user_id' => null,
+                'office_id' => null,
+                'status' => $newStatus,
+                'date_changed' => date('Y-m-d H:i:s'),
+                'date_deleted' => $newStatus === 'deleted' ? date('Y-m-d H:i:s') : null
+            ];
+            $workflowModel->insert($data);
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit;
         }
+    }
+
+    public function deleteDocumentPermanent($documentId)
+    {
+        $documentHistoryModel = new DocumentHistoryModel();
+        $documentHistoryModel->where('document_id', $documentId)->delete();
+        return redirect()->to('Admin/AdminArchived');
+    }
+
+    public function updateUser()
+    {
+        $userId = $this->request->getPost('userId');
+        $userModel = new UserModel();
+
+        $userData = [
+            'office_id' => $this->request->getPost('officeId'),
+            'first_name' => $this->request->getPost('firstName'),
+            'last_name' => $this->request->getPost('lastName'),
+            'email' => $this->request->getPost('email'),
+        ];
+
+        $password = $this->request->getPost('password');
+        if (!empty($password)) {
+            $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $userModel->update($userId, $userData);
+
+        return redirect()->to('manageuser');
+    }
+
+    public function updateGuestUser()
+    {
+        $userId = $this->request->getPost('userId');
+        $userModel = new UserModel();
+
+        $userData = [
+            'first_name' => $this->request->getPost('firstName'),
+            'last_name' => $this->request->getPost('lastName'),
+            'email' => $this->request->getPost('email'),
+        ];
+
+        $password = $this->request->getPost('password');
+        if (!empty($password)) {
+            $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $userModel->update($userId, $userData);
+
+        return redirect()->to('manageguest');
+    }
+
+    public function updateDocument()
+    {
+        $documentId = $this->request->getPost('id');
+        $documentModel = new DocumentModel();
+
+        $documentData = [
+            'title' => $this->request->getPost('title'),
+            'sender_office_id' => $this->request->getPost('sender_office_id'),
+            'recipient_id' => $this->request->getPost('recipient_office_id'),
+            'classification' => $this->request->getPost('classification'),
+            'sub_classification' => $this->request->getPost('sub_classification'),
+            'action' => $this->request->getPost('action'),
+            'description' => $this->request->getPost('description'),
+        ];
+
+        if ($this->request->getFile('attachment')->isValid()) {
+            $attachment = $this->request->getFile('attachment');
+            $attachment->move(WRITEPATH . 'uploads');
+            $documentData['attachment'] = $attachment->getName();
+        }
+
+        if (!empty($documentData)) {
+            $result = $documentModel->set($documentData)->where('document_id', $documentId)->update();
+            if ($result) {
+                // Reload the page if update was successful
+                echo '<script>window.location.reload();</script>';
+                exit();
+            }
+        }
+
+        return redirect()->to('manageofficedocument')->with('success', 'Document updated successfully.');
+    }
+
+
+
+    public function getDocument()
+    {
+        $documentId = $this->request->getPost('id');
+        $documentModel = new DocumentModel();
+        $document = $documentModel->find($documentId);
+
+        return $this->response->setJSON($document);
+    }
+
+    public function alldocuments()
+    {
+        $documentModel = new DocumentModel();
+        $searchResults = $documentModel->findAll();
+
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+
+        $data = [
+            'searchResults' => $searchResults,
+            'offices' => $offices
+        ];
+
+        return view('Admin/AdminAllDocuments', $data);
+    }
+
+    public function search()
+    {
+        $searchQuery = $this->request->getVar('search');
+        $officeFilter = $this->request->getVar('office');
+        $statusFilter = $this->request->getVar('status');
+        $sortOption = $this->request->getVar('sort');
         
-        
+        $query = $this->db->table('documents');
+    
+        if (!empty($searchQuery)) {
+            $query->groupStart()
+                  ->like('title', $searchQuery)
+                  ->orLike('tracking_number', $searchQuery)
+                  ->groupEnd();
+        }
+        if (!empty($officeFilter)) {
+            $query->where('recipient_id', $officeFilter);
+        }
+        if (!empty($statusFilter)) {
+            $query->where('status', $statusFilter);
+        }
+    
+        if ($sortOption === 'title_asc') {
+            $query->orderBy('title', 'ASC');
+        } elseif ($sortOption === 'title_desc') {
+            $query->orderBy('title', 'DESC');
+        } elseif ($sortOption === 'date_asc') {
+            $query->orderBy('created_at', 'ASC');
+        } elseif ($sortOption === 'date_desc') {
+            $query->orderBy('created_at', 'DESC');
+        }
+    
+        $searchResults = $query->get()->getResultArray();
+
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+
+        $data = [
+            'searchResults' => $searchResults,
+            'offices' => $offices
+        ];
+    
+        return view('Admin/AdminAllDocuments', $data);
+    }
 }

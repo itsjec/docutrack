@@ -16,6 +16,11 @@ class UserController extends BaseController
         return view('Users/Index');
     }
 
+    public function loggedinsearch()
+    {
+        return view('LoggedIn/Search');
+    }
+
     public function indexloggedin()
     {
         return view('LoggedIn/Index');
@@ -144,44 +149,39 @@ class UserController extends BaseController
 
         return view('LoggedIn/ViewDetails', $data);
     }
-
+    
     public function transaction()
     {
         $session = session();
         $user_id = $session->get('user_id');
-
+    
         if (!$user_id) {
             return 'Error: User ID not set';
         }
-
-        $db = db_connect();
-
-        $query = $db->query("
-            SELECT 
-                documents.title, 
-                documents.tracking_number, 
-                documents.status, 
-                (SELECT dh.office_id 
-                 FROM document_history dh 
-                 WHERE dh.document_id = documents.document_id 
-                 ORDER BY dh.date_changed DESC 
-                 LIMIT 1) AS current_office 
-            FROM documents
-            WHERE documents.sender_id = $user_id
-        ");
-
-        if (!$query) {
-            return 'Error: Unable to fetch transaction history';
+    
+        $documentModel = new DocumentModel();
+        $documents = $documentModel
+            ->select('documents.*, offices.office_name') // Select all columns from documents and office_name from offices
+            ->join('offices', 'offices.office_id = documents.recipient_id') // Join offices table using recipient_id
+            ->where('sender_id', $user_id)
+            ->orderBy('date_of_document', 'desc')
+            ->get()
+            ->getResultArray();
+    
+        if (empty($documents)) {
+            return 'No documents found for the current user';
         }
-
-        $documents = $query->getResult();
-
+    
+        // Log the query result for debugging
+        log_message('debug', 'Query result: ' . print_r($documents, true));
+    
         $data = [
             'documents' => $documents
         ];
-
+    
         return view('LoggedIn/Transactions', $data);
     }
+    
 
     public function track()
     {

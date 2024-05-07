@@ -9,6 +9,7 @@ $routes->get('/', 'AdminController::index');
 $routes->post('login', 'AdminController::login');
 $routes->get('dashboard', 'AdminController::admindashboard');
 $routes->get('archived', 'AdminController::archived');
+$routes->get('all', 'AdminController::alldocuments');
 $routes->get('viewtransactions', 'AdminController::admintransactions');
 $routes->get('manageoffice', 'AdminController::adminmanageoffice');
 $routes->match(['get', 'post'], 'register', 'AdminController::register');
@@ -38,6 +39,8 @@ $routes->post('users/update', 'AdminController::updateUser');
 $routes->post('updateguest', 'AdminController::updateGuestUser');
 $routes->post('documents/updateDocument', 'AdminController::updateDocument');
 $routes->post('documents/getDocument', 'AdminController::getDocument');
+$routes->get('search', 'AdminController::search');
+
 
 
 
@@ -52,6 +55,7 @@ $routes->get('received', 'OfficeController::received');
 $routes->get('ongoing', 'OfficeController::ongoing');
 $routes->get('completed', 'OfficeController::completed');
 $routes->get('history', 'OfficeController::history');
+$routes->get('allDocuments', 'OfficeController::allDocuments');
 $routes->get('manageprofile', 'OfficeController::manageprofile');
 $routes->post('/office/updateProfile', 'OfficeController::updateProfile');
 $routes->get('trash', 'OfficeController::trash');
@@ -69,6 +73,8 @@ $routes->post('documents/update-document-deleted-status/(:num)/(:segment)', 'Off
 $routes->post('documents/update-document-recipient-and-status/(:num)/(:num)/(:segment)', 'OfficeController::updateDocumentRecipientAndStatus/$1/$2/$3');
 $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1');
 $routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
+$routes->get('searchDocu', 'OfficeController::search');
+
 
 
 //ha    tdog

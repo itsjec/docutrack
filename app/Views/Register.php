@@ -15,7 +15,6 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
 
 <body>
@@ -25,9 +24,6 @@
                 <div class="row w-100 mx-0">
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                            <div class="brand-logo">
-                                <img src="assets/images/logo-dark.svg" alt="logo">
-                            </div>
                             <h4>New here?</h4>
                             <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
                             <form class="pt-3" action="<?= site_url('register') ?>" method="POST">
@@ -51,7 +47,7 @@
                                     <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
                                 </div>
                                 <div class="text-center mt-4 font-weight-light">
-                                    Already have an account? <a href="login.html" class="text-primary">Login</a>
+                                    Already have an account? <a href="/" class="text-primary">Login</a>
                                 </div>
                             </form>
                         </div>
