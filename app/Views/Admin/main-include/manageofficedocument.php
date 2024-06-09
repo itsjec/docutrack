@@ -26,6 +26,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>Version No.</th>
                             <th>Title</th>
                             <th>Tracking Number</th>
                             <th>Sender</th>
@@ -37,16 +38,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php foreach ($documents as $document): ?>
-                        <tr>
-                            <td><?= $document['title'] ?></td>
-                            <td><?= $document['tracking_number'] ?></td>
-                            <td><?= $document['sender_office_name'] ?></td>
-                            <td><?= $document['recipient_office_name'] ?></td>
-                            <td><?= $document['status'] ?></td>
-                            <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
-                            <td><?= $document['action'] ?></td>
-                            <td>
+                        <?php foreach ($documents as $document): ?>
+                            <tr>
+                                <td><?= $document['version_number'] ?></td>
+                                <td><?= $document['title'] ?></td>
+                                <td><?= $document['tracking_number'] ?></td>
+                                <td><?= $document['sender_office_name'] ?></td>
+                                <td><?= $document['recipient_office_name'] ?></td>
+                                <td><?= $document['status'] ?></td>
+                                <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
+                                <td><?= $document['action'] ?></td>
+                                <td>
                             <button type="button" class="btn btn-sm btn-primary edit-btn"
                                     data-toggle="modal" data-target="#editDocumentModal"
                                     data-documentid="<?= $document['document_id'] ?>"
@@ -60,15 +62,17 @@
                                     data-description="<?= $document['description'] ?>">
                                 <i class="mdi mdi-pencil"></i> Edit
                             </button>
-                                <a href="#" class="btn btn-sm btn-info">
-                                    <i class="mdi mdi-eye"></i> View
-                                </a>
+                            <button type="button" class="btn btn-sm btn-info view-versions-btn"
+                                data-toggle="modal" data-target="#exampleModal"
+                                data-document-id="<?= $document['document_id'] ?>">
+                                <i class="mdi mdi-eye"></i> View Version
+                            </button>
                                 <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
                                     <i class="mdi mdi-delete"></i> Delete
                                 </button>
                             </td>
-                        </tr>
-                    <?php endforeach; ?>
+                            </tr>
+                                <?php endforeach; ?>
                     </tbody>
                 </table>
 
@@ -79,6 +83,21 @@
 </div>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Document Versions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="documentVersionsBody">
+                <!-- Versions will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="editDocumentModal" tabindex="-1" role="dialog" aria-labelledby="editDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -208,8 +227,6 @@
                     </div>
                 <?php endif ?>
 
-                <!-- Your form here -->
-
                 <form id="addDocumentForm" action="<?= site_url('documents/saveOffice') ?>" method="post" enctype="multipart/form-data">
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -320,6 +337,8 @@
         });
     });
 </script>
+
+
 
 <script>
 $(document).ready(function() {

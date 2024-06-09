@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                     <div>
-                        <p class="mb-2 text-md-center text-lg-left">Document Statuses</p>
+                        <p class="mb-2 text-md-center text-lg-left">Overall Document Status</p>
                         <h1 id="total-documents"><?= $totalDocuments ?></h1>
                     </div>
                     <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
@@ -45,9 +45,45 @@
         </div>
     </div>
 </div>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
+                        <div>
+                            <p class="mb-2 text-md-center text-lg-left">Document Aging (Days)</p>
+                            <h1 id="total-documents"><?= $totalDocuments ?></h1>
+                        </div>
+                        <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
+                    </div>
+                    <canvas id="documentAgingChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
+                        <div>
+                            <p class="mb-2 text-md-center text-lg-left">Average Processing Time of Offices</p>
+                            <h1 id="total-documents"><?= $totalDocuments ?></h1>
+                        </div>
+                        <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
+                    </div>
+                    <canvas id="officeProcessingTimeChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
           
-<div class="content-wrapper">
+<!--<div class="content-wrapper">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -99,6 +135,8 @@
         </div>
     </div>
 </div>
+                            -->
+
 <script>
 function openPdf(url) {
     window.open(url, '_blank');

@@ -41,6 +41,7 @@
   </div>
   <!-- container-scroller -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get current date
@@ -57,6 +58,41 @@
       alert("Calendar icon clicked!");
     });
   });
+
+  $(document).ready(function() {
+    $('.view-btn').click(function(event) {
+        event.preventDefault();
+
+        var documentId = $(this).data('documentid');
+        var title = $(this).data('title');
+        var senderName = $(this).data('sendername') || "Office ID " + $(this).data('sender-office-id');
+        var recipientOfficeId = $(this).data('recipient-office-id');
+        var classification = $(this).data('classification');
+        var subClassification = $(this).data('sub-classification');
+        var dateOfDocument = $(this).data('date-of-document');
+        var action = $(this).data('action');
+        var description = $(this).data('description');
+        var trackingNumber = $(this).data('tracking-number');
+
+        $('#view-document-id').text(documentId);
+        $('#view-title').text(title);
+        $('#view-sender').text(senderName);
+        $('#view-classification').text(classification);
+        $('#view-sub-classification').text(subClassification);
+        $('#view-date-of-document').text(dateOfDocument);
+        $('#view-action').text(action);
+        $('#view-description').text(description);
+        $('#view-tracking-number').text(trackingNumber);
+        $('#qrCodeContainer').empty(); // Clear existing QR code
+        var qrcode = new QRCode(document.getElementById("qrCodeContainer"), {
+            text: trackingNumber,
+            width: 200,
+            height: 200
+        });
+        $('#viewDocumentModal').modal('show');
+    });
+});
+
 </script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>

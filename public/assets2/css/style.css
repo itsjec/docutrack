@@ -9795,7 +9795,7 @@ textarea {
   -o-transition: .3s all ease;
   transition: .3s all ease; }
   .btn.btn-primary {
-    background: #005555;
+    background: linear-gradient(45deg, #9a2db9, #b715a6);
     color: #fff; }
   .btn:hover {
     top: -2px;

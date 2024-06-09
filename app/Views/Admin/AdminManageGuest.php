@@ -72,6 +72,34 @@ $('#addOfficeBtn').click(function () {
                 break;
         }
     });
+
+    $(document).ready(function () {
+    var userIdToDeactivate;
+
+    $('.deactivate-btn').click(function () {
+        userIdToDeactivate = $(this).data('userid');
+        $('#deactivateUserModal').modal('show');
+    });
+
+    $('#confirmDeactivate').click(function () {
+        $.ajax({
+            url: 'deactivateUser', // Update with your backend endpoint
+            method: 'POST',
+            data: { userId: userIdToDeactivate },
+            success: function (response) {
+                console.log('User deactivated successfully');
+                // You can update the UI or perform other actions as needed
+            },
+            error: function (xhr, status, error) {
+                console.error('Error deactivating user:', error);
+            }
+        });
+
+        $('#deactivateUserModal').modal('hide');
+    });
+});
+
+
 </script>
 
 

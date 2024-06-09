@@ -36,18 +36,69 @@
                                 <tr>
                                     <td><?= $office['office_name'] ?></td>
                                     <td>
-                                        <a href="<?= base_url('edit/' . $office['office_id']) ?>" class="btn btn-sm btn-primary">
-                                            <span class="mdi mdi-pencil"></span> Edit
-                                        </a>
-                                        <a href="<?= base_url('delete/' . $office['office_id']) ?>" class="btn btn-sm btn-danger">
-                                            <span class="mdi mdi-delete"></span> Delete
-                                        </a>
+                                    <a href="#" class="btn btn-sm btn-primary edit-btn" data-office-id="<?= $office['office_id'] ?>" data-office-name="<?= $office['office_name'] ?>">
+                                        <span class="mdi mdi-pencil"></span> Edit
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-danger delete-btn" data-office-id="<?= $office['office_id'] ?>">
+                                        <span class="mdi mdi-delete"></span> Delete
+                                    </a>
+
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
+                </div>
+
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteOfficeModal" tabindex="-1" role="dialog" aria-labelledby="deleteOfficeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteOfficeModalLabel">Confirm Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure you want to delete this office?</p>
+                                <form id="deleteOfficeForm" action="<?= base_url('office/updateStatus') ?>" method="post">
+                                    <input type="hidden" id="deleteOfficeId" name="officeId">
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="submit" class="btn btn-danger">Yes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="editOfficeModal" tabindex="-1" role="dialog" aria-labelledby="editOfficeModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editOfficeModalLabel">Edit Office Name</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                            <form id="editOfficeForm" action="<?= base_url('updateOfficeName') ?>" method="post">
+                                <input type="hidden" id="editOfficeId" name="officeId">
+                                <div class="form-group">
+                                    <label for="editOfficeName">Office Name</label>
+                                    <input type="text" class="form-control" id="editOfficeName" name="officeName" placeholder="Enter office name" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Modal -->

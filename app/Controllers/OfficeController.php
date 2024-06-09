@@ -8,6 +8,7 @@ use App\Models\OfficeModel;
 use App\Models\DocumentModel;
 use App\Models\DocumentClassificationModel;
 use App\Models\DocumentHistoryModel;
+use App\Models\TimeProcessingModel;
 use ResponseTrait;
 
 class OfficeController extends BaseController
@@ -28,13 +29,16 @@ class OfficeController extends BaseController
         $userName = $user['first_name'] . ' ' . $user['last_name'];
     
         $officeId = session('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        $office_name = $office['office_name'];
     
         $documentModel = new \App\Models\DocumentModel();
         $documents = $documentModel->findAll();
     
         $db = \Config\Database::connect();
     
-        // Count pending documents
         $pending_documents_count = $db->table('documents')
                                       ->where('recipient_id', $officeId)
                                       ->where('status', 'pending')
@@ -62,73 +66,84 @@ class OfficeController extends BaseController
             'pending_documents_count' => $pending_documents_count,
             'received_documents_count' => $received_documents_count,
             'total_documents_count' => $total_documents_count,
-            'user_name' => $userName
+            'office_name' => $office_name
         ]);
     }
     
 
     public function pending()
-{
-
-    $userId = session('user_id');
+    {
+        $userId = session('user_id');
+        
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
     
-    $userModel = new \App\Models\UserModel();
-    $user = $userModel->find($userId);
-    $userName = $user['first_name'] . ' ' . $user['last_name'];
-
-    $session = session();
-    $office_id = $session->get('office_id');
-
-    $db = db_connect();
-
-    $query = $db->query("
-        SELECT 
-            documents.title, 
-            documents.tracking_number, 
-            documents.sender_id, 
-            documents.sender_office_id, 
-            documents.status, 
-            documents.action, 
-            documents.document_id
-        FROM documents
-        WHERE documents.recipient_id = $office_id
-        AND documents.status = 'pending'
-    ");
-
-    $documents = $query->getResult();
-
-    $senderDetails = [];
-    foreach ($documents as $document) {
-        $sender_id = $document->sender_id;
-        $sender_office_id = $document->sender_office_id;
-
-        if ($sender_office_id === null) {
-            $userModel = new UserModel();
-            $user = $userModel->find($sender_id);
-            $sender_name = $user['first_name'] . ' ' . $user['last_name'];
-            $sender_office = 'N/A';
-        } else {
-            $officeModel = new OfficeModel();
-            $office = $officeModel->find($sender_office_id);
-            $sender_name = 'N/A';
-            $sender_office = $office['office_name'];
+        $session = session();
+        $office_id = $session->get('office_id');
+    
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
+    
+        $db = db_connect();
+    
+        $query = $db->query("
+            SELECT 
+                documents.title, 
+                documents.tracking_number, 
+                documents.sender_id, 
+                documents.sender_office_id, 
+                documents.status, 
+                documents.action, 
+                documents.description, 
+                documents.document_id
+            FROM documents
+            WHERE documents.recipient_id = $office_id
+            AND documents.status = 'pending'
+        ");
+    
+        $documents = $query->getResult();
+    
+        // Log the documents to check if action and description are present
+        foreach ($documents as $document) {
+            // Log the document details
+            log_message('info', 'Document ID: ' . $document->document_id . ', Action: ' . $document->action . ', Description: ' . $document->description);
         }
-
-        $senderDetails[$document->document_id] = [
-            'sender_user' => $sender_name,
-            'sender_office' => $sender_office
+    
+        $senderDetails = [];
+        foreach ($documents as $document) {
+            $sender_id = $document->sender_id;
+            $sender_office_id = $document->sender_office_id;
+    
+            if ($sender_office_id === null) {
+                $userModel = new UserModel();
+                $user = $userModel->find($sender_id);
+                $sender_name = $user['first_name'] . ' ' . $user['last_name'];
+                $sender_office = 'N/A';
+            } else {
+                $officeModel = new OfficeModel();
+                $office = $officeModel->find($sender_office_id);
+                $sender_name = 'N/A';
+                $sender_office = $office['office_name'];
+            }
+    
+            $senderDetails[$document->document_id] = [
+                'sender_user' => $sender_name,
+                'sender_office' => $sender_office
+            ];
+        }
+    
+        $data = [
+            'documents' => $documents,
+            'senderDetails' => $senderDetails,
+            'office_name' => $office_name
         ];
+    
+        return view('Office/Pending', $data);
     }
-    $data = [
-        'documents' => $documents,
-        'senderDetails' => $senderDetails,
-        'user_name' => $userName
-    ];
     
-
-    return view('Office/Pending', $data);
-}
-    
+      
 public function ongoing()
 {
 
@@ -140,6 +155,10 @@ public function ongoing()
 
     $session = session();
     $office_id = $session->get('office_id');
+
+    $officeModel = new OfficeModel();
+    $office = $officeModel->find($office_id);
+    $office_name = $office['office_name'];
 
     $db = db_connect();
 
@@ -185,7 +204,7 @@ public function ongoing()
    $data = [
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'user_name' => $userName
+        'office_name' => $office_name
     ];
 
     return view('Office/OnGoing', $data);
@@ -203,6 +222,10 @@ public function received()
 
     $session = session();
     $office_id = $session->get('office_id');
+
+    $officeModel = new OfficeModel();
+    $office = $officeModel->find($office_id);
+    $office_name = $office['office_name'];
 
     $db = db_connect();
 
@@ -252,7 +275,7 @@ public function received()
    $data = [
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'user_name' => $userName
+        'office_name' => $office_name
     ];
 
     return view('Office/Received', $data);
@@ -271,6 +294,10 @@ public function completed()
 
     $session = session();
     $office_id = $session->get('office_id');
+
+    $officeModel = new OfficeModel();
+    $office = $officeModel->find($office_id);
+    $office_name = $office['office_name'];
 
     if (!$office_id) {
         return 'Error: Office ID not set';
@@ -330,57 +357,90 @@ public function completed()
         'offices' => $offices,
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'user_name' => $userName
+        'office_name' => $office_name
     ];
 
     return view('Office/Completed', $data);
 }
 
-    public function updateDocumentStatus($documentId, $newStatus)
-        {
-            $documentModel = new DocumentModel(); 
-            $workflowModel = new DocumentHistoryModel();
-        
-            $documentModel->update($documentId, ['status' => $newStatus]);
-        
-            $userId = session()->get('user_id');
-            $officeId = session()->get('office_id');
-        
-            $data = [
-                'document_id' => $documentId,
-                'user_id' => $userId,
-                'office_id' => $officeId,
-                'status' => $newStatus,
-                'date_changed' => date('Y-m-d H:i:s'),
-                'date_completed' => NULL
-            ];
-            $workflowModel->insert($data);
-        
-            return redirect()->back();
-        }
 
-        public function updateDocumentCompletedStatus($documentId, $newStatus)
-        {
-            $documentModel = new DocumentModel(); 
-            $workflowModel = new DocumentHistoryModel();
-        
-            $documentModel->update($documentId, ['status' => $newStatus]);
-        
-            $userId = session()->get('user_id');
-            $officeId = session()->get('office_id');
-        
-            $data = [
-                'document_id' => $documentId,
-                'user_id' => $userId,
-                'office_id' => $officeId,
-                'status' => $newStatus,
-                'date_changed' => date('Y-m-d H:i:s'),
-                'date_completed' => date('Y-m-d H:i:s')
-            ];
-            $workflowModel->insert($data);
-        
-            return redirect()->back();
-        }
+public function updateDocumentStatus($documentId, $newStatus)
+{
+    $documentModel = new DocumentModel();
+    $workflowModel = new DocumentHistoryModel();
+    $timeProcessingModel = new TimeProcessingModel();
+
+    $document = $documentModel->find($documentId);
+
+    $documentModel->update($documentId, ['status' => $newStatus]);
+
+    $userId = session()->get('user_id');
+    $officeId = session()->get('office_id');
+
+    $historyData = [
+        'document_id' => $documentId,
+        'user_id' => $userId,
+        'office_id' => $officeId,
+        'status' => $newStatus,
+        'date_changed' => date('Y-m-d H:i:s'),
+        'date_completed' => null
+    ];
+    $workflowModel->insert($historyData);
+
+    if ($newStatus === 'received') {
+        $timeProcessingData = [
+            'document_id' => $documentId,
+            'office_id' => $officeId,
+            'received_timestamp' => date('Y-m-d H:i:s'),
+            'completed_timestamp' => null
+        ];
+        $timeProcessingModel->insert($timeProcessingData);
+    }
+    
+    return redirect()->back();
+}
+
+
+public function updateDocumentCompletedStatus($documentId, $newStatus)
+{
+    $documentModel = new DocumentModel();
+    $workflowModel = new DocumentHistoryModel();
+    $timeProcessingModel = new TimeProcessingModel();
+
+    $documentModel->update($documentId, ['status' => $newStatus]);
+
+    $userId = session()->get('user_id');
+    $officeId = session()->get('office_id');
+
+    $historyData = [
+        'document_id' => $documentId,
+        'user_id' => $userId,
+        'office_id' => $officeId,
+        'status' => $newStatus,
+        'date_changed' => date('Y-m-d H:i:s'),
+        'date_completed' => date('Y-m-d H:i:s')
+    ];
+    $workflowModel->insert($historyData);
+
+    $existingTimeProcessing = $timeProcessingModel
+        ->where('document_id', $documentId)
+        ->where('office_id', $officeId)
+        ->first();
+
+    if ($existingTimeProcessing) {
+        $timeProcessingModel->update($existingTimeProcessing['id'], ['completed_timestamp' => date('Y-m-d H:i:s')]);
+    } else {
+        $timeProcessingData = [
+            'document_id' => $documentId,
+            'office_id' => $officeId,
+            'received_timestamp' => null,
+            'completed_timestamp' => date('Y-m-d H:i:s')
+        ];
+        $timeProcessingModel->insert($timeProcessingData);
+    }
+
+    return redirect()->back();
+}
 
     public function updateDocumentDeletedStatus($documentId, $newStatus)
     {
@@ -405,62 +465,64 @@ public function completed()
         return redirect()->back();
     }
 
-
-        public function updateDocumentRecipientAndStatus($documentId, $newRecipientId, $newStatus)
-        {
-            $documentModel = new DocumentModel(); 
-            $historyModel = new DocumentHistoryModel();
-        
-            // Begin a database transaction
-            $db = db_connect();
-            $db->transBegin();
-        
-            try {
-                // Check if the document exists
-                $document = $documentModel->find($documentId);
-                if (!$document) {
-                    throw new \Exception('Document not found');
-                }
-        
-                // Update the document
-                $documentModel->update($documentId, ['recipient_id' => $newRecipientId, 'status' => $newStatus]);
-        
-                // Insert into document history
-                $historyData = [
-                    'document_id' => $documentId,
-                    'user_id' => session()->get('user_id'),
-                    'office_id' => session()->get('office_id'),
-                    'status' => $newStatus,
-                    'date_changed' => date('Y-m-d H:i:s'),
-                    'date_completed' => NULL
-                ];
-                $historyModel->insert($historyData);
-        
-                // Commit the transaction
-                $db->transCommit();
-        
-                return 'Document updated successfully'; 
-            } catch (\Exception $e) {
-                // Rollback the transaction on error
-                $db->transRollback();
-                return 'Error: ' . $e->getMessage();
+    public function updateDocumentRecipientAndStatus($documentId, $newRecipientId, $newStatus)
+    {
+        $documentModel = new DocumentModel(); 
+        $historyModel = new DocumentHistoryModel();
+    
+        $db = db_connect();
+        $db->transBegin();
+    
+        try {
+            $document = $documentModel->find($documentId);
+            if (!$document) {
+                throw new \Exception('Document not found');
             }
+    
+            $action = $this->request->getPost('action');
+            $description = $this->request->getPost('description');
+    
+            $documentModel->update($documentId, [
+                'recipient_id' => $newRecipientId,
+                'status' => $newStatus,
+                'action' => $action,
+                'description' => $description
+            ]);
+    
+            $historyData = [
+                'document_id' => $documentId,
+                'user_id' => session()->get('user_id'),
+                'office_id' => $newRecipientId,
+                'status' => $newStatus,
+                'action' => $action,
+                'description' => $description,
+                'date_changed' => date('Y-m-d H:i:s'),
+                'date_completed' => null
+            ];
+            $historyModel->insert($historyData);
+    
+            $db->transCommit();
+    
+            return 'Document updated successfully'; 
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return 'Error: ' . $e->getMessage();
         }
+    }
+    
+    public function sendOutDocument()
+    {
+        $documentId = $this->request->getPost('document_id');
+        $recipientId = $this->request->getPost('recipient_id');
+        $action = $this->request->getPost('action');
+        $description = $this->request->getPost('description');
+    
+        $this->updateDocumentRecipientAndStatus($documentId, $recipientId, 'pending', $action, $description);
+    
+        return 'Document sent out successfully'; 
+    }
+    
         
-
-        public function sendOutDocument()
-        {
-            $documentId = $this->request->getPost('document_id');
-            $recipientId = $this->request->getPost('recipient_id');
-        
-            $this->updateDocumentRecipientAndStatus($documentId, $recipientId, 'pending');
-        
-            return 'Document sent out successfully'; 
-        }
-        
-
-
-
     private function getCurrentOfficeId($documentId)
     {
         $db = \Config\Database::connect();
@@ -506,6 +568,10 @@ public function completed()
 
         $session = session();
         $office_id = $session->get('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
     
         if (!$office_id) {
             return 'Error: Office ID not set';
@@ -568,18 +634,23 @@ public function completed()
    $data = [
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'user_name' => $userName
+        'office_name' => $office_name
     ];
     
         return view('Office/History', $data);
     }
     
 
-      
-
     public function manageprofile()
     {
         $userId = session('user_id');
+
+        $session = session();
+        $office_id = $session->get('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
         
         if (!$userId) {
             return 'Error: User ID not set';
@@ -596,7 +667,7 @@ public function completed()
     
         $data = [
             'user' => $user,
-            'user_name' => $userName
+            'office_name' => $office_name
         ];
     
         return view('Office/ManageProfile', $data);
@@ -606,32 +677,36 @@ public function completed()
     {
         $request = service('request');
         $userModel = new \App\Models\UserModel();
-
+    
         $userId = session('user_id');
         $user = $userModel->find($userId);
-
+    
         if (!$user) {
             return 'Error: User not found';
         }
-
+    
         $profileImage = $request->getFile('profileImage');
         if ($profileImage && $profileImage->isValid()) {
             $newName = $profileImage->getRandomName();
-            $profileImage->move(ROOTPATH . '/uploads', $newName);
-            $user['picture_path'] = $newName;
+            if ($profileImage->move(ROOTPATH . 'public/uploads', $newName)) {
+                $user['picture_path'] = $newName;
+            } else {
+                return 'Error: Unable to upload profile image.';
+            }
         }
-
+    
         $user['first_name'] = $request->getVar('firstName');
         $user['last_name'] = $request->getVar('lastName');
         $user['email'] = $request->getVar('email');
         if ($request->getVar('password') != null || $request->getVar('password') != ''){
             $user['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
         }
+    
         $userModel->update($userId, $user);
-
+    
         return redirect()->to('/manageprofile');
     }
-
+    
     
     public function trash()
     {
@@ -644,7 +719,11 @@ public function completed()
 
         $session = session();
         $office_id = $session->get('office_id');
-    
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
+
         if (!$office_id) {
             return 'Error: Office ID not set';
         }
@@ -669,7 +748,7 @@ public function completed()
     
         $data = [
             'documents' => $documents,
-            'user_name' => $userName
+            'office_name' => $office_name
         ];
 
     
@@ -712,6 +791,9 @@ public function completed()
     public function allDocuments()
     {
         $userId = session('user_id');
+
+        $session = session();
+        $office_id = $session->get('office_id');
     
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
@@ -719,11 +801,14 @@ public function completed()
 
         $officeModel = new OfficeModel();
         $offices = $officeModel->findAll();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
     
         $data = [
             'user_name' => $userName,
             'searchResults' => [],
-            'offices' => $offices
+            'offices' => $offices,
+            'office_name' => $office_name
         ];
     
         return view('Office/Search', $data);
@@ -733,6 +818,14 @@ public function completed()
     public function search()
     {
         $userId = session('user_id');
+
+        $session = session();
+        $office_id = $session->get('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
+
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
@@ -776,13 +869,51 @@ public function completed()
     
         $data = [
             'searchResults' => $searchResults,
-            'user_name' => $userName
+            'office_name' => $office_name
         ];
     
         return view('Office/Search', $data);
-    }
+
     
     }
+
+    public function getDocumentDetails($id)
+    {
+        $documentModel = new DocumentModel();
+        $officeModel = new OfficeModel();
+        $userModel = new UserModel();
+    
+        $document = $documentModel->find($id);
+    
+        if ($document) {
+            $senderName = '';
+    
+            if ($document->sender_id === null) {
+                $office = $officeModel->find($document->sender_office_id);
+                if ($office) {
+                    $senderName = $office->office_name;
+                }
+            } else {
+                $user = $userModel->find($document->sender_id);
+                if ($user) {
+                    $senderName = $user->first_name . ' ' . $user->last_name;
+                }
+            }
+    
+            $document->senderName = $senderName;
+    
+            $data = [
+                'document' => $document
+            ];
+    
+            return $this->response->setJSON($data);
+        } else {
+            return $this->response->setStatusCode(404)->setJSON(['error' => 'Document not found']);
+        }
+    }
+    
+
+}
 
 
 

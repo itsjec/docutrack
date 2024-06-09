@@ -26,6 +26,7 @@
                         <option value="deleted">Deleted</option>
                     </select>
                 </div>
+                <!--
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="sort" class="mr-2">Sort By:</label>
                     <select class="form-control" id="sort" name="sort">
@@ -35,33 +36,52 @@
                         <option value="date_desc">Newest First</option>
                     </select>
                 </div>
-
+                -->
                 <button type="submit" class="btn btn-primary mb-2">Search</button>
             </form>
         </div>
     </div>
     <div class="row">
-    <?php foreach ($searchResults as $result): ?>
-    <div class="col-md-3">
-        <div class="card">
-            <img src="<?= base_url('path_to_qr_code_image.jpg') ?>" class="card-img-top" alt="QR Code">
-            <div class="card-body">
-                <h5 class="card-title"><?= $result['tracking_number'] ?></h5>
-                <p class="card-text"><?= $result['title'] ?></p>
-                <button class="btn btn-primary" onclick="printQR('<?= base_url('path_to_qr_code_image.jpg') ?>')">Print</button>
-                <button class="btn btn-primary" onclick="copyToClipboard('<?= $result['tracking_number'] ?>')">Copy</button>
+    <?php
+    // Import the Generator class
+    use SimpleSoftwareIO\QrCode\Generator;
+
+    // Assuming the QR Code Generator is already autoloaded via Composer
+    
+    // Loop through each search result
+    foreach ($searchResults as $result): ?>
+        <div class="col-md-3">
+            <div class="card">
+                <?php
+                // Generate QR code URL for the tracking number
+                $trackingNumber = urlencode($result['tracking_number']);
+                $qrcode = new Generator;
+                $url = base_url("/track?number=$trackingNumber");
+                $qrCodeURL = $qrcode->size(200)->generate($url);
+                ?>
+
+                <div class="card-body">
+                    <div class="d-flex justify-content-center align-items-center mb-2">
+                        <?= $qrCodeURL ?>
+                    </div>
+                    <h5 class="card-title"><?= $result['tracking_number'] ?> (<?= $result['version_number'] ?>)</h5>
+                    <p class="card-text"><?= $result['title'] ?> ( v<?= $result['version_number'] ?>)</p>
+                    <button class="btn btn-primary" onclick="printQR(`<?= htmlspecialchars($qrCodeURL) ?>`, '<?= esc($result['tracking_number']) ?>')">Print</button>
+                    <button class="btn btn-primary"
+                        onclick="copyToClipboard('<?= $result['tracking_number'] ?>')">Copy</button>
+                </div>
             </div>
         </div>
-    </div>
     <?php endforeach; ?>
 </div>
+
 
 </div>
 
 <script>
-    function printQR(imageUrl) {
+    function printQR(qrCodeURL, trackingNumber) {
         var printWindow = window.open('', '_blank');
-        printWindow.document.write('<img src="' + imageUrl + '" style="width:100%;">');
+        printWindow.document.write('<html><head><title>Print QR Code</title></head><body style="width:100%;text-align:center;"><img src="' + qrCodeURL + '"><div>' + trackingNumber + '</div></body></html>');
         printWindow.document.close();
         printWindow.print();
     }

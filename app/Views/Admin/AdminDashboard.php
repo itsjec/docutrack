@@ -135,6 +135,105 @@
         }
     });
 
+    var ctx1 = document.getElementById('documentAgingChart').getContext('2d');
+    var documentAgingChart = new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: <?= $documentLabels ?>,
+            datasets: [{
+                label: 'Document Aging',
+                data: <?= $documentAges ?>,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Age (days)'
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    
+    var ctx2 = document.getElementById('officeProcessingTimeChart').getContext('2d');
+var officeProcessingTimeChart = new Chart(ctx2, {
+    type: 'radar',
+    data: {
+        labels: [], // Office IDs or names
+        datasets: [{
+            label: 'Average Processing Time (minutes)',
+            data: [],
+            borderColor: 'rgb(75, 192, 192)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            r: {
+                suggestedMin: 0,
+                title: {
+                    display: true,
+                    text: 'Average Processing Time (minutes)'
+                }
+            }
+        },
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
+                    return datasetLabel + ': ' + (tooltipItem.yLabel / 60) + ' minutes';
+                }
+            }
+        }
+    }
+});
+
+function updateCharts() {
+        $.ajax({
+            url: "<?php echo base_url('document/aging'); ?>",
+            type: "GET",
+            success: function (data) {
+                console.log("Received data:", data);
+
+                const documentNames = data.map(doc => doc.title);
+                const documentAges = data.map(doc => doc.age);
+
+                documentAgingChart.data.labels = documentNames;
+                documentAgingChart.data.datasets[0].data = documentAges;
+                documentAgingChart.update();
+            },
+            error: function (xhr, status, error) {
+                console.error("Error fetching document ages:", error);
+            }
+        });
+    }
+
+
+    // Update office processing time chart
+    $.ajax({
+        url: "<?php echo base_url('office-processing-time'); ?>",
+        type: "GET",
+        success: function (data) {
+            officeProcessingTimeChart.data.labels = data.map(item => item.office_id);
+            officeProcessingTimeChart.data.datasets[0].data = data.map(item => item.avg_processing_time_seconds);
+            officeProcessingTimeChart.update();
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching average processing times:", error);
+        }
+    });
+
+updateCharts();
+
+setInterval(updateCharts, 5000);
+
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

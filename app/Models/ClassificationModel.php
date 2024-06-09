@@ -13,7 +13,7 @@ class ClassificationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['classification_id',	'classification_name','sub_classification'];
+    protected $allowedFields    = ['classification_id',	'classification_name','sub_classification','status'];
 
     // Dates
     protected $useTimestamps = false;

@@ -26,32 +26,34 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Role</th>
+                                <th>Username</th>
                                 <th>Image</th>
-                                <th>Office</th>
+                                <th>Office Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                         <?php foreach ($users as $user): ?>
                             <tr>
-                                <td><?= $user['first_name'] ?></td>
-                                <td><?= $user['last_name'] ?></td>
-                                <td><?= $user['role'] ?></td>
+                                <td><?= $user['username'] ?></td>
                                 <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
-                                <a href="#" class="btn btn-sm btn-primary edit-btn"
+                                <a href="#editUserModal" class="btn btn-sm btn-primary edit-btn"
+                                        data-toggle="modal"
                                         data-user-id="<?= $user['user_id'] ?>"
-                                        data-first-name="<?= $user['first_name'] ?>"
-                                        data-last-name="<?= $user['last_name'] ?>"
+                                        data-office-id="<?= $user['office_id'] ?>"
                                         data-email="<?= $user['email'] ?>"
-                                        data-office-id="<?= $user['office_id'] ?>">
-                                            <i class="mdi mdi-pencil"></i> Edit
+                                        data-username="<?= $user['username'] ?>"
+                                        data-password="<?= $user['password'] ?>">
+                                        <i class="mdi mdi-pencil"></i> Edit
                                     </a>
-                                    <a href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-sm btn-danger"><i class="mdi mdi-delete"></i> Delete</a>
+                                    <a href="#" class="btn btn-sm btn-danger deactivate-btn" 
+                                        data-toggle="modal" 
+                                        data-target="#deactivateUserModal" 
+                                        data-userid="<?= $user['user_id'] ?>">
+                                        <i class="mdi mdi-close"></i> Deactivate
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -62,6 +64,47 @@
         </div>
     </div>
 </div>
+
+
+<!-- Deactivate User Modal -->
+<div class="modal fade" id="deactivateUserModal" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deactivateUserModalLabel">Deactivate User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to deactivate this user?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeactivate">Deactivate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete this user?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="deleteUserButton" href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
@@ -85,30 +128,14 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="editFirstName">First Name</label>
-                                <input type="text" class="form-control" id="editFirstName" name="firstName" placeholder="Enter first name" required>
-                            </div>
-                            <div class="col">
-                                <label for="editLastName">Last Name</label>
-                                <input type="text" class="form-control" id="editLastName" name="lastName" placeholder="Enter last name" required>
-                            </div>
-                        </div>
+                        <label for="editUsername">Username</label>
+                        <input type="text" class="form-control" id="editUsername" name="username" placeholder="Enter username" required>
                     </div>
                     <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="editEmail">Email</label>
-                                <input type="email" class="form-control" id="editEmail" name="email" placeholder="Enter email" required>
-                            </div>
-                            <div class="col">
-                                <label for="editPassword">Password</label>
-                                <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter password">
-                                <meter max="4" id="editPassword-strength-meter"></meter>
-                            </div>
-                        </div>
+                        <label for="editPassword">Password</label>
+                        <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter new password">
                     </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Update</button>
@@ -141,20 +168,8 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
-                                <label for="firstName">First Name</label>
-                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
-                            </div>
-                            <div class="col">
-                                <label for="lastName">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
                             </div>
                             <div class="col">
                                 <label for="password">Password</label>
@@ -174,7 +189,6 @@
     </div>
 </div>
 
-<!-- JavaScript for password strength meter -->
 <script>
     document.getElementById('password').addEventListener('input', function () {
         var password = document.getElementById('password').value;

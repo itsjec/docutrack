@@ -41,6 +41,7 @@
   </div>
   <!-- container-scroller -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
   <script>
 $('.delete-btn').on('click', function() {
       var documentId = $(this).data('document-id');
@@ -76,26 +77,26 @@ $('.delete-btn').on('click', function() {
 
   var currentDocumentId;
 
-function updateRecipientId() {
-    var documentId = $('.btn-send-out').data('document-id');
-    var recipientId = $('#office_id').val(); 
-    $('#document_id').val(documentId);
-    $('#recipient_id').val(recipientId);
-}
-
-$(document).ready(function() {
+  $(document).ready(function() {
     $('.btn-send-out').on('click', function() {
-        currentDocumentId = $(this).data('document-id');
-        updateRecipientId();
+        var documentId = $(this).data('document-id');
+        $('#document_id').val(documentId);
+        $('#sendOutModal').modal('show');
     });
 
     $('#confirmSendOutBtn').on('click', function() {
-        var documentId = $('#document_id').val(); 
-        var recipientId = $('#recipient_id').val(); 
+        var documentId = $('#document_id').val();
+        var recipientId = $('#office_id').val();
+        var action = $('#action').val();
+        var description = $('#description').val();
 
         $.ajax({
-            url: '<?= site_url('documents/update-document-recipient-and-status/') ?>' + documentId + '/' + recipientId + '/pending',
+            url: '<?= site_url('documents/update-document-recipient-and-status') ?>/' + documentId + '/' + recipientId + '/pending',
             type: 'POST',
+            data: {
+                action: action,
+                description: description
+            },
             success: function(response) {
                 console.log(response);
                 $('#sendOutModal').modal('hide');
@@ -108,7 +109,39 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $('.view-btn').click(function(event) {
+        event.preventDefault();
 
+        var documentId = $(this).data('documentid');
+        var title = $(this).data('title');
+        var senderName = $(this).data('sendername') || "Office ID " + $(this).data('sender-office-id');
+        var recipientOfficeId = $(this).data('recipient-office-id');
+        var classification = $(this).data('classification');
+        var subClassification = $(this).data('sub-classification');
+        var dateOfDocument = $(this).data('date-of-document');
+        var action = $(this).data('action');
+        var description = $(this).data('description');
+        var trackingNumber = $(this).data('tracking-number');
+
+        $('#view-document-id').text(documentId);
+        $('#view-title').text(title);
+        $('#view-sender').text(senderName);
+        $('#view-classification').text(classification);
+        $('#view-sub-classification').text(subClassification);
+        $('#view-date-of-document').text(dateOfDocument);
+        $('#view-action').text(action);
+        $('#view-description').text(description);
+        $('#view-tracking-number').text(trackingNumber);
+        $('#qrCodeContainer').empty(); // Clear existing QR code
+        var qrcode = new QRCode(document.getElementById("qrCodeContainer"), {
+            text: trackingNumber,
+            width: 200,
+            height: 200
+        });
+        $('#viewDocumentModal').modal('show');
+    });
+});
 
 </script>
 

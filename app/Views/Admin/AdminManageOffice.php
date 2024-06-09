@@ -49,7 +49,9 @@ $('#addOfficeBtn').click(function () {
 });
 
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get current date
@@ -67,6 +69,30 @@ $('#addOfficeBtn').click(function () {
     });
   });
 </script>
+
+<script>
+    $(document).ready(function () {
+        $('.edit-btn').click(function () {
+            var officeId = $(this).data('office-id');
+            var officeName = $(this).data('office-name');
+
+            $('#editOfficeId').val(officeId);
+            $('#editOfficeName').val(officeName);
+
+            $('#editOfficeModal').modal('show');
+        });
+    });
+
+    $(document).ready(function () {
+    $('.delete-btn').click(function () {
+        var officeId = $(this).data('office-id');
+        $('#deleteOfficeId').val(officeId);
+        $('#deleteOfficeModal').modal('show');
+    });
+});
+
+</script>
+
 
 
 

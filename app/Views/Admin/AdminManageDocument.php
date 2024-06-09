@@ -81,7 +81,6 @@ $(document).ready(function() {
 });
 
     $(document).ready(function() {
-        // Function to display the modal and update the tracking number
         function displaySuccessModal(trackingNumber) {
             $('#trackingNumber').text(trackingNumber);
             $('#successModal').modal('show');
@@ -133,6 +132,33 @@ $("#delete-btn").click(function(event) {
         }
     });
 });
+
+$(document).ready(function () {
+        $('.edit-btn').click(function () {
+            var documentId = $(this).data('documentid');
+            var title = $(this).data('title');
+            var senderOfficeId = $(this).data('sender-office-id');
+            var recipientOfficeId = $(this).data('recipient-office-id');
+            var classification = $(this).data('classification');
+            var subClassification = $(this).data('sub-classification');
+            var dateOfDocument = $(this).data('date-of-document');
+            var action = $(this).data('action');
+            var description = $(this).data('description');
+
+            $('#editDocumentId').val(documentId);
+            $('#editTitle').val(title);
+            $('#sender_office_id').val(senderOfficeId);
+            $('#editRecipientOfficeId').val(recipientOfficeId);
+            $('#editClassification').val(classification);
+            $('#editSubClassification').val(subClassification);
+            $('#editDateOfDocument').val(dateOfDocument);
+            $('#editAction').val(action);
+            $('#editDescription').val(description);
+
+            // Show the modal
+            $('#editDocumentModal').modal('show');
+        });
+    });
   </script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>

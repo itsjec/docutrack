@@ -1,12 +1,12 @@
 <div class="banner">
         <div class="container">
-            <h2>Document Tracking Information</h2>
+            <h2>DOCUMENT TRACKING INFORMATION</h2>
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div id="tracking-pre"></div>
                     <div id="tracking">
                     <div class="text-center tracking-status-intransit">
-                        <p class="tracking-status text-tight">Tracking Number: <?= $tracking_number ?></p>
+                        <p class="tracking-status text-tight"><?= $tracking_number ?></p>
                     </div>
                     <div class="tracking-list">
                         <?php if (empty($workflow_history)): ?>
@@ -35,7 +35,7 @@
                 <div class="d-sm-flex flex-wrap justify-content-between align-items-center text-center pt-4">
                     <div class="custom-control custom-checkbox mt-2 mr-3">
                         <input class="custom-control-input" type="checkbox" id="notify-me" checked>
-                    </div><a class="btn btn-primary" href="indexloggedin" data-toggle="modal">Return Home</a>
+                        <a class="btn btn-primary" href="indexloggedin" data-toggle="modal" style="background: linear-gradient(45deg, #9a2db9, #b715a6); border: none">Return Home</a>
             </div>
             </div>
         </div>

@@ -18,7 +18,7 @@
 
 .tracking-date,
 .tracking-content {
-    color: #e24fff; 
+    color: #fff; 
     font-weight: 500;
     font-family: "Roboto", sans-serif;
 }
@@ -38,13 +38,13 @@
 
 .banner {
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),url(../images/Mindoro.png);
-    background-size: auto 100%;
+    height: auto 100%; /* Set a specific height or use a percentage value */
+    background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(../images/bgbg.jpg);
+    background-size: cover; /* Cover the entire element */
     background-position: center;
     text-align: center;
-    padding: 20px; 
-    box-sizing: border-box;
 }
+
 
 
 .tracking-detail {

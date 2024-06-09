@@ -54,7 +54,67 @@
       alert("Calendar icon clicked!");
     });
   });
+
+  $(document).ready(function() {
+    $('#reportForm').on('submit', function(event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                var data = response;
+
+                var table = '<table class="table table-bordered">';
+                table += '<thead><tr>';
+                table += '<th>Tracking Number</th>';
+                table += '<th>Title</th>';
+                table += '<th>Sender</th>';
+                table += '<th>Current Office</th>';
+                table += '<th>Processing Time (minutes)</th>';
+                table += '<th>Date Completed</th>';
+                table += '</tr></thead>';
+                table += '<tbody>';
+                for (var i = 0; i < data.length; i++) {
+                    table += '<tr>';
+                    table += '<td>' + data[i].tracking_number + '</td>';
+                    table += '<td>' + data[i].title + '</td>';
+                    table += '<td>' + data[i].sender + '</td>';
+                    table += '<td>' + data[i].current_office + '</td>';
+                    table += '<td>' + data[i].processing_time + '</td>';
+                    table += '<td>' + data[i].date_completed + '</td>';
+                    table += '</tr>';
+                }
+                table += '</tbody></table>';
+
+                $('#previewModal .modal-body').html(table);
+                $('#previewModal').modal('show');
+
+                $('#downloadButton').off('click').on('click', function() {
+                    window.location.href = 'http://localhost:8080/admin/transactions/download';
+                });
+
+                $('#printButton').off('click').on('click', function() {
+                    var printContents = $('#previewModal .modal-body').html();
+                    var printWindow = window.open('', '', 'height=600,width=800');
+                    printWindow.document.write('<html><head><title>Print Report</title>');
+                    printWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />');
+                    printWindow.document.write('</head><body >');
+                    printWindow.document.write(printContents);
+                    printWindow.document.write('</body></html>');
+                    printWindow.document.close();
+                    printWindow.print();
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX Error:', error);
+            }
+        });
+    });
+});
 </script>
+
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

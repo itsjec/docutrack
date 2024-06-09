@@ -30,37 +30,31 @@
                     <?= session('error') ?>
                 </div>
             <?php endif; ?>
-
-
-              <!-- Your existing HTML code for the login form -->
-        <form class="pt-3" action="<?= site_url('login') ?>" method="POST">
-            <!-- Form fields for email and password -->
-            <div class="form-group">
-                <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" name="email" placeholder="Email">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="password" placeholder="Password">
-            </div>
-            <!-- Submit button -->
-            <div class="mt-3">
-                <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-            </div>
-            <!-- Checkbox for "Keep me signed in" and Forgot password link -->
-            <div class="my-2 d-flex justify-content-between align-items-center">
-                <div class="form-check">
-                    <label class="form-check-label text-muted">
-                        <input type="checkbox" class="form-check-input">
-                        Keep me signed in
-                    </label>
+              <form class="pt-3" action="<?= site_url('login') ?>" method="POST">
+                <div class="form-group">
+                    <input type="text" class="form-control form-control-lg" id="emailOrUsername" name="emailOrUsername" placeholder="Email or Username">
                 </div>
-                <a href="#" class="auth-link text-black">Forgot password?</a>
-            </div>
-            <!-- Link for creating an account -->
-            <div class="text-center mt-4 font-weight-light">
-                Don't have an account? <a href="register" class="text-primary">Create</a>
-            </div>
-        </form>
-
+                <div class="form-group">
+                    <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" name="password" placeholder="Password">
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
+                </div>
+                <!-- Checkbox for "Keep me signed in" and Forgot password link -->
+                <div class="my-2 d-flex justify-content-between align-items-center">
+                    <div class="form-check">
+                        <label class="form-check-label text-muted">
+                            <input type="checkbox" class="form-check-input">
+                            Keep me signed in
+                        </label>
+                    </div>
+                    <a href="#" class="auth-link text-black">Forgot password?</a>
+                </div>
+                <!-- Link for creating an account -->
+                <div class="text-center mt-4 font-weight-light">
+                    Don't have an account? <a href="register" class="text-primary">Create</a>
+                </div>
+            </form>
             </div>
           </div>
         </div>

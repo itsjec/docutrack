@@ -36,10 +36,31 @@ $routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentper
 $routes->post('admin/delete-document/(:num)', 'AdminController::deleteDocumentPermanent/$1');
 $routes->post('admin/delete-user/(:num)', 'AdminController::deleteUser/$1');
 $routes->post('users/update', 'AdminController::updateUser');
+$routes->get('delete/(:num)', 'AdminController::delete/$1');
 $routes->post('updateguest', 'AdminController::updateGuestUser');
 $routes->post('documents/updateDocument', 'AdminController::updateDocument');
+$routes->post('documents/updateGuestDocument', 'AdminController::updateGuestDocument');
 $routes->post('documents/getDocument', 'AdminController::getDocument');
 $routes->get('search', 'AdminController::search');
+$routes->match(['get', 'post'], 'admin/transactions/download', 'AdminController::download_all_rows');
+$routes->get('document/aging', 'AdminController::aging');
+$routes->get('office-processing-time', 'AdminController::officeProcessingTime');
+$routes->get('document/all-versions-modal/(:num)', 'AdminController::allVersionsModal/$1');
+$routes->post('updateOfficeName', 'AdminController::updateOfficeName');
+$routes->post('office/updateStatus', 'AdminController::updateStatus');
+$routes->post('office/updateClassification', 'AdminController::updateClassification');
+$routes->post('sub-classifications/update', 'AdminController::updateClassificationName');
+$routes->post('deactivateUser', 'AdminController::deactivateUser');
+$routes->get('documents/fetchVersionsByTitle', 'AdminController::fetchVersionsByTitle');
+
+
+
+
+
+
+
+
+
 
 
 
@@ -74,6 +95,8 @@ $routes->post('documents/update-document-recipient-and-status/(:num)/(:num)/(:se
 $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1');
 $routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
 $routes->get('searchDocu', 'OfficeController::search');
+$routes->get('documents/getDocumentDetails/(:num)', 'OfficeController::getDocumentDetails/$1');
+
 
 
 

@@ -1,6 +1,18 @@
 <?php
 $trackingNumber = $_GET['trackingNumber'] ?? '';
+
+use SimpleSoftwareIO\QrCode\Generator;
+
+$qrCodeURL = '';
+if (!empty($trackingNumber)) {
+  helper('url'); 
+  $qrcode = new Generator;
+  $trackingNumber = urlencode($trackingNumber); 
+  $url = base_url("/track?number=$trackingNumber"); 
+  $qrCodeURL = $qrcode->size(200)->generate($url);
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +40,11 @@ $trackingNumber = $_GET['trackingNumber'] ?? '';
           <div class="col-lg-7 mx-auto text-white">
             <h3>Document Added Successfully!</h3>
             <h2 id="trackingNumber"><?= $trackingNumber ?></h2>
+            <?php if (!empty($qrCodeURL)): ?>
+              <div class="qr-code">
+                <?= $qrCodeURL ?>
+              </div>
+            <?php endif; ?>
             <div class="row mt-5">
               <div class="col-12 text-center mt-xl-2">
                 <button type="button" class="btn btn-primary" id="copyButton">Copy Tracking Number</button>

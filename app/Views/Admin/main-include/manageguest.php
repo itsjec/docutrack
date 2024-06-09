@@ -48,6 +48,12 @@
                                         data-email="<?= $user['email'] ?>">
                                         <i class="mdi mdi-pencil"></i> Edit
                                     </a>
+                                    <a href="#" class="btn btn-sm btn-danger deactivate-btn" 
+                                        data-toggle="modal" 
+                                        data-target="#deactivateUserModal" 
+                                        data-userid="<?= $user['user_id'] ?>">
+                                        <i class="mdi mdi-close"></i> Deactivate
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -59,6 +65,28 @@
     </div>
 </div>
 </div>
+
+<!-- Deactivate User Modal -->
+<div class="modal fade" id="deactivateUserModal" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deactivateUserModalLabel">Deactivate User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to deactivate this user?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeactivate">Deactivate</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

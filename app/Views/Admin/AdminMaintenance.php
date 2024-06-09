@@ -82,6 +82,35 @@
             }
         });
     });
+
+    $(document).ready(function () {
+    $('.delete-btn').click(function () {
+        var classificationId = $(this).data('office-id');
+        $('#deleteOfficeId').val(classificationId);
+        $('#deleteOfficeModal').modal('show');
+    });
+});
+
+$(document).ready(function () {
+    $('.edit-subclassification-btn').click(function () {
+        var subClassificationId = $(this).data('subclassification-id');
+        var classificationName = $(this).data('classification');
+        var subClassificationName = $(this).data('subclassification');
+
+        $('#editClassificationId').val(subClassificationId);
+        $('#editClassification').val(classificationName);
+        $('#editSubclassification').val(subClassificationName);
+
+        $('#editSubClassificationModal').find('#classification option').filter(function() {
+            return $(this).text() == classificationName;
+        }).prop('selected', true);
+
+        $('#editSubClassificationModal').modal('show');
+    });
+});
+
+
+
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>

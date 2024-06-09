@@ -39,10 +39,14 @@
                                         <i class="typcn typcn-arrow-sorted-down btn-icon-append"></i>
                                     </button>
 
-                                        <a href="#" class="btn btn-info btn-sm btn-icon-text mr-3">
-                                            View
-                                            <i class="typcn typcn-eye btn-icon-append"></i>
-                                        </a>
+                                    <button type="button" class="btn btn-sm btn-primary view-btn"
+                                        data-toggle="modal" data-target="#viewDocumentModal"
+                                        data-documentid="<?= esc($document->document_id) ?>"
+                                        data-title="<?= esc($document->title) ?>"
+                                        data-tracking-number="<?= esc($document->tracking_number) ?>">View
+                                        <i class="typcn typcn-eye btn-icon-append"></i>
+                                    </button>
+                                    
                                         <button type="button" class="btn btn-danger btn-sm btn-icon-text delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document->document_id ?>" data-document-title="<?= $document->title ?>" data-tracking-number="<?= $document->tracking_number ?>">
                                             Delete
                                             <i class="typcn typcn-delete-outline btn-icon-append"></i>
@@ -59,6 +63,32 @@
     </div>
 </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="viewDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDocumentModalLabel">Document Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <div id="qrCodeContainer"></div>
+                        <h4><strong><span id="view-tracking-number"></span></strong></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- Delete Document Modal -->
 <div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
@@ -97,12 +127,22 @@
                 <form id="sendOutForm" method="post" action="<?= site_url('documents/sendOutDocument') ?>">
                     <input type="hidden" id="document_id" name="document_id" value="">
                     <input type="hidden" id="recipient_id" name="recipient_id" value="">
-                    <label for="office_id">Select Office:</label>
-                    <select class="form-control" id="office_id" name="office_id" onchange="updateRecipientId()">
-                        <?php foreach ($offices as $office): ?>
-                            <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
-                        <?php endforeach; ?>
-                    </select>
+                    <div class="form-group">
+                        <label for="office_id">Select Office:</label>
+                        <select class="form-control" id="office_id" name="office_id" onchange="updateRecipientId()">
+                            <?php foreach ($offices as $office): ?>
+                                <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="action">Action:</label>
+                        <input type="text" class="form-control" id="action" name="action">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -112,4 +152,5 @@
         </div>
     </div>
 </div>
+
 

@@ -41,6 +41,8 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 <script>
 $('#addOfficeBtn').click(function () {
@@ -72,7 +74,58 @@ $('#addOfficeBtn').click(function () {
                 break;
         }
     });
+
+    
+    $(document).ready(function () {
+    var userIdToDeactivate;
+
+    $('.deactivate-btn').click(function () {
+        userIdToDeactivate = $(this).data('userid');
+        $('#deactivateUserModal').modal('show');
+    });
+
+    $('#confirmDeactivate').click(function () {
+        $.ajax({
+            url: 'deactivateUser', // Update with your backend endpoint
+            method: 'POST',
+            data: { userId: userIdToDeactivate },
+            success: function (response) {
+                console.log('User deactivated successfully');
+                // You can update the UI or perform other actions as needed
+            },
+            error: function (xhr, status, error) {
+                console.error('Error deactivating user:', error);
+            }
+        });
+
+        $('#deactivateUserModal').modal('hide');
+    });
+});
+
+
+    $(document).ready(function () {
+        // Set the modal values when the edit button is clicked
+        $('.edit-btn').click(function () {
+            var userId = $(this).data('user-id');
+            var officeId = $(this).data('office-id');
+            var email = $(this).data('email');
+            var username = $(this).data('username');
+
+            console.log('UserID:', userId);
+            console.log('OfficeID:', officeId);
+            console.log('Email:', email);
+            console.log('Username:', username);
+
+            $('#editUserId').val(userId);
+            $('#editOfficeId').val(officeId);
+            $('#editEmail').val(email);
+            $('#editUsername').val(username);
+        });
+    });
+
 </script>
+
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

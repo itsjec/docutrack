@@ -13,7 +13,7 @@ class OfficeModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['office_name'];
+    protected $allowedFields    = ['office_name','status'];
 
     // Dates
     protected $useTimestamps = false;

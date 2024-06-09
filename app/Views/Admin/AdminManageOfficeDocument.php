@@ -89,6 +89,40 @@
         });
     });
 
+    $('.view-versions-btn').on('click', function() {
+    var title = $(this).data('title');
+    $.ajax({
+        url: '<?= base_url('documents/fetchVersionsByTitle') ?>',
+        method: 'GET',
+        data: { title: title },
+        success: function(response) {
+            var versions = JSON.parse(response);
+            var modalBody = $('#documentVersionsBody');
+            modalBody.empty(); // Clear existing content
+
+            versions.forEach(function(version) {
+                var card = $('<div class="col-md-3">');
+                var innerCard = $('<div class="card">');
+                var cardBody = $('<div class="card-body">');
+                var qrCodeURL = version.qr_code_url;
+
+                innerCard.append(qrCodeURL); // Append the QR code URL
+                cardBody.append('<h5 class="card-title">' + version.tracking_number + ' (' + version.version_number + ')</h5>');
+                cardBody.append('<p class="card-text">' + version.title + ' ( v' + version.version_number + ')</p>');
+                cardBody.append('<button class="btn btn-primary" onclick="printQR(`' + qrCodeURL + '`, \'' + version.tracking_number + '\')">Print</button>');
+                cardBody.append('<button class="btn btn-primary" onclick="copyToClipboard(\'' + version.tracking_number + '\')">Copy</button>');
+
+                innerCard.append(cardBody);
+                card.append(innerCard);
+                modalBody.append(card);
+            });
+        }
+    });
+});
+
+});
+
+
 
     </script>
 

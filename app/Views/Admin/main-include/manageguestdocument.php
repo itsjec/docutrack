@@ -27,6 +27,7 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                            <th>Version No.</th>
                                 <th>Title</th>
                                 <th>Tracking Number</th>
                                 <th>Sender</th>
@@ -40,6 +41,7 @@
                         <tbody>
                             <?php foreach ($documents as $document): ?>
                                 <tr>
+                                <td><?= $document['version_number'] ?></td>
                                     <td><?= $document['title'] ?></td>
                                     <td><?= $document['tracking_number'] ?></td>
                                     <td><?= $document['first_name'] ?> <?= $document['last_name'] ?></td>
@@ -48,9 +50,19 @@
                                     <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
                                     <td><?= $document['action'] ?></td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-primary">
-                                            <i class="mdi mdi-pencil"></i> Edit
-                                        </a>
+                                    <button type="button" class="btn btn-sm btn-primary edit-btn"
+                                    data-toggle="modal" data-target="#editDocumentModal"
+                                    data-documentid="<?= $document['document_id'] ?>"
+                                    data-title="<?= $document['title'] ?>"
+                                    data-sender-office-id="<?= $document['sender_id'] ?>"
+                                    data-recipient-office-id="<?= $document['recipient_id'] ?>"
+                                    data-classification="<?= $document['classification'] ?>"
+                                    data-sub-classification="<?= $document['sub_classification'] ?>"
+                                    data-date-of-document="<?= $document['date_of_document'] ?>"
+                                    data-action="<?= $document['action'] ?>"
+                                    data-description="<?= $document['description'] ?>">
+                                <i class="mdi mdi-pencil"></i> Edit
+                                    </button>
                                         <a href="#" class="btn btn-sm btn-info">
                                             <i class="mdi mdi-eye"></i> View
                                         </a>
@@ -70,6 +82,88 @@
     </div>
 </div>
 
+
+<!-- Edit Document Modal -->
+<div class="modal fade" id="editDocumentModal" tabindex="-1" role="dialog" aria-labelledby="editDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editDocumentModalLabel">Edit Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form here -->
+                <form id="editDocumentForm" action="<?= site_url('documents/updateGuestDocument') ?>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="editDocumentId" name="id">
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="editTitle">Title</label>
+                            <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" required>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="sender_office_id">Sender</label>
+                            <select class="form-control" id="sender_office_id" name="sender_office_id" required>
+                                <?php foreach ($guestUsersNames as $user_id => $user_name): ?>
+                                    <option value="<?= $user_id ?>"><?= $user_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editRecipientOfficeId">Recipient</label>
+                            <select class="form-control" id="editRecipientOfficeId" name="recipient_office_id" required>
+                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="editClassification">Classification</label>
+                            <select class="form-control" id="editClassification" name="classification" required>
+                                <?php foreach ($classificationsDropdown as $classification): ?>
+                                    <option value="<?= $classification ?>"><?= $classification ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editSubClassification">Sub-Classification</label>
+                            <select id="editSubClassification" name="sub_classification" class="form-control" required>
+                                <?php foreach ($subClassificationsDropdown as $subClassification): ?>
+                                    <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editDateOfDocument">Date of Document</label>
+                            <input type="text" class="form-control" id="editDateOfDocument" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="editAttachment">Attachment (PDF)</label>
+                            <input type="file" class="form-control-file" id="editAttachment" name="attachment" accept=".pdf">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editAction">Action</label>
+                            <input type="text" class="form-control" id="editAction" name="action">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="editDescription">Description</label>
+                            <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -92,7 +186,6 @@
     </div>
 </div>
 
-<!-- Add Document Modal -->
 <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -103,7 +196,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <?php if (session()->has('errors')) : ?>
+            <?php if (is_array(session('errors'))) : ?>
                     <div class="alert alert-danger" role="alert">
                         <ul>
                             <?php foreach (session('errors') as $error) : ?>
@@ -112,6 +205,7 @@
                         </ul>
                     </div>
                 <?php endif ?>
+
 
                 <?php if (session()->has('error')) : ?>
                     <div class="alert alert-danger" role="alert">
