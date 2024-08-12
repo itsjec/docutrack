@@ -13,11 +13,33 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
+
+  <style>
+        #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100vh;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background-image: url('https://img.freepik.com/premium-ai-image/purple-purple-background-with-purple-background-word-digital-bottom_40904457.htm');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .content-wrapper {
+      min-height: 100vh;
+    }
+
+    .auth-form-light {
+      background: rgba(255, 255, 255, 0.8); /* Make the form background slightly transparent */
+      border-radius: 8px;
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container-scroller">
-    <div class="container-fluid page-body-wrapper full-page-wrapper">
+  <div id="particles-js"></div>
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
@@ -57,10 +79,9 @@
             </form>
             </div>
           </div>
+          </div>
         </div>
       </div>
-      <!-- content-wrapper ends -->
-    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
@@ -73,6 +94,8 @@
   <script src="assets/js/template.js"></script>
   <script src="assets/js/settings.js"></script>
   <script src="assets/js/todolist.js"></script>
+  <script type="text/javascript" src="assets2/js/particles.js"></script>
+  <script type="text/javascript" src="assets2/js/app.js"></script>
   <!-- endinject -->
 </body>
 

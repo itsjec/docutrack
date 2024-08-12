@@ -58,5 +58,7 @@
     <script src="assets2/js/navbar.js"></script>
     <script src="assets2/js/counter.js"></script>
     <script src="assets2/js/custom.js"></script>
+    <script type="text/javascript" src="assets2/js/particles.js"></script>
+    <script type="text/javascript" src="assets2/js/app.js"></script>
   </body>
 </html>

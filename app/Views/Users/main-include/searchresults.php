@@ -1,6 +1,6 @@
 
 
-<div class="banner">
+<div id="particles-js" class="banner">
             <div class="content">
                 <h1>Document: <?= $document['tracking_number'] ?></h1>
                 <div class="row mb-3">

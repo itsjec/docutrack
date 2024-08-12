@@ -6,7 +6,7 @@
                 <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                     <div>
                         <p class="mb-2 text-md-center text-lg-left">Overall Document Status</p>
-                        <h1 id="total-documents"><?= $totalDocuments ?></h1>
+                        <h1 id="total-documents"><?= $totalStatuses ?></h1>
                     </div>
                     <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
                 </div>
@@ -45,6 +45,7 @@
         </div>
     </div>
 </div>
+
 <div class="content-wrapper">
     <div class="row">
         <div class="col-md-6 grid-margin stretch-card">
@@ -52,10 +53,13 @@
                 <div class="card-body">
                     <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                         <div>
-                            <p class="mb-2 text-md-center text-lg-left">Document Aging (Days)</p>
-                            <h1 id="total-documents"><?= $totalDocuments ?></h1>
+                            <p class="mb-2 text-md-center text-lg-left">Document Aging</p>
+                            <select id="ageUnit" class="form-control">
+                                <option value="months">Months</option>
+                                <option value="days">Days</option>
+                            </select>
                         </div>
-                        <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
+                    <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
                     </div>
                     <canvas id="documentAgingChart"></canvas>
                 </div>
@@ -72,7 +76,7 @@
                         </div>
                         <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
                     </div>
-                    <canvas id="officeProcessingTimeChart"></canvas>
+                    <canvas id="averageProcessingTimeChart"></canvas>
                 </div>
             </div>
         </div>
@@ -136,9 +140,15 @@
     </div>
 </div>
                             -->
-
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.min.js"></script>
+           
 <script>
+
+
 function openPdf(url) {
     window.open(url, '_blank');
 }
+
+
 </script>

@@ -47,8 +47,11 @@
   <!-- endinject -->
   <!-- Plugin js for this page-->
   <script src="assets/vendors/chart.js/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.min.js"></script>
   <!-- End plugin js for this page-->
   <!-- inject:js -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
   <script>
     var ctx1 = document.getElementById('status-chart').getContext('2d');
@@ -58,13 +61,14 @@
             labels: <?= $statusLabels ?>,
             datasets: [{
                 label: 'Number of Documents',
-                data: <?= $statusCounts ?>,
+                data: <?= $statusCounts ?>, 
                 backgroundColor: [
                     '#FFC234', // Color for 'pending'
                     '#36A2EB', // Color for 'on process'
                     '#FF9F40', // Color for 'received'
                     '#4BC0C0', // Color for 'completed'
-                    '#e74a3b'  // Color for 'deleted'
+                    '#e74a3b', // Color for 'deleted'
+                    '#9b59b6'  // Color for 'incoming' (new color)
                 ],
                 borderColor: 'transparent',
                 borderWidth: 1
@@ -78,6 +82,7 @@
             }
         }
     });
+
 
     var ctx2 = document.getElementById('office-chart').getContext('2d');
 
@@ -135,124 +140,146 @@
         }
     });
 
-    var ctx1 = document.getElementById('documentAgingChart').getContext('2d');
-    var documentAgingChart = new Chart(ctx1, {
+    document.addEventListener("DOMContentLoaded", function() {
+    var ctx = document.getElementById('documentAgingChart').getContext('2d');
+    var gradientDots = ctx.createLinearGradient(0, 0, 0, 400); 
+    gradientDots.addColorStop(0, '#C36EB8');   
+    gradientDots.addColorStop(1, '#C42D9B');   
+
+    var documentLabels = <?= $documentLabels ?>; 
+    var documentAgesDays = <?= $documentAgesDays ?>; 
+    var documentAgesMonths = <?= $documentAgesMonths ?>;
+
+    var documentAgingChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: <?= $documentLabels ?>,
+            labels: documentLabels,
             datasets: [{
-                label: 'Document Aging',
-                data: <?= $documentAges ?>,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1
+                label: 'Document Age (Months)',
+                data: documentAgesMonths, 
+                backgroundColor: 'rgba(211, 211, 211, 0.5)',
+                borderColor: '#000',
+                borderWidth: 1,
+                pointBackgroundColor: function(context) {
+                    var value = context.raw;
+                    return gradientDots;
+                },
+                pointBorderColor: '',
+                pointBorderWidth: 1,
+                pointRadius: 3
             }]
         },
         options: {
             scales: {
                 y: {
-                    title: {
-                        display: true,
-                        text: 'Age (days)'
-                    },
-                    beginAtZero: true
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return value + ' months';
+                        }
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.raw + ' months'; 
+                        }
+                    }
                 }
             }
         }
     });
 
-    
-    var ctx2 = document.getElementById('officeProcessingTimeChart').getContext('2d');
-var officeProcessingTimeChart = new Chart(ctx2, {
-    type: 'radar',
-    data: {
-        labels: [], // Office IDs or names
-        datasets: [{
-            label: 'Average Processing Time (minutes)',
-            data: [],
-            borderColor: 'rgb(75, 192, 192)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            r: {
-                suggestedMin: 0,
-                title: {
-                    display: true,
-                    text: 'Average Processing Time (minutes)'
-                }
-            }
-        },
-        tooltips: {
-            callbacks: {
-                label: function(tooltipItem, data) {
-                    var datasetLabel = data.datasets[tooltipItem.datasetIndex].label || '';
-                    return datasetLabel + ': ' + (tooltipItem.yLabel / 60) + ' minutes';
-                }
-            }
+    document.getElementById('ageUnit').addEventListener('change', function(event) {
+        var selectedValue = event.target.value;
+        var data, label;
+
+        if (selectedValue === 'months') {
+            data = documentAgesMonths;
+            label = 'Document Age (Months)';
+            documentAgingChart.options.scales.y.ticks.callback = function(value) {
+                return value + ' months';
+            };
+            documentAgingChart.options.plugins.tooltip.callbacks.label = function(context) {
+                return context.raw + ' months';
+            };
+        } else {
+            data = documentAgesDays;
+            label = 'Document Age (Days)';
+            documentAgingChart.options.scales.y.ticks.callback = function(value) {
+                return value + ' days';
+            };
+            documentAgingChart.options.plugins.tooltip.callbacks.label = function(context) {
+                return context.raw + ' days';
+            };
         }
-    }
+
+        documentAgingChart.data.datasets[0].data = data;
+        documentAgingChart.data.datasets[0].label = label;
+        documentAgingChart.update();
+    });
 });
 
-function updateCharts() {
-        $.ajax({
-            url: "<?php echo base_url('document/aging'); ?>",
-            type: "GET",
-            success: function (data) {
-                console.log("Received data:", data);
-
-                const documentNames = data.map(doc => doc.title);
-                const documentAges = data.map(doc => doc.age);
-
-                documentAgingChart.data.labels = documentNames;
-                documentAgingChart.data.datasets[0].data = documentAges;
-                documentAgingChart.update();
-            },
-            error: function (xhr, status, error) {
-                console.error("Error fetching document ages:", error);
-            }
-        });
-    }
+    var officeNames = <?= json_encode($officeNames) ?>;
+    var averageProcessingTimes = <?= json_encode($averageProcessingTimes) ?>;
 
 
-    // Update office processing time chart
-    $.ajax({
-        url: "<?php echo base_url('office-processing-time'); ?>",
-        type: "GET",
-        success: function (data) {
-            officeProcessingTimeChart.data.labels = data.map(item => item.office_id);
-            officeProcessingTimeChart.data.datasets[0].data = data.map(item => item.avg_processing_time_seconds);
-            officeProcessingTimeChart.update();
+    var colorLight = '#C36EB8'; 
+    var colorDark = '#C42D9B';  
+
+    var barColors = averageProcessingTimes.map(function(time) {
+        return time > 5 ? colorDark : colorLight;
+    });
+
+    var ctx = document.getElementById('averageProcessingTimeChart').getContext('2d');
+
+    var chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?= $officeLabels ?>,
+            datasets: [{
+                label: 'Average Processing Time (Minutes)',
+                data: averageProcessingTimes, 
+                backgroundColor: barColors, 
+                borderColor: ''
+            }]
         },
-        error: function (xhr, status, error) {
-            console.error("Error fetching average processing times:", error);
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Average Processing Time (Minutes)'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Office'
+                    }
+                }
+            }
         }
     });
 
-updateCharts();
 
-setInterval(updateCharts, 5000);
-
-
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
   document.addEventListener("DOMContentLoaded", function() {
-    // Get current date
+
     const currentDate = new Date();
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     const formattedDate = monthNames[currentDate.getMonth()] + " " + currentDate.getDate();
     
-    // Update the date in the element
     document.getElementById("currentDateText").textContent = formattedDate;
-
-    // Add click event listener to the calendar icon
     document.getElementById("calendarIcon").addEventListener("click", function() {
-      // Handle calendar icon click event here
       alert("Calendar icon clicked!");
     });
   });
+
+
+
 </script>
   <script src="assets/js/off-canvas.js"></script>
   <script src="assets/js/hoverable-collapse.js"></script>

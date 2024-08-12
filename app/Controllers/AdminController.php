@@ -12,6 +12,7 @@ use App\Models\DocumentHistoryModel;
 use SimpleSoftwareIO\QrCode\Generator;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use DateTime;
 
 
 class AdminController extends BaseController
@@ -43,12 +44,29 @@ class AdminController extends BaseController
 
         // Calculate document age
         $currentDate = date('Y-m-d');
+
         $query = $db->query("SELECT document_id, date_of_document FROM documents");
         $documents = $query->getResult();
-        $documentAges = [];
+
+        $documentAgesDays = [];
+        $documentAgesMonths = [];
+        $documentLabels = [];
+        $currentDate = new DateTime();
+
         foreach ($documents as $document) {
-            $documentAges[$document->document_id] = date_diff(date_create($document->date_of_document), date_create($currentDate))->days;
+            $dateOfDocument = new DateTime($document->date_of_document);
+            $diff = $dateOfDocument->diff($currentDate);
+            $days = $diff->days;
+
+            // Convert days into months
+            $months = floor($days / 30);
+
+            // Store formatted results
+            $documentAgesDays[$document->document_id] = $days;
+            $documentAgesMonths[$document->document_id] = $months;
+            $documentLabels[$document->document_id] = "D" . $document->document_id; // Label with "D" prefix
         }
+
         $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
         $totalDocuments = $totalQuery->getRow()->total;
 
@@ -91,23 +109,75 @@ class AdminController extends BaseController
         $query = $db->query("SELECT * FROM documents");
         $data['documents'] = $query->getResult();
 
-        // Prepare chart data
-        $documentLabels = array_keys($documentAges);
-        $documentAgesData = array_values($documentAges);
+        $totalStatuses = count($statusLabels);
 
+        $query = $db->query("
+            SELECT 
+                document_history.office_id AS current_office_id,
+                tp.received_timestamp,
+                tp.completed_timestamp
+            FROM document_history
+            LEFT JOIN document_timeprocessing tp ON document_history.document_id = tp.document_id AND document_history.office_id = tp.office_id
+            WHERE document_history.status = 'completed'
+        ");
+
+        // Fetch the results
+        $documents = $query->getResult();
+
+        // Initialize arrays to hold processing times and office counts
+$processingTimesByOffice = [];
+$documentCountsByOffice = [];
+
+// Calculate processing times for each document
+foreach ($documents as $document) {
+    // Ensure timestamps are available
+    if ($document->received_timestamp && $document->completed_timestamp) {
+        $receivedTimestamp = new \DateTime($document->received_timestamp);
+        $completedTimestamp = new \DateTime($document->completed_timestamp);
+
+        $interval = $receivedTimestamp->diff($completedTimestamp);
+        $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
+
+        $officeId = $document->current_office_id;
+
+        if (!isset($processingTimesByOffice[$officeId])) {
+            $processingTimesByOffice[$officeId] = [];
+            $documentCountsByOffice[$officeId] = 0;
+        }
+
+        $processingTimesByOffice[$officeId][] = $processingTimeMinutes;
+        $documentCountsByOffice[$officeId]++;
+    }
+}
+
+$averageProcessingTimes = [];
+
+foreach ($processingTimesByOffice as $officeId => $times) {
+    $totalTime = array_sum($times);
+    $count = $documentCountsByOffice[$officeId];
+    $averageTime = $totalTime / $count; 
+    $averageProcessingTimes[$officeId] = round($averageTime, 2); 
+}
+
+        $data['averageProcessingTimes'] = $averageProcessingTimes;
+        $data['officeNames'] = array_keys($averageProcessingTimes); 
+        $data['averageProcessingTimes'] = array_values($averageProcessingTimes);
         $data['statusLabels'] = json_encode($statusLabels);
         $data['statusCounts'] = json_encode($statusCounts);
         $data['officeLabels'] = json_encode($officeLabels);
         $data['officeCounts'] = json_encode($officeCounts);
         $data['userLabels'] = json_encode($userLabels);
+        $data['totalStatuses'] = $totalStatuses;
         $data['userCounts'] = json_encode($userCounts);
         $data['totalDocuments'] = $totalDocuments;
         $data['totalUsers'] = array_sum($userCounts);
-        $data['documentLabels'] = json_encode($documentLabels);
-        $data['documentAges'] = json_encode($documentAgesData);
+        $data['documentLabels'] = json_encode(array_values($documentLabels));
+        $data['documentAgesDays'] = json_encode(array_values($documentAgesDays));
+        $data['documentAgesMonths'] = json_encode(array_values($documentAgesMonths));
 
         return view('Admin/AdminDashboard', $data);
     }
+
 
 
     public function adminmanageoffice()

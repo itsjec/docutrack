@@ -1,17 +1,5 @@
 <div class="hero">
       <div class="hero-slide">
-        <div
-          class="img overlay"
-          style="background-image: url('assets2/images/Mindoro.png')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('assets2/images/hero_bg_2.jpg')"
-        ></div>
-        <div
-          class="img overlay"
-          style="background-image: url('assets2/images/hero_bg_1.jpg')"
-        ></div>
       </div>
 
       <div class="container">

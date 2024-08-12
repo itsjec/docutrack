@@ -82,6 +82,7 @@ class UserController extends BaseController
         $data = [
             'tracking_number' => $trackingNumber,
             'workflow_history' => $workflow_history,
+            'title' => $document['title'],
             'admins' => $admins,
             'office' => $office,
         ];

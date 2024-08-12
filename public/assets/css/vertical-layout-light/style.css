@@ -8716,7 +8716,7 @@ body {
   line-height: 1.5;
   color: #001737;
   text-align: left;
-  background-color: #fff;
+  background-color: #6c007c;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -12388,7 +12388,6 @@ input[type="button"].btn-block {
   height: 1rem;
   pointer-events: none;
   content: "";
-  background-color: #fff;
   border: #adb5bd solid 1px;
 }
 

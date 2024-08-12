@@ -1,6 +1,6 @@
 <div class="banner">
         <div class="container">
-            <h2>DOCUMENT TRACKING INFORMATION</h2>
+            <h2>Document Tracking Information</h2>
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div id="tracking-pre"></div>

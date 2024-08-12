@@ -27,10 +27,11 @@ body, html {
 
 .banner{
     width: 100%;
-    height: auto 100%; 
+    height: auto;
+    min-height: 100vh;
     background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(../images/bgbg.jpg);
-    background-size: cover; 
-    background-position: center;
+    background-repeat: no-repeat;
+    background-position: center center;
     text-align: center;
     margin: 50px auto; 
     padding: 20px; 

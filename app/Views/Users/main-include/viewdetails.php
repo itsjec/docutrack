@@ -1,13 +1,14 @@
 <div class="banner">
         <div class="container">
-            <h2>DOCUMENT TRACKING INFORMATION</h2>
+            <h2>Document Tracking Information</h2>
             <div class="row">
                 <div class="col-md-12 col-lg-12">
                     <div id="tracking-pre"></div>
                     <div id="tracking">
                     <div class="text-center tracking-status-intransit">
-                        <p class="tracking-status text-tight"><?= $tracking_number ?></p>
+                        <p class="tracking-status text-tight"><?= $title ?></p>
                     </div>
+
                     <div class="tracking-list">
                         <?php if (empty($workflow_history)): ?>
                             <div class="tracking-item">

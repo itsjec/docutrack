@@ -1,4 +1,4 @@
-<div class="banner">
+<div id="particles-js" class="banner">
             <div class="content">
                 <h1>Document: <?= $document['tracking_number'] ?></h1>
                 <div class="row mb-3">
@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="steps">
-                    <div class="steps-header">
+                     <div class="steps-header">
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 
                             <?php 
