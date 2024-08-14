@@ -52,7 +52,8 @@
                     <?= session('error') ?>
                 </div>
             <?php endif; ?>
-              <form class="pt-3" action="<?= site_url('login') ?>" method="POST">
+            <form id="loginForm" class="pt-3" action="<?= site_url('login') ?>" method="POST">
+
                 <div class="form-group">
                     <input type="text" class="form-control form-control-lg" id="emailOrUsername" name="emailOrUsername" placeholder="Email or Username">
                 </div>
@@ -97,6 +98,9 @@
   <script type="text/javascript" src="assets2/js/particles.js"></script>
   <script type="text/javascript" src="assets2/js/app.js"></script>
   <!-- endinject -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 </body>
 
 </html>

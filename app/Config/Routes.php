@@ -7,41 +7,42 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'AdminController::index');
 $routes->post('login', 'AdminController::login');
-$routes->get('dashboard', 'AdminController::admindashboard');
-$routes->get('archived', 'AdminController::archived');
-$routes->get('all', 'AdminController::alldocuments');
-$routes->get('viewtransactions', 'AdminController::admintransactions');
-$routes->get('manageoffice', 'AdminController::adminmanageoffice');
+$routes->get('logout', 'AdminController::logout');
+$routes->get('dashboard', 'AdminController::admindashboard', ['filter' => 'authfilter']);
+$routes->get('archived', 'AdminController::archived', ['filter' => 'authfilter']);
+$routes->get('all', 'AdminController::alldocuments', ['filter' => 'authfilter']);
+$routes->get('viewtransactions', 'AdminController::admintransactions', ['filter' => 'authfilter']);
+$routes->get('manageoffice', 'AdminController::adminmanageoffice', ['filter' => 'authfilter']);
 $routes->match(['get', 'post'], 'register', 'AdminController::register');
 $routes->post('offices/save', 'AdminController::save');
-$routes->get('manageuser', 'AdminController::manageuser');
+$routes->get('manageuser', 'AdminController::manageuser', ['filter' => 'authfilter']);
 $routes->post('users/save', 'AdminController::saveOfficeUser');
-$routes->get('manageguest', 'AdminController::manageguest');
+$routes->get('manageguest', 'AdminController::manageguest', ['filter' => 'authfilter']);
 $routes->post('saveguest', 'AdminController::saveguest');
-$routes->get('managedocument', 'AdminController::managedocument');
-$routes->get('maintenance', 'AdminController::maintenance');
+$routes->get('managedocument', 'AdminController::managedocument', ['filter' => 'authfilter']);
+$routes->get('maintenance', 'AdminController::maintenance', ['filter' => 'authfilter']);
 $routes->post('classifications/save', 'AdminController::saveClassification', ['as' => 'saveClassification']);
 $routes->post('sub-classifications/save', 'AdminController::saveSubClassification');
 $routes->post('documents/getSubClassifications', 'AdminController::getSubClassifications');
-$routes->get('tracking', 'AdminController::tracking');
-$routes->get('officetracking', 'AdminController::officetracking');
+$routes->get('tracking', 'AdminController::tracking', ['filter' => 'authfilter']);
+$routes->get('officetracking', 'AdminController::officetracking', ['filter' => 'authfilter']);
 $routes->post('documents/save', 'AdminController::saveDocument');
 $routes->post('documents/saveOffice', 'AdminController::saveOfficeDocument');
-$routes->get('manageofficedocument', 'AdminController::manageofficedocument');
+$routes->get('manageofficedocument', 'AdminController::manageofficedocument', ['filter' => 'authfilter']);
 $routes->get('test-insert', 'AdminController::testInsert');
-$routes->get('document-status-chart', 'AdminController::documentStatusChart');
+$routes->get('document-status-chart', 'AdminController::documentStatusChart', ['filter' => 'authfilter']);
 $routes->post('documents/deleteDocument', 'AdminController::deleteDocument');
 $routes->post('admin/update-document-deleted-status/(:num)/(:any)', 'AdminController::updateDocumentDeletedStatus/$1/$2');
-$routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentpermanent/$1');
+$routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentpermanent/$1', ['filter' => 'authfilter']);
 $routes->post('admin/delete-document/(:num)', 'AdminController::deleteDocumentPermanent/$1');
 $routes->post('admin/delete-user/(:num)', 'AdminController::deleteUser/$1');
 $routes->post('users/update', 'AdminController::updateUser');
-$routes->get('delete/(:num)', 'AdminController::delete/$1');
+$routes->get('delete/(:num)', 'AdminController::delete/$1', ['filter' => 'authfilter']);
 $routes->post('updateguest', 'AdminController::updateGuestUser');
 $routes->post('documents/updateDocument', 'AdminController::updateDocument');
 $routes->post('documents/updateGuestDocument', 'AdminController::updateGuestDocument');
 $routes->post('documents/getDocument', 'AdminController::getDocument');
-$routes->get('search', 'AdminController::search');
+$routes->get('search', 'AdminController::search', ['filter' => 'authfilter']);
 $routes->match(['get', 'post'], 'admin/transactions/download', 'AdminController::download_all_rows');
 $routes->get('document/aging', 'AdminController::aging');
 $routes->get('office-processing-time', 'AdminController::officeProcessingTime');
@@ -70,31 +71,31 @@ $routes->get('documents/fetchVersionsByTitle', 'AdminController::fetchVersionsBy
 
 
 
-$routes->get('index', 'OfficeController::index');
-$routes->get('pending', 'OfficeController::pending');
-$routes->get('received', 'OfficeController::received');
-$routes->get('ongoing', 'OfficeController::ongoing');
-$routes->get('completed', 'OfficeController::completed');
-$routes->get('history', 'OfficeController::history');
-$routes->get('allDocuments', 'OfficeController::allDocuments');
-$routes->get('manageprofile', 'OfficeController::manageprofile');
+$routes->get('index', 'OfficeController::index', ['filter' => 'authfilter']);
+$routes->get('pending', 'OfficeController::pending', ['filter' => 'authfilter']);
+$routes->get('received', 'OfficeController::received', ['filter' => 'authfilter']);
+$routes->get('ongoing', 'OfficeController::ongoing', ['filter' => 'authfilter']);
+$routes->get('completed', 'OfficeController::completed', ['filter' => 'authfilter']);
+$routes->get('history', 'OfficeController::history', ['filter' => 'authfilter']);
+$routes->get('allDocuments', 'OfficeController::allDocuments', ['filter' => 'authfilter']);
+$routes->get('manageprofile', 'OfficeController::manageprofile', ['filter' => 'authfilter']);
 $routes->post('/office/updateProfile', 'OfficeController::updateProfile');
-$routes->get('trash', 'OfficeController::trash');
-$routes->get('incoming', 'OfficeController::incoming');
+$routes->get('trash', 'OfficeController::trash', ['filter' => 'authfilter']);
+$routes->get('incoming', 'OfficeController::incoming', ['filter' => 'authfilter']);
 $routes->get('documents/getDocumentInfo', 'OfficeController::getDocumentInfo');
 $routes->post('documents/updateStatus', 'OfficeController::updateStatus');
 $routes->post('documents/updateProcessStatus', 'OfficeController::updateProcessStatus');
 $routes->post('documents/updateCompletedStatus', 'OfficeController::updateCompletedStatus');
 $routes->post('documents/deleteDocument', 'OfficeController::deleteDocument');
 $routes->post('documents/sendOutDocument', 'OfficeController::sendOutDocument');
-$routes->get('office/getOffices', 'OfficeController::getOffices');
+$routes->get('office/getOffices', 'OfficeController::getOffices', ['filter' => 'authfilter']);
 $routes->post('documents/update-document-status/(:num)/(:segment)', 'OfficeController::updateDocumentStatus/$1/$2');
 $routes->post('documents/update-document-completed-status/(:num)/(:segment)', 'OfficeController::updateDocumentCompletedStatus/$1/$2');
 $routes->post('documents/update-document-deleted-status/(:num)/(:segment)', 'OfficeController::updateDocumentDeletedStatus/$1/$2');
 $routes->post('documents/update-document-recipient-and-status/(:num)/(:num)/(:segment)', 'OfficeController::updateDocumentRecipientAndStatus/$1/$2/$3');
 $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1');
 $routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
-$routes->get('searchDocu', 'OfficeController::search');
+$routes->get('searchDocu', 'OfficeController::search', ['filter' => 'authfilter']);
 $routes->get('documents/getDocumentDetails/(:num)', 'OfficeController::getDocumentDetails/$1');
 
 
@@ -104,17 +105,17 @@ $routes->get('documents/getDocumentDetails/(:num)', 'OfficeController::getDocume
 $routes->get('track', 'UserController::track');
 //hagtod
 
-$routes->get('userindex', 'UserController::index');
+$routes->get('userindex', 'UserController::index', ['filter' => 'authfilter']);
 $routes->post('searchResults', 'UserController::searchResults');
-$routes->get('indexloggedin', 'UserController::indexloggedin');
+$routes->get('indexloggedin', 'UserController::indexloggedin', ['filter' => 'authfilter']);
 $routes->post('adminsearchResults', 'UserController::searchResults', ['as' => 'adminsearchResults']);
-$routes->get('viewdetails', 'UserController::viewdetails');
-$routes->get('adminviewdetails', 'UserController::viewdetails');
+$routes->get('viewdetails', 'UserController::viewdetails', ['filter' => 'authfilter']);
+$routes->get('adminviewdetails', 'UserController::viewdetails', ['filter' => 'authfilter']);
 
 $routes->post('searchguestResults', 'UserController::guestsearchResults', ['as' => 'searchguestResults']);
-$routes->get('guestviewdetails', 'UserController::guestviewdetails');
+$routes->get('guestviewdetails', 'UserController::guestviewdetails', ['filter' => 'authfilter']);
 $routes->post('guestsearchResults', 'UserController::guestsearchResults');
-$routes->get('transactions', 'UserController::transaction');
+$routes->get('transactions', 'UserController::transaction', ['filter' => 'authfilter']);
 
 
 

@@ -14,14 +14,15 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use DateTime;
 
-
 class AdminController extends BaseController
 {
     public function __construct()
     {
         $this->session = \Config\Services::session();
-        $this->db = \Config\Database::connect();
     }
+
+    private $key = 'docutrack0129scrtKeY'; 
+
 
     public function index()
     {
@@ -178,8 +179,6 @@ foreach ($processingTimesByOffice as $officeId => $times) {
         return view('Admin/AdminDashboard', $data);
     }
 
-
-
     public function adminmanageoffice()
     {
         $officeModel = new OfficeModel();
@@ -187,60 +186,70 @@ foreach ($processingTimesByOffice as $officeId => $times) {
 
         return view('Admin/AdminManageOffice', $data);
     }
-
     public function login()
-    {
-        $userModel = new UserModel();
-    
-        if ($this->request->getMethod() === 'post') {
-            $emailOrUsername = $this->request->getPost('emailOrUsername');
-            $password = $this->request->getPost('password');
-    
-            $user = $userModel->where('email', $emailOrUsername)
-                              ->orWhere('username', $emailOrUsername)
-                              ->first();
-    
-            if ($user && password_verify($password, $user['password'])) {
-                $userData = [
-                    'id' => $user['user_id'],
-                    'email' => $user['email'],
-                    'isLoggedIn' => true,
-                    'role' => $user['role']
-                ];
-    
-                if ($user['role'] === 'office user') {
-                    $userData['office_id'] = $user['office_id'];
-                    $userData['user_id'] = $user['user_id'];
-                }
-    
-                if ($user['role'] === 'guest') {
-                    $userData['user_id'] = $user['user_id'];
-                }
-    
-                session()->set($userData);
-    
-                switch ($user['role']) {
-                    case 'admin':
-                        return redirect()->to('dashboard');
-                        break;
-                    case 'office user':
-                        return redirect()->to('index');
-                        break;
-                    case 'guest':
-                    default:
-                        return redirect()->to('indexloggedin');
-                        break;
-                }
-            } else {
-                session()->setFlashdata('error', 'Invalid email or password.');
+{
+    $userModel = new UserModel();
+    $jwtService = new JWTServices(); // Assuming JWTServices is in Controllers or the correct path
+
+    if ($this->request->getMethod() === 'post') {
+        $emailOrUsername = $this->request->getPost('emailOrUsername');
+        $password = $this->request->getPost('password');
+
+        $user = $userModel->where('email', $emailOrUsername)
+                          ->orWhere('username', $emailOrUsername)
+                          ->first();
+
+        if ($user && password_verify($password, $user['password'])) {
+            $userData = [
+                'id' => $user['user_id'],
+                'email' => $user['email'],
+                'isLoggedIn' => true,
+                'role' => $user['role']
+            ];
+
+            if ($user['role'] === 'office user') {
+                $userData['office_id'] = $user['office_id'];
+                $userData['user_id'] = $user['user_id'];
             }
+
+            if ($user['role'] === 'guest') {
+                $userData['user_id'] = $user['user_id'];
+            }
+
+            // Generate JWT token
+            $token = $jwtService->generateToken($userData);
+
+            // Store token in the session
+            session()->set('jwt_token', $token);
+
+            // Log the successful login and token
+            log_message('info', 'User logged in successfully. JWT Token: ' . $token);
+
+            // Manage session data
+            session()->set($userData);
+
+            // Redirect based on user role
+            switch ($user['role']) {
+                case 'admin':
+                    return redirect()->to('dashboard');
+                case 'office user':
+                    return redirect()->to('index');
+                case 'guest':
+                default:
+                    return redirect()->to('indexloggedin');
+            }
+        } else {
+            // Log failed login attempt
+            log_message('error', 'Login attempt failed. Email/Username: ' . $emailOrUsername);
+
+            session()->setFlashdata('error', 'Invalid email or password.');
         }
-    
-        return view('LogIn');
     }
-    
-    
-    public function register()
+
+    return view('LogIn');
+}
+
+        public function register()
     {
         helper(['form']);
     
@@ -1337,4 +1346,14 @@ public function fetchVersionsByTitle()
 
     return json_encode($documents); // Return the documents as JSON
 }
+
+    public function logout()
+    {
+        session()->remove('jwt_token');
+
+        session()->destroy();
+
+        return redirect()->to('/'); // Adjust the redirect as needed
+    }
+
 }

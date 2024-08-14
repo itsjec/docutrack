@@ -32,7 +32,12 @@ class OfficeController extends BaseController
 
         $officeModel = new OfficeModel();
         $office = $officeModel->find($officeId);
-        $office_name = $office['office_name'];
+        // Check if office data is retrieved and office_name exists
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
     
         $documentModel = new \App\Models\DocumentModel();
         $documents = $documentModel->findAll();
