@@ -72,7 +72,7 @@
                     <div class="d-flex align-items-center justify-content-between justify-content-md-center justify-content-xl-between flex-wrap mb-4">
                         <div>
                             <p class="mb-2 text-md-center text-lg-left">Average Processing Time of Offices</p>
-                            <h1 id="total-documents"><?= $totalDocuments ?></h1>
+                            <h1 id="total-documents"><?= $totalOffices ?></h1>
                         </div>
                         <i class="typcn typcn-chart-bar icon-xl text-secondary"></i>
                     </div>

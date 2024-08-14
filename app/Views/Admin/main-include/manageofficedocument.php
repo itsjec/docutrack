@@ -6,6 +6,43 @@
     <title>Manage Office Documents</title>
     <!-- Material Design Icons CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+    <style>
+
+  .status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 12px; /* Oval shape */
+    text-align: center;
+    background-color: purple;
+    text-transform: lowercase;
+    color: #fff; /* Default font color */
+  }
+
+  .status-pending {
+    background-color: #ffc107; /* Yellow */
+    color: #212529; /* Dark text for better readability */
+  }
+
+  .status-received {
+    background-color: #17a2b8; /* Teal */
+    color: #fff; /* White text for better readability */
+  }
+
+  .status-on-process {
+    background-color: #007bff; /* Blue */
+    color: #fff; /* White text for better readability */
+  }
+
+  .status-completed {
+    background-color: #28a745; /* Green */
+    color: #fff; /* White text for better readability */
+  }
+
+  .status-deleted {
+    background-color: #dc3545; /* Red */
+    color: #fff; /* White text for better readability */
+  }
+</style>
 </head>
 <body>
 <div class="content-wrapper">
@@ -45,7 +82,7 @@
                                 <td><?= $document['tracking_number'] ?></td>
                                 <td><?= $document['sender_office_name'] ?></td>
                                 <td><?= $document['recipient_office_name'] ?></td>
-                                <td><?= $document['status'] ?></td>
+                                <td><span class="status-badge status-<?= $document['status'] ?>"><?= ucfirst($document['status']) ?></span></td>
                                 <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
                                 <td><?= $document['action'] ?></td>
                                 <td>
@@ -61,11 +98,6 @@
                                     data-action="<?= $document['action'] ?>"
                                     data-description="<?= $document['description'] ?>">
                                 <i class="mdi mdi-pencil"></i> Edit
-                            </button>
-                            <button type="button" class="btn btn-sm btn-info view-versions-btn"
-                                data-toggle="modal" data-target="#exampleModal"
-                                data-document-id="<?= $document['document_id'] ?>">
-                                <i class="mdi mdi-eye"></i> View Version
                             </button>
                                 <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
                                     <i class="mdi mdi-delete"></i> Delete

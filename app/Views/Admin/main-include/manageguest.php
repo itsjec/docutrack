@@ -175,12 +175,41 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
 <!-- JavaScript for password strength meter -->
 <script>
     document.getElementById('password').addEventListener('input', function () {
         var password = document.getElementById('password').value;
         var result = zxcvbn(password);
         var meter = document.getElementById('password-strength-meter');
+
+        meter.value = result.score;
+        switch (result.score) {
+            case 0:
+                meter.style.color = 'red';
+                break;
+            case 1:
+                meter.style.color = 'orange';
+                break;
+            case 2:
+                meter.style.color = 'yellow';
+                break;
+            case 3:
+                meter.style.color = 'green';
+                break;
+            case 4:
+                meter.style.color = 'darkgreen';
+                break;
+        }
+    });
+
+
+    document.getElementById('editPassword').addEventListener('input', function () {
+        var password = document.getElementById('editPassword').value;
+        var result = zxcvbn(password);
+        var meter = document.getElementById('editPassword-strength-meter');
 
         meter.value = result.score;
         switch (result.score) {

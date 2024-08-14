@@ -27,7 +27,7 @@ class JWTServices
         try {
             return JWT::decode($token, new Key($this->key, 'HS256'));
         } catch (\Exception $e) {
-            return false; // Return false if the token is invalid
+            return false; 
         }
     }
 }

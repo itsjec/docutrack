@@ -15,31 +15,38 @@
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
 
   <style>
-        #particles-js {
+    #particles-js {
       position: absolute;
       width: 100%;
       height: 100vh;
       top: 0;
       left: 0;
-      z-index: -1;
-      background-image: url('https://img.freepik.com/premium-ai-image/purple-purple-background-with-purple-background-word-digital-bottom_40904457.htm');
+      z-index: -1; /* Ensure it stays behind the content */
       background-size: cover;
       background-position: center;
+      background-color: #6C007C;
     }
+
 
     .content-wrapper {
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .auth-form-light {
       background: rgba(255, 255, 255, 0.8); /* Make the form background slightly transparent */
       border-radius: 8px;
+      z-index: 1; /* Ensure the form stays above the particles background */
+      position: relative; /* Relative positioning to ensure proper stacking */
     }
   </style>
 </head>
 
 <body>
-  <div id="particles-js"></div>
+<div id="particles-js"></div>
+
       <div class="content-wrapper d-flex align-items-center auth px-0">
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
@@ -88,6 +95,8 @@
   <!-- container-scroller -->
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <!-- endinject -->
   <!-- inject:js -->
   <script src="assets/js/off-canvas.js"></script>
@@ -96,9 +105,9 @@
   <script src="assets/js/settings.js"></script>
   <script src="assets/js/todolist.js"></script>
   <script type="text/javascript" src="assets2/js/particles.js"></script>
-  <script type="text/javascript" src="assets2/js/app.js"></script>
+<script type="text/javascript" src="assets2/js/app.js"></script>
+
   <!-- endinject -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 </body>

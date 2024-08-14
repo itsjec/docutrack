@@ -43,7 +43,6 @@ class AdminController extends BaseController
     {
         $db = \Config\Database::connect();
 
-        // Calculate document age
         $currentDate = date('Y-m-d');
 
         $query = $db->query("SELECT document_id, date_of_document FROM documents");
@@ -59,10 +58,8 @@ class AdminController extends BaseController
             $diff = $dateOfDocument->diff($currentDate);
             $days = $diff->days;
 
-            // Convert days into months
             $months = floor($days / 30);
 
-            // Store formatted results
             $documentAgesDays[$document->document_id] = $days;
             $documentAgesMonths[$document->document_id] = $months;
             $documentLabels[$document->document_id] = "D" . $document->document_id; // Label with "D" prefix
@@ -71,7 +68,6 @@ class AdminController extends BaseController
         $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
         $totalDocuments = $totalQuery->getRow()->total;
 
-        // Fetch other data for the dashboard
         $totalQuery = $db->query("SELECT COUNT(*) AS total FROM documents");
         $totalDocuments = $totalQuery->getRow()->total;
 
@@ -96,6 +92,11 @@ class AdminController extends BaseController
             $officeLabels[] = $office->office_name;
             $officeCounts[] = $office->total;
         }
+
+        $query = $db->query('SELECT COUNT(*) as totalOffices FROM offices'); 
+        $result = $query->getRow();
+
+        $totalOffices = $result->totalOffices; 
 
         $userQuery = $db->query("SELECT role, COUNT(*) AS total FROM users GROUP BY role");
         $roles = $userQuery->getResult();
@@ -122,43 +123,39 @@ class AdminController extends BaseController
             WHERE document_history.status = 'completed'
         ");
 
-        // Fetch the results
         $documents = $query->getResult();
 
-        // Initialize arrays to hold processing times and office counts
-$processingTimesByOffice = [];
-$documentCountsByOffice = [];
+        $processingTimesByOffice = [];
+        $documentCountsByOffice = [];
 
-// Calculate processing times for each document
-foreach ($documents as $document) {
-    // Ensure timestamps are available
-    if ($document->received_timestamp && $document->completed_timestamp) {
-        $receivedTimestamp = new \DateTime($document->received_timestamp);
-        $completedTimestamp = new \DateTime($document->completed_timestamp);
+        foreach ($documents as $document) {
+            if ($document->received_timestamp && $document->completed_timestamp) {
+                $receivedTimestamp = new \DateTime($document->received_timestamp);
+                $completedTimestamp = new \DateTime($document->completed_timestamp);
 
-        $interval = $receivedTimestamp->diff($completedTimestamp);
-        $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
+                $interval = $receivedTimestamp->diff($completedTimestamp);
+                $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
 
-        $officeId = $document->current_office_id;
+                $officeId = $document->current_office_id;
 
-        if (!isset($processingTimesByOffice[$officeId])) {
-            $processingTimesByOffice[$officeId] = [];
-            $documentCountsByOffice[$officeId] = 0;
+                if (!isset($processingTimesByOffice[$officeId])) {
+                    $processingTimesByOffice[$officeId] = [];
+                    $documentCountsByOffice[$officeId] = 0;
+                }
+
+                $processingTimesByOffice[$officeId][] = $processingTimeMinutes;
+                $documentCountsByOffice[$officeId]++;
+            }
         }
 
-        $processingTimesByOffice[$officeId][] = $processingTimeMinutes;
-        $documentCountsByOffice[$officeId]++;
-    }
-}
+        $averageProcessingTimes = [];
 
-$averageProcessingTimes = [];
-
-foreach ($processingTimesByOffice as $officeId => $times) {
-    $totalTime = array_sum($times);
-    $count = $documentCountsByOffice[$officeId];
-    $averageTime = $totalTime / $count; 
-    $averageProcessingTimes[$officeId] = round($averageTime, 2); 
-}
+        foreach ($processingTimesByOffice as $officeId => $times) {
+            $totalTime = array_sum($times);
+            $count = $documentCountsByOffice[$officeId];
+            $averageTime = $totalTime / $count; 
+            $averageProcessingTimes[$officeId] = round($averageTime, 2); 
+        }
 
         $data['averageProcessingTimes'] = $averageProcessingTimes;
         $data['officeNames'] = array_keys($averageProcessingTimes); 
@@ -175,6 +172,7 @@ foreach ($processingTimesByOffice as $officeId => $times) {
         $data['documentLabels'] = json_encode(array_values($documentLabels));
         $data['documentAgesDays'] = json_encode(array_values($documentAgesDays));
         $data['documentAgesMonths'] = json_encode(array_values($documentAgesMonths));
+        $data['totalOffices'] = $totalOffices;
 
         return view('Admin/AdminDashboard', $data);
     }
@@ -320,12 +318,20 @@ foreach ($processingTimesByOffice as $officeId => $times) {
     public function saveguest()
     {
         $userModel = new UserModel();
-
+    
         $firstName = $this->request->getPost('firstName');
         $lastName = $this->request->getPost('lastName');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
-
+    
+        // Password complexity check
+        if (!preg_match('/[A-Z]/', $password) || 
+            !preg_match('/[a-z]/', $password) || 
+            !preg_match('/[0-9]/', $password) ||
+            strlen($password) < 8) {
+            return redirect()->back()->with('error', 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.');
+        }
+    
         $userData = [
             'first_name' => $firstName,
             'last_name' => $lastName,
@@ -335,12 +341,12 @@ foreach ($processingTimesByOffice as $officeId => $times) {
             'image' => '',
             'role' => 'guest',
         ];
-
+    
         $userModel->insert($userData);
-
+    
         return redirect()->to('manageguest')->with('success', 'Guest user added successfully.');
     }
-
+    
     public function manageuser()
     {
         $userModel = new UserModel();
@@ -385,6 +391,13 @@ foreach ($processingTimesByOffice as $officeId => $times) {
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
         $officeId = $this->request->getPost('officeId');
+    
+        if (!preg_match('/[A-Z]/', $password) || 
+            !preg_match('/[a-z]/', $password) || 
+            !preg_match('/[0-9]/', $password) ||
+            strlen($password) < 8) {
+            return redirect()->back()->with('error', 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.');
+        }
     
         $office = $officeModel->find($officeId);
         if (!$office) {

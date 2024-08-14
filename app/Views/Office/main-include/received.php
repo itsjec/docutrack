@@ -1,3 +1,40 @@
+<style>
+  .status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 12px; /* Oval shape */
+    text-transform: lowercase;
+    text-align: center;
+    background-color: purple; /* Default color */
+    color: #fff; /* Default font color */
+  }
+
+  .status-pending {
+    background-color: #ffc107; /* Yellow */
+    color: #212529; /* Dark text for better readability */
+  }
+
+  .status-received {
+    background-color: #17a2b8; /* Teal */
+    color: #fff; /* White text for better readability */
+  }
+
+  .status-on-process {
+    background-color: #007bff; /* Blue */
+    color: #fff; /* White text for better readability */
+  }
+
+  .status-completed {
+    background-color: #28a745; /* Green */
+    color: #fff; /* White text for better readability */
+  }
+
+  .status-deleted {
+    background-color: #dc3545; /* Red */
+    color: #fff; /* White text for better readability */
+  }
+</style>
+
 <div class="content-wrapper">
 <div class="row">
     <div class="col-md-12">
@@ -24,8 +61,13 @@
                                     <?php else: ?>
                                         <?= $senderDetails[$document->document_id]['sender_user'] ?>
                                     <?php endif; ?>
-</td>
-                                <td><?= $document->status ?></td>
+                                </td>
+                                <td>
+                                <span class="status-badge status-<?= htmlspecialchars($document->status, ENT_QUOTES, 'UTF-8') ?>">
+                                    <?= htmlspecialchars(ucfirst($document->status), ENT_QUOTES, 'UTF-8') ?>
+                                </span>
+                                </td>
+
                                 <td><?= $document->action ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">

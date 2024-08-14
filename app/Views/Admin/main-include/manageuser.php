@@ -175,6 +175,7 @@
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
                                 <meter max="4" id="password-strength-meter"></meter>
+                                <p id="password-strength-text"></p>
                             </div>
                         </div>
                     </div>
@@ -189,30 +190,43 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+
 <script>
     document.getElementById('password').addEventListener('input', function () {
         var password = document.getElementById('password').value;
         var result = zxcvbn(password);
         var meter = document.getElementById('password-strength-meter');
+        var text = document.getElementById('password-strength-text');
 
         meter.value = result.score;
+        
+        var strength = "";
         switch (result.score) {
             case 0:
+                strength = "Very Weak";
                 meter.style.color = 'red';
                 break;
             case 1:
+                strength = "Weak";
                 meter.style.color = 'orange';
                 break;
             case 2:
+                strength = "Fair";
                 meter.style.color = 'yellow';
                 break;
             case 3:
-                meter.style.color = 'green';
+                strength = "Good";
+                meter.style.color = 'lightgreen';
                 break;
             case 4:
-                meter.style.color = 'darkgreen';
+                strength = "Strong";
+                meter.style.color = 'green';
                 break;
         }
+
+        text.textContent = "Password Strength: " + strength;
     });
 </script>
 

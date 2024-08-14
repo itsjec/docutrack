@@ -28,7 +28,6 @@
 
 </head>
 <body>
-  <div class="container-scroller">
   <?php include ('include/partialnavbar.php'); ?>
       <!-- partial:partials/_settings-panel.html -->
       <div class="container-fluid page-body-wrapper">
@@ -48,7 +47,6 @@
         </div>
         <!-- main-panel ends -->
         </div>
-</div>
     <!-- page-body-wrapper ends -->
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

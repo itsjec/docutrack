@@ -43,7 +43,6 @@
     min-height: 100vh;
     background-repeat: no-repeat;
     background-position: center center;
-    background-image: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(../images/bgbg.jpg);
     text-align: center;
     background-repeat: no-repeat;
     background-position: center center;
@@ -122,7 +121,6 @@
    }
    .tracking-item .tracking-content {
     padding:.5rem .8rem;
-    background-color:#f4f4f4;
     border-radius:.5rem
    }
    .tracking-item .tracking-content span {

@@ -1,3 +1,5 @@
+<div id="particles-js"></div>
+
 <div class="banner">
         <div class="container">
             <h2>Document Tracking Information</h2>

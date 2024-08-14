@@ -27,6 +27,7 @@ class OfficeController extends BaseController
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
+
     
         $officeId = session('office_id');
 
@@ -71,7 +72,8 @@ class OfficeController extends BaseController
             'pending_documents_count' => $pending_documents_count,
             'received_documents_count' => $received_documents_count,
             'total_documents_count' => $total_documents_count,
-            'office_name' => $office_name
+            'office_name' => $office_name,
+            'user' => $user,
         ]);
     }
     
@@ -142,7 +144,8 @@ class OfficeController extends BaseController
         $data = [
             'documents' => $documents,
             'senderDetails' => $senderDetails,
-            'office_name' => $office_name
+            'office_name' => $office_name,
+            'user' => $user,
         ];
     
         return view('Office/Pending', $data);
@@ -209,7 +212,8 @@ public function ongoing()
    $data = [
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'office_name' => $office_name
+        'office_name' => $office_name,
+        'user' => $user
     ];
 
     return view('Office/OnGoing', $data);
@@ -280,7 +284,8 @@ public function received()
    $data = [
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'office_name' => $office_name
+        'office_name' => $office_name,
+        'user' => $user,
     ];
 
     return view('Office/Received', $data);
@@ -362,7 +367,8 @@ public function completed()
         'offices' => $offices,
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'office_name' => $office_name
+        'office_name' => $office_name,
+        'user' => $user,
     ];
 
     return view('Office/Completed', $data);
@@ -639,7 +645,8 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
    $data = [
         'documents' => $documents,
         'senderDetails' => $senderDetails,
-        'office_name' => $office_name
+        'office_name' => $office_name,
+        'user' => $user,
     ];
     
         return view('Office/History', $data);
@@ -672,7 +679,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         $data = [
             'user' => $user,
-            'office_name' => $office_name
+            'office_name' => $office_name,
         ];
     
         return view('Office/ManageProfile', $data);
@@ -753,7 +760,8 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         $data = [
             'documents' => $documents,
-            'office_name' => $office_name
+            'office_name' => $office_name,
+            'user' => $user,
         ];
 
     
@@ -813,7 +821,8 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             'user_name' => $userName,
             'searchResults' => [],
             'offices' => $offices,
-            'office_name' => $office_name
+            'office_name' => $office_name,
+            'user' => $user
         ];
     
         return view('Office/Search', $data);
@@ -874,7 +883,8 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         $data = [
             'searchResults' => $searchResults,
-            'office_name' => $office_name
+            'office_name' => $office_name,
+            'user' => $user
         ];
     
         return view('Office/Search', $data);
