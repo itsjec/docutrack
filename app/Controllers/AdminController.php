@@ -212,19 +212,15 @@ class AdminController extends BaseController
                 $userData['user_id'] = $user['user_id'];
             }
 
-            // Generate JWT token
             $token = $jwtService->generateToken($userData);
 
-            // Store token in the session
             session()->set('jwt_token', $token);
 
-            // Log the successful login and token
             log_message('info', 'User logged in successfully. JWT Token: ' . $token);
 
-            // Manage session data
             session()->set($userData);
 
-            // Redirect based on user role
+
             switch ($user['role']) {
                 case 'admin':
                     return redirect()->to('dashboard');
