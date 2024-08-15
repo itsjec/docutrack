@@ -10,8 +10,6 @@ use App\Models\OfficeDocumentsModel;
 use App\Models\ClassificationModel;
 use App\Models\DocumentHistoryModel;
 use SimpleSoftwareIO\QrCode\Generator;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use DateTime;
 
 class AdminController extends BaseController
