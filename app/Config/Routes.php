@@ -109,7 +109,7 @@ $routes->get('userindex', 'UserController::index', ['filter' => 'authfilter']);
 $routes->post('searchResults', 'UserController::searchResults');
 $routes->get('indexloggedin', 'UserController::indexloggedin', ['filter' => 'authfilter']);
 $routes->post('adminsearchResults', 'UserController::searchResults', ['as' => 'adminsearchResults']);
-$routes->get('viewdetails', 'UserController::viewdetails', ['filter' => 'authfilter']);
+$routes->get('viewdetails', 'UserController::viewdetails');
 $routes->get('adminviewdetails', 'UserController::viewdetails', ['filter' => 'authfilter']);
 
 $routes->post('searchguestResults', 'UserController::guestsearchResults', ['as' => 'searchguestResults']);

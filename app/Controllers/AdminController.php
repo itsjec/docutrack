@@ -420,33 +420,50 @@ class AdminController extends BaseController
 
         $documentModel = new DocumentModel();
         $documents = $documentModel
-        ->select('documents.*, users.first_name, users.last_name, offices.office_name')
-        ->join('users', 'users.user_id = documents.sender_id', 'left')
-        ->join('offices', 'offices.office_id = documents.recipient_id', 'left')
-        ->whereIn('sender_id', array_column($guestUsers, 'user_id'))
-        ->where('documents.status !=', 'deleted')
-        ->whereIn('(documents.title, documents.version_number)', function($builder) {
-            return $builder->select('title, MAX(version_number)')
-                ->from('documents')
-                ->groupBy('title');
-        }
-        )
-        ->findAll();
+            ->select('documents.*, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+            ->join('users', 'users.user_id = documents.sender_id', 'left')
+            ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
+            ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
+            ->join(
+                '(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) AS latest',
+                'documents.document_id = latest.document_id AND documents.version_number = latest.max_version',
+                'inner'
+            )
+            ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+            ->where('documents.status !=', 'deleted')
+            ->where('documents.sender_office_id IS NOT NULL')
+            ->whereIn('documents.title', function($builder) {
+                return $builder->select('title')
+                    ->from('documents')
+                    ->groupBy('title');
+            })
+            ->whereIn('documents.sender_id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('users')
+                    ->where('role', 'guest');
+            })
+            ->findAll();
     
         $classificationModel = new ClassificationModel();
+
+        // Fetch distinct classification names where status is active
         $classifications = $classificationModel
             ->distinct()
             ->select('classification_name')
             ->where('status', 'active')
             ->findColumn('classification_name');
         
-        $classificationsDropdown = array_values($classifications);
+        // Ensure $classifications is an array before passing to array_values
+        $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
         
+        // Fetch all subclassifications where status is active
         $subClassifications = $classificationModel
             ->where('status', 'active')
             ->findAll();
         
+        // Create a dropdown from the fetched subclassifications
         $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+        
         
     
         $officeModel = new OfficeModel();
@@ -502,13 +519,14 @@ class AdminController extends BaseController
         ->where('status', 'active')
         ->findColumn('classification_name');
     
-    $classificationsDropdown = array_values($classifications);
+    $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
     
     $subClassifications = $classificationModel
         ->where('status', 'active')
         ->findAll();
     
     $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+    
     
 
     $officeModel = new OfficeModel();
@@ -556,7 +574,11 @@ class AdminController extends BaseController
 
         $classifications = $classificationModel->where('status', 'active')->findAll();
 
-        $distinctClassifications = $classificationModel->where('status', 'active')->distinct()->findColumn('classification_name');
+        $distinctClassifications = $classificationModel
+        ->where('status', 'active')
+        ->distinct()
+        ->findColumn('classification_name') ?? [];
+    
 
         $classificationsDropdown = [];
         foreach ($distinctClassifications as $classification) {
