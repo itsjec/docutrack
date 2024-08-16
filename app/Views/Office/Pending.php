@@ -41,6 +41,8 @@
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <script>
   $(document).ready(function() {
     $('.receive-btn').on('click', function() {
@@ -92,41 +94,42 @@
     }
 });
 
-$(document).ready(function() {
-    $('.view-btn').click(function(event) {
-        event.preventDefault();
-
-        var documentId = $(this).data('documentid');
-        var title = $(this).data('title');
-        var senderName = $(this).data('sendername') || "Office ID " + $(this).data('sender-office-id');
-        var recipientOfficeId = $(this).data('recipient-office-id');
-        var classification = $(this).data('classification');
-        var subClassification = $(this).data('sub-classification');
-        var dateOfDocument = $(this).data('date-of-document');
-        var action = $(this).data('action');
-        var description = $(this).data('description');
-        var trackingNumber = $(this).data('tracking-number');
-
-        $('#view-document-id').text(documentId);
-        $('#view-title').text(title);
-        $('#view-sender').text(senderName);
-        $('#view-classification').text(classification);
-        $('#view-sub-classification').text(subClassification);
-        $('#view-date-of-document').text(dateOfDocument);
-        $('#view-action').text(action);
-        $('#view-description').text(description);
-        $('#view-tracking-number').text(trackingNumber);
-        $('#qrCodeContainer').empty(); // Clear existing QR code
-        var qrcode = new QRCode(document.getElementById("qrCodeContainer"), {
-            text: trackingNumber,
-            width: 200,
-            height: 200
-        });
-        $('#viewDocumentModal').modal('show');
+$('#viewDocumentModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    
+    // Retrieve data attributes from the button
+    var trackingNumber = button.data('tracking-number');
+    
+    var modal = $(this);
+    
+    // Set values in modal
+    modal.find('#view-tracking-number').text(trackingNumber);
+    modal.find('#qrCodeContainer').html(''); // Clear QR code container
+    
+    // Generate QR code URL
+    var url = '<?= base_url('/track?number=') ?>' + encodeURIComponent(trackingNumber);
+    
+    console.log('Generating QR Code for URL:', url); // Log URL for debugging
+    
+    // Fetch QR code and update the modal content
+    $.ajax({
+        url: '<?= site_url('generate-qr-code') ?>', // The route for generating QR codes
+        type: 'POST',
+        data: {url: url},
+        dataType: 'json',
+        success: function(response) {
+            console.log('QR Code Response:', response); // Log response for debugging
+            if(response.qrCode) {
+                modal.find('#qrCodeContainer').html(response.qrCode);
+            } else {
+                console.error('QR Code not received');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error('AJAX Error:', textStatus, errorThrown);
+        }
     });
 });
-
-
 
 </script>
 
