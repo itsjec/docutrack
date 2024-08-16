@@ -76,36 +76,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($documents as $document): ?>
-                                <tr>
+                        <?php foreach ($documents as $document): ?>
+                            <tr>
                                 <td><?= $document['version_number'] ?></td>
-                                    <td><?= $document['title'] ?></td>
-                                    <td><?= $document['tracking_number'] ?></td>
-                                    <td><?= $document['first_name'] ?> <?= $document['last_name'] ?></td>
-                                    <td><?= $document['office_name'] ?></td>
-                                    <td><span class="status-badge status-<?= $document['status'] ?>"><?= ucfirst($document['status']) ?></span></td>
-                                    <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
-                                    <td><?= $document['action'] ?></td>
-                                    <td>
+                                <td><?= $document['title'] ?></td>
+                                <td><?= $document['tracking_number'] ?></td>
+                                <td><?= $document['sender_first_name'] ?> <?= $document['sender_last_name'] ?></td>
+                                <td><?= $document['recipient_office_name'] ?></td>
+                                <td><span class="status-badge status-<?= $document['status'] ?>"><?= ucfirst($document['status']) ?></span></td>
+                                <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
+                                <td><?= $document['action'] ?></td>
+                                <td>
                                     <button type="button" class="btn btn-sm btn-primary edit-btn"
-                                    data-toggle="modal" data-target="#editDocumentModal"
-                                    data-documentid="<?= $document['document_id'] ?>"
-                                    data-title="<?= $document['title'] ?>"
-                                    data-sender-office-id="<?= $document['sender_id'] ?>"
-                                    data-recipient-office-id="<?= $document['recipient_id'] ?>"
-                                    data-classification="<?= $document['classification'] ?>"
-                                    data-sub-classification="<?= $document['sub_classification'] ?>"
-                                    data-date-of-document="<?= $document['date_of_document'] ?>"
-                                    data-action="<?= $document['action'] ?>"
-                                    data-description="<?= $document['description'] ?>">
-                                <i class="mdi mdi-pencil"></i> Edit
+                                        data-toggle="modal" data-target="#editDocumentModal"
+                                        data-documentid="<?= $document['document_id'] ?>"
+                                        data-title="<?= $document['title'] ?>"
+                                        data-sender-id="<?= $document['sender_id'] ?>"
+                                        data-recipient-id="<?= $document['recipient_id'] ?>"
+                                        data-classification="<?= $document['classification'] ?>"
+                                        data-sub-classification="<?= $document['sub_classification'] ?>"
+                                        data-date-of-document="<?= $document['date_of_document'] ?>"
+                                        data-action="<?= $document['action'] ?>"
+                                        data-description="<?= $document['description'] ?>">
+                                        <i class="mdi mdi-pencil"></i> Edit
                                     </button>
-                                        <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
-                                        <i class="mdi mdi-delete"></i> Delete
-                                    </button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                         </tbody>
                     </table>
 

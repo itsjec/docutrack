@@ -420,48 +420,36 @@ class AdminController extends BaseController
 
         $documentModel = new DocumentModel();
         $documents = $documentModel
-            ->select('documents.*, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
-            ->join('users', 'users.user_id = documents.sender_id', 'left')
-            ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
-            ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
-            ->join(
-                '(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) AS latest',
-                'documents.document_id = latest.document_id AND documents.version_number = latest.max_version',
-                'inner'
-            )
+            ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.first_name AS sender_first_name, sender.last_name AS sender_last_name, recipient_office.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+            ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
             ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+            ->join('users sender', 'sender.user_id = documents.sender_id', 'left')  // Join to get sender's first name and last name
+            ->join('offices recipient_office', 'recipient_office.office_id = documents.recipient_id', 'left')  // Join to get recipient's office name
             ->where('documents.status !=', 'deleted')
-            ->where('documents.sender_office_id IS NOT NULL')
+            ->where('sender.role', 'guest')  // Filter to include only documents where the sender is a guest
             ->whereIn('documents.title', function($builder) {
                 return $builder->select('title')
                     ->from('documents')
                     ->groupBy('title');
             })
-            ->whereIn('documents.sender_id', function($builder) {
-                return $builder->select('user_id')
-                    ->from('users')
-                    ->where('role', 'guest');
-            })
             ->findAll();
+        
+        
     
         $classificationModel = new ClassificationModel();
 
-        // Fetch distinct classification names where status is active
         $classifications = $classificationModel
             ->distinct()
             ->select('classification_name')
             ->where('status', 'active')
             ->findColumn('classification_name');
         
-        // Ensure $classifications is an array before passing to array_values
         $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
         
-        // Fetch all subclassifications where status is active
         $subClassifications = $classificationModel
             ->where('status', 'active')
             ->findAll();
         
-        // Create a dropdown from the fetched subclassifications
         $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
         
         
@@ -486,7 +474,7 @@ class AdminController extends BaseController
             'classificationsDropdown' => $classificationsDropdown,
             'subClassificationsDropdown' => $subClassificationsDropdown,
             'officesDropdown' => $officesDropdown,
-            'guestUsersNames' => $guestUsersNames, // Pass the guest users' names to the view
+            'guestUsersNames' => $guestUsersNames, 
         ];
 
         return view('Admin/AdminManageDocument', $data);
@@ -1140,7 +1128,6 @@ class AdminController extends BaseController
         return view('Admin/AdminAllDocuments', $data);
     }
     
-
     public function search()
     {
         $searchQuery = $this->request->getVar('search');
@@ -1148,14 +1135,16 @@ class AdminController extends BaseController
         $statusFilter = $this->request->getVar('status');
         $sortOption = $this->request->getVar('sort');
         
-        $query = $this->db->table('documents');
-    
+        $db = \Config\Database::connect();
+        $query = $db->table('documents');
+        
         if (!empty($searchQuery)) {
             $query->groupStart()
                   ->like('title', $searchQuery)
                   ->orLike('tracking_number', $searchQuery)
                   ->groupEnd();
         }
+        
         if (!empty($officeFilter)) {
             $query->where('recipient_id', $officeFilter);
         }
@@ -1174,17 +1163,18 @@ class AdminController extends BaseController
         }
     
         $searchResults = $query->get()->getResultArray();
-
-        $officeModel = new OfficeModel();
+    
+        $officeModel = new \App\Models\OfficeModel();
         $offices = $officeModel->findAll();
-
+    
         $data = [
             'searchResults' => $searchResults,
             'offices' => $offices
         ];
-    
+        
         return view('Admin/AdminAllDocuments', $data);
     }
+    
     public function download_all_rows()
 {
     $db = db_connect();

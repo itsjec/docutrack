@@ -68,20 +68,22 @@
                             <td>
                                     <div class="d-flex align-items-center">
                                     <button type="button" class="btn btn-sm btn-primary view-btn"
-                                        data-toggle="modal" data-target="#viewDocumentModal"
-                                        data-documentid="<?= esc($document->document_id) ?>"
-                                        data-title="<?= esc($document->title) ?>"
-                                        data-sender-office-id="<?= esc($document->sender_office_id) ?>"
-                                        data-recipient-office-id="<?= esc($document->recipient_id) ?>"
-                                        data-classification="<?= esc($document->classification) ?>"
-                                        data-sub-classification="<?= esc($document->sub_classification) ?>"
-                                        data-date-of-document="<?= esc($document->date_of_document) ?>"
-                                        data-action="<?= esc($document->action) ?>"
-                                        data-description="<?= esc($document->description) ?>"
-                                        data-tracking-number="<?= esc($document->tracking_number) ?>">View
-                                        <i class="typcn typcn-eye btn-icon-append"></i>
-                                    </button>
-
+                                            data-toggle="modal" 
+                                            data-target="#viewDocumentModal"
+                                            data-document-id="<?= esc($document->document_id) ?>"
+                                            data-title="<?= esc($document->title) ?>"
+                                            data-sender-id="<?= esc($document->sender_id) ?>"
+                                            data-recipient-id="<?= esc($document->recipient_id) ?>"
+                                            data-classification="<?= esc($document->classification) ?>"
+                                            data-sub-classification="<?= esc($document->sub_classification) ?>"
+                                            data-date-of-document="<?= esc($document->date_of_document) ?>"
+                                            data-action="<?= esc($document->action) ?>"
+                                            data-description="<?= esc($document->description) ?>"
+                                            data-tracking-number="<?= esc($document->tracking_number) ?>"
+                                        >
+                                            View
+                                            <i class="typcn typcn-eye btn-icon-append"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
@@ -100,11 +102,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="viewDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
+<div class="modal fade" id="viewDocumentModal" tabindex="-1" role="dialog" aria-labelledby="viewDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addDocumentModalLabel">Document Details</h5>
+                <h5 class="modal-title" id="viewDocumentModalLabel">Document Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -114,6 +116,7 @@
                     <div class="col-md-6 text-center">
                         <div id="qrCodeContainer"></div>
                         <h4><strong><span id="view-tracking-number"></span></strong></h4>
+                        <!-- You can add more document details here -->
                     </div>
                 </div>
             </div>
@@ -123,5 +126,6 @@
         </div>
     </div>
 </div>
+
 
 

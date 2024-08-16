@@ -97,6 +97,8 @@ $routes->delete('documents/delete/(:num)', 'OfficeController::deleteDocument/$1'
 $routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
 $routes->get('searchDocu', 'OfficeController::search', ['filter' => 'authfilter']);
 $routes->get('documents/getDocumentDetails/(:num)', 'OfficeController::getDocumentDetails/$1');
+$routes->post('generate-qr-code', 'OfficeController::generate');
+
 
 
 

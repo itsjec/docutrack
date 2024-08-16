@@ -10,6 +10,7 @@ use App\Models\DocumentClassificationModel;
 use App\Models\DocumentHistoryModel;
 use App\Models\TimeProcessingModel;
 use ResponseTrait;
+use SimpleSoftwareIO\QrCode\Generator;
 
 class OfficeController extends BaseController
 {
@@ -926,6 +927,25 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             return $this->response->setStatusCode(404)->setJSON(['error' => 'Document not found']);
         }
     }
+
+    public function generate()
+    {
+        $url = $this->request->getPost('url');
+    
+        if (!$url) {
+            return $this->response->setJSON(['error' => 'No URL provided']);
+        }
+    
+        // Initialize QR Code Generator
+        $qrcode = new \SimpleSoftwareIO\QrCode\Generator;
+    
+        // Generate QR code
+        $qrCodeURL = $qrcode->size(200)->generate($url);
+    
+        // Return the QR code HTML
+        return $this->response->setJSON(['qrCode' => $qrCodeURL]);
+    }
+    
     
 
 }
