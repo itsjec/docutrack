@@ -434,8 +434,6 @@ class AdminController extends BaseController
             })
             ->findAll();
         
-        
-    
         $classificationModel = new ClassificationModel();
 
         $classifications = $classificationModel

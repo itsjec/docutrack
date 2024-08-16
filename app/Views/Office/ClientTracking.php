@@ -13,10 +13,21 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- endinject -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap Datepicker CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap Datepicker JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
 </head>
 <body>
-  <div class="container-scroller">
   <?php include ('include/partialnavbar.php'); ?>
       <!-- partial:partials/_settings-panel.html -->
       <div class="container-fluid page-body-wrapper">
@@ -29,21 +40,16 @@
         </nav>
         <!-- partial -->
         <div class="main-panel">
-        <?php include ('main-include/addclientdocument.php'); ?>
+        <?php include ('main-include/clienttracking.php'); ?>
             </div>
             <!-- content-wrapper ends -->
             <!-- partial -->
         </div>
         <!-- main-panel ends -->
         </div>
-</div>
     <!-- page-body-wrapper ends -->
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
-
-
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get current date
@@ -60,8 +66,11 @@
       alert("Calendar icon clicked!");
     });
   });
-  </script>
-
+</script>
+  <!-- container-scroller -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script>
+    </script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->

@@ -6,7 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\OfficeModel;
 use App\Models\DocumentModel;
-use App\Models\DocumentClassificationModel;
+use App\Models\ClassificationModel;
 use App\Models\DocumentHistoryModel;
 use App\Models\TimeProcessingModel;
 use ResponseTrait;
@@ -947,14 +947,358 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     }
     
     public function adddocumentdepartment(){
-        return view('Office/AddDepartment');
+
+        $officeId = session('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+
+    $documentModel = new DocumentModel();
+    $documents = $documentModel
+    ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+    ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
+    ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+    ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
+    ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
+    ->where('documents.status !=', 'deleted')
+    ->where('documents.sender_office_id IS NOT NULL')
+    ->whereIn('(documents.title, documents.version_number)', function($builder) {
+        return $builder->select('title, MAX(version_number)')
+            ->from('documents')
+            ->groupBy('title');
+    })
+    ->findAll();
+
+    $classificationModel = new ClassificationModel();
+    $classifications = $classificationModel
+        ->distinct()
+        ->select('classification_name')
+        ->where('status', 'active')
+        ->findColumn('classification_name');
+    
+    $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
+    
+    $subClassifications = $classificationModel
+        ->where('status', 'active')
+        ->findAll();
+    
+    $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+    
+    
+
+    $officeModel = new OfficeModel();
+    $offices = $officeModel->where('status', 'active')->findAll();
+    $officesDropdown = [];
+    foreach ($offices as $office) {
+        $officesDropdown[$office['office_id']] = $office['office_name'];
     }
 
-    public function adddocumentclient(){
-        return view('Office/AddClient');
+    $data = [
+        'documents' => $documents,
+        'classificationsDropdown' => $classificationsDropdown,
+        'subClassificationsDropdown' => $subClassificationsDropdown,
+        'officesDropdown' => $officesDropdown,
+        'office_name' => $office_name,
+    ];
+
+    return view('Office/AddDepartment', $data);
     }
+
+
+    public function adddocumentclient(){
+        $officeId = session('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+
+        $userModel = new UserModel();
+        $guestUsers = $userModel->where('role', 'guest')->findAll();
+
+        $documentModel = new DocumentModel();
+        $documents = $documentModel
+            ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.first_name AS sender_first_name, sender.last_name AS sender_last_name, recipient_office.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+            ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
+            ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+            ->join('users sender', 'sender.user_id = documents.sender_id', 'left')  // Join to get sender's first name and last name
+            ->join('offices recipient_office', 'recipient_office.office_id = documents.recipient_id', 'left')  // Join to get recipient's office name
+            ->where('documents.status !=', 'deleted')
+            ->where('sender.role', 'guest')  // Filter to include only documents where the sender is a guest
+            ->whereIn('documents.title', function($builder) {
+                return $builder->select('title')
+                    ->from('documents')
+                    ->groupBy('title');
+            })
+            ->findAll();
+        
+        $classificationModel = new ClassificationModel();
+
+        $classifications = $classificationModel
+            ->distinct()
+            ->select('classification_name')
+            ->where('status', 'active')
+            ->findColumn('classification_name');
+        
+        $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
+        
+        $subClassifications = $classificationModel
+            ->where('status', 'active')
+            ->findAll();
+        
+        $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
     
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->where('status', 'active')->findAll();
+        $officesDropdown = [];
+        foreach ($offices as $office) {
+            $officesDropdown[$office['office_id']] = $office['office_name'];
+        }
+
+        $guestUsersNames = [];
+        foreach ($guestUsers as $user) {
+            if ($user['status'] === 'activate') {
+                $guestUsersNames[$user['user_id']] = $user['first_name'] . ' ' . $user['last_name'];
+            }
+        }
+        
+
+        $data = [
+            'documents' => $documents,
+            'classificationsDropdown' => $classificationsDropdown,
+            'subClassificationsDropdown' => $subClassificationsDropdown,
+            'officesDropdown' => $officesDropdown,
+            'guestUsersNames' => $guestUsersNames, 
+            'office_name' => $office_name,
+
+        ];
+
+        return view('Office/AddClient', $data);
+    }
+
+    public function getSubClassifications()
+    {
+        $classification = $this->request->getPost('classification');
+
+        $classificationModel = new ClassificationModel();
+        $subClassifications = $classificationModel
+            ->where('classification_name', $classification)
+            ->where('sub_classification !=', null)
+            ->where('sub_classification !=', '')
+            ->findAll();
+
+        return $this->response->setJSON($subClassifications);
+    }
+
+    public function getClassifications()
+    {
+        return $this->distinct()->findColumn('classification_name');
+    }
+
+    public function saveClientDocument()
+    {
+        helper(['form', 'url']);
     
+        $validationRules = [
+            'title' => 'required',
+            'description' => 'required',
+            'classification' => 'required',
+            'sub_classification' => 'required',
+            'action' => 'required',
+            'sender_office_id' => 'required',
+            'recipient_office_id' => 'required'
+        ];
+    
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+    
+        $file = $this->request->getFile('attachment');
+        if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
+            return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
+        }
+    
+        $newName = $file->getRandomName();
+        $file->move(ROOTPATH . '/uploads', $newName);
+    
+        $db = \Config\Database::connect();
+        $builder = $db->table('documents');
+    
+        $classification = $this->request->getVar('classification');
+        $subClassification = $this->request->getVar('sub_classification');
+        $title = $this->request->getVar('title');
+    
+        try {
+            $db->transBegin();
+            $latestDocument = $builder->where('title', $title)->orderBy('version_number', 'DESC')->get()->getRowArray();
+    
+            if ($latestDocument) {
+                $parent_id = $latestDocument['document_id'];
+                $versionParts = explode('.', $latestDocument['version_number']);
+                if (count($versionParts) == 2) {
+                    $major = intval($versionParts[0]);
+                    $major++;
+                    $version_number = $major . '.0';
+                } else {
+                    $version_number = '2.0';
+                }
+            } else {
+                $parent_id = NULL;
+                $version_number = '1.0';
+            }
+    
+            $trackingNumber = 'TR-' . uniqid();
+            $data = [
+                'tracking_number' => $trackingNumber,
+                'sender_id' => $this->request->getVar('sender_office_id'),
+                'sender_office_id' => NULL,
+                'recipient_id' => $this->request->getVar('recipient_office_id'),
+                'status' => 'pending',
+                'title' => $title,
+                'description' => $this->request->getVar('description'),
+                'action' => $this->request->getVar('action'),
+                'date_of_document' => date('Y-m-d'),
+                'attachment' => $newName,
+                'classification_id' => NULL,
+                'classification' => $classification,
+                'sub_classification' => $subClassification,
+                'date_completed' => NULL,
+                'version_number' => $version_number,
+                'parent_id' => $parent_id
+            ];
+            $builder->insert($data);
+    
+            $db->transCommit();
+    
+            return redirect()->to(base_url('clienttracking?trackingNumber=' . $trackingNumber));
+        } catch (\Exception $e) {
+            $db->transRollback();
+            return redirect()->back()->withInput()->with('errors', $e->getMessage());
+        }
+    }
+
+    public function saveDepartmentDocument()
+    {
+        helper(['form', 'url']);
+    
+        $validationRules = [
+            'title' => 'required',
+            'sender_office_id' => 'required',
+            'recipient_office_id' => 'required',
+            'classification' => 'required',
+            'sub_classification' => 'required',
+            'date_of_document' => 'required',
+            'attachment' => 'uploaded[attachment]|mime_in[attachment,application/pdf]',
+        ];
+    
+        if (!$this->validate($validationRules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+    
+        $attachment = $this->request->getFile('attachment');
+        $attachmentName = $attachment->getRandomName();
+        $attachment->move(ROOTPATH . 'public/uploads', $attachmentName);
+    
+        $trackingNumber = 'TR-' . uniqid();
+    
+        $db = \Config\Database::connect();
+        $builder = $db->table('documents');
+    
+        $title = $this->request->getPost('title');
+        $senderOfficeId = $this->request->getPost('sender_office_id');
+        $recipientOfficeId = $this->request->getPost('recipient_office_id');
+    
+        $existingDocument = $builder
+            ->where('title', $title)
+            ->where('sender_office_id', $senderOfficeId)
+            ->where('recipient_id', $recipientOfficeId)
+            ->orderBy('version_number', 'DESC')
+            ->get()
+            ->getRowArray();
+    
+        if ($existingDocument) {
+            $parent_id = $existingDocument['document_id'];
+            $versionParts = explode('.', $existingDocument['version_number']);
+            if (count($versionParts) == 2) {
+                $major = intval($versionParts[0]);
+                $major++;
+                $version_number = $major . '.0';
+            } else {
+                $version_number = '2.0';
+            }
+        } else {
+            $parent_id = NULL;
+            $version_number = '1.0';
+        }
+    
+        $data = [
+            'tracking_number' => $trackingNumber,
+            'sender_id' => NULL,
+            'title' => $title,
+            'sender_office_id' => $senderOfficeId,
+            'recipient_id' => $recipientOfficeId,
+            'status' => 'pending',
+            'classification' => $this->request->getPost('classification'),
+            'sub_classification' => $this->request->getPost('sub_classification'),
+            'date_of_document' => date('Y-m-d', strtotime($this->request->getPost('date_of_document'))),
+            'attachment' => $attachmentName,
+            'action' => $this->request->getPost('action'),
+            'description' => $this->request->getPost('description'),
+            'classification_id' => NULL,
+            'date_completed' => NULL,
+            'version_number' => $version_number,
+            'parent_id' => $parent_id
+        ];
+    
+        $builder->insert($data);
+    
+        return redirect()->to(base_url('departmenttracking?trackingNumber=' . $trackingNumber));
+    }
+
+    public function departmenttracking()
+    {
+
+        $officeId = session('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+
+        $data = ['office_name' => $office_name,];
+
+        return view('Office/DepartmentTracking',$data);
+    }
+
+    public function clienttracking()
+    {
+
+        $officeId = session('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+
+        $data = ['office_name' => $office_name,];
+
+        return view('Office/ClientTracking',$data);
+    }
+
 
 }
 

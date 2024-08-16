@@ -100,10 +100,11 @@ $routes->post('deleteDocument/(:num)', 'OfficeController::deleteDocument/$1');
 $routes->get('searchDocu', 'OfficeController::search', ['filter' => 'authfilter']);
 $routes->get('documents/getDocumentDetails/(:num)', 'OfficeController::getDocumentDetails/$1');
 $routes->post('generate-qr-code', 'OfficeController::generate');
-
-
-
-
+$routes->post('documents/getSubClassifications', 'OfficeController::getSubClassifications');
+$routes->post('documents/saveClient', 'OfficeController::saveClientDocument');
+$routes->post('documents/saveDepartment', 'OfficeController::saveDepartmentDocument');
+$routes->get('departmenttracking', 'OfficeController::departmenttracking', ['filter' => 'authfilter']);
+$routes->get('clienttracking', 'OfficeController::clienttracking', ['filter' => 'authfilter']);
 
 //ha    tdog
 $routes->get('track', 'UserController::track');
