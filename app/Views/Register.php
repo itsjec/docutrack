@@ -5,7 +5,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>PolluxUI Admin</title>
     <!-- base:css -->
     <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
     <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -16,69 +15,71 @@
     <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <style>
-        #particles-js {
+  #particles-js {
       position: absolute;
       width: 100%;
       height: 100vh;
       top: 0;
       left: 0;
-      z-index: -1;
-      background-image: url('https://img.freepik.com/premium-ai-image/purple-purple-background-with-purple-background-word-digital-bottom_40904457.htm');
+      z-index: -1; /* Ensure it stays behind the content */
       background-size: cover;
       background-position: center;
+      background-color: #6C007C;
     }
+
 
     .content-wrapper {
       min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     .auth-form-light {
       background: rgba(255, 255, 255, 0.8); /* Make the form background slightly transparent */
       border-radius: 8px;
+      z-index: 1; /* Ensure the form stays above the particles background */
+      position: relative; /* Relative positioning to ensure proper stacking */
     }
-  </style>
+    </style>
 </head>
 
 <body>
+<body>
 <div id="particles-js"></div>
-<div class="content-wrapper d-flex align-items-center auth px-0">
-            <div class="content-wrapper d-flex align-items-center auth px-0">
-                <div class="row w-100 mx-0">
-                    <div class="col-lg-4 mx-auto">
-                        <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-                            <h4>New here?</h4>
-                            <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-                            <form class="pt-3" action="<?= site_url('register') ?>" method="POST">
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="first_name" name="first_name" placeholder="First Name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-lg" id="last_name" name="last_name" placeholder="Last Name">
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
-                                    <div class="progress mt-2" style="height: 5px;">
-                                        <div id="password-strength-meter" class="progress-bar" role="progressbar"></div>
-                                    </div>
-                                    <small class="text-muted">Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.</small>
-                                </div>
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
-                                </div>
-                                <div class="text-center mt-4 font-weight-light">
-                                    Already have an account? <a href="/" class="text-primary">Login</a>
-                                </div>
-                            </form>
+    <div class="content-wrapper d-flex align-items-center auth px-0">
+        <div class="row w-100 mx-0">
+            <div class="col-lg-4 mx-auto">
+                <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                    <h4>New here?</h4>
+                    <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
+                    <form class="pt-3" action="<?= site_url('register') ?>" method="POST">
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-lg" id="first_name" name="first_name" placeholder="First Name">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control form-control-lg" id="last_name" name="last_name" placeholder="Last Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Password">
+                            <div class="progress mt-2" style="height: 5px;">
+                                <div id="password-strength-meter" class="progress-bar" role="progressbar"></div>
+                            </div>
+                            <small class="text-muted">Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.</small>
+                        </div>
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+                        </div>
+                        <div class="text-center mt-4 font-weight-light">
+                            Already have an account? <a href="/" class="text-primary">Login</a>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <!-- content-wrapper ends -->
         </div>
-        <!-- page-body-wrapper ends -->
     </div>
     <!-- container-scroller -->
     <!-- base:js -->
@@ -128,7 +129,8 @@
         }
     });
 </script>
-
+<script src="assets/vendors/js/vendor.bundle.base.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="assets/vendors/js/vendor.bundle.base.js"></script>
     <!-- endinject -->
     <!-- inject:js -->
