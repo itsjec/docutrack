@@ -9,34 +9,26 @@
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="typcn typcn-document-add menu-icon"></i>
-            <span class="menu-title">Document</span>
+            <span class="menu-title">Add Document</span>
             <i class="menu-arrow"></i>
         </a>
         <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('pending') ?>">Pending</a>
+                    <a class="nav-link" href="<?= site_url('adddepartmentdocument') ?>">Add Department Document</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('received') ?>">Received</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('ongoing') ?>">On Process</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('completed') ?>">Completed</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('allDocuments') ?>">All Documents</a>
+                    <a class="nav-link" href="<?= site_url('addclientdocument') ?>">Add Client Document</a>
                 </li>
             </ul>
         </div>
-    <li class="nav-item">
+        <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
-            <i class="typcn typcn-document-add menu-icon"></i>
+            <i class="typcn typcn-folder-open menu-icon"></i> 
             <span class="menu-title">Document</span>
             <i class="menu-arrow"></i>
         </a>
+
         <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">

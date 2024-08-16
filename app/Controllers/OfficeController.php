@@ -946,6 +946,14 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         return $this->response->setJSON(['qrCode' => $qrCodeURL]);
     }
     
+    public function adddocumentdepartment(){
+        return view('Office/AddDepartment');
+    }
+
+    public function adddocumentclient(){
+        return view('Office/AddClient');
+    }
+    
     
 
 }

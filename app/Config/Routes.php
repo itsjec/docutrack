@@ -79,6 +79,8 @@ $routes->get('completed', 'OfficeController::completed', ['filter' => 'authfilte
 $routes->get('history', 'OfficeController::history', ['filter' => 'authfilter']);
 $routes->get('allDocuments', 'OfficeController::allDocuments', ['filter' => 'authfilter']);
 $routes->get('manageprofile', 'OfficeController::manageprofile', ['filter' => 'authfilter']);
+$routes->get('adddepartmentdocument', 'OfficeController::adddocumentdepartment', ['filter' => 'authfilter']);
+$routes->get('addclientdocument', 'OfficeController::adddocumentclient', ['filter' => 'authfilter']);
 $routes->post('/office/updateProfile', 'OfficeController::updateProfile');
 $routes->get('trash', 'OfficeController::trash', ['filter' => 'authfilter']);
 $routes->get('incoming', 'OfficeController::incoming', ['filter' => 'authfilter']);
