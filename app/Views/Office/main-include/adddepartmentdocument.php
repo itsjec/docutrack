@@ -131,6 +131,7 @@
     </div>
 </div>
 
+
 <div class="modal fade" id="editDocumentModal" tabindex="-1" role="dialog" aria-labelledby="editDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -142,71 +143,59 @@
             </div>
             <div class="modal-body">
                 <!-- Your form here -->
-                <form id="editDocumentForm" action="<?= site_url('documents/updateDocument') ?>" method="post" enctype="multipart/form-data">
-                <input type="hidden" id="editDocumentId" name="id">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="editTitle">Title</label>
-                            <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editSenderOfficeId">Sender</label>
-                            <select class="form-control" id="editSenderOfficeId" name="sender_office_id" required>
-                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
-                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editRecipientOfficeId">Recipient</label>
-                            <select class="form-control" id="editRecipientOfficeId" name="recipient_office_id" required>
-                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
-                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="editClassification">Classification</label>
-                        <select class="form-control" id="editClassification" name="classification" required>
-                            <?php foreach ($classificationsDropdown as $classification): ?>
-                                <option value="<?= $classification ?>"><?= $classification ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="editSubClassification">Sub-Classification</label>
-                        <select id="editSubClassification" name="sub_classification" class="form-control" required>
-                            <?php foreach ($subClassificationsDropdown as $subClassification): ?>
-                                <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                        <div class="form-group col-md-4">
-                            <label for="editDateOfDocument">Date of Document</label>
-                            <input type="text" class="form-control" id="editDateOfDocument" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="editAttachment">Attachment (PDF)</label>
-                            <input type="file" class="form-control-file" id="editAttachment" name="attachment" accept=".pdf">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editAction">Action</label>
-                            <input type="text" class="form-control" id="editAction" name="action">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editDescription">Description</label>
-                            <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                <form id="editDocumentForm" action="<?= site_url('documents/updateDeptDocument') ?>" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="editDocumentId" name="id">
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label for="editTitle">Title</label>
+                <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="editSenderOfficeId">Sender</label>
+                <select class="form-control" id="editSenderOfficeId" name="sender_office_id" required>
+                    <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                        <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="editRecipientOfficeId">Recipient</label>
+                <select class="form-control" id="editRecipientOfficeId" name="recipient_office_id" required>
+                    <?php foreach ($officesDropdown as $office_id => $office_name): ?>
+                        <option value="<?= $office_id ?>"><?= $office_name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="editAttachment">Attachment (PDF)</label>
+            <input type="file" class="form-control-file" id="editAttachment" name="attachment" accept=".pdf">
+            <?php if (!empty($document['attachment'])): ?>
+                <p>Current Attachment: <a href="<?= base_url('uploads/' . $document['attachment']) ?>" target="_blank"><?= $document['attachment'] ?></a></p>
+            <?php endif; ?>
+        </div>
+            <div class="form-group col-md-6">
+                <label for="editDateOfDocument">Date of Document</label>
+                <input type="text" class="form-control" id="editDateOfDocument" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="editAction">Action</label>
+                <input type="text" class="form-control" id="editAction" name="action">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="editDescription">Description</label>
+                <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </form>
+
             </div>
         </div>
     </div>

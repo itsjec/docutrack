@@ -105,6 +105,24 @@ $routes->post('documents/saveClient', 'OfficeController::saveClientDocument');
 $routes->post('documents/saveDepartment', 'OfficeController::saveDepartmentDocument');
 $routes->get('departmenttracking', 'OfficeController::departmenttracking', ['filter' => 'authfilter']);
 $routes->get('clienttracking', 'OfficeController::clienttracking', ['filter' => 'authfilter']);
+$routes->post('documents/updateDeptDocument', 'OfficeController::updateDocument');
+$routes->post('documents/updateClientDocument', 'OfficeController::updateGuestDocument');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //ha    tdog
 $routes->get('track', 'UserController::track');

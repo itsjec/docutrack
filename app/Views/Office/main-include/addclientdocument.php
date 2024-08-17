@@ -53,7 +53,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-8">
-                            <h4 class="card-title">Manage Guest Documents</h4>
+                            <h4 class="card-title">Manage Client Documents</h4>
                             <p class="card-description">Track and update documents.</p>
                         </div>
                         <div class="col-4 text-right">
@@ -87,19 +87,19 @@
                                 <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
                                 <td><?= $document['action'] ?></td>
                                 <td>
-                                    <button type="button" class="btn btn-sm btn-primary edit-btn"
-                                        data-toggle="modal" data-target="#editDocumentModal"
-                                        data-documentid="<?= $document['document_id'] ?>"
-                                        data-title="<?= $document['title'] ?>"
-                                        data-sender-id="<?= $document['sender_id'] ?>"
-                                        data-recipient-id="<?= $document['recipient_id'] ?>"
-                                        data-classification="<?= $document['classification'] ?>"
-                                        data-sub-classification="<?= $document['sub_classification'] ?>"
-                                        data-date-of-document="<?= $document['date_of_document'] ?>"
-                                        data-action="<?= $document['action'] ?>"
-                                        data-description="<?= $document['description'] ?>">
-                                        <i class="mdi mdi-pencil"></i> Edit
-                                    </button>
+                                <button type="button" class="btn btn-sm btn-primary edit-btn"
+                                    data-toggle="modal" data-target="#editDocumentModal"
+                                    data-documentid="<?= $document['document_id'] ?>"
+                                    data-title="<?= $document['title'] ?>"
+                                    data-sender-id="<?= $document['sender_id'] ?>"
+                                    data-recipient-office-id="<?= $document['recipient_id'] ?>"
+                                    data-classification="<?= $document['classification'] ?>"
+                                    data-sub-classification="<?= $document['sub_classification'] ?>"
+                                    data-date-of-document="<?= $document['date_of_document'] ?>"
+                                    data-action="<?= $document['action'] ?>"
+                                    data-description="<?= $document['description'] ?>">
+                                    <i class="mdi mdi-pencil"></i> Edit
+                                </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -125,17 +125,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Your form here -->
-                <form id="editDocumentForm" action="<?= site_url('documents/updateGuestDocument') ?>" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id="editDocumentId" name="id">
+                <form id="editDocumentForm" action="<?= site_url('documents/updateClientDocument') ?>" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="editDocumentId" name="document_id">
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="editTitle">Title</label>
                             <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="sender_office_id">Sender</label>
-                            <select class="form-control" id="sender_office_id" name="sender_office_id" required>
+                            <label for="editSenderOfficeId">Sender</label>
+                            <select class="form-control" id="editSenderOfficeId" name="sender_id" required>
+                                <option value="">Select Sender</option>
                                 <?php foreach ($guestUsersNames as $user_id => $user_name): ?>
                                     <option value="<?= $user_id ?>"><?= $user_name ?></option>
                                 <?php endforeach; ?>
@@ -151,37 +151,24 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="editClassification">Classification</label>
-                            <select class="form-control" id="editClassification" name="classification" required>
-                                <?php foreach ($classificationsDropdown as $classification): ?>
-                                    <option value="<?= $classification ?>"><?= $classification ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editSubClassification">Sub-Classification</label>
-                            <select id="editSubClassification" name="sub_classification" class="form-control" required>
-                                <?php foreach ($subClassificationsDropdown as $subClassification): ?>
-                                    <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
+                    <div class="form-group col-md-6">
+                        <label for="editAttachment">Attachment (PDF)</label>
+                        <input type="file" class="form-control-file" id="editAttachment" name="attachment" accept=".pdf">
+                        <?php if (!empty($document['attachment'])): ?>
+                            <p>Current Attachment: <a href="<?= base_url('uploads/' . $document['attachment']) ?>" target="_blank"><?= $document['attachment'] ?></a></p>
+                        <?php endif; ?>
+                    </div>
+                        <div class="form-group col-md-6">
                             <label for="editDateOfDocument">Date of Document</label>
-                            <input type="text" class="form-control" id="editDateOfDocument" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+                            <input type="text" class="form-control" id="editDateOfDocument" name="date_of_document" readonly>
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="editAttachment">Attachment (PDF)</label>
-                            <input type="file" class="form-control-file" id="editAttachment" name="attachment" accept=".pdf">
-                        </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="editAction">Action</label>
                             <input type="text" class="form-control" id="editAction" name="action">
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-6">
                             <label for="editDescription">Description</label>
                             <textarea class="form-control" id="editDescription" name="description" rows="3"></textarea>
                         </div>
@@ -319,8 +306,77 @@
     </div>
 </div>
 
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    $('.edit-btn').on('click', function() {
+        var documentId = $(this).data('documentid');
+        var title = $(this).data('title');
+        var senderId = $(this).data('sender-id');
+        var recipientOfficeId = $(this).data('recipient-office-id');
+        var classification = $(this).data('classification');
+        var subClassification = $(this).data('sub-classification');
+        var dateOfDocument = $(this).data('date-of-document');
+        var action = $(this).data('action');
+        var description = $(this).data('description');
+
+        $('#editDocumentId').val(documentId);
+        $('#editTitle').val(title);
+        $('#editSenderOfficeId').val(senderId);
+        $('#editRecipientOfficeId').val(recipientOfficeId);
+        $('#editDateOfDocument').val(dateOfDocument);
+        $('#editAction').val(action);
+        $('#editDescription').val(description);
+
+        // Set the selected option for classification dropdown
+        $('#editClassification option').each(function() {
+            if ($(this).val() == classification) {
+                $(this).prop('selected', true);
+            } else {
+                $(this).prop('selected', false);
+            }
+        });
+
+        // Set the selected option for sub_classification dropdown
+        $('#editSubClassification option').each(function() {
+            if ($(this).val() == subClassification) {
+                $(this).prop('selected', true);
+            } else {
+                $(this).prop('selected', false);
+            }
+        });
+
+        $('#editDocumentModal').modal('show');
+    });
+});
+
+$('#editDocumentForm').on('submit', function(e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: 'documents/updateGuestDocument',
+            method: 'post',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                // Handle success response
+                $('#editDocumentModal').modal('hide');
+                // Reload or update the document list
+                window.location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+</script>
 
 <!-- Display validation errors -->
 <?php if (session('validationErrors')) : ?>

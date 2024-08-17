@@ -41,6 +41,12 @@
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
+   
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <script>
 $('#addOfficeBtn').click(function () {
@@ -100,10 +106,10 @@ $('#addOfficeBtn').click(function () {
 });
 
 
+
+
+
 </script>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get current date

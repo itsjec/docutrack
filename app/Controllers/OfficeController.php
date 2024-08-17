@@ -958,45 +958,45 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             $office_name = 'No Office Found';
         }
 
-    $documentModel = new DocumentModel();
-    $documents = $documentModel
-    ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
-    ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
-    ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
-    ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
-    ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
-    ->where('documents.status !=', 'deleted')
-    ->where('documents.sender_office_id IS NOT NULL')
-    ->whereIn('(documents.title, documents.version_number)', function($builder) {
-        return $builder->select('title, MAX(version_number)')
-            ->from('documents')
-            ->groupBy('title');
-    })
-    ->findAll();
-
-    $classificationModel = new ClassificationModel();
-    $classifications = $classificationModel
-        ->distinct()
-        ->select('classification_name')
-        ->where('status', 'active')
-        ->findColumn('classification_name');
-    
-    $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
-    
-    $subClassifications = $classificationModel
-        ->where('status', 'active')
+        $documentModel = new DocumentModel();
+        $documents = $documentModel
+        ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_office_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, documents.attachment, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+        ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
+        ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+        ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
+        ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
+        ->where('documents.status !=', 'deleted')
+        ->where('documents.sender_office_id IS NOT NULL')
+        ->whereIn('(documents.title, documents.version_number)', function($builder) {
+            return $builder->select('title, MAX(version_number)')
+                ->from('documents')
+                ->groupBy('title');
+        })
         ->findAll();
-    
-    $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
-    
-    
 
-    $officeModel = new OfficeModel();
-    $offices = $officeModel->where('status', 'active')->findAll();
-    $officesDropdown = [];
-    foreach ($offices as $office) {
-        $officesDropdown[$office['office_id']] = $office['office_name'];
-    }
+        $classificationModel = new ClassificationModel();
+        $classifications = $classificationModel
+            ->distinct()
+            ->select('classification_name')
+            ->where('status', 'active')
+            ->findColumn('classification_name');
+        
+        $classificationsDropdown = is_array($classifications) ? array_values($classifications) : [];
+        
+        $subClassifications = $classificationModel
+            ->where('status', 'active')
+            ->findAll();
+        
+        $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
+        
+        
+
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->where('status', 'active')->findAll();
+        $officesDropdown = [];
+        foreach ($offices as $office) {
+            $officesDropdown[$office['office_id']] = $office['office_name'];
+        }
 
     $data = [
         'documents' => $documents,
@@ -1023,25 +1023,24 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
 
         $userModel = new UserModel();
         $guestUsers = $userModel->where('role', 'guest')->findAll();
-
+    
         $documentModel = new DocumentModel();
         $documents = $documentModel
-            ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, sender.first_name AS sender_first_name, sender.last_name AS sender_last_name, recipient_office.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
-            ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
-            ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
-            ->join('users sender', 'sender.user_id = documents.sender_id', 'left')  // Join to get sender's first name and last name
-            ->join('offices recipient_office', 'recipient_office.office_id = documents.recipient_id', 'left')  // Join to get recipient's office name
-            ->where('documents.status !=', 'deleted')
-            ->where('sender.role', 'guest')  // Filter to include only documents where the sender is a guest
-            ->whereIn('documents.title', function($builder) {
-                return $builder->select('title')
-                    ->from('documents')
-                    ->groupBy('title');
-            })
-            ->findAll();
+        ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, documents.attachment, sender.first_name AS sender_first_name, sender.last_name AS sender_last_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+        ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
+        ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+        ->join('users sender', 'sender.user_id = documents.sender_id', 'left')
+        ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
+        ->where('documents.status !=', 'deleted')
+        ->where('sender.role', 'guest')
+        ->whereIn('documents.title', function($builder) {
+            $builder->select('title')
+                ->from('documents')
+                ->groupBy('title');
+        })
+        ->findAll();
         
         $classificationModel = new ClassificationModel();
-
         $classifications = $classificationModel
             ->distinct()
             ->select('classification_name')
@@ -1055,22 +1054,21 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             ->findAll();
         
         $subClassificationsDropdown = array_column($subClassifications, 'sub_classification');
-    
+        
+
         $officeModel = new OfficeModel();
         $offices = $officeModel->where('status', 'active')->findAll();
         $officesDropdown = [];
         foreach ($offices as $office) {
             $officesDropdown[$office['office_id']] = $office['office_name'];
         }
-
+    
         $guestUsersNames = [];
         foreach ($guestUsers as $user) {
             if ($user['status'] === 'activate') {
                 $guestUsersNames[$user['user_id']] = $user['first_name'] . ' ' . $user['last_name'];
             }
         }
-        
-
         $data = [
             'documents' => $documents,
             'classificationsDropdown' => $classificationsDropdown,
@@ -1299,6 +1297,67 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         return view('Office/ClientTracking',$data);
     }
 
+    public function updateDocument()
+    {
+        $documentId = $this->request->getPost('id');
+        $documentModel = new DocumentModel();
+    
+        $documentData = [
+            'title' => $this->request->getPost('title'),
+            'sender_office_id' => $this->request->getPost('sender_office_id'),
+            'recipient_id' => $this->request->getPost('recipient_office_id'),
+            'action' => $this->request->getPost('action'),
+            'description' => $this->request->getPost('description'),
+        ];
+    
+        if ($this->request->getFile('attachment')->isValid()) {
+            $attachment = $this->request->getFile('attachment');
+            $attachment->move(WRITEPATH . 'uploads');
+            $documentData['attachment'] = $attachment->getName();
+        }
+    
+        if (!empty($documentData)) {
+            $result = $documentModel->set($documentData)->where('document_id', $documentId)->update();
+            if ($result) {
+                echo '<script>window.location.reload();</script>';
+                exit();
+            }
+        }
+
+        return redirect()->to('adddepartmentdocument')->with('success', 'Document updated successfully.');
+    }
+
+    public function updateGuestDocument()
+    {
+        $documentId = $this->request->getPost('document_id');
+        $documentModel = new DocumentModel();
+    
+        $documentData = [
+            'title' => $this->request->getPost('title'),
+            'sender_id' => $this->request->getPost('sender_id'),
+            'recipient_id' => $this->request->getPost('recipient_office_id'),
+            'action' => $this->request->getPost('action'),
+            'description' => $this->request->getPost('description'),
+        ];
+    
+        if ($this->request->getFile('attachment')->isValid()) {
+            $attachment = $this->request->getFile('attachment');
+            $attachment->move(WRITEPATH . 'uploads');
+            $documentData['attachment'] = $attachment->getName();
+        }
+    
+        if (!empty($documentData)) {
+            $result = $documentModel->set($documentData)->where('document_id', $documentId)->update();
+            if ($result) {
+                echo '<script>window.location.reload();</script>';
+                exit();
+            }
+        }
+
+        return redirect()->to('addclientdocument')->with('success', 'Document updated successfully.');
+    }
+
+    
 
 }
 
