@@ -109,11 +109,11 @@ $routes->post('documents/updateDeptDocument', 'OfficeController::updateDocument'
 $routes->post('documents/updateClientDocument', 'OfficeController::updateGuestDocument');
 $routes->post('documents/archiveDocument', 'OfficeController::archiveDocument');
 $routes->post('documents/archiveClientDocument', 'OfficeController::archiveClientDocument');
-
-
-
-
-
+$routes->get('officemaintenance', 'OfficeController::officemaintenance', ['filter' => 'authfilter']);
+$routes->post('office/updateDepartmentClassification', 'OfficeController::updateDepartmentClassification');
+$routes->post('classifications/update', 'OfficeController::updateClassification');
+$routes->post('docuclassifications/save', 'OfficeController::saveDocuClassification', ['as' => 'saveDocuClassification']);
+$routes->post('docusub-classifications/save', 'OfficeController::saveSubClassification');
 
 
 

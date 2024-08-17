@@ -68,7 +68,6 @@
                                 <th>Title</th>
                                 <th>Tracking Number</th>
                                 <th>Sender</th>
-                                <th>Recipient</th>
                                 <th>Status</th>
                                 <th>Date of Document</th>
                                 <th>Comment</th>
@@ -82,7 +81,6 @@
                                 <td><?= $document['title'] ?></td>
                                 <td><?= $document['tracking_number'] ?></td>
                                 <td><?= $document['sender_first_name'] ?> <?= $document['sender_last_name'] ?></td>
-                                <td><?= $document['recipient_office_name'] ?></td>
                                 <td><span class="status-badge status-<?= $document['status'] ?>"><?= ucfirst($document['status']) ?></span></td>
                                 <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
                                 <td><?= $document['action'] ?></td>

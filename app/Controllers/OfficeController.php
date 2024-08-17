@@ -1391,8 +1391,98 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             }
         }
     }
+
+    
+    public function officemaintenance()
+    {
+        $officeId = session('office_id');
+
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+
+        $classificationModel = new ClassificationModel();
+
+        $classifications = $classificationModel->where('status', 'active')->findAll();
+
+        $distinctClassifications = $classificationModel
+        ->where('status', 'active')
+        ->distinct()
+        ->findColumn('classification_name') ?? [];
     
 
+        $classificationsDropdown = [];
+        foreach ($distinctClassifications as $classification) {
+            $classificationsDropdown[] = $classification;
+        }
+
+        $data['classifications'] = $classifications;
+        $data['classificationsDropdown'] = $classificationsDropdown;
+        $data['office_name'] = $office_name;
+
+        return view('Office/Maintenance', $data);
+    }
+
+    public function updateDepartmentClassification()
+    {
+        $classificationModel = new ClassificationModel();
+        
+        $classification_id = $this->request->getPost('officeId');
+        $classificationModel->update($classification_id, ['status' => 'deleted']);
+        
+        return redirect()->to(base_url('officemaintenance'));
+    }
+    public function updateClassification()
+    {
+        $classificationId = $this->request->getPost('classificationId');
+        $newClassificationName = $this->request->getPost('classification');
+        $newSubClassificationName = $this->request->getPost('subclassificationName');
+    
+        $classificationModel = new ClassificationModel();
+        $classificationModel->where('classification_id', $classificationId)
+                             ->set(['classification_name' => $newClassificationName, 'sub_classification' => $newSubClassificationName])
+                             ->update();
+    
+        return redirect()->to('officemaintenance'); 
+    }
+
+    public function saveDocuClassification()
+    {
+        $classificationModel = new ClassificationModel();
+
+        $classificationName = $this->request->getPost('classificationName');
+
+        $data = [
+            'classification_name' => $classificationName,
+            'sub_classification' => NULL
+        ];
+
+        $classificationModel->insert($data);
+
+        return redirect()->to('officemaintenance')->with('success', 'Classification added successfully.');
+    }
+
+    public function saveSubClassification()
+    {
+        $classificationModel = new ClassificationModel();
+
+        $classificationName = $this->request->getPost('classification');
+        $subClassificationName = $this->request->getPost('subclassification');
+
+        $data = [
+            'classification_name' => $classificationName,
+            'sub_classification' => $subClassificationName
+        ];
+
+        $classificationModel->insert($data);
+
+        return redirect()->to('officemaintenance')->with('success', 'Subclassification added successfully.');
+    }
+    
 }
 
 

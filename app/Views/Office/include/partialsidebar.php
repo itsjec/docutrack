@@ -69,6 +69,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('trash') ?>">Trash</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('officemaintenance') ?>">Add Classification</a>
+                </li>
             </ul>
         </div>
     </li>
