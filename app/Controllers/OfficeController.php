@@ -947,7 +947,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     }
     
     public function adddocumentdepartment(){
-
+        $session = session();
         $officeId = session('office_id');
 
         $officeModel = new OfficeModel();
@@ -966,7 +966,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
         ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
         ->where('documents.status !=', 'deleted')
-        ->where('documents.sender_office_id IS NOT NULL')
+        ->where('documents.sender_office_id', $officeId)
         ->whereIn('(documents.title, documents.version_number)', function($builder) {
             return $builder->select('title, MAX(version_number)')
                 ->from('documents')
@@ -1033,6 +1033,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
         ->where('documents.status !=', 'deleted')
         ->where('sender.role', 'guest')
+        ->where('documents.recipient_id', $officeId) // Add filter for recipient_id matching office_id from session
         ->whereIn('documents.title', function($builder) {
             $builder->select('title')
                 ->from('documents')
@@ -1357,6 +1358,39 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         return redirect()->to('addclientdocument')->with('success', 'Document updated successfully.');
     }
 
+    public function archiveDocument()
+    {
+        $documentModel = new DocumentModel();
+
+        if ($this->request->isAJAX()) {
+            $documentId = $this->request->getPost('documentId');
+
+            $result = $documentModel->delete($documentId);
+
+            if ($result) {
+                return $this->response->setJSON(['success' => true]);
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
+            }
+        }
+    }
+
+    public function archiveClientDocument()
+    {
+        $documentModel = new DocumentModel();
+
+        if ($this->request->isAJAX()) {
+            $documentId = $this->request->getPost('documentId');
+
+            $result = $documentModel->delete($documentId);
+
+            if ($result) {
+                return $this->response->setJSON(['success' => true]);
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
+            }
+        }
+    }
     
 
 }

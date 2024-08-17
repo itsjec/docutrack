@@ -66,7 +66,6 @@
                             <th>Version No.</th>
                             <th>Title</th>
                             <th>Tracking Number</th>
-                            <th>Sender</th>
                             <th>Recipient</th>
                             <th>Status</th>
                             <th>Date of Document</th>
@@ -80,7 +79,6 @@
                                 <td><?= $document['version_number'] ?></td>
                                 <td><?= $document['title'] ?></td>
                                 <td><?= $document['tracking_number'] ?></td>
-                                <td><?= $document['sender_office_name'] ?></td>
                                 <td><?= $document['recipient_office_name'] ?></td>
                                 <td><span class="status-badge status-<?= $document['status'] ?>"><?= ucfirst($document['status']) ?></span></td>
                                 <td><?= date('F d, Y', strtotime($document['date_of_document'])) ?></td>
@@ -358,6 +356,38 @@
         });
     });
 </script>
+
+<script>
+    $(document).ready(function() {
+        $('.delete-btn').click(function() {
+            var documentId = $(this).data('document-id');
+
+            console.log("doc id is: ", documentId);
+
+            $('#confirmDeleteBtn').off('click').on('click', function() {
+            console.log("it worked");
+                $.ajax({
+                    url: '<?= site_url('documents/archiveDocument') ?>',
+                    type: 'POST',
+                    data: { documentId: documentId },
+                    success: function(response) {
+                        if (response.success) {
+                            console.log('Document deleted successfully');
+                        } else {
+                            console.error('Error deleting document:', response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error deleting document:', error);
+                    }
+                });
+
+                $('#deleteConfirmationModal').modal('hide');
+            });
+        });
+    });
+</script>
+
 
 
 

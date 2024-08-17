@@ -100,6 +100,9 @@
                                     data-description="<?= $document['description'] ?>">
                                     <i class="mdi mdi-pencil"></i> Edit
                                 </button>
+                                <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
+                                    <i class="mdi mdi-delete"></i> Delete
+                                </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -108,6 +111,27 @@
 
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the document?
+                <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
             </div>
         </div>
     </div>
@@ -183,26 +207,6 @@
     </div>
 </div>
 
-<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete the document?
-                <br>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -306,6 +310,7 @@
     </div>
 </div>
 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap JavaScript -->
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -376,7 +381,36 @@ $('#editDocumentForm').on('submit', function(e) {
         });
     });
 
+    $(document).ready(function() {
+    $('.delete-btn').click(function() {
+        var documentId = $(this).data('document-id');
+
+        $('#delete-btn').off('click').on('click', function() {
+            console.log("it worked");
+            $.ajax({
+                url: '<?= site_url('documents/archiveClientDocument') ?>',
+                type: 'POST',
+                data: { documentId: documentId },
+                success: function(response) {
+                    if (response.success) {
+                        console.log('Document deleted successfully');
+                        location.reload(); // Optionally reload the page or update the table
+                    } else {
+                        console.error('Error deleting document:', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error deleting document:', error);
+                }
+            });
+
+            $('#deleteDocumentModal').modal('hide');
+        });
+    });
+});
+
 </script>
+
 
 <!-- Display validation errors -->
 <?php if (session('validationErrors')) : ?>

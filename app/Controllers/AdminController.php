@@ -890,7 +890,6 @@ class AdminController extends BaseController
             ->where('documents.status', 'deleted')
             ->findAll();
 
-        // Convert the array to objects
         $documents = array_map(function ($item) {
             return (object) $item;
         }, $documents);

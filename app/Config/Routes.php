@@ -107,7 +107,8 @@ $routes->get('departmenttracking', 'OfficeController::departmenttracking', ['fil
 $routes->get('clienttracking', 'OfficeController::clienttracking', ['filter' => 'authfilter']);
 $routes->post('documents/updateDeptDocument', 'OfficeController::updateDocument');
 $routes->post('documents/updateClientDocument', 'OfficeController::updateGuestDocument');
-
+$routes->post('documents/archiveDocument', 'OfficeController::archiveDocument');
+$routes->post('documents/archiveClientDocument', 'OfficeController::archiveClientDocument');
 
 
 
