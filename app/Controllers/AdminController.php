@@ -1119,6 +1119,33 @@ class AdminController extends BaseController
     
         return view('Admin/AdminAllDocuments', $data);
     }
+
+    public function kiosk()
+    {
+        $documentModel = new DocumentModel();
+    
+        $searchResults = $documentModel
+            ->select('documents.*, sender.office_name AS sender_office_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+            ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
+            ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
+            ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+            ->whereIn('(documents.title, documents.version_number)', function($builder) {
+                return $builder->select('title, MAX(version_number)')
+                    ->from('documents')
+                    ->groupBy('title');
+            })
+            ->findAll();
+    
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+    
+        $data = [
+            'searchResults' => $searchResults,
+            'offices' => $offices
+        ];
+    
+        return view('Admin/AdminKiosk', $data);
+    }
     
     public function search()
     {
@@ -1165,6 +1192,53 @@ class AdminController extends BaseController
         ];
         
         return view('Admin/AdminAllDocuments', $data);
+    }
+
+    public function searchkiosk()
+    {
+        $searchQuery = $this->request->getVar('search');
+        $officeFilter = $this->request->getVar('office');
+        $statusFilter = $this->request->getVar('status');
+        $sortOption = $this->request->getVar('sort');
+        
+        $db = \Config\Database::connect();
+        $query = $db->table('documents');
+        
+        if (!empty($searchQuery)) {
+            $query->groupStart()
+                  ->like('title', $searchQuery)
+                  ->orLike('tracking_number', $searchQuery)
+                  ->groupEnd();
+        }
+        
+        if (!empty($officeFilter)) {
+            $query->where('recipient_id', $officeFilter);
+        }
+        if (!empty($statusFilter)) {
+            $query->where('status', $statusFilter);
+        }
+    
+        if ($sortOption === 'title_asc') {
+            $query->orderBy('title', 'ASC');
+        } elseif ($sortOption === 'title_desc') {
+            $query->orderBy('title', 'DESC');
+        } elseif ($sortOption === 'date_asc') {
+            $query->orderBy('created_at', 'ASC');
+        } elseif ($sortOption === 'date_desc') {
+            $query->orderBy('created_at', 'DESC');
+        }
+    
+        $searchResults = $query->get()->getResultArray();
+    
+        $officeModel = new \App\Models\OfficeModel();
+        $offices = $officeModel->findAll();
+    
+        $data = [
+            'searchResults' => $searchResults,
+            'offices' => $offices
+        ];
+        
+        return view('Admin/AdminKiosk', $data);
     }
     
     public function download_all_rows()

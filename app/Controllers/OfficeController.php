@@ -833,36 +833,22 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     public function search()
     {
         $userId = session('user_id');
-
         $session = session();
-        $office_id = $session->get('office_id');
-
+        $officeId = $session->get('office_id');
+    
+        // Load the Office and User data
         $officeModel = new OfficeModel();
-        $office = $officeModel->find($office_id);
-        $office_name = $office['office_name'];
-
+        $office = $officeModel->find($officeId);
+        $officeName = $office['office_name'];
+    
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
     
-        $searchQuery = $this->request->getVar('search');
-        $statusFilter = $this->request->getVar('status');
-        $sortOption = $this->request->getVar('sort');
-    
-        $session = session();
-        $officeId = $session->get('office_id');
-    
         $query = $this->db->table('documents')
-            ->groupStart()
-            ->like('title', $searchQuery)
-            ->orLike('tracking_number', $searchQuery)
-            ->groupEnd()
             ->where('recipient_id', $officeId);
     
-        if (!empty($statusFilter)) {
-            $query->where('status', $statusFilter);
-        }
-    
+        $sortOption = $this->request->getVar('sort');
         switch ($sortOption) {
             case 'title_asc':
                 $query->orderBy('title', 'ASC');
@@ -877,21 +863,20 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 $query->orderBy('date_of_document', 'DESC');
                 break;
             default:
-                $query->orderBy('title', 'ASC');
+                $query->orderBy('title', 'ASC');  // Default sorting
         }
     
         $searchResults = $query->get()->getResultArray();
     
         $data = [
             'searchResults' => $searchResults,
-            'office_name' => $office_name,
-            'user' => $user
+            'office_name' => $officeName,
+            'user' => $user,
         ];
     
         return view('Office/Search', $data);
-
-    
     }
+      
 
     public function getDocumentDetails($id)
     {

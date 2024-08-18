@@ -17,6 +17,7 @@
                         <option value="deleted">Deleted</option>
                     </select>
                 </div>
+                
                 <div class="form-group mx-sm-3 mb-2">
                     <label for="sort" class="mr-2">Sort By:</label>
                     <select class="form-control" id="sort" name="sort">
@@ -67,6 +68,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
+
 <script>
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -79,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     <?php endforeach; ?>
 });
+
 function printQR(qrCodeURL, trackingNumber) {
     var printWindow = window.open('', '_blank');
     printWindow.document.write('<html><head><title>Print QR Code</title></head><body style="width:100%;text-align:center;"><img src="' + qrCodeURL + '"><div>' + trackingNumber + '</div></body></html>');
@@ -95,4 +98,12 @@ function printQR(qrCodeURL, trackingNumber) {
         document.execCommand("copy");
         document.body.removeChild(tempInput);
     }
+
+    let timeout = null;
+    document.getElementById('search-input').addEventListener('keyup', function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function() {
+            document.getElementById('search-form').submit();
+        }, 500); // Adjust the delay as needed
+    });
 </script>

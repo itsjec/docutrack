@@ -53,7 +53,8 @@ $routes->post('office/updateClassification', 'AdminController::updateClassificat
 $routes->post('sub-classifications/update', 'AdminController::updateClassificationName');
 $routes->post('deactivateUser', 'AdminController::deactivateUser');
 $routes->get('documents/fetchVersionsByTitle', 'AdminController::fetchVersionsByTitle');
-
+$routes->get('kiosk', 'AdminController::kiosk');
+$routes->get('searchkiosk', 'AdminController::searchkiosk');
 
 
 
