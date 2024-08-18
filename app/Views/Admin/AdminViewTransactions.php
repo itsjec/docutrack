@@ -92,7 +92,7 @@
                 $('#previewModal').modal('show');
 
                 $('#downloadButton').off('click').on('click', function() {
-                    window.location.href = 'http://localhost:8080/admin/transactions/download';
+                    window.location.href = 'https://docutrack.online/admin/transactions/download';
                 });
 
                 $('#printButton').off('click').on('click', function() {
