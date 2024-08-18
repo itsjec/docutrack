@@ -7,6 +7,12 @@
         </a>
     </li>
     <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('manageofficeuser') ?>">
+        <i class="typcn typcn-user-outline menu-icon"></i>
+            <span class="menu-title">Add User</span>
+        </a>
+    </li>
+    <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
             <i class="typcn typcn-document-add menu-icon"></i>
             <span class="menu-title">Add Document</span>

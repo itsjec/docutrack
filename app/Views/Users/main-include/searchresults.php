@@ -2,7 +2,7 @@
 <div id="particles-js"></div>
 <div class="banner">
             <div class="content">
-                <h1>Document: <?= $document['tracking_number'] ?></h1>
+                <h1><?= $document['title'] ?></h1>
                 <div class="row mb-3">
                     <div class="col-sm-4 mb-2">
                         <div class="bg-secondary p-4 text-dark text-center"><span class="font-weight-semibold mr-2">Received by:</span><?= $office['office_name'] ?></div>

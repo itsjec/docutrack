@@ -26,8 +26,7 @@
                                     </div>
                                     <div class="tracking-date"><?= date('F j, Y', strtotime($workflow['date_changed'])) ?><span><?= date('H:i:s', strtotime($workflow['date_changed'])) ?></span></div>
                                     <div class="tracking-content">
-                                        Document with Tracking Number <?= $tracking_number ?> is <?= $workflow['status'] ?> by <?= $admins[$workflow['user_id'] - 1]['first_name'] ?? 'Unknown' ?> <?= $admins[$workflow['user_id'] - 1]['last_name'] ?? 'User' ?>
-                                        on <?= date('F j, Y H:i:s', strtotime($workflow['date_changed'])) ?>
+                                        Your Document with Tracking Number <?= $tracking_number ?> is now <?= $workflow['status'] ?> by <?= $admins[$workflow['user_id'] - 1]['first_name'] ?? 'Unknown' ?> <?= $admins[$workflow['user_id'] - 1]['last_name'] ?? 'User' ?>.
                                         <span>Current Office: <?= $office ? $office['office_name'] : 'Unknown Office' ?></span>
                                     </div>
                                 </div>

@@ -32,7 +32,10 @@ class UserController extends BaseController
         $trackingNumber = $request->getPost('tracking_number');
 
         $documentModel = new DocumentModel();
-        $document = $documentModel->where('tracking_number', $trackingNumber)->first();
+        $document = $documentModel->select('tracking_number, title')
+        ->where('tracking_number', $trackingNumber)
+        ->first();
+
 
         $officeModel = new OfficeModel();
         $office = null;

@@ -1483,6 +1483,103 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         return redirect()->to('officemaintenance')->with('success', 'Subclassification added successfully.');
     }
     
+    public function manageofficeuser()
+    {
+        $officeId = session('office_id');
+    
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+    
+        $userModel = new UserModel();
+        $users = $userModel->select('users.*, offices.office_name')
+            ->join('offices', 'offices.office_id = users.office_id', 'left')
+            ->where('users.office_id', $officeId)
+            ->whereIn('users.role', ['admin', 'office user']) 
+            ->where('users.status', 'activate') 
+            ->findAll();
+    
+        $data['offices'] = $officeModel->findAll();
+        $data['users'] = $users;
+        $data['office_name'] = $office_name;
+    
+        return view('Office/ManageOfficeUser', $data);
+    }
+
+    public function manageclient()
+    {
+
+        $officeId = session('office_id');
+    
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
+
+        $userModel = new UserModel();
+        $data['guestUsers'] = $userModel->select('user_id, first_name, last_name, email, picture_path')
+            ->where('role', 'guest')
+            ->where('status', 'activate')
+            ->findAll();
+        $data['office_name'] = $office_name;
+    
+        return view('Office/ManageClient', $data);
+    }
+    public function updateOfficeUser()
+    {
+        $userId = $this->request->getPost('userId');
+        $userModel = new UserModel();
+        
+        $userData = [
+            'username' => $this->request->getPost('username'),
+            'password' => !empty($this->request->getPost('password')) ? password_hash($this->request->getPost('password'), PASSWORD_DEFAULT) : null,
+        ];
+    
+        $userData = array_filter($userData, function($value) {
+            return !is_null($value);
+        });
+        
+        $userModel->update($userId, $userData);
+        
+        return redirect()->to('manageofficeuser')->with('success', 'User updated successfully.');
+    }
+
+    public function saveOfficeUser()
+{
+    $userModel = new UserModel();
+    
+    $username = $this->request->getPost('username');
+    $password = $this->request->getPost('password');
+    $officeId = session('office_id');  // Fetch the logged-in user's office_id
+    
+    if (!preg_match('/[A-Z]/', $password) || 
+        !preg_match('/[a-z]/', $password) || 
+        !preg_match('/[0-9]/', $password) ||
+        strlen($password) < 8) {
+        return redirect()->back()->with('error', 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.');
+    }
+
+    $userData = [
+        'username' => $username,
+        'email' => $username,
+        'password' => password_hash($password, PASSWORD_DEFAULT),
+        'office_id' => $officeId,  // Use the logged-in user's office_id
+        'image' => '',
+        'role' => 'office user',
+    ];
+
+    $userModel->insert($userData);
+
+    return redirect()->to('manageofficeuser')->with('success', 'Office user added successfully.');
+}
+
 }
 
 

@@ -65,7 +65,20 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    <?php foreach ($searchResults as $result): ?>
+        // Generate QR code for each result
+        new QRCode(document.getElementById("qrcode-<?= esc($result['tracking_number']) ?>"), {
+            text: "<?= base_url("/track?number=" . urlencode($result['tracking_number'])) ?>",
+            width: 200,
+            height: 200
+        });
+    <?php endforeach; ?>
+});
 function printQR(qrCodeURL, trackingNumber) {
     var printWindow = window.open('', '_blank');
     printWindow.document.write('<html><head><title>Print QR Code</title></head><body style="width:100%;text-align:center;"><img src="' + qrCodeURL + '"><div>' + trackingNumber + '</div></body></html>');

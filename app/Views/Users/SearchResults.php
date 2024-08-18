@@ -50,6 +50,15 @@
       color: #fff; /* Ensure text is readable on top of particles background */
       padding: 20px;
     }
+
+    .step {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    cursor: default; 
+    transition: none;
+}
+
 </style>
   </head>
   <body>

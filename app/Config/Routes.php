@@ -114,6 +114,13 @@ $routes->post('office/updateDepartmentClassification', 'OfficeController::update
 $routes->post('classifications/update', 'OfficeController::updateClassification');
 $routes->post('docuclassifications/save', 'OfficeController::saveDocuClassification', ['as' => 'saveDocuClassification']);
 $routes->post('docusub-classifications/save', 'OfficeController::saveSubClassification');
+$routes->get('manageofficeuser', 'OfficeController::manageofficeuser', ['filter' => 'authfilter']);
+$routes->get('manageclient', 'OfficeController::manageclient', ['filter' => 'authfilter']);
+$routes->post('officeusers/update', 'OfficeController::updateOfficeUser');
+$routes->post('officeusers/save', 'OfficeController::saveOfficeUser');
+
+
+
 
 
 

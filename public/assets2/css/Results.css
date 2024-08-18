@@ -71,7 +71,8 @@ body, html {
     color: #fff;
     font-weight: 600;
     text-align: center;
-    text-decoration: none
+    text-decoration: none;
+    transition: none;
 }
 
 .step:last-child {
@@ -120,21 +121,6 @@ body, html {
     color: #fff;
 }
 
-.step:hover {
-    color: #e24fff;
-    text-decoration: none
-}
-
-.step:hover .step-indicator {
-    -webkit-transition: all 0.25s ease-in-out;
-    transition: all 0.25s ease-in-out;
-    border-color: transparent;
-    background-color: #f4f4f4
-}
-
-.step:hover .step-icon {
-    color: #e24fff;
-}
 
 .step-active,
 .step-active:hover {
