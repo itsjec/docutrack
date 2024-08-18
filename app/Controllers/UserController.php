@@ -65,34 +65,59 @@ class UserController extends BaseController
     }
 
 
-
     public function viewdetails()
     {
         $trackingNumber = $this->request->getVar('tracking_number');
-
+    
+        // Fetch the document based on the tracking number
         $documentModel = new DocumentModel();
         $document = $documentModel->where('tracking_number', $trackingNumber)->first();
-
+    
+        if (!$document) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Document not found");
+        }
+    
+        // Fetch the workflow history for the document
         $workflowModel = new DocumentHistoryModel();
         $workflow_history = $workflowModel->where('document_id', $document['document_id'])->findAll();
-
+    
+        // Fetch all users
         $adminModel = new UserModel();
         $admins = $adminModel->findAll();
-
+    
+        // Fetch all offices
         $officeModel = new OfficeModel();
-        $office = $officeModel->find($document['recipient_id']);
-
+        $offices = $officeModel->findAll();
+    
+        // Map users and offices by ID for easy access
+        $userMap = [];
+        foreach ($admins as $admin) {
+            $userMap[$admin['user_id']] = $admin;
+        }
+    
+        $officeMap = [];
+        foreach ($offices as $office) {
+            $officeMap[$office['office_id']] = $office;
+        }
+    
+        // Fetch the recipient's office details
+        $recipientOffice = $officeModel->find($document['recipient_id']);
+    
+        // Prepare data for the view
         $data = [
             'tracking_number' => $trackingNumber,
             'workflow_history' => $workflow_history,
             'title' => $document['title'],
-            'admins' => $admins,
-            'office' => $office,
+            'admins' => $userMap, // Use the mapped user data
+            'offices' => $officeMap, // Use the mapped office data
+            'recipient_office' => $recipientOffice ? $recipientOffice['office_name'] : 'Unknown Office',
         ];
-
+    
         return view('Users/ViewDetails', $data);
     }
-
+    
+    
+       
     public function guestsearchResults()
     {
         $request = \Config\Services::request();
