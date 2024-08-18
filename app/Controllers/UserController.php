@@ -11,6 +11,7 @@ use App\Models\DocumentHistoryModel;
 
 class UserController extends BaseController
 {
+    
     public function index()
     {
         return view('Users/Index');
