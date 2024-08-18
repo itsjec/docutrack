@@ -360,22 +360,40 @@ class AdminController extends BaseController
     public function save()
     {
         $model = new OfficeModel();
-
+    
         $validation = \Config\Services::validation();
         $validation->setRules([
             'officeName' => 'required',
         ]);
-
+    
         if (!$validation->withRequest($this->request)->run()) {
-            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => $validation->getErrors(),
+            ]);
         }
-
+    
+        $officeName = $this->request->getPost('officeName');
+        $existingOffice = $model->where('office_name', $officeName)->first();
+    
+        if ($existingOffice) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Department already existed. Please add a new one.',
+            ]);
+        }
+    
         $model->save([
-            'office_name' => $this->request->getPost('officeName'),
+            'office_name' => $officeName,
         ]);
-
-        return redirect()->back();
+    
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Department added successfully.',
+        ]);
     }
+    
+    
 
     public function saveOfficeUser()
     {

@@ -95,6 +95,7 @@ $('#addOfficeBtn').click(function () {
             success: function (response) {
                 console.log('User deactivated successfully');
                 // You can update the UI or perform other actions as needed
+                location.reload();
             },
             error: function (xhr, status, error) {
                 console.error('Error deactivating user:', error);

@@ -15,11 +15,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Manage Guest Users</h4>
+                        <h4 class="card-title">Manage Client Users</h4>
                         <p class="card-description">Track and update users.</p>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add Client</button>
                     </div>
                 </div>
                 <div class="table-responsive">

@@ -15,10 +15,10 @@
         <div class="collapse" id="ui-basic">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('manageuser') ?>">Manage Office Users</a>
+                    <a class="nav-link" href="<?= site_url('manageuser') ?>">Manage Department Users</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('manageguest') ?>">Manage Guest Users</a>
+                    <a class="nav-link" href="<?= site_url('manageguest') ?>">Manage Client Users</a>
                 </li>
             </ul>
         </div>

@@ -15,11 +15,11 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Manage Office Users</h4>
+                        <h4 class="card-title">Manage Department Users</h4>
                         <p class="card-description">Track and update users.</p>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add User</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add Department User</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -28,7 +28,7 @@
                             <tr>
                                 <th>Username</th>
                                 <th>Image</th>
-                                <th>Office Name</th>
+                                <th>Department Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -114,7 +114,7 @@
                 <form id="editUserForm" action="<?= site_url('officeusers/update') ?>" method="post">
                     <input type="hidden" id="editUserId" name="userId">
                     <div class="form-group">
-                        <label for="editOfficeId">Office</label>
+                        <label for="editOfficeId">Department</label>
                         <select class="form-control" id="editOfficeId" name="officeId" disabled>
                             <?php foreach ($offices as $office): ?>
                                 <option value="<?= $office['office_id'] ?>" <?= ($office['office_id'] == session('office_id')) ? 'selected' : '' ?>>
@@ -155,7 +155,7 @@
             <div class="modal-body">
                 <form id="addUserForm" action="<?= site_url('officeusers/save') ?>" method="post">
                 <div class="form-group">
-                    <label for="OfficeId">Office</label>
+                    <label for="OfficeId">Department</label>
                     <select class="form-control" id="OfficeId" name="officeId" disabled>
                         <?php foreach ($offices as $office): ?>
                             <option value="<?= $office['office_id'] ?>" <?= ($office['office_id'] == session('office_id')) ? 'selected' : '' ?>>

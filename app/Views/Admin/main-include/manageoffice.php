@@ -16,18 +16,18 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Manage Offices</h4>
-                        <p class="card-description">Track and update offices.</p>
+                        <h4 class="card-title">Manage Departments</h4>
+                        <p class="card-description">Track and update departments.</p>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addOfficeModal">Add Office</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addOfficeModal">Add New Department</button>
                     </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Office Name</th>
+                                <th>Department Name</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -101,7 +101,6 @@
                     </div>
                 </div>
 
-                <!-- Modal -->
                 <div class="modal fade" id="addOfficeModal" tabindex="-1" role="dialog" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -112,6 +111,10 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+                                <!-- Flashdata Messages -->
+                                <div id="flash-message"></div>
+
+                                <!-- Add Office Form -->
                                 <form id="addOfficeForm" action="<?= site_url('offices/save') ?>" method="post">
                                     <div class="form-group">
                                         <label for="officeName">Office Name</label>

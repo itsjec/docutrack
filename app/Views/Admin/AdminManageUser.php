@@ -75,7 +75,6 @@ $('#addOfficeBtn').click(function () {
         }
     });
 
-    
     $(document).ready(function () {
     var userIdToDeactivate;
 
@@ -91,7 +90,8 @@ $('#addOfficeBtn').click(function () {
             data: { userId: userIdToDeactivate },
             success: function (response) {
                 console.log('User deactivated successfully');
-                // You can update the UI or perform other actions as needed
+                // Reload the page after success
+                location.reload();
             },
             error: function (xhr, status, error) {
                 console.error('Error deactivating user:', error);
@@ -101,6 +101,7 @@ $('#addOfficeBtn').click(function () {
         $('#deactivateUserModal').modal('hide');
     });
 });
+
 
 
     $(document).ready(function () {

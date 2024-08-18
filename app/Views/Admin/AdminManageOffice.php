@@ -91,6 +91,28 @@ $('#addOfficeBtn').click(function () {
     });
 });
 
+$(document).ready(function() {
+        $('#addOfficeForm').submit(function(e) {
+            e.preventDefault(); 
+
+            $.ajax({
+                url: $(this).attr('action'),
+                type: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'error') {
+                        $('#flash-message').html('<div class="alert alert-danger">' + response.message + '</div>');
+                    } else if (response.status === 'success') {
+                        $('#flash-message').html('<div class="alert alert-success">' + response.message + '</div>');
+                        $('#addOfficeForm')[0].reset(); 
+                        $('#addOfficeModal').modal('hide'); 
+                        location.reload();
+                    }
+                }
+            });
+        });
+    });
 </script>
 
 
