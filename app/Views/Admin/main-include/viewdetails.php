@@ -54,7 +54,7 @@
                 <div class="d-sm-flex flex-wrap justify-content-between align-items-center text-center pt-4">
                     <div class="custom-control custom-checkbox mt-2 mr-3">
                         <input class="custom-control-input" type="checkbox" id="notify-me" checked>
-                        <a class="btn btn-primary" href="adminindex" data-toggle="modal" style="background: linear-gradient(45deg, #9a2db9, #b715a6); border: none">Return Home</a>
+                        <a class="btn btn-primary" href="adminkiosk" data-toggle="modal" style="background: linear-gradient(45deg, #9a2db9, #b715a6); border: none">Return Home</a>
                     </div>
                 </div>
             </div>
