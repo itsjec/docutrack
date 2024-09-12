@@ -54,6 +54,12 @@
                     <h4>New here?</h4>
                     <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
                     <form class="pt-3" action="<?= site_url('register') ?>" method="POST">
+                    <?php if (isset($validation)) : ?>
+                        <div class="alert alert-danger">
+                            <?= $validation->getError('email') ?>
+                        </div>
+                    <?php endif; ?>
+
                         <div class="form-group">
                             <input type="text" class="form-control form-control-lg" id="first_name" name="first_name" placeholder="First Name">
                         </div>

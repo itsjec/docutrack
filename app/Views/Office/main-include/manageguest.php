@@ -15,37 +15,37 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Manage Department Users</h4>
+                        <h4 class="card-title">Manage Client Users</h4>
                         <p class="card-description">Track and update users.</p>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add Department User</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add Client</button>
                     </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Username</th>
-                                <th>Image</th>
-                                <th>Department Name</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($users as $user): ?>
+                        <?php foreach ($guestUsers as $user): ?>
                             <tr>
-                                <td><?= $user['username'] ?></td>
-                                <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
-                                <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
+                                <td><?= $user['first_name'] ?></td>
+                                <td><?= $user['last_name'] ?></td>
+                                <td><?= $user['email'] ?></td>
                                 <td>
-                                <a href="#editUserModal" class="btn btn-sm btn-primary edit-btn"
-                                        data-toggle="modal"
-                                        data-user-id="<?= $user['user_id'] ?>"
-                                        data-office-id="<?= $user['office_id'] ?>"
-                                        data-email="<?= $user['email'] ?>"
-                                        data-username="<?= $user['username'] ?>"
-                                        data-password="<?= $user['password'] ?>">
+                                    <a href="#" class="btn btn-sm btn-primary edit-btn" 
+                                        data-toggle="modal" 
+                                        data-target="#editUserModal" 
+                                        data-userid="<?= $user['user_id'] ?>" 
+                                        data-firstname="<?= $user['first_name'] ?>" 
+                                        data-lastname="<?= $user['last_name'] ?>" 
+                                        data-email="<?= $user['email'] ?>">
                                         <i class="mdi mdi-pencil"></i> Edit
                                     </a>
                                     <a href="#" class="btn btn-sm <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'btn-success' : 'btn-danger' ?> deactivate-btn" 
@@ -57,8 +57,7 @@
                                     </a>
                                 </td>
                             </tr>
-
-                            <!-- Activate User Modal -->
+                        <!-- Activate User Modal -->
                             <div class="modal fade" id="activateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="activateUserModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
@@ -108,27 +107,8 @@
         </div>
     </div>
 </div>
-
-
-<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete this user?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <a id="deleteUserButton" href="<?= base_url('delete/' . $user['user_id']) ?>" class="btn btn-danger">Delete</a>
-            </div>
-        </div>
-    </div>
 </div>
+
 
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -140,28 +120,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editUserForm" action="<?= site_url('officeusers/update') ?>" method="post">
-                    <input type="hidden" id="editUserId" name="userId">
+                <form id="editUserForm" action="<?= site_url('updateofficeguest') ?>" method="post">
+                <input type="hidden" id="editUserId" name="userId">
                     <div class="form-group">
-                        <label for="editOfficeId">Department</label>
-                        <select class="form-control" id="editOfficeId" name="officeId" disabled>
-                            <?php foreach ($offices as $office): ?>
-                                <option value="<?= $office['office_id'] ?>" <?= ($office['office_id'] == session('office_id')) ? 'selected' : '' ?>>
-                                    <?= $office['office_name'] ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                        <label for="editFirstName">First Name</label>
+                        <input type="text" class="form-control" id="editFirstName" name="firstName" placeholder="Enter first name" required>
                     </div>
-
                     <div class="form-group">
-                        <label for="editUsername">Username</label>
-                        <input type="text" class="form-control" id="editUsername" name="username" placeholder="Enter username" required>
+                        <label for="editLastName">Last Name</label>
+                        <input type="text" class="form-control" id="editLastName" name="lastName" placeholder="Enter last name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" class="form-control" id="editEmail" name="email" placeholder="Enter email" required>
                     </div>
                     <div class="form-group">
                         <label for="editPassword">Password</label>
-                        <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter new password">
+                        <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter password">
+                        <meter max="4" id="editPassword-strength-meter"></meter>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Update</button>
@@ -172,6 +149,8 @@
     </div>
 </div>
 
+
+<!-- Modal HTML -->
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -182,31 +161,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div id="modal-message" class="mb-3"></div> <!-- Error message will be displayed here -->
-                <form id="addUserForm" action="<?= site_url('users/save') ?>" method="post">
+                <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
+                
+                <form id="addUserForm" method="post">
                     <div class="form-group">
-                        <label for="officeId">Office</label>
-                        <select class="form-control" id="officeId" name="officeId">
-                            <?php foreach ($offices as $office): ?>
-                                <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
+                        <div class="row">
+                            <div class="col">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+                            </div>
+                            <div class="col">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
                             </div>
                             <div class="col">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
                                 <meter max="4" id="password-strength-meter"></meter>
-                                <p id="password-strength-text"></p>
                             </div>
                         </div>
                     </div>
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -217,67 +199,83 @@
     </div>
 </div>
 
+
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
 
+<!-- JavaScript for password strength meter -->
 <script>
     document.getElementById('password').addEventListener('input', function () {
         var password = document.getElementById('password').value;
         var result = zxcvbn(password);
         var meter = document.getElementById('password-strength-meter');
-        var text = document.getElementById('password-strength-text');
 
         meter.value = result.score;
-        
-        var strength = "";
         switch (result.score) {
             case 0:
-                strength = "Very Weak";
                 meter.style.color = 'red';
                 break;
             case 1:
-                strength = "Weak";
                 meter.style.color = 'orange';
                 break;
             case 2:
-                strength = "Fair";
                 meter.style.color = 'yellow';
                 break;
             case 3:
-                strength = "Good";
-                meter.style.color = 'lightgreen';
-                break;
-            case 4:
-                strength = "Strong";
                 meter.style.color = 'green';
                 break;
+            case 4:
+                meter.style.color = 'darkgreen';
+                break;
         }
+    });
 
-        text.textContent = "Password Strength: " + strength;
+
+    document.getElementById('editPassword').addEventListener('input', function () {
+        var password = document.getElementById('editPassword').value;
+        var result = zxcvbn(password);
+        var meter = document.getElementById('editPassword-strength-meter');
+
+        meter.value = result.score;
+        switch (result.score) {
+            case 0:
+                meter.style.color = 'red';
+                break;
+            case 1:
+                meter.style.color = 'orange';
+                break;
+            case 2:
+                meter.style.color = 'yellow';
+                break;
+            case 3:
+                meter.style.color = 'green';
+                break;
+            case 4:
+                meter.style.color = 'darkgreen';
+                break;
+        }
     });
 
     $(document).ready(function() {
         $('#addUserForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent the form from submitting the traditional way
-            
+            event.preventDefault(); 
+
             $.ajax({
-                url: $(this).attr('action'),
-                method: 'POST',
+                url: '<?= site_url('saveguest') ?>',
+                type: 'POST',
                 data: $(this).serialize(),
-                dataType: 'json',
                 success: function(response) {
                     if (response.error) {
-                        $('#modal-message').html('<div class="alert alert-danger">' + response.error + '</div>');
-                    } else if (response.success) {
-                        $('#modal-message').html('<div class="alert alert-success">' + response.success + '</div>');
-                        setTimeout(function() {
-                            $('#addUserModal').modal('hide');
-                            location.reload(); // Reload the page
-                        }, 2000);
+                        $('#errorMessages').text(response.error).show();
+                    } else {
+                        $('#errorMessages').hide();
+                        $('#addUserModal').modal('hide');
+                        window.location.href = '<?= site_url('manageguest') ?>';
                     }
                 },
                 error: function() {
-                    $('#modal-message').html('<div class="alert alert-danger">An error occurred. Please try again.</div>');
+                    $('#errorMessages').text('An unexpected error occurred. Please try again.').show();
                 }
             });
         });
@@ -324,6 +322,23 @@
                     alert('An error occurred.');
                 }
             });
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.edit-btn').on('click', function(){
+            var userId = $(this).data('userid');
+            var firstName = $(this).data('firstname');
+            var lastName = $(this).data('lastname');
+            var email = $(this).data('email');
+
+            $('#editUserId').val(userId);
+            $('#editFirstName').val(firstName);
+            $('#editLastName').val(lastName);
+            $('#editEmail').val(email);
         });
     });
 </script>

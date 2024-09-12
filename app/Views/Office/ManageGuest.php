@@ -89,11 +89,12 @@ $('#addOfficeBtn').click(function () {
 
     $('#confirmDeactivate').click(function () {
         $.ajax({
-            url: 'deactivateUser',
+            url: 'deactivateUser', // Update with your backend endpoint
             method: 'POST',
             data: { userId: userIdToDeactivate },
             success: function (response) {
                 console.log('User deactivated successfully');
+                // You can update the UI or perform other actions as needed
                 location.reload();
             },
             error: function (xhr, status, error) {

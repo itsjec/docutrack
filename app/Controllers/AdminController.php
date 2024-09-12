@@ -241,52 +241,67 @@ class AdminController extends BaseController
     return view('LogIn');
 }
 
-        public function register()
-    {
-        helper(['form']);
-    
-        if ($this->request->getMethod() === 'post') {
-    
-            $rules = [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'email' => 'required|valid_email|is_unique[users.email]',
-                'password' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/]',
-            ];
-    
-            $errors = [
-                'password' => [
-                    'regex_match' => 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.'
-                ]
-            ];
-    
-            if (!$this->validate($rules, $errors)) {
+public function register()
+{
+    helper(['form']);
+
+    if ($this->request->getMethod() === 'post') {
+
+        $rules = [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|valid_email',
+            'password' => 'required|min_length[8]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/]',
+        ];
+
+        $errors = [
+            'password' => [
+                'regex_match' => 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.'
+            ]
+        ];
+
+        if (!$this->validate($rules, $errors)) {
+            $data['validation'] = $this->validator;
+        } else {
+
+            $email = $this->request->getVar('email');
+
+            // Check if a user with role 'guest' and the same email already exists
+            $userModel = new UserModel();
+            $existingUser = $userModel->where('email', $email)
+                                      ->where('role', 'guest')
+                                      ->first();
+
+            if ($existingUser) {
+                // Add error message to the validation array
                 $data['validation'] = $this->validator;
+                $data['validation']->setError('email', 'Account already exists.');
             } else {
-    
                 $imagePath = '';
-    
+
                 $userData = [
                     'first_name' => $this->request->getVar('first_name'),
                     'last_name' => $this->request->getVar('last_name'),
-                    'email' => $this->request->getVar('email'),
+                    'email' => $email,
                     'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
                     'picture_path' => $imagePath,
                     'role' => 'guest',
                     'office_id' => null,
-                    'username' => $this->request->getVar('email'),
+                    'username' => $email,
                 ];
-    
-                $userModel = new UserModel();
+
                 $userModel->insert($userData);
-    
+
                 return redirect()->to('/');
             }
         }
-    
-        return view('Register');
+
+        return view('Register', $data);
     }
-    
+
+    return view('Register');
+}
+
     
     public function manageoffice()
     {
@@ -300,9 +315,8 @@ class AdminController extends BaseController
     public function manageguest()
     {
         $userModel = new UserModel();
-        $data['guestUsers'] = $userModel->select('user_id, first_name, last_name, email, picture_path')
+        $data['guestUsers'] = $userModel->select('user_id, first_name, last_name, email, picture_path, status')
             ->where('role', 'guest')
-            ->where('status', 'activate')
             ->findAll();
     
         return view('Admin/AdminManageGuest', $data);
@@ -312,33 +326,40 @@ class AdminController extends BaseController
     public function saveguest()
     {
         $userModel = new UserModel();
-    
+        
         $firstName = $this->request->getPost('firstName');
         $lastName = $this->request->getPost('lastName');
         $email = $this->request->getPost('email');
         $password = $this->request->getPost('password');
     
-        // Password complexity check
         if (!preg_match('/[A-Z]/', $password) || 
             !preg_match('/[a-z]/', $password) || 
             !preg_match('/[0-9]/', $password) ||
             strlen($password) < 8) {
-            return redirect()->back()->with('error', 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.');
+            return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
         }
     
-        $userData = [
-            'first_name' => $firstName,
-            'last_name' => $lastName,
-            'email' => $email,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'office_id' => null,
-            'image' => '',
-            'role' => 'guest',
-        ];
+        $existingUser = $userModel->where('email', $email)
+                                  ->where('role', 'guest')
+                                  ->first();
     
-        $userModel->insert($userData);
-    
-        return redirect()->to('manageguest')->with('success', 'Guest user added successfully.');
+        if ($existingUser) {
+            return $this->response->setJSON(['error' => 'Account already exists. Please add a new one.']);
+        } else {
+            $userData = [
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email,
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'office_id' => null,
+                'image' => '', 
+                'role' => 'guest',
+            ];
+        
+            $userModel->insert($userData);
+        
+            return $this->response->setJSON(['success' => 'Guest user added successfully.']);
+        }
     }
     
     public function manageuser()
@@ -347,7 +368,6 @@ class AdminController extends BaseController
         $users = $userModel->select('users.*, offices.office_name')
             ->join('offices', 'offices.office_id = users.office_id', 'left')
             ->whereIn('users.role', ['admin', 'office user']) 
-            ->where('users.status', 'activate') 
             ->findAll();
     
         $officeModel = new OfficeModel();
@@ -399,7 +419,7 @@ class AdminController extends BaseController
     {
         $userModel = new UserModel();
         $officeModel = new OfficeModel();
-    
+        
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
         $officeId = $this->request->getPost('officeId');
@@ -408,12 +428,20 @@ class AdminController extends BaseController
             !preg_match('/[a-z]/', $password) || 
             !preg_match('/[0-9]/', $password) ||
             strlen($password) < 8) {
-            return redirect()->back()->with('error', 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.');
+            return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
         }
     
         $office = $officeModel->find($officeId);
         if (!$office) {
-            return redirect()->back()->with('error', 'Office not found.');
+            return $this->response->setJSON(['error' => 'Office not found.']);
+        }
+    
+        $existingUser = $userModel->where('username', $username)
+                                  ->orWhere('email', $username)
+                                  ->first();
+                                  
+        if ($existingUser) {
+            return $this->response->setJSON(['error' => 'Account already exists. Please add new username and password.']);
         }
     
         $userData = [
@@ -427,8 +455,9 @@ class AdminController extends BaseController
     
         $userModel->insert($userData);
     
-        return redirect()->to('manageuser')->with('success', 'Office user added successfully.');
+        return $this->response->setJSON(['success' => 'Office user added successfully.']);
     }
+    
     
     public function managedocument()
     {
@@ -1424,15 +1453,6 @@ public function updateClassificationName()
     return redirect()->to('maintenance'); 
 }
 
-public function deactivateUser()
-{
-    $userId = $this->request->getPost('userId');
-
-    $userModel = new UserModel();
-    $userModel->update($userId, ['status' => 'deactivate']);
-
-    return $this->response->setJSON(['message' => 'User deactivated successfully']);
-}
 
 public function fetchVersionsByTitle()
 {
@@ -1459,4 +1479,110 @@ public function fetchVersionsByTitle()
         return redirect()->to('/'); // Adjust the redirect as needed
     }
 
+    public function adminindex()
+    {
+        return view('Admin/AdminIndex');
+    }
+
+    public function searchResults()
+    {
+        $request = \Config\Services::request();
+        $trackingNumber = $request->getPost('tracking_number');
+
+        $documentModel = new DocumentModel();
+        $document = $documentModel->select('tracking_number, title')
+        ->where('tracking_number', $trackingNumber)
+        ->first();
+
+
+        $officeModel = new OfficeModel();
+        $office = null;
+        if ($document && isset($document['recipient_id'])) {
+            $office = $officeModel->where('office_id', $document['recipient_id'])->first();
+        }
+
+        $progressPercentage = 0;
+        if ($document && isset($document['status'])) {
+            switch ($document['status']) {
+                case 'pending':
+                    $progressPercentage = 25;
+                    break;
+                case 'received':
+                    $progressPercentage = 50;
+                    break;
+                case 'on process':
+                    $progressPercentage = 75;
+                    break;
+                case 'completed':
+                    $progressPercentage = 100;
+                    break;
+            }
+        }
+
+        return view('Admin/AdminSearchResult', ['document' => $document, 'office' => $office, 'progressPercentage' => $progressPercentage]);
+    }
+
+    public function viewdetails()
+    {
+        $trackingNumber = $this->request->getVar('tracking_number');
+    
+        $documentModel = new DocumentModel();
+        $document = $documentModel->where('tracking_number', $trackingNumber)->first();
+    
+        if (!$document) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException("Document not found");
+        }
+    
+        $workflowModel = new DocumentHistoryModel();
+        $workflow_history = $workflowModel->where('document_id', $document['document_id'])->findAll();
+
+        $adminModel = new UserModel();
+        $admins = $adminModel->findAll();
+    
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->findAll();
+    
+        $userMap = [];
+        foreach ($admins as $admin) {
+            $userMap[$admin['user_id']] = $admin;
+        }
+    
+        $officeMap = [];
+        foreach ($offices as $office) {
+            $officeMap[$office['office_id']] = $office;
+        }
+    
+        $recipientOffice = $officeModel->find($document['recipient_id']);
+    
+        $data = [
+            'tracking_number' => $trackingNumber,
+            'workflow_history' => $workflow_history,
+            'title' => $document['title'],
+            'admins' => $userMap, // Use the mapped user data
+            'offices' => $officeMap, // Use the mapped office data
+            'recipient_office' => $recipientOffice ? $recipientOffice['office_name'] : 'Unknown Office',
+        ];
+    
+        return view('Admin/AdminViewDetails', $data);
+    }
+
+    public function activateUser()
+    {
+        $userId = $this->request->getPost('user_id');
+        $model = new UserModel();
+
+        $model->update($userId, ['status' => 'activate']);
+
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function deactivateUser()
+    {
+        $userId = $this->request->getPost('user_id');
+        $model = new UserModel();
+
+        $model->update($userId, ['status' => 'deactivate']);
+
+        return $this->response->setJSON(['status' => 'success']);
+    }
 }

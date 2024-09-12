@@ -48,14 +48,57 @@
                                         data-password="<?= $user['password'] ?>">
                                         <i class="mdi mdi-pencil"></i> Edit
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-danger deactivate-btn" 
+                                    <a href="#" class="btn btn-sm <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'btn-success' : 'btn-danger' ?> deactivate-btn" 
                                         data-toggle="modal" 
-                                        data-target="#deactivateUserModal" 
+                                        data-target="#<?= isset($user['status']) && $user['status'] == 'deactivate' ? 'activateUserModal_'.$user['user_id'] : 'deactivateUserModal_'.$user['user_id']?>"
                                         data-userid="<?= $user['user_id'] ?>">
-                                        <i class="mdi mdi-close"></i> Deactivate
+                                            <i class="mdi <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'mdi-check' : 'mdi-close' ?>"></i>
+                                            <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'Activate' : 'Deactivate' ?>
                                     </a>
                                 </td>
                             </tr>
+
+                            <!-- Activate User Modal -->
+                            <div class="modal fade" id="activateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="activateUserModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="activateUserModalLabel">Activate User</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to activate this user?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-success" id="confirmActivate_<?= $user['user_id'] ?>" data-userid="<?= $user['user_id'] ?>">Activate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Deactivate User Modal -->
+                            <div class="modal fade" id="deactivateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deactivateUserModalLabel">Deactivate User</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to deactivate this user?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="button" class="btn btn-danger" id="confirmDeactivate_<?= $user['user_id'] ?>" data-userid="<?= $user['user_id'] ?>">Deactivate</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         <?php endforeach; ?>
                         </tbody>
                     </table>
@@ -65,27 +108,6 @@
     </div>
 </div>
 
-
-<!-- Deactivate User Modal -->
-<div class="modal fade" id="deactivateUserModal" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deactivateUserModalLabel">Deactivate User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to deactivate this user?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmDeactivate">Deactivate</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -136,6 +158,7 @@
                 </button>
             </div>
             <div class="modal-body">
+                <div id="modal-message" class="mb-3"></div> <!-- Error message will be displayed here -->
                 <form id="addUserForm" action="<?= site_url('users/save') ?>" method="post">
                     <div class="form-group">
                         <label for="officeId">Office</label>
@@ -169,6 +192,7 @@
         </div>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
@@ -207,6 +231,77 @@
         }
 
         text.textContent = "Password Strength: " + strength;
+    });
+
+    $(document).ready(function() {
+        $('#addUserForm').on('submit', function(event) {
+            event.preventDefault();
+            
+            $.ajax({
+                url: $(this).attr('action'),
+                method: 'POST',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function(response) {
+                    if (response.error) {
+                        $('#modal-message').html('<div class="alert alert-danger">' + response.error + '</div>');
+                    } else if (response.success) {
+                        $('#modal-message').html('<div class="alert alert-success">' + response.success + '</div>');
+                        setTimeout(function() {
+                            $('#addUserModal').modal('hide');
+                            location.reload(); 
+                        }, 2000);
+                    }
+                },
+                error: function() {
+                    $('#modal-message').html('<div class="alert alert-danger">An error occurred. Please try again.</div>');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('body').on('click', '[id^=confirmActivate_]', function() {
+            var userId = $(this).data('userid');
+
+            $.ajax({
+                url: '<?= site_url('user/activate') ?>',
+                type: 'POST',
+                data: { user_id: userId },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Failed to activate user.');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred.');
+                }
+            });
+        });
+    });
+
+    $(document).ready(function() {
+        $('body').on('click', '[id^=confirmDeactivate_]', function() {
+            var userId = $(this).data('userid');
+
+            $.ajax({
+                url: '<?= site_url('user/deactivate') ?>',
+                type: 'POST',
+                data: { user_id: userId },
+                success: function(response) {
+                    if (response.status === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Failed to deactivate user.');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred.');
+                }
+            });
+        });
     });
 </script>
 

@@ -55,6 +55,14 @@ $routes->post('deactivateUser', 'AdminController::deactivateUser');
 $routes->get('documents/fetchVersionsByTitle', 'AdminController::fetchVersionsByTitle');
 $routes->get('kiosk', 'AdminController::kiosk');
 $routes->get('searchkiosk', 'AdminController::searchkiosk');
+$routes->get('adminkiosk', 'AdminController::adminindex');
+$routes->post('searchResults', 'AdminController::searchResults');
+$routes->get('viewdetails', 'AdminController::viewdetails');
+$routes->post('user/activate', 'AdminController::activateUser');
+$routes->post('user/deactivate', 'AdminController::deactivateUser');
+
+
+
 
 
 
@@ -119,6 +127,11 @@ $routes->get('manageofficeuser', 'OfficeController::manageofficeuser', ['filter'
 $routes->get('manageclient', 'OfficeController::manageclient', ['filter' => 'authfilter']);
 $routes->post('officeusers/update', 'OfficeController::updateOfficeUser');
 $routes->post('officeusers/save', 'OfficeController::saveOfficeUser');
+$routes->get('manageofficeguest', 'OfficeController::manageguest', ['filter' => 'authfilter']);
+$routes->post('saveguest', 'OfficeController::saveguest');
+$routes->post('updateofficeguest', 'OfficeController::updateUser');
+$routes->post('user/activateUser', 'OfficeController::activateguestUser');
+$routes->post('user/deactivateUser', 'OfficeController::deactivateguestUser');
 
 
 
@@ -137,17 +150,17 @@ $routes->post('officeusers/save', 'OfficeController::saveOfficeUser');
 $routes->get('track', 'UserController::track');
 //hagtod
 
-$routes->get('userindex', 'UserController::index', ['filter' => 'authfilter']);
+$routes->get('userindex', 'UserController::index');
 $routes->post('searchResults', 'UserController::searchResults');
-$routes->get('indexloggedin', 'UserController::indexloggedin', ['filter' => 'authfilter']);
+$routes->get('indexloggedin', 'UserController::indexloggedin');
 $routes->post('adminsearchResults', 'UserController::searchResults', ['as' => 'adminsearchResults']);
 $routes->get('viewdetails', 'UserController::viewdetails');
-$routes->get('adminviewdetails', 'UserController::viewdetails', ['filter' => 'authfilter']);
+$routes->get('adminviewdetails', 'UserController::viewdetails');
 
 $routes->post('searchguestResults', 'UserController::guestsearchResults', ['as' => 'searchguestResults']);
-$routes->get('guestviewdetails', 'UserController::guestviewdetails', ['filter' => 'authfilter']);
+$routes->get('guestviewdetails', 'UserController::guestviewdetails');
 $routes->post('guestsearchResults', 'UserController::guestsearchResults');
-$routes->get('transactions', 'UserController::transaction', ['filter' => 'authfilter']);
+$routes->get('transactions', 'UserController::transaction');
 
 
 

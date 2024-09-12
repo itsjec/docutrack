@@ -1485,7 +1485,6 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             ->join('offices', 'offices.office_id = users.office_id', 'left')
             ->where('users.office_id', $officeId)
             ->whereIn('users.role', ['admin', 'office user']) 
-            ->where('users.status', 'activate') 
             ->findAll();
     
         $data['offices'] = $officeModel->findAll();
@@ -1537,33 +1536,149 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     }
 
     public function saveOfficeUser()
-{
-    $userModel = new UserModel();
-    
-    $username = $this->request->getPost('username');
-    $password = $this->request->getPost('password');
-    $officeId = session('office_id');  // Fetch the logged-in user's office_id
-    
-    if (!preg_match('/[A-Z]/', $password) || 
-        !preg_match('/[a-z]/', $password) || 
-        !preg_match('/[0-9]/', $password) ||
-        strlen($password) < 8) {
-        return redirect()->back()->with('error', 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.');
+    {
+        $userModel = new UserModel();
+        $officeModel = new OfficeModel();
+        
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+        $officeId = $this->request->getPost('officeId');
+
+        if (!preg_match('/[A-Z]/', $password) || 
+            !preg_match('/[a-z]/', $password) || 
+            !preg_match('/[0-9]/', $password) ||
+            strlen($password) < 8) {
+            return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
+        }
+
+        $office = $officeModel->find($officeId);
+        if (!$office) {
+            return $this->response->setJSON(['error' => 'Office not found.']);
+        }
+
+        $existingUser = $userModel->where('username', $username)
+                                ->orWhere('email', $username)
+                                ->first();
+                                
+        if ($existingUser) {
+            return $this->response->setJSON(['error' => 'Account already exists. Please add new username and password.']);
+        }
+
+        $userData = [
+            'username' => $username,
+            'email' => $username,
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'office_id' => $officeId,
+            'image' => '',
+            'role' => 'office user',
+        ];
+
+        $userModel->insert($userData);
     }
 
-    $userData = [
-        'username' => $username,
-        'email' => $username,
-        'password' => password_hash($password, PASSWORD_DEFAULT),
-        'office_id' => $officeId,  // Use the logged-in user's office_id
-        'image' => '',
-        'role' => 'office user',
-    ];
+    public function manageguest()
+    {
+        $officeId = session('office_id');
+    
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        if ($office) {
+            $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
+        } else {
+            $office_name = 'No Office Found';
+        }
 
-    $userModel->insert($userData);
+        $userModel = new UserModel();
+        $data['guestUsers'] = $userModel->select('user_id, first_name, last_name, email, picture_path,status')
+            ->where('role', 'guest')
+            ->findAll();
 
-    return redirect()->to('manageofficeuser')->with('success', 'Office user added successfully.');
-}
+                
+        $data['offices'] = $officeModel->findAll();
+        $data['office_name'] = $office_name;
+    
+        return view('Office/ManageGuest', $data);
+    }
+
+    public function saveguest()
+    {
+        $userModel = new UserModel();
+        
+        $firstName = $this->request->getPost('firstName');
+        $lastName = $this->request->getPost('lastName');
+        $email = $this->request->getPost('email');
+        $password = $this->request->getPost('password');
+    
+        if (!preg_match('/[A-Z]/', $password) || 
+            !preg_match('/[a-z]/', $password) || 
+            !preg_match('/[0-9]/', $password) ||
+            strlen($password) < 8) {
+            return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
+        }
+    
+        $existingUser = $userModel->where('email', $email)
+                                  ->where('role', 'guest')
+                                  ->first();
+    
+        if ($existingUser) {
+            return $this->response->setJSON(['error' => 'Account already exists. Please add a new one.']);
+        } else {
+            $userData = [
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email,
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'office_id' => null,
+                'image' => '', 
+                'role' => 'guest',
+            ];
+        
+            $userModel->insert($userData);
+        
+            return $this->response->setJSON(['success' => 'Guest user added successfully.']);
+        }
+    }
+
+    public function updateUser()
+    {
+        $userId = $this->request->getPost('userId');
+        $userModel = new UserModel();
+    
+        $userData = [
+            'first_name' => $this->request->getPost('firstName'),
+            'last_name' => $this->request->getPost('lastName'),
+            'email' => $this->request->getPost('email'),
+        ];
+    
+        $password = $this->request->getPost('password');
+        if (!empty($password)) {
+            $userData['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+    
+        $userModel->update($userId, $userData);
+    
+        return redirect()->to('manageofficeguest');
+    }
+
+    public function activateguestUser()
+    {
+        $userId = $this->request->getPost('user_id');
+        $model = new UserModel();
+
+        $model->update($userId, ['status' => 'activate']);
+
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function deactivateguestUser()
+    {
+        $userId = $this->request->getPost('user_id');
+        $model = new UserModel();
+
+        $model->update($userId, ['status' => 'deactivate']);
+
+        return $this->response->setJSON(['status' => 'success']);
+    }
 
 }
 

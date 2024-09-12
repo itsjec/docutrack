@@ -32,10 +32,10 @@
         <div class="collapse" id="form-elements">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('manageofficedocument') ?>">Manage Office Documents</a>
+                    <a class="nav-link" href="<?= site_url('manageofficedocument') ?>">Manage Department Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('managedocument') ?>">Manage Guest Documents</a>
+                    <a class="nav-link" href="<?= site_url('managedocument') ?>">Manage Client Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('viewtransactions') ?>">View Transactions</a>
@@ -58,7 +58,7 @@
         <div class="collapse" id="charts">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('manageoffice') ?>">Manage Office</a>
+                    <a class="nav-link" href="<?= site_url('manageoffice') ?>">Manage Department</a>
                 </li>
             </ul>
         </div>

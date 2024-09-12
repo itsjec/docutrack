@@ -7,10 +7,21 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="<?= site_url('manageofficeuser') ?>">
-        <i class="typcn typcn-user-outline menu-icon"></i>
+        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <i class="typcn typcn-user-outline menu-icon"></i>
             <span class="menu-title">Add User</span>
+            <i class="menu-arrow"></i>
         </a>
+        <div class="collapse" id="ui-basic">
+            <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('manageofficeuser') ?>">Manage Department Users</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= site_url('manageofficeguest') ?>">Manage Client Users</a>
+                </li>
+            </ul>
+        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
