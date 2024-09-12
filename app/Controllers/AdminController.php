@@ -183,64 +183,73 @@ class AdminController extends BaseController
         return view('Admin/AdminManageOffice', $data);
     }
     public function login()
-{
-    $userModel = new UserModel();
-    $jwtService = new JWTServices(); // Assuming JWTServices is in Controllers or the correct path
-
-    if ($this->request->getMethod() === 'post') {
-        $emailOrUsername = $this->request->getPost('emailOrUsername');
-        $password = $this->request->getPost('password');
-
-        $user = $userModel->where('email', $emailOrUsername)
-                          ->orWhere('username', $emailOrUsername)
-                          ->first();
-
-        if ($user && password_verify($password, $user['password'])) {
-            $userData = [
-                'id' => $user['user_id'],
-                'email' => $user['email'],
-                'isLoggedIn' => true,
-                'role' => $user['role']
-            ];
-
-            if ($user['role'] === 'office user') {
-                $userData['office_id'] = $user['office_id'];
-                $userData['user_id'] = $user['user_id'];
+    {
+        $userModel = new UserModel();
+        $jwtService = new JWTServices(); // Assuming JWTServices is in Controllers or the correct path
+    
+        if ($this->request->getMethod() === 'post') {
+            $emailOrUsername = $this->request->getPost('emailOrUsername');
+            $password = $this->request->getPost('password');
+    
+            $user = $userModel->where('email', $emailOrUsername)
+                              ->orWhere('username', $emailOrUsername)
+                              ->first();
+    
+            if ($user) {
+                if ($user['status'] === 'deactivate') {
+                    log_message('error', 'Login attempt failed. Account is deactivated. Email/Username: ' . $emailOrUsername);
+                    session()->setFlashdata('error', 'Login attempt failed. Your account is deactivated as of the moment.');
+                    return redirect()->back();
+                }
+    
+                if (password_verify($password, $user['password'])) {
+                    $userData = [
+                        'id' => $user['user_id'],
+                        'email' => $user['email'],
+                        'isLoggedIn' => true,
+                        'role' => $user['role']
+                    ];
+    
+                    if ($user['role'] === 'office user') {
+                        $userData['office_id'] = $user['office_id'];
+                        $userData['user_id'] = $user['user_id'];
+                    }
+    
+                    if ($user['role'] === 'guest') {
+                        $userData['user_id'] = $user['user_id'];
+                    }
+    
+                    $token = $jwtService->generateToken($userData);
+    
+                    session()->set('jwt_token', $token);
+                    log_message('info', 'User logged in successfully. JWT Token: ' . $token);
+    
+                    session()->set($userData);
+    
+                    switch ($user['role']) {
+                        case 'admin':
+                            return redirect()->to('dashboard');
+                        case 'office user':
+                            return redirect()->to('index');
+                        case 'guest':
+                        default:
+                            return redirect()->to('indexloggedin');
+                    }
+                } else {
+                    // Log failed login attempt
+                    log_message('error', 'Login attempt failed. Invalid password. Email/Username: ' . $emailOrUsername);
+                    session()->setFlashdata('error', 'Invalid email or password.');
+                }
+            } else {
+                // Log failed login attempt
+                log_message('error', 'Login attempt failed. Email/Username: ' . $emailOrUsername);
+                session()->setFlashdata('error', 'Invalid email or password.');
             }
-
-            if ($user['role'] === 'guest') {
-                $userData['user_id'] = $user['user_id'];
-            }
-
-            $token = $jwtService->generateToken($userData);
-
-            session()->set('jwt_token', $token);
-
-            log_message('info', 'User logged in successfully. JWT Token: ' . $token);
-
-            session()->set($userData);
-
-
-            switch ($user['role']) {
-                case 'admin':
-                    return redirect()->to('dashboard');
-                case 'office user':
-                    return redirect()->to('index');
-                case 'guest':
-                default:
-                    return redirect()->to('indexloggedin');
-            }
-        } else {
-            // Log failed login attempt
-            log_message('error', 'Login attempt failed. Email/Username: ' . $emailOrUsername);
-
-            session()->setFlashdata('error', 'Invalid email or password.');
         }
+    
+        return view('LogIn');
     }
-
-    return view('LogIn');
-}
-
+    
 public function register()
 {
     helper(['form']);
