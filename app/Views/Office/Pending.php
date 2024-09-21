@@ -43,6 +43,7 @@
   <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+
   <script>
   $(document).ready(function() {
     $('.receive-btn').on('click', function() {

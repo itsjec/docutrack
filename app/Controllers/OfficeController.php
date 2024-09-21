@@ -14,11 +14,17 @@ use SimpleSoftwareIO\QrCode\Generator;
 
 class OfficeController extends BaseController
 {
+    protected function getUserData()
+    {
+        $userModel = new UserModel();
+        return $userModel->find(session()->get('user_id'));
+    }
 
     public function __construct()
     {
         $this->session = \Config\Services::session();
         $this->db = \Config\Database::connect();
+        $this->user = $this->getUserData();
     }
 
     public function index()
@@ -28,6 +34,7 @@ class OfficeController extends BaseController
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
+        $user['picture_path'] = $user['picture_path'] ?? 'path/to/default/image.jpg';
 
     
         $officeId = session('office_id');
@@ -82,10 +89,11 @@ class OfficeController extends BaseController
     public function pending()
     {
         $userId = session('user_id');
-        
+    
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
+
     
         $session = session();
         $office_id = $session->get('office_id');
@@ -141,13 +149,14 @@ class OfficeController extends BaseController
                 'sender_office' => $sender_office
             ];
         }
-    
+
         $data = [
             'documents' => $documents,
             'senderDetails' => $senderDetails,
             'office_name' => $office_name,
-            'user' => $user,
         ];
+
+        $data['user'] = $this->user; 
     
         return view('Office/Pending', $data);
     }
@@ -214,7 +223,7 @@ public function ongoing()
         'documents' => $documents,
         'senderDetails' => $senderDetails,
         'office_name' => $office_name,
-        'user' => $user
+        'user' => $user,
     ];
 
     return view('Office/OnGoing', $data);
@@ -369,8 +378,8 @@ public function completed()
         'documents' => $documents,
         'senderDetails' => $senderDetails,
         'office_name' => $office_name,
-        'user' => $user,
     ];
+    $data['user'] = $this->user; 
 
     return view('Office/Completed', $data);
 }
@@ -657,14 +666,14 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     public function manageprofile()
     {
         $userId = session('user_id');
-
+    
         $session = session();
         $office_id = $session->get('office_id');
-
+    
         $officeModel = new OfficeModel();
         $office = $officeModel->find($office_id);
-        $office_name = $office['office_name'];
-        
+        $office_name = $office ? $office['office_name'] : 'Unknown Office'; 
+    
         if (!$userId) {
             return 'Error: User ID not set';
         }
@@ -679,18 +688,19 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         $userName = $user['first_name'] . ' ' . $user['last_name'];
     
         $data = [
-            'user' => $user,
+            'user' => $user, 
             'office_name' => $office_name,
         ];
     
         return view('Office/ManageProfile', $data);
     }
+    
 
     public function updateProfile()
     {
         $request = service('request');
         $userModel = new \App\Models\UserModel();
-    
+        
         $userId = session('user_id');
         $user = $userModel->find($userId);
     
@@ -698,27 +708,33 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             return 'Error: User not found';
         }
     
+        // Handle profile picture upload
         $profileImage = $request->getFile('profileImage');
         if ($profileImage && $profileImage->isValid()) {
-            $newName = $profileImage->getRandomName();
-            if ($profileImage->move(ROOTPATH . 'public/uploads', $newName)) {
-                $user['picture_path'] = $newName;
+            $filename = $profileImage->getRandomName();
+            if ($profileImage->move('public/uploads', $filename)) {
+                $user['picture_path'] = 'public/uploads/' . $filename; 
             } else {
                 return 'Error: Unable to upload profile image.';
             }
         }
     
+        // Update other user information
         $user['first_name'] = $request->getVar('firstName');
         $user['last_name'] = $request->getVar('lastName');
         $user['email'] = $request->getVar('email');
-        if ($request->getVar('password') != null || $request->getVar('password') != ''){
+    
+        if ($request->getVar('password')) {
             $user['password'] = password_hash($request->getVar('password'), PASSWORD_DEFAULT);
         }
     
         $userModel->update($userId, $user);
-    
+        
         return redirect()->to('/manageprofile');
     }
+    
+    
+    
     
     
     public function trash()
@@ -991,6 +1007,8 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         'office_name' => $office_name,
     ];
 
+    $data['user'] = $this->user; 
+
     return view('Office/AddDepartment', $data);
     }
 
@@ -1064,6 +1082,8 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             'office_name' => $office_name,
 
         ];
+
+        $data['user'] = $this->user; 
 
         return view('Office/AddClient', $data);
     }
@@ -1408,6 +1428,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         $data['classifications'] = $classifications;
         $data['classificationsDropdown'] = $classificationsDropdown;
         $data['office_name'] = $office_name;
+        $data['user'] = $this->user; 
 
         return view('Office/Maintenance', $data);
     }
@@ -1471,9 +1492,18 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     public function manageofficeuser()
     {
         $officeId = session('office_id');
+
+        $userId = session('user_id');
+    
+        $userModel = new \App\Models\UserModel();
+        $user = $userModel->find($userId);
+        $userName = $user['first_name'] . ' ' . $user['last_name'];
+        $user['picture_path'] = $user['picture_path'] ?? 'path/to/default/image.jpg'; // Set default if not available
+
     
         $officeModel = new OfficeModel();
         $office = $officeModel->find($officeId);
+    
         if ($office) {
             $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
         } else {
@@ -1484,15 +1514,18 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         $users = $userModel->select('users.*, offices.office_name')
             ->join('offices', 'offices.office_id = users.office_id', 'left')
             ->where('users.office_id', $officeId)
-            ->whereIn('users.role', ['admin', 'office user']) 
+            ->whereIn('users.role', ['admin', 'office user'])
             ->findAll();
     
         $data['offices'] = $officeModel->findAll();
-        $data['users'] = $users;
+        $data['users'] = $users; 
         $data['office_name'] = $office_name;
+        $data['user'] = $this->user; 
+
     
         return view('Office/ManageOfficeUser', $data);
     }
+    
 
     public function manageclient()
     {
@@ -1514,6 +1547,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             ->findAll();
         $data['office_name'] = $office_name;
     
+        $data['user'] = $this->user; 
         return view('Office/ManageClient', $data);
     }
     public function updateOfficeUser()
@@ -1529,11 +1563,21 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         $userData = array_filter($userData, function($value) {
             return !is_null($value);
         });
-        
+    
+        if ($this->request->getFile('profilePic')->isValid()) {
+            $file = $this->request->getFile('profilePic');
+            $filename = $file->getRandomName(); 
+            $file->move('public/uploads', $filename);
+            
+
+            $userData['picture_path'] = 'public/uploads/' . $filename;
+        }
+    
         $userModel->update($userId, $userData);
         
         return redirect()->to('manageofficeuser')->with('success', 'User updated successfully.');
     }
+    
 
     public function saveOfficeUser()
     {
@@ -1596,6 +1640,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 
         $data['offices'] = $officeModel->findAll();
         $data['office_name'] = $office_name;
+        $data['user'] = $this->user; 
     
         return view('Office/ManageGuest', $data);
     }

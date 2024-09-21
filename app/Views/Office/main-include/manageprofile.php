@@ -7,13 +7,12 @@
             <div class="row">
                 <div class="col-md-4">
                 <div class="profile-picture" style="margin-top: 20px; width: 300px; height: 300px; background-color: #ddd; background-position: center; background-size: cover; position: relative; display: flex; justify-content: center; align-items: flex-end; border-radius: 50%; overflow: hidden;">
-                        <?php if (!empty($user['picture_path'])): ?>
-                            <img id="previewImage" src="/uploads/<?= $user['picture_path'] ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                        <?php else: ?>
-                            <img id="previewImage" src="/uploads/placeholder.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
-                        <?php endif; ?>
-                        <input type="file" id="profileImageInput" accept="image/*" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer;">
-                    </div>
+                    <?php if (!empty($user['picture_path'])): ?>
+                        <img id="previewImage" src="<?= $user['picture_path'] ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php else: ?>
+                        <img id="previewImage" src="/uploads/placeholder.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                    <?php endif; ?>
+                </div>
                 </div>
                 <div class="col-md-8">
                     <form action="/office/updateProfile" method="post" enctype="multipart/form-data">
@@ -21,13 +20,13 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="firstName">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $user['first_name'] ?>" required>
+                                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?= $user['first_name'] ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="lastName">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $user['last_name'] ?>" required>
+                                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?= $user['last_name'] ?>">
                                 </div>
                             </div>
                         </div>
@@ -44,8 +43,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="profileImage">Profile Picture</label>
-                                    <input type="file" class="form-control-file" id="profileImageInput" name="profileImage">
+                                    <label for="profileImageInput">Profile Picture</label>
+                                    <input type="file" class="form-control-file" id="profileImageInput" name="profileImage" accept="image/*">
                                 </div>
                             </div>
                         </div>

@@ -12,13 +12,13 @@
         <ul class="navbar-nav mr-lg-2">
           <li class="nav-item nav-profile dropdown">
           <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-              <?php if (!empty($user['picture_path'])): ?>
-                  <img src="/uploads/<?= $user['picture_path'] ?>" alt="profile" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
-              <?php else: ?>
-                  <img src="images/faces/face5.jpg" alt="profile" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
-              <?php endif; ?>
-              <span class="nav-profile-name"><?= $office_name ?></span>
-          </a>
+          <?php if (!empty($user['picture_path'])): ?>
+              <img src="<?= htmlspecialchars($user['picture_path']) ?>" alt="profile" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+          <?php else: ?>
+              <img src="assets/images/faces/face5.jpg" alt="profile" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;">
+          <?php endif; ?>
+          <span class="nav-profile-name"><?= htmlspecialchars($office_name) ?></span>
+      </a>
 
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">

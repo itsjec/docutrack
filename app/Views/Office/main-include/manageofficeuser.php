@@ -140,8 +140,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editUserForm" action="<?= site_url('officeusers/update') ?>" method="post">
+                <form id="editUserForm" action="<?= site_url('officeusers/update') ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="editUserId" name="userId">
+
                     <div class="form-group">
                         <label for="editOfficeId">Department</label>
                         <select class="form-control" id="editOfficeId" name="officeId" disabled>
@@ -157,9 +158,16 @@
                         <label for="editUsername">Username</label>
                         <input type="text" class="form-control" id="editUsername" name="username" placeholder="Enter username" required>
                     </div>
+
                     <div class="form-group">
                         <label for="editPassword">Password</label>
                         <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter new password">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editProfilePic">Profile Picture</label>
+                        <input type="file" class="form-control-file" id="editProfilePic" name="profilePic" accept="image/*" onchange="previewImage(event)">
+                        <img id="profilePicPreview" src="#" alt="Profile Picture Preview" style="display:none; margin-top: 10px; max-width: 100%;">
                     </div>
 
                     <div class="modal-footer">
@@ -326,6 +334,23 @@
             });
         });
     });
+
+    function previewImage(event) {
+    const preview = document.getElementById('profilePicPreview');
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+        }
+        reader.readAsDataURL(file);
+    } else {
+        preview.src = '#';
+        preview.style.display = 'none';
+    }
+}
 </script>
 
 </body>
