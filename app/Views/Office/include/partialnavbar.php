@@ -19,18 +19,6 @@
           <?php endif; ?>
           <span class="nav-profile-name"><?= htmlspecialchars($office_name) ?></span>
       </a>
-
-            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-              <a class="dropdown-item">
-                <i class="typcn typcn-cog-outline text-primary"></i>
-                Settings
-              </a>
-              <a class="dropdown-item">
-                <i class="typcn typcn-eject text-primary"></i>
-                Logout
-              </a>
-            </div>
-          </li>
           <li class="nav-item nav-user-status dropdown">
               <p class="mb-0">Currently Logged In.</p>
           </li>
