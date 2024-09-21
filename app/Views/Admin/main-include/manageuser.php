@@ -36,7 +36,13 @@
                         <?php foreach ($users as $user): ?>
                             <tr>
                                 <td><?= $user['username'] ?></td>
-                                <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
+                                <td>
+                                    <?php if (!empty($user['picture_path'])): ?>
+                                        <img src="<?= htmlspecialchars($user['picture_path']) ?>" alt="User Image" width="100" height="auto">
+                                    <?php else: ?>
+                                        <img src="path/to/default/image.jpg" alt="Default User Image" width="100" height="auto">
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
                                 <a href="#editUserModal" class="btn btn-sm btn-primary edit-btn"
@@ -119,8 +125,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="editUserForm" action="<?= site_url('users/update') ?>" method="post">
+                <form id="editUserForm" action="<?= site_url('users/update') ?>" method="post" enctype="multipart/form-data">
                     <input type="hidden" id="editUserId" name="userId">
+                    
                     <div class="form-group">
                         <label for="editOfficeId">Office</label>
                         <select class="form-control" id="editOfficeId" name="officeId">
@@ -129,13 +136,22 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="editUsername">Username</label>
                         <input type="text" class="form-control" id="editUsername" name="username" placeholder="Enter username" required>
                     </div>
+
                     <div class="form-group">
                         <label for="editPassword">Password</label>
                         <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter new password">
+                    </div>
+                    
+                    <!-- Picture Upload Field -->
+                    <div class="form-group">
+                        <label for="editProfilePicture">Profile Picture</label>
+                        <input type="file" class="form-control-file" id="editProfilePicture" name="profilePicture" accept="image/*" onchange="previewImage(event)">
+                        <img id="imagePreview" src="#" alt="Image Preview" style="display:none; margin-top:10px; max-width:100%;"/>
                     </div>
 
                     <div class="modal-footer">
@@ -147,6 +163,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -303,6 +320,23 @@
             });
         });
     });
+
+    function previewImage(event) {
+        const imagePreview = document.getElementById('imagePreview');
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            }
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = '#';
+            imagePreview.style.display = 'none';
+        }
+    }
 </script>
 
 </body>

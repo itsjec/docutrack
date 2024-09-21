@@ -1042,10 +1042,23 @@ public function register()
             'password' => !empty($this->request->getPost('password')) ? password_hash($this->request->getPost('password'), PASSWORD_DEFAULT) : null,
         ];
     
+
+        $file = $this->request->getFile('profilePicture');
+        if ($file && $file->isValid() && !$file->hasMoved()) {
+            $uploadPath = 'public/uploads/';
+
+            $newFileName = time() . '_' . $file->getName();
+
+            $file->move($uploadPath, $newFileName);
+    
+            $userData['picture_path'] = $uploadPath . $newFileName;
+        }
+    
         $userModel->update($userId, $userData);
     
         return redirect()->to('manageuser');
     }
+    
 
     public function delete($userId)
     {
