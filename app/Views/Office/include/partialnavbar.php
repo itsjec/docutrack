@@ -30,6 +30,9 @@
             <i id="calendarIcon" class="typcn typcn-calendar"></i>
           </a>
         </li>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="typcn typcn-th-menu"></span>
+        </button>
     </nav>
     <!-- partial -->
     </nav>
