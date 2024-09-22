@@ -29,7 +29,6 @@
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -38,67 +37,6 @@
                                 <td><?= $user['first_name'] ?></td>
                                 <td><?= $user['last_name'] ?></td>
                                 <td><?= $user['email'] ?></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm btn-primary edit-btn" 
-                                        data-toggle="modal" 
-                                        data-target="#editUserModal" 
-                                        data-userid="<?= $user['user_id'] ?>" 
-                                        data-firstname="<?= $user['first_name'] ?>" 
-                                        data-lastname="<?= $user['last_name'] ?>" 
-                                        data-email="<?= $user['email'] ?>">
-                                        <i class="mdi mdi-pencil"></i> Edit
-                                    </a>
-                                    <a href="#" class="btn btn-sm <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'btn-success' : 'btn-danger' ?> deactivate-btn" 
-                                        data-toggle="modal" 
-                                        data-target="#<?= isset($user['status']) && $user['status'] == 'deactivate' ? 'activateUserModal_'.$user['user_id'] : 'deactivateUserModal_'.$user['user_id']?>"
-                                        data-userid="<?= $user['user_id'] ?>">
-                                            <i class="mdi <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'mdi-check' : 'mdi-close' ?>"></i>
-                                            <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'Activate' : 'Deactivate' ?>
-                                    </a>
-                                </td>
-                            </tr>
-                        <!-- Activate User Modal -->
-                            <div class="modal fade" id="activateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="activateUserModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="activateUserModalLabel">Activate User</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Are you sure you want to activate this user?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-success" id="confirmActivate_<?= $user['user_id'] ?>" data-userid="<?= $user['user_id'] ?>">Activate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Deactivate User Modal -->
-                            <div class="modal fade" id="deactivateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deactivateUserModalLabel">Deactivate User</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Are you sure you want to deactivate this user?</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-danger" id="confirmDeactivate_<?= $user['user_id'] ?>" data-userid="<?= $user['user_id'] ?>">Deactivate</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         <?php endforeach; ?>
                         </tbody>
                     </table>
