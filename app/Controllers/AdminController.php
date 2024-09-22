@@ -1035,27 +1035,28 @@ public function register()
     {
         $userId = $this->request->getPost('userId');
         $userModel = new UserModel();
-    
+        
         $userData = [
             'office_id' => $this->request->getPost('officeId'),
             'username' => $this->request->getPost('username'),
-            'password' => !empty($this->request->getPost('password')) ? password_hash($this->request->getPost('password'), PASSWORD_DEFAULT) : null,
         ];
     
-
+        $newPassword = $this->request->getPost('password');
+        if (!empty($newPassword)) {
+            $userData['password'] = password_hash($newPassword, PASSWORD_DEFAULT);
+        }
+    
         $file = $this->request->getFile('profilePicture');
         if ($file && $file->isValid() && !$file->hasMoved()) {
             $uploadPath = 'public/uploads/';
-
             $newFileName = time() . '_' . $file->getName();
-
             $file->move($uploadPath, $newFileName);
     
             $userData['picture_path'] = $uploadPath . $newFileName;
         }
     
         $userModel->update($userId, $userData);
-    
+        
         return redirect()->to('manageuser');
     }
     

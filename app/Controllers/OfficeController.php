@@ -1557,19 +1557,18 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         
         $userData = [
             'username' => $this->request->getPost('username'),
-            'password' => !empty($this->request->getPost('password')) ? password_hash($this->request->getPost('password'), PASSWORD_DEFAULT) : null,
         ];
     
-        $userData = array_filter($userData, function($value) {
-            return !is_null($value);
-        });
+        $newPassword = $this->request->getPost('password');
+        if (!empty($newPassword)) {
+            $userData['password'] = password_hash($newPassword, PASSWORD_DEFAULT);
+        }
     
         if ($this->request->getFile('profilePic')->isValid()) {
             $file = $this->request->getFile('profilePic');
             $filename = $file->getRandomName(); 
             $file->move('public/uploads', $filename);
-            
-
+    
             $userData['picture_path'] = 'public/uploads/' . $filename;
         }
     
@@ -1577,6 +1576,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         
         return redirect()->to('manageofficeuser')->with('success', 'User updated successfully.');
     }
+    
     
 
     public function saveOfficeUser()
