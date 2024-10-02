@@ -184,7 +184,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">Add User Account</h5>
+                <h5 class="modal-title" id="addUserModalLabel">Add Department User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -192,21 +192,38 @@
             <div class="modal-body">
                 <div id="modal-message" class="mb-3"></div> <!-- Error message will be displayed here -->
                 <form id="addUserForm" action="<?= site_url('users/save') ?>" method="post">
+                    <!-- Office Dropdown -->
                     <div class="form-group">
-                        <label for="officeId">Office</label>
+                        <label for="officeId">Department</label>
                         <select class="form-control" id="officeId" name="officeId">
                             <?php foreach ($offices as $office): ?>
                                 <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+                    <!-- First Name and Last Name in Two Columns -->
                     <div class="form-group">
                         <div class="row">
-                            <div class="col">
+                            <div class="col-md-6">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last name" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Username and Password in Two Columns -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-6">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
                             </div>
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label for="password">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
                                 <meter max="4" id="password-strength-meter"></meter>
@@ -215,6 +232,7 @@
                         </div>
                     </div>
 
+                    <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -224,6 +242,8 @@
         </div>
     </div>
 </div>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>

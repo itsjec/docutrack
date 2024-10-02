@@ -1580,45 +1580,83 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
 
     public function saveOfficeUser()
-    {
-        $userModel = new UserModel();
-        $officeModel = new OfficeModel();
-        
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
-        $officeId = $this->request->getPost('officeId');
+{
+    $userModel = new UserModel();
+    $officeModel = new OfficeModel();
+    
 
-        if (!preg_match('/[A-Z]/', $password) || 
-            !preg_match('/[a-z]/', $password) || 
-            !preg_match('/[0-9]/', $password) ||
-            strlen($password) < 8) {
-            return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
-        }
+    $firstName = $this->request->getPost('firstName');
+    $lastName = $this->request->getPost('lastName');
+    $username = $this->request->getPost('username');
+    $password = $this->request->getPost('password');
+    $officeId = $this->request->getPost('officeId');
 
-        $office = $officeModel->find($officeId);
-        if (!$office) {
-            return $this->response->setJSON(['error' => 'Office not found.']);
-        }
 
-        $existingUser = $userModel->where('username', $username)
-                                ->orWhere('email', $username)
-                                ->first();
-                                
-        if ($existingUser) {
-            return $this->response->setJSON(['error' => 'Account already exists. Please add new username and password.']);
-        }
-
-        $userData = [
-            'username' => $username,
-            'email' => $username,
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'office_id' => $officeId,
-            'image' => '',
-            'role' => 'office user',
-        ];
-
-        $userModel->insert($userData);
+    if (!preg_match('/[A-Z]/', $password) || 
+        !preg_match('/[a-z]/', $password) || 
+        !preg_match('/[0-9]/', $password) ||
+        strlen($password) < 8) {
+        return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
     }
+
+
+    $office = $officeModel->find($officeId);
+    if (!$office) {
+        return $this->response->setJSON(['error' => 'Office not found.']);
+    }
+
+    $existingUser = $userModel->where('username', $username)
+                              ->orWhere('email', $username)
+                              ->first();
+    if ($existingUser) {
+        return $this->response->setJSON(['error' => 'Account already exists. Please add a new username and password.']);
+    }
+
+
+    $userData = [
+        'first_name' => $firstName,
+        'last_name' => $lastName,
+        'username' => $username,
+        'email' => $username, // Assuming username is also the email
+        'password' => password_hash($password, PASSWORD_DEFAULT),
+        'office_id' => $officeId,
+        'image' => '',
+        'role' => 'office user',
+    ];
+
+    $userModel->insert($userData);
+
+    return $this->response->setJSON(['success' => 'Office user added successfully.']);
+}
+
+public function addUserModal()
+{
+    $userModel = new UserModel();
+    $officeModel = new OfficeModel();
+
+    // Retrieve office_id and user_id from the session
+    $officeId = session('office_id');
+    $userId = session('user_id'); 
+
+    // Check if the office_id exists in the session
+    if (!$officeId || !$userId) {
+        return redirect()->to('login'); // Redirect if either ID is not set
+    }
+
+    // Find the office using the office_id
+    $office = $officeModel->find($officeId);
+    if (!$office) {
+        return redirect()->to('login'); // Handle case when office not found
+    }
+
+    // Pass the office name and ID to the view
+    $data['loggedInUserOfficeName'] = $office['office_name'];
+    $data['loggedInUserOfficeId'] = $officeId;
+
+    return view('manageofficeuser', $data); // Pass $data to the view
+}
+
+
 
     public function manageguest()
     {
