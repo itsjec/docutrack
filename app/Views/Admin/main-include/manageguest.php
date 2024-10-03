@@ -28,7 +28,6 @@
                             <tr>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Email</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -37,7 +36,6 @@
                             <tr>
                                 <td><?= $user['first_name'] ?></td>
                                 <td><?= $user['last_name'] ?></td>
-                                <td><?= $user['email'] ?></td>
                                 <td>
                                     <a href="#" class="btn btn-sm btn-primary edit-btn" 
                                         data-toggle="modal" 
