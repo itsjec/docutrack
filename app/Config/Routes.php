@@ -132,7 +132,7 @@ $routes->post('saveguest', 'OfficeController::saveguest');
 $routes->post('updateofficeguest', 'OfficeController::updateUser');
 $routes->post('user/activateUser', 'OfficeController::activateguestUser');
 $routes->post('user/deactivateUser', 'OfficeController::deactivateguestUser');
-
+$routes->get('/testlogging', 'OfficeController::testLogging');
 
 
 

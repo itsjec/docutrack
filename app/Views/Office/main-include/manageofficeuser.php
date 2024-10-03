@@ -191,16 +191,7 @@
             </div>
             <div class="modal-body">
                 <div id="modal-message" class="mb-3"></div> <!-- Error message will be displayed here -->
-                <form id="addUserForm" action="<?= site_url('users/save') ?>" method="post">
-                    <!-- Office Dropdown -->
-                    <div class="form-group">
-                        <label for="officeId">Department</label>
-                        <select class="form-control" id="officeId" name="officeId">
-                            <?php foreach ($offices as $office): ?>
-                                <option value="<?= $office['office_id'] ?>"><?= $office['office_name'] ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
+                <form id="addUserForm" action="<?= site_url('officeusers/save') ?>" method="post">
 
                     <!-- First Name and Last Name in Two Columns -->
                     <div class="form-group">

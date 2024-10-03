@@ -41,7 +41,6 @@ class OfficeController extends BaseController
 
         $officeModel = new OfficeModel();
         $office = $officeModel->find($officeId);
-        // Check if office data is retrieved and office_name exists
         if ($office) {
             $office_name = isset($office['office_name']) ? $office['office_name'] : 'Unknown Office';
         } else {
@@ -1580,54 +1579,89 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
 
     public function saveOfficeUser()
-{
-    $userModel = new UserModel();
-    $officeModel = new OfficeModel();
+    {
+        $userId = session()->get('user_id');
+        $officeId = session()->get('office_id');
     
+        log_message('info', 'Session user_id: ' . $userId);
+        log_message('info', 'Session office_id: ' . $officeId);
+    
+        if (!$officeId) {
+            log_message('error', 'Office ID is missing from the session.');
+            return $this->response->setJSON([
+                'error' => 'Office ID is missing from the session. Please log in again or contact the administrator.'
+            ]);
+        }
+    
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        
+        log_message('info', 'Fetched office data: ' . json_encode($office));
+    
+        $officeName = $office ? ($office['office_name'] ?? 'Unknown Office') : 'No Office Found';
+    
+        $firstName = $this->request->getPost('firstName');
+        $lastName = $this->request->getPost('lastName');
+        $username = $this->request->getPost('username');
+        $password = $this->request->getPost('password');
+    
+        log_message('info', 'Form data: ' . json_encode([
+            'firstName' => $firstName,
+            'lastName' => $lastName,
+            'username' => $username,
+        ]));
+    
+        if (!$this->isValidPassword($password)) {
+            log_message('error', 'Password validation failed.');
+            return $this->response->setJSON([
+                'error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.'
+            ]);
+        }
+    
+        $userModel = new UserModel();
+        $existingUser = $userModel->where('username', $username)
+                                  ->orWhere('email', $username)
+                                  ->first();
+        
+        if ($existingUser) {
+            log_message('info', 'Existing user found: ' . json_encode($existingUser));
+            return $this->response->setJSON([
+                'error' => 'Account already exists. Please use a different username.'
+            ]);
+        }
+    
+        $userData = [
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'username' => $username,
+            'email' => $username, 
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'office_id' => $officeId,
+            'image' => '',
+            'role' => 'office user',
+        ];
 
-    $firstName = $this->request->getPost('firstName');
-    $lastName = $this->request->getPost('lastName');
-    $username = $this->request->getPost('username');
-    $password = $this->request->getPost('password');
-    $officeId = $this->request->getPost('officeId');
-
-
-    if (!preg_match('/[A-Z]/', $password) || 
-        !preg_match('/[a-z]/', $password) || 
-        !preg_match('/[0-9]/', $password) ||
-        strlen($password) < 8) {
-        return $this->response->setJSON(['error' => 'Password must contain at least 8 characters, including uppercase, lowercase, and numbers.']);
+        log_message('info', 'User data to be inserted: ' . json_encode($userData));
+    
+        $userModel->insert($userData);
+    
+        log_message('info', 'User successfully inserted with office_id: ' . $officeId);
+    
+        return $this->response->setJSON([
+            'success' => 'Office user added successfully with office_id: ' . $officeId
+        ]);
     }
-
-
-    $office = $officeModel->find($officeId);
-    if (!$office) {
-        return $this->response->setJSON(['error' => 'Office not found.']);
+    
+    // Helper function to validate password
+    private function isValidPassword($password)
+    {
+        return preg_match('/[A-Z]/', $password) && 
+               preg_match('/[a-z]/', $password) && 
+               preg_match('/[0-9]/', $password) && 
+               strlen($password) >= 8;
     }
-
-    $existingUser = $userModel->where('username', $username)
-                              ->orWhere('email', $username)
-                              ->first();
-    if ($existingUser) {
-        return $this->response->setJSON(['error' => 'Account already exists. Please add a new username and password.']);
-    }
-
-
-    $userData = [
-        'first_name' => $firstName,
-        'last_name' => $lastName,
-        'username' => $username,
-        'email' => $username, // Assuming username is also the email
-        'password' => password_hash($password, PASSWORD_DEFAULT),
-        'office_id' => $officeId,
-        'image' => '',
-        'role' => 'office user',
-    ];
-
-    $userModel->insert($userData);
-
-    return $this->response->setJSON(['success' => 'Office user added successfully.']);
-}
+      
+    
 
 public function addUserModal()
 {
@@ -1762,6 +1796,14 @@ public function addUserModal()
 
         return $this->response->setJSON(['status' => 'success']);
     }
+
+    public function testLogging()
+    {
+        log_message('info', 'Test log message - info level.');
+        log_message('error', 'Test log message - error level.');
+        return 'Check your logs';
+    }
+
 
 }
 
