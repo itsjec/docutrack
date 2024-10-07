@@ -65,10 +65,11 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('maintenance') ?>">
-            <i class="typcn typcn-tools menu-icon"></i>
+            <i class="typcn typcn-document-text menu-icon"></i> <!-- Added document icon -->
             <span class="menu-title">Manage Document Classifications</span>
         </a>
     </li>
+
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('logout') ?>">
             <i class="typcn typcn-power-outline menu-icon"></i>

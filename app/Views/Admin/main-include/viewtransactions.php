@@ -25,6 +25,7 @@
                                         <th>Tracking Number</th>
                                         <th>Title</th>
                                         <th>Sender</th>
+                                        <th>Previous Office</th>
                                         <th>Current Office</th>
                                         <th>Processing Time (minutes)</th>
                                         <th>Date Completed</th>
@@ -42,14 +43,16 @@
                                                 <?= $senderDetails[$document->document_id]['sender_office'] ?>
                                             <?php endif; ?>
                                         </td>
+                                        <td><?= $document->completed_office_name ?></td>
                                         <td><?= $document->recipient_office_name ?></td>
                                         <td>
                                             <?php
-                                                $time = isset($document->processing_time_minutes) ? $document->processing_time_minutes : 0;
+                                                // Ensure we are using processing_time_minutes for calculations
+                                                $time = isset($document->processing_time_minutes) ? $document->processing_time_minutes : 0; // This is still in minutes
                                                 $progress = 0;
                                                 $color = 'blue'; // Default color
 
-                                                // Determine the progress and color
+                                                // Determine the progress and color based on the time in minutes
                                                 if ($time < 5) {
                                                     $progress = 20;
                                                     $color = 'blue';
@@ -67,14 +70,14 @@
                                                     $color = 'red';
                                                 }
                                             ?>
-                                                <div class="d-flex align-items-center">
-                                                        <span class="mr-2"><?= $time ?></span>
-                                                        <div class="progress flex-grow-1" style="height: 20px;">
-                                                            <div class="progress-bar" role="progressbar" style="width: <?= $progress ?>%; background-color: <?= $color ?>;">
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                            <div class="d-flex align-items-center">
+                                                <span class="mr-2"><?= $time ?> min</span> <!-- Displaying time in minutes -->
+                                                <div class="progress flex-grow-1" style="height: 20px;">
+                                                    <div class="progress-bar" role="progressbar" style="width: <?= $progress ?>%; background-color: <?= $color ?>;"></div>
+                                                </div>
+                                            </div>
                                         </td>
+
                                         <td><?= date('F j, Y', strtotime($document->date_completed)) ?></td>
                                     </tr>
                                     <?php endforeach; ?>

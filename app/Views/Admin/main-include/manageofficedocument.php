@@ -6,6 +6,16 @@
     <title>Manage Office Documents</title>
     <!-- Material Design Icons CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
+
+    <!-- Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
     <style>
 
   .status-badge {
@@ -255,18 +265,17 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="sender_office_id">Sender</label>
-                            <select class="form-control" id="sender_office_id" name="sender_office_id" required>
+                            <select class="form-control select2" id="sender_office_id" name="sender_office_id" required>
                                 <option value="" disabled selected>Select Sender</option>
                                 <?php foreach ($officesDropdown as $office_id => $office_name): ?>
                                     <option value="<?= $office_id ?>"><?= $office_name ?></option>
                                 <?php endforeach; ?>
                             </select>
-
                         </div>
 
                         <div class="form-group col-md-4">
                             <label for="recipient_office_id">Recipient</label>
-                            <select class="form-control" id="recipient_office_id" name="recipient_office_id" required>
+                            <select class="form-control select2" id="recipient_office_id" name="recipient_office_id" required>
                                 <option value="" disabled selected>Select Recipient</option>
                                 <?php foreach ($officesDropdown as $office_id => $office_name): ?>
                                     <option value="<?= $office_id ?>"><?= $office_name ?></option>
@@ -329,6 +338,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $('.select2').select2({
+            placeholder: "Select an option",
+            allowClear: true 
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
         $('.delete-btn').click(function() {
             var documentId = $(this).data('document-id');
 
@@ -356,9 +374,9 @@
             });
         });
     });
+
+    
 </script>
-
-
 
 <script>
 $(document).ready(function() {

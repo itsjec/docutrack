@@ -47,7 +47,7 @@
                             <th>Title</th>
                             <th>Sender</th>
                             <th>Current Office</th>
-                            <th>Status</th>
+                            <th>Completed By</th>
                             <th>Date Completed</th>
                             <th>Actions</th>
                         </tr>
@@ -65,12 +65,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td><?= $document->recipient_office_name ?></td>
-                                <td>
-  <span class="status-badge status-<?= htmlspecialchars($document->status, ENT_QUOTES, 'UTF-8') ?>">
-    <?= htmlspecialchars(ucfirst($document->history_status), ENT_QUOTES, 'UTF-8') ?>
-  </span>
-</td>
-
+                                <td><?= $completedByDetails[$document->document_id] ?></td>
                                 <td><?= date('F j, Y', strtotime($document->date_completed)) ?></td>
                                 <td>
                                     <div class="d-flex align-items-center">

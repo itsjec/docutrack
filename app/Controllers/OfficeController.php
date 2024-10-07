@@ -579,26 +579,24 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
     public function history()
     {
-
+        // Get the logged-in user's ID and office_id from the session
         $userId = session('user_id');
-    
-        $userModel = new \App\Models\UserModel();
-        $user = $userModel->find($userId);
-        $userName = $user['first_name'] . ' ' . $user['last_name'];
-
         $session = session();
         $office_id = $session->get('office_id');
-
-        $officeModel = new OfficeModel();
-        $office = $officeModel->find($office_id);
-        $office_name = $office['office_name'];
     
         if (!$office_id) {
             return 'Error: Office ID not set';
         }
     
+        // Fetch office details for the user's office
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($office_id);
+        $office_name = $office['office_name'];
+    
+        // Connect to the database
         $db = db_connect();
     
+        // Fetch documents with status "completed" where office_id matches the logged-in user's office
         $query = $db->query("
             SELECT 
                 documents.document_id,
@@ -607,17 +605,15 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 documents.sender_id, 
                 documents.sender_office_id,
                 documents.recipient_id,
-                documents.status, 
-                document_history.user_id,
-                document_history.office_id as current_office_id,
-                document_history.status as history_status,
-                document_history.date_changed,
+                document_history.user_id AS completed_by_user_id,
+                document_history.office_id AS current_office_id,
+                document_history.status AS history_status,
                 document_history.date_completed,
-                offices.office_name as recipient_office_name
+                offices.office_name AS recipient_office_name
             FROM documents
             JOIN document_history ON documents.document_id = document_history.document_id
             LEFT JOIN offices ON documents.recipient_id = offices.office_id
-            WHERE documents.recipient_id = $office_id
+            WHERE document_history.office_id = $office_id
             AND document_history.status = 'completed'
         ");
     
@@ -628,18 +624,23 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         $documents = $query->getResult();
     
+        // Fetch sender details and completed_by details
         $senderDetails = [];
+        $completedByDetails = [];
+    
         foreach ($documents as $document) {
+            // Fetch sender details
             $sender_user_id = $document->sender_id;
             $sender_office_id = $document->sender_office_id;
     
             if ($sender_office_id === null) {
+                // Fetch sender user details if sender is a user
                 $userModel = new UserModel();
                 $user = $userModel->find($sender_user_id);
                 $sender_name = $user['first_name'] . ' ' . $user['last_name'];
                 $sender_office = '';
             } else {
-                $officeModel = new OfficeModel();
+                // Fetch sender office details if sender is an office
                 $office = $officeModel->find($sender_office_id);
                 $sender_name = '';
                 $sender_office = $office['office_name'];
@@ -649,17 +650,30 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 'sender_user' => $sender_name,
                 'sender_office' => $sender_office
             ];
+    
+            // Fetch the 'completed by' details using user_id from document_history
+            $completedByUser = $userModel->find($document->completed_by_user_id);
+            if ($completedByUser) {
+                $completedByName = $completedByUser['first_name'] . ' ' . $completedByUser['last_name'];
+            } else {
+                $completedByName = 'Unknown'; // Fallback in case user is not found
+            }
+    
+            $completedByDetails[$document->document_id] = $completedByName;
         }
     
-   $data = [
-        'documents' => $documents,
-        'senderDetails' => $senderDetails,
-        'office_name' => $office_name,
-        'user' => $user,
-    ];
+        // Prepare data to send to the view
+        $data = [
+            'documents' => $documents,
+            'senderDetails' => $senderDetails,
+            'completedByDetails' => $completedByDetails, // Pass completed_by details
+            'office_name' => $office_name,
+        ];
     
+        // Return the view with the data
         return view('Office/History', $data);
     }
+    
     
 
     public function manageprofile()
