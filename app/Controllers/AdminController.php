@@ -870,31 +870,35 @@ public function register()
     {
         $db = db_connect();
     
+        // Query to fetch documents along with the office_name of the user who completed the document
         $query = $db->query("
             SELECT 
-                documents.document_id,
-                documents.tracking_number, 
-                documents.title, 
-                documents.sender_id, 
-                documents.sender_office_id,
-                documents.recipient_id,
-                documents.status, 
-                document_history.user_id,
-                document_history.office_id as current_office_id,
-                document_history.status as history_status,
-                document_history.date_changed,
-                document_history.date_completed,
-                offices.office_name as recipient_office_name,
-                users.first_name as sender_first_name,
-                users.last_name as sender_last_name,
+                d.document_id,
+                d.tracking_number, 
+                d.title, 
+                d.sender_id, 
+                d.sender_office_id,
+                d.recipient_id,
+                d.status, 
+                dh.user_id,
+                dh.office_id AS current_office_id,
+                dh.status AS history_status,
+                dh.date_changed,
+                dh.date_completed,
+                o1.office_name AS recipient_office_name,
+                u.first_name AS sender_first_name,
+                u.last_name AS sender_last_name,
                 tp.received_timestamp,
-                tp.completed_timestamp
-            FROM documents
-            JOIN document_history ON documents.document_id = document_history.document_id
-            LEFT JOIN offices ON documents.recipient_id = offices.office_id
-            LEFT JOIN document_timeprocessing tp ON documents.document_id = tp.document_id AND document_history.office_id = tp.office_id
-            LEFT JOIN users ON documents.sender_id = users.user_id
-            WHERE document_history.status = 'completed'
+                tp.completed_timestamp,
+                o2.office_name AS completed_office_name -- Fetching office_name for the completed office
+            FROM documents d
+            JOIN document_history dh ON d.document_id = dh.document_id
+            LEFT JOIN offices o1 ON d.recipient_id = o1.office_id
+            LEFT JOIN document_timeprocessing tp ON d.document_id = tp.document_id AND dh.office_id = tp.office_id
+            LEFT JOIN users u ON d.sender_id = u.user_id
+            LEFT JOIN users u2 ON dh.user_id = u2.user_id -- Join to get the office_id of the user who completed the document
+            LEFT JOIN offices o2 ON u2.office_id = o2.office_id -- Join to get the office_name of the completed office
+            WHERE dh.status = 'completed'
         ");
     
         if (!$query) {
@@ -902,42 +906,39 @@ public function register()
         }
     
         $documents = $query->getResult();
-    
         $senderDetails = [];
     
         foreach ($documents as $document) {
-            $receivedTimestamp = new \DateTime($document->received_timestamp);
-            $completedTimestamp = new \DateTime($document->completed_timestamp);
-        
-            $interval = $receivedTimestamp->diff($completedTimestamp);
-            $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
-        
-            $document->processing_time_minutes = $processingTimeMinutes;
-        
-            $senderDetails = [];
-            foreach ($documents as $document) {
-                $sender_id = $document->sender_id;
-                $sender_office_id = $document->sender_office_id;
-        
-                if ($sender_office_id === null) {
-                    $userModel = new UserModel();
-                    $user = $userModel->find($sender_id);
-                    $sender_name = $user['first_name'] . ' ' . $user['last_name'];
-                    $sender_office = 'N/A';
-                } else {
-                    $officeModel = new OfficeModel();
-                    $office = $officeModel->find($sender_office_id);
-                    $sender_name = 'N/A';
-                    $sender_office = $office['office_name'];
-                }
-        
-                $senderDetails[$document->document_id] = [
-                    'sender_user' => $sender_name,
-                    'sender_office' => $sender_office
-                ];
+            if (!empty($document->received_timestamp) && !empty($document->completed_timestamp)) {
+                $receivedTimestamp = new \DateTime($document->received_timestamp);
+                $completedTimestamp = new \DateTime($document->completed_timestamp);
+            
+                $interval = $receivedTimestamp->diff($completedTimestamp);
+                $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
+            
+                $document->processing_time_minutes = $processingTimeMinutes;
+            } else {
+                $document->processing_time_minutes = 'N/A'; 
             }
+    
+            $sender_id = $document->sender_id;
+            $sender_office_id = $document->sender_office_id;
+    
+            if ($sender_office_id === null) {
+                $sender_name = $document->sender_first_name . ' ' . $document->sender_last_name;
+                $sender_office = 'N/A'; 
+            } else {
+                $officeModel = new OfficeModel();
+                $office = $officeModel->find($sender_office_id);
+                $sender_name = 'N/A';
+                $sender_office = $office['office_name'];
+            }
+    
+            $senderDetails[$document->document_id] = [
+                'sender_user' => $sender_name,
+                'sender_office' => $sender_office
+            ];
         }
-        
     
         $data = [
             'documents' => $documents,
@@ -946,6 +947,8 @@ public function register()
     
         return view('Admin/AdminViewTransactions', $data);
     }
+    
+    
     
     public function archived()
     {
@@ -1618,4 +1621,18 @@ public function fetchVersionsByTitle()
 
         return $this->response->setJSON(['status' => 'success']);
     }
+
+    public function deleteUser($id)
+    {
+        $userModel = new UserModel();
+        $user = $userModel->find($id);
+        
+        if ($user) {
+            $userModel->delete($id);
+            return redirect()->to('/manageguest')->with('success', 'User deleted successfully');
+        } else {
+            return redirect()->to('/manageguest')->with('error', 'User not found');
+        }
+    }
+    
 }

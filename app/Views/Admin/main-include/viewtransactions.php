@@ -43,7 +43,7 @@
                                                 <?= $senderDetails[$document->document_id]['sender_office'] ?>
                                             <?php endif; ?>
                                         </td>
-                                        <td><?= $document->completed_office_name ?></td>
+                                        <td><?= $document->completed_office_name ?? 'N/A' ?></td>
                                         <td><?= $document->recipient_office_name ?></td>
                                         <td>
                                             <?php
