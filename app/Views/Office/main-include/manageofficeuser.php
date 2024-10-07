@@ -39,15 +39,6 @@
                                 <td><img src="<?= $user['picture_path'] ?>" alt="User Image" width="50"></td>
                                 <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
                                 <td>
-                                <a href="#editUserModal" class="btn btn-sm btn-primary edit-btn"
-                                        data-toggle="modal"
-                                        data-user-id="<?= $user['user_id'] ?>"
-                                        data-office-id="<?= $user['office_id'] ?>"
-                                        data-email="<?= $user['email'] ?>"
-                                        data-username="<?= $user['username'] ?>"
-                                        data-password="<?= $user['password'] ?>">
-                                        <i class="mdi mdi-pencil"></i> Edit
-                                    </a>
                                     <a href="#" class="btn btn-sm <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'btn-success' : 'btn-danger' ?> deactivate-btn" 
                                         data-toggle="modal" 
                                         data-target="#<?= isset($user['status']) && $user['status'] == 'deactivate' ? 'activateUserModal_'.$user['user_id'] : 'deactivateUserModal_'.$user['user_id']?>"
