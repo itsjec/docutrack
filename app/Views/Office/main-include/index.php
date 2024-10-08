@@ -60,8 +60,8 @@
                     <?php if (is_array($documents) && !empty($documents)): ?>
                         <?php foreach ($documents as $document): ?>
                             <tr>
-                            <td><?= $document->title ?></td>
                             <td><?= $document->tracking_number ?></td>
+                            <td><?= $document->title ?></td>
                             <td><?= $document->sender ?></td>
                             <td><?= $document->status ?></td>
                             <td><?= $document->action ?></td>
