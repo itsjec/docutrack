@@ -7,12 +7,12 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+        <a class="nav-link" data-toggle="collapse" href="#profile-collapse" aria-expanded="false" aria-controls="profile-collapse">
             <i class="typcn typcn-user-outline menu-icon"></i>
             <span class="menu-title">Profile</span>
             <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="ui-basic">
+        <div class="collapse" id="profile-collapse">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('manageuser') ?>">Manage Department/Client Users</a>
@@ -24,15 +24,15 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+        <a class="nav-link" data-toggle="collapse" href="#document-collapse" aria-expanded="false" aria-controls="document-collapse">
             <i class="typcn typcn-document-text menu-icon"></i>
             <span class="menu-title">Document</span>
             <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="form-elements">
+        <div class="collapse" id="document-collapse">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('manageofficedocument') ?>">Manage Departmen/Office Documents</a>
+                    <a class="nav-link" href="<?= site_url('manageofficedocument') ?>">Manage Department/Office Documents</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('managedocument') ?>">Manage Client Documents</a>
@@ -50,12 +50,12 @@
         </div>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+        <a class="nav-link" data-toggle="collapse" href="#office-collapse" aria-expanded="false" aria-controls="office-collapse">
             <i class="typcn typcn-group-outline menu-icon"></i>
             <span class="menu-title">Office</span>
             <i class="menu-arrow"></i>
         </a>
-        <div class="collapse" id="charts">
+        <div class="collapse" id="office-collapse">
             <ul class="nav flex-column sub-menu">
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('manageoffice') ?>">Manage Department/Office</a>
@@ -65,7 +65,7 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('maintenance') ?>">
-            <i class="typcn typcn-document-text menu-icon"></i> <!-- Added document icon -->
+            <i class="typcn typcn-document-text menu-icon"></i>
             <span class="menu-title">Manage Document Classifications</span>
         </a>
     </li>
