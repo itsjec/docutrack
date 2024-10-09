@@ -34,23 +34,17 @@
     </div>
     <div class="row">
         <?php
-        // Import the Generator class
         use SimpleSoftwareIO\QrCode\Generator;
 
-        // Assuming the QR Code Generator is already autoloaded via Composer
-        
-        // Loop through each search result
         foreach ($searchResults as $result): ?>
             <div class="col-md-3 d-flex justify-content-center mb-3">
                 <div class="card">
                     <?php
-                    // Generate QR code URL for the tracking number
                     $trackingNumber = urlencode($result['tracking_number']);
                     $qrcode = new Generator;
                     $url = base_url("/track?number=$trackingNumber");
                     $qrCodeURL = $qrcode->size(200)->generate($url);
                     ?>
-                    <!-- Display the QR code image associated with the search result -->
                     <div class="card-body text-center">
                         <div class="d-flex justify-content-center align-items-center mb-2">
                             <?= $qrCodeURL ?>

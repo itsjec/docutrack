@@ -826,22 +826,24 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     public function allDocuments()
     {
         $userId = session('user_id');
-
         $session = session();
         $office_id = $session->get('office_id');
     
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
-
+    
         $officeModel = new OfficeModel();
         $offices = $officeModel->findAll();
         $office = $officeModel->find($office_id);
         $office_name = $office['office_name'];
     
+        $documentModel = new \App\Models\DocumentModel(); 
+        $documents = $documentModel->where('sender_office_id', $office_id)->findAll(); 
+    
         $data = [
             'user_name' => $userName,
-            'searchResults' => [],
+            'searchResults' => $documents, 
             'offices' => $offices,
             'office_name' => $office_name,
             'user' => $user
@@ -850,6 +852,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         return view('Office/Search', $data);
     }
     
+    
 
     public function search()
     {
@@ -857,7 +860,6 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         $session = session();
         $officeId = $session->get('office_id');
     
-        // Load the Office and User data
         $officeModel = new OfficeModel();
         $office = $officeModel->find($officeId);
         $officeName = $office['office_name'];
@@ -869,6 +871,13 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
         $query = $this->db->table('documents')
             ->where('recipient_id', $officeId);
     
+        // Status filter
+        $status = $this->request->getVar('status');
+        if (!empty($status)) {
+            $query->where('status', $status);
+        }
+    
+        // Sorting
         $sortOption = $this->request->getVar('sort');
         switch ($sortOption) {
             case 'title_asc':
@@ -884,7 +893,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 $query->orderBy('date_of_document', 'DESC');
                 break;
             default:
-                $query->orderBy('title', 'ASC');  // Default sorting
+                $query->orderBy('title', 'ASC');
         }
     
         $searchResults = $query->get()->getResultArray();
@@ -897,7 +906,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         return view('Office/Search', $data);
     }
-      
+    
 
     public function getDocumentDetails($id)
     {
