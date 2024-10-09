@@ -870,7 +870,6 @@ public function register()
     {
         $db = db_connect();
     
-        // Query to fetch documents along with the office_name of the user who completed the document
         $query = $db->query("
             SELECT 
                 d.document_id,
@@ -909,17 +908,27 @@ public function register()
         $senderDetails = [];
     
         foreach ($documents as $document) {
-            if (!empty($document->received_timestamp) && !empty($document->completed_timestamp)) {
-                $receivedTimestamp = new \DateTime($document->received_timestamp);
-                $completedTimestamp = new \DateTime($document->completed_timestamp);
-            
-                $interval = $receivedTimestamp->diff($completedTimestamp);
-                $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
-            
-                $document->processing_time_minutes = $processingTimeMinutes;
+            $receivedTimestamp = new \DateTime($document->received_timestamp);
+            $completedTimestamp = new \DateTime($document->completed_timestamp);
+    
+            $interval = $receivedTimestamp->diff($completedTimestamp);
+            $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
+    
+            $document->processing_time_minutes = $processingTimeMinutes;
+    
+            $formattedTime = '';
+    
+            if ($processingTimeMinutes >= 1440) { 
+                $days = floor($processingTimeMinutes / 1440);
+                $formattedTime = $days . ' day' . ($days > 1 ? 's' : '');
+            } elseif ($processingTimeMinutes >= 60) { 
+                $hours = floor($processingTimeMinutes / 60);
+                $formattedTime = $hours . ' hr' . ($hours > 1 ? 's' : '');
             } else {
-                $document->processing_time_minutes = 'N/A'; 
+                $formattedTime = $processingTimeMinutes . ' min';
             }
+    
+            $document->formatted_time = $formattedTime;
     
             $sender_id = $document->sender_id;
             $sender_office_id = $document->sender_office_id;
@@ -936,13 +945,13 @@ public function register()
     
             $senderDetails[$document->document_id] = [
                 'sender_user' => $sender_name,
-                'sender_office' => $sender_office
+                'sender_office' => $sender_office,
             ];
         }
     
         $data = [
             'documents' => $documents,
-            'senderDetails' => $senderDetails
+            'senderDetails' => $senderDetails,
         ];
     
         return view('Admin/AdminViewTransactions', $data);

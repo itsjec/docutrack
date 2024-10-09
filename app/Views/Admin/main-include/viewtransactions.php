@@ -46,38 +46,37 @@
                                         <td><?= $document->completed_office_name ?? 'N/A' ?></td>
                                         <td><?= $document->recipient_office_name ?></td>
                                         <td>
-                                            <?php
-                                                // Ensure we are using processing_time_minutes for calculations
-                                                $time = isset($document->processing_time_minutes) ? $document->processing_time_minutes : 0; // This is still in minutes
-                                                $progress = 0;
-                                                $color = 'blue'; // Default color
-
-                                                // Determine the progress and color based on the time in minutes
-                                                if ($time < 5) {
-                                                    $progress = 20;
+                                                <?php
+                                                    $time = isset($document->processing_time_minutes) ? $document->processing_time_minutes : 0; 
+                                                    $progress = 0;
                                                     $color = 'blue';
-                                                } elseif ($time <= 10) {
-                                                    $progress = 40;
-                                                    $color = 'green';
-                                                } elseif ($time <= 30) {
-                                                    $progress = 60;
-                                                    $color = 'yellow';
-                                                } elseif ($time <= 60) {
-                                                    $progress = 80;
-                                                    $color = 'orange';
-                                                } elseif ($time > 60) {
-                                                    $progress = 100;
-                                                    $color = 'red';
-                                                }
-                                            ?>
-                                            <div class="d-flex align-items-center">
-                                                <span class="mr-2"><?= $time ?> min</span> <!-- Displaying time in minutes -->
-                                                <div class="progress flex-grow-1" style="height: 20px;">
-                                                    <div class="progress-bar" role="progressbar" style="width: <?= $progress ?>%; background-color: <?= $color ?>;"></div>
-                                                </div>
-                                            </div>
-                                        </td>
 
+                                                    if ($time < 5) {
+                                                        $progress = 20;
+                                                        $color = 'blue';
+                                                    } elseif ($time <= 10) {
+                                                        $progress = 40;
+                                                        $color = 'green';
+                                                    } elseif ($time <= 30) {
+                                                        $progress = 60;
+                                                        $color = 'yellow';
+                                                    } elseif ($time <= 60) {
+                                                        $progress = 80;
+                                                        $color = 'orange';
+                                                    } elseif ($time > 60) {
+                                                        $progress = 100;
+                                                        $color = 'red';
+                                                    }
+
+                                                    $formattedTime = isset($document->formatted_time) ? $document->formatted_time : '0 min';
+                                                ?>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="mr-2"><?= $formattedTime ?></span> 
+                                                    <div class="progress flex-grow-1" style="height: 20px;">
+                                                        <div class="progress-bar" role="progressbar" style="width: <?= $progress ?>%; background-color: <?= $color ?>;"></div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         <td><?= date('F j, Y', strtotime($document->date_completed)) ?></td>
                                     </tr>
                                     <?php endforeach; ?>
