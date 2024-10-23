@@ -1,8 +1,8 @@
 const CACHE_NAME = 'ci4-pwa-cache-v1';
 const urlsToCache = [
-    '/',
-    '/css/styles.css',
-    '/js/scripts.js',
+    // '/',
+    // '/css/styles.css',
+    // '/js/scripts.js',
     '/icons/icon-192x192.png',
     '/icons/icon-512x512.png',
     // Add other assets you want to cache

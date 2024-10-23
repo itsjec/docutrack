@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DocuTracks </title>
+  <title>DocuTrackss </title>
 
   <!-- Manifest -->
   <link rel="manifest" href="/manifest.json">
@@ -118,16 +118,17 @@
   <!-- endinject -->
 
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
+   if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
         navigator.serviceWorker.register('/service-worker.js')
-          .then(function (registration) {
-            console.log('Service Worker registered with scope: ', registration.scope);
-          }, function (err) {
-            console.log('Service Worker registration failed: ', err);
-          });
-      });
-    }
+            .then(function(registration) {
+                console.log('Service Worker registered with scope: ', registration.scope);
+            }, function(err) {
+                console.log('Service Worker registration failed: ', err);
+            });
+    });
+}
+
   </script>
 </body>
 
