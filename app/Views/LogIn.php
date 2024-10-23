@@ -13,7 +13,17 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocuTrack </title>
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
 
+    <!-- Favicon and PWA icons -->
+    <link rel="icon" sizes="192x192" href="/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
+    <meta name="theme-color" content="#007bff">
   <style>
     #particles-js {
       position: absolute;
