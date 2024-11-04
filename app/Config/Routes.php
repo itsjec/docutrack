@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'AdminController::index');
+$routes->get('activitytracker', 'AdminController::activitytracker');
 $routes->post('login', 'AdminController::login');
 $routes->get('logout', 'AdminController::logout');
 $routes->get('dashboard', 'AdminController::admindashboard', ['filter' => 'authfilter']);
@@ -60,6 +61,10 @@ $routes->post('searchResults', 'AdminController::searchResults');
 $routes->get('viewdetails', 'AdminController::viewdetails');
 $routes->post('user/activate', 'AdminController::activateUser');
 $routes->post('user/deactivate', 'AdminController::deactivateUser');
+$routes->get('/delete-user/(:num)', 'AdminController::deleteUser/$1');
+$routes->get('user/manage', 'AdminController::manageUsers');
+$routes->get('officelist', 'AdminController::getOfficeList');
+$routes->get('getGuestList', 'AdminController::getGuestList');
 
 
 
@@ -133,12 +138,8 @@ $routes->post('updateofficeguest', 'OfficeController::updateUser');
 $routes->post('user/activateUser', 'OfficeController::activateguestUser');
 $routes->post('user/deactivateUser', 'OfficeController::deactivateguestUser');
 $routes->get('/testlogging', 'OfficeController::testLogging');
-
-
-
-
-
-
+$routes->get('officelist', 'OfficeController::getOfficeList');
+$routes->get('getGuestList', 'OfficeController::getGuestList');
 
 
 

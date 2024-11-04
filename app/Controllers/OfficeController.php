@@ -71,6 +71,7 @@ class OfficeController extends BaseController
                                      ->join('offices', 'offices.office_id = documents.sender_office_id', 'left')
                                      ->join('users', 'users.user_id = documents.sender_id', 'left')
                                      ->where('recipient_id', $officeId)
+                                     ->orderBy('documents.date_of_document', 'DESC')
                                      ->get()
                                      ->getResult();
     
@@ -116,6 +117,7 @@ class OfficeController extends BaseController
             FROM documents
             WHERE documents.recipient_id = $office_id
             AND documents.status = 'pending'
+            ORDER BY documents.date_of_document DESC
         ");
     
         $documents = $query->getResult();
@@ -191,6 +193,7 @@ public function ongoing()
         FROM documents
         WHERE documents.recipient_id = $office_id
         AND documents.status = 'on process'
+        ORDER BY documents.date_of_document DESC
     ");
 
     $documents = $query->getResult();
@@ -259,6 +262,7 @@ public function received()
         FROM documents
         WHERE documents.recipient_id = $office_id
         AND documents.status = 'received'
+        ORDER BY documents.date_of_document DESC
     ");
 
     $documents = $query->getResult();
@@ -340,6 +344,7 @@ public function completed()
         FROM documents
         WHERE documents.recipient_id = $office_id
         AND documents.status = 'completed'
+        ORDER BY documents.date_of_document DESC
     ");
 
     if (!$query) {
@@ -856,28 +861,35 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
 
     public function search()
     {
-        $userId = session('user_id');
         $session = session();
+        $userId = $session->get('user_id');
         $officeId = $session->get('office_id');
-    
-        $officeModel = new OfficeModel();
-        $office = $officeModel->find($officeId);
-        $officeName = $office['office_name'];
-    
+        
         $userModel = new \App\Models\UserModel();
         $user = $userModel->find($userId);
         $userName = $user['first_name'] . ' ' . $user['last_name'];
+        
+        $officeModel = new OfficeModel();
+        $office = $officeModel->find($officeId);
+        $officeName = $office['office_name'];
+        
+        $documentModel = new DocumentModel();
+        $query = $documentModel
+            ->where('sender_office_id', $officeId);  
     
-        $query = $this->db->table('documents')
-            ->where('recipient_id', $officeId);
-    
-        // Status filter
         $status = $this->request->getVar('status');
         if (!empty($status)) {
             $query->where('status', $status);
         }
     
-        // Sorting
+        $search = $this->request->getVar('search');
+        if (!empty($search)) {
+            $query->groupStart()
+                  ->like('title', $search)
+                  ->orLike('tracking_number', $search)
+                  ->groupEnd(); 
+        }
+    
         $sortOption = $this->request->getVar('sort');
         switch ($sortOption) {
             case 'title_asc':
@@ -896,9 +908,10 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 $query->orderBy('title', 'ASC');
         }
     
-        $searchResults = $query->get()->getResultArray();
-    
+        $searchResults = $query->findAll();
+        
         $data = [
+            'user_name' => $userName,
             'searchResults' => $searchResults,
             'office_name' => $officeName,
             'user' => $user,
@@ -987,6 +1000,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 ->from('documents')
                 ->groupBy('title');
         })
+        ->orderBy('documents.date_of_document', 'DESC')
         ->findAll();
 
         $classificationModel = new ClassificationModel();
@@ -1043,20 +1057,22 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         $documentModel = new DocumentModel();
         $documents = $documentModel
-        ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.status, documents.date_of_document, documents.action, documents.description, documents.attachment, sender.first_name AS sender_first_name, sender.last_name AS sender_last_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
-        ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
-        ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
-        ->join('users sender', 'sender.user_id = documents.sender_id', 'left')
-        ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
-        ->where('documents.status !=', 'deleted')
-        ->where('sender.role', 'guest')
-        ->where('documents.recipient_id', $officeId) // Add filter for recipient_id matching office_id from session
-        ->whereIn('documents.title', function($builder) {
-            $builder->select('title')
-                ->from('documents')
-                ->groupBy('title');
-        })
-        ->findAll();
+            ->select('documents.document_id, documents.version_number, documents.title, documents.tracking_number, documents.sender_id, documents.recipient_id, documents.attachment, documents.status, documents.date_of_document, documents.action, documents.description, documents.attachment, sender.first_name AS sender_first_name, sender.last_name AS sender_last_name, recipient.office_name AS recipient_office_name, c.classification_name AS classification, c.sub_classification AS sub_classification')
+            ->join('(SELECT document_id, MAX(version_number) AS max_version FROM documents GROUP BY document_id) latest', 'documents.document_id = latest.document_id AND documents.version_number = latest.max_version', 'inner')
+            ->join('classification c', 'c.classification_id = documents.classification_id', 'left')
+            ->join('users sender', 'sender.user_id = documents.sender_id', 'left')
+            ->join('offices recipient', 'recipient.office_id = documents.recipient_id', 'left')
+            ->where('documents.status !=', 'deleted')
+            ->where('sender.role', 'guest')
+            ->where('documents.recipient_id', $officeId) 
+            ->whereIn('documents.title', function($builder) {
+                $builder->select('title')
+                    ->from('documents')
+                    ->groupBy('title');
+            })
+            ->orderBy('documents.date_of_document', 'DESC')
+            ->findAll();
+        
         
         $classificationModel = new ClassificationModel();
         $classifications = $classificationModel
@@ -1124,7 +1140,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     public function saveClientDocument()
     {
         helper(['form', 'url']);
-    
+        
         $validationRules = [
             'title' => 'required',
             'description' => 'required',
@@ -1134,30 +1150,32 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             'sender_office_id' => 'required',
             'recipient_office_id' => 'required'
         ];
-    
+        
         if (!$this->validate($validationRules)) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
-    
+        
         $file = $this->request->getFile('attachment');
         if (!$file->isValid() || $file->getClientMimeType() !== 'application/pdf') {
             return redirect()->back()->withInput()->with('errors', ['attachment' => 'Invalid file type. Only PDF files are allowed.']);
         }
-    
+        
         $newName = $file->getRandomName();
-        $file->move(ROOTPATH . '/uploads', $newName);
+        $file->move(ROOTPATH . 'public/uploads/', $newName);
+    
+        $fullPath = 'public/uploads/' . $newName; 
     
         $db = \Config\Database::connect();
         $builder = $db->table('documents');
-    
+        
         $classification = $this->request->getVar('classification');
         $subClassification = $this->request->getVar('sub_classification');
         $title = $this->request->getVar('title');
-    
+        
         try {
             $db->transBegin();
             $latestDocument = $builder->where('title', $title)->orderBy('version_number', 'DESC')->get()->getRowArray();
-    
+            
             if ($latestDocument) {
                 $parent_id = $latestDocument['document_id'];
                 $versionParts = explode('.', $latestDocument['version_number']);
@@ -1172,7 +1190,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 $parent_id = NULL;
                 $version_number = '1.0';
             }
-    
+            
             $trackingNumber = 'TR-' . uniqid();
             $data = [
                 'tracking_number' => $trackingNumber,
@@ -1184,7 +1202,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 'description' => $this->request->getVar('description'),
                 'action' => $this->request->getVar('action'),
                 'date_of_document' => date('Y-m-d'),
-                'attachment' => $newName,
+                'attachment' => $fullPath, 
                 'classification_id' => NULL,
                 'classification' => $classification,
                 'sub_classification' => $subClassification,
@@ -1193,15 +1211,16 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
                 'parent_id' => $parent_id
             ];
             $builder->insert($data);
-    
+            
             $db->transCommit();
-    
+            
             return redirect()->to(base_url('clienttracking?trackingNumber=' . $trackingNumber));
         } catch (\Exception $e) {
             $db->transRollback();
             return redirect()->back()->withInput()->with('errors', $e->getMessage());
         }
     }
+    
 
     public function saveDepartmentDocument()
     {
@@ -1266,7 +1285,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             'status' => 'pending',
             'classification' => $this->request->getPost('classification'),
             'sub_classification' => $this->request->getPost('sub_classification'),
-            'date_of_document' => date('Y-m-d', strtotime($this->request->getPost('date_of_document'))),
+            'date_of_document' => date('Y-m-d H:i:s', strtotime($this->request->getPost('date_of_document'))),
             'attachment' => $attachmentName,
             'action' => $this->request->getPost('action'),
             'description' => $this->request->getPost('description'),
@@ -1818,6 +1837,29 @@ public function addUserModal()
         log_message('error', 'Test log message - error level.');
         return 'Check your logs';
     }
+
+    public function getOfficeList(){
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->select([
+            'office_id',
+            'office_name'
+        ])->where('status', 'active')->findAll();
+
+        return $this->response->setJSON($offices);
+    }
+
+    public function getGuestList() {
+        $userModel = new UserModel();
+        $guests = $userModel->select([
+                'user_id',
+                'first_name',
+                'last_name'
+            ])
+            ->where('role', 'guest')
+            ->findAll();
+        return $this->response->setJSON($guests);
+    }
+    
 
 
 }

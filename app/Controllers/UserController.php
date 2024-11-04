@@ -120,39 +120,56 @@ class UserController extends BaseController
     
        
     public function guestsearchResults()
-    {
-        $request = \Config\Services::request();
-        $trackingNumber = $request->getPost('tracking_number');
+{
+    $request = \Config\Services::request();
+    $trackingNumber = $request->getPost('tracking_number');
 
-        $documentModel = new DocumentModel();
-        $document = $documentModel->where('tracking_number', $trackingNumber)->first();
-
-        $officeModel = new OfficeModel();
-        $office = null;
-        if ($document && isset($document['recipient_id'])) {
-            $office = $officeModel->where('office_id', $document['recipient_id'])->first();
-        }
-
-        $progressPercentage = 0;
-        if ($document && isset($document['status'])) {
-            switch ($document['status']) {
-                case 'pending':
-                    $progressPercentage = 25;
-                    break;
-                case 'received':
-                    $progressPercentage = 50;
-                    break;
-                case 'on process':
-                    $progressPercentage = 75;
-                    break;
-                case 'completed':
-                    $progressPercentage = 100;
-                    break;
-            }
-        }
-
-        return view('Users/SearchResults', ['document' => $document, 'office' => $office, 'progressPercentage' => $progressPercentage]);
+    // Check if tracking number is empty
+    if (empty($trackingNumber)) {
+        return redirect()->back()->with('error', 'Please enter a tracking number.');
     }
+
+    $documentModel = new DocumentModel();
+    $document = $documentModel->where('tracking_number', $trackingNumber)->first();
+
+    // Check if document exists
+    if (!$document) {
+        return redirect()->back()->with('error', 'Document not found. Please contact your department about the document.');
+    }
+
+    $officeModel = new OfficeModel();
+    $office = null;
+    if (isset($document['recipient_id'])) {
+        $office = $officeModel->where('office_id', $document['recipient_id'])->first();
+    }
+
+    // Calculate progress percentage based on status
+    $progressPercentage = 0;
+    if (isset($document['status'])) {
+        switch ($document['status']) {
+            case 'pending':
+                $progressPercentage = 25;
+                break;
+            case 'received':
+                $progressPercentage = 50;
+                break;
+            case 'on process':
+                $progressPercentage = 75;
+                break;
+            case 'completed':
+                $progressPercentage = 100;
+                break;
+        }
+    }
+
+    // Load the search results view with document data
+    return view('Users/SearchResults', [
+        'document' => $document,
+        'office' => $office,
+        'progressPercentage' => $progressPercentage
+    ]);
+}
+
 
     public function guestviewdetails()
     {

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
 </head>
 <body>
+
 <div class="content-wrapper">
 <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
@@ -35,37 +36,37 @@
                         <tbody>
                         <?php foreach ($users as $user): ?>
                             <tr>
-                                <td><?= $user['username'] ?></td>
+                                <td><?= esc($user['username']) ?></td>
                                 <td>
                                     <?php if (!empty($user['picture_path'])): ?>
-                                        <img src="<?= htmlspecialchars($user['picture_path']) ?>" alt="User Image" width="100" height="auto">
+                                        <img src="<?= esc($user['picture_path']) ?>" alt="User Image" width="100" height="auto">
                                     <?php else: ?>
-                                        <img src="path/to/default/image.jpg" alt="Default User Image" width="100" height="auto">
+                                        <img src="<?= base_url('path/to/default/image.jpg') ?>" alt="Default User Image" width="100" height="auto"> <!-- Correct path to default image -->
                                     <?php endif; ?>
                                 </td>
-                                <td><?= isset($user['office_name']) ? $user['office_name'] : 'N/A' ?></td>
+                                <td><?= isset($user['office_name']) ? esc($user['office_name']) : 'N/A' ?></td>
                                 <td>
-                                <a href="#editUserModal" class="btn btn-sm btn-primary edit-btn"
+                                    <a href="#editUserModal" class="btn btn-sm btn-primary edit-btn"
                                         data-toggle="modal"
-                                        data-user-id="<?= $user['user_id'] ?>"
-                                        data-office-id="<?= $user['office_id'] ?>"
-                                        data-email="<?= $user['email'] ?>"
-                                        data-username="<?= $user['username'] ?>"
-                                        data-password="<?= $user['password'] ?>">
-                                        <i class="mdi mdi-pencil"></i> Edit
+                                        data-user-id="<?= esc($user['user_id']) ?>"
+                                        data-office-id="<?= esc($user['office_id']) ?>"
+                                        data-email="<?= esc($user['email']) ?>"
+                                        data-username="<?= esc($user['username']) ?>"
+                                        data-password="<?= esc($user['password']) ?>">
+                                        <i class="fas fa-pencil-alt"></i> Edit
                                     </a>
                                     <a href="#" class="btn btn-sm <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'btn-success' : 'btn-danger' ?> deactivate-btn" 
                                         data-toggle="modal" 
-                                        data-target="#<?= isset($user['status']) && $user['status'] == 'deactivate' ? 'activateUserModal_'.$user['user_id'] : 'deactivateUserModal_'.$user['user_id']?>"
-                                        data-userid="<?= $user['user_id'] ?>">
-                                            <i class="mdi <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'mdi-check' : 'mdi-close' ?>"></i>
-                                            <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'Activate' : 'Deactivate' ?>
+                                        data-target="#<?= isset($user['status']) && $user['status'] == 'deactivate' ? 'activateUserModal_' . esc($user['user_id']) : 'deactivateUserModal_' . esc($user['user_id']) ?>"
+                                        data-userid="<?= esc($user['user_id']) ?>">
+                                        <i class="fas <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'fa-check' : 'fa-times' ?>"></i>
+                                        <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'Activate' : 'Deactivate' ?>
                                     </a>
                                 </td>
                             </tr>
 
                             <!-- Activate User Modal -->
-                            <div class="modal fade" id="activateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="activateUserModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="activateUserModal_<?= esc($user['user_id']) ?>" tabindex="-1" role="dialog" aria-labelledby="activateUserModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -79,14 +80,14 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-success" id="confirmActivate_<?= $user['user_id'] ?>" data-userid="<?= $user['user_id'] ?>">Activate</button>
+                                            <button type="button" class="btn btn-success" id="confirmActivate_<?= esc($user['user_id']) ?>" data-userid="<?= esc($user['user_id']) ?>">Activate</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Deactivate User Modal -->
-                            <div class="modal fade" id="deactivateUserModal_<?= $user['user_id'] ?>" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="deactivateUserModal_<?= esc($user['user_id']) ?>" tabindex="-1" role="dialog" aria-labelledby="deactivateUserModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -100,7 +101,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-danger" id="confirmDeactivate_<?= $user['user_id'] ?>" data-userid="<?= $user['user_id'] ?>">Deactivate</button>
+                                            <button type="button" class="btn btn-danger" id="confirmDeactivate_<?= esc($user['user_id']) ?>" data-userid="<?= esc($user['user_id']) ?>">Deactivate</button>
                                         </div>
                                     </div>
                                 </div>

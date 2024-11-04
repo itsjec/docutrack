@@ -111,6 +111,7 @@
 
 
 
+
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -199,6 +200,29 @@
         </div>
     </div>
 </div>
+
+<!-- Generic Delete Confirmation Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserModalLabel">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this user?</p>
+                <p>This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a href="/delete-user/<?= $user['user_id'] ?>" class="btn btn-danger delete-confirm-btn">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
@@ -327,6 +351,22 @@
             });
         });
     });
+
+    $(document).on('click', '.delete-btn', function() {
+    var userId = $(this).data('userid');
+    var userFirstName = $(this).data('firstname');
+    var userLastName = $(this).data('lastname');
+
+    $('#deleteUserModal .modal-body').html(
+        'Are you sure you want to delete the user <strong>' + userFirstName + ' ' + userLastName + '</strong>? This action cannot be undone.'
+    );
+
+    $('#deleteUserModal .delete-confirm-btn').attr('href', '/delete-user/' + userId);
+
+    $('#deleteUserModal').modal('show');
+});
+
+
 </script>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

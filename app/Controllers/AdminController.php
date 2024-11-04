@@ -33,6 +33,12 @@ class AdminController extends BaseController
         return view('Admin/AdminTracking');
     }
 
+    public function activitytracker()
+    {
+
+        return view('Admin/AdminActivityTracker');
+    }
+
     public function officetracking()
     {
         return view('Admin/AdminOfficeTracking');
@@ -1643,5 +1649,58 @@ public function fetchVersionsByTitle()
             return redirect()->to('/manageguest')->with('error', 'User not found');
         }
     }
+
+    public function manageUsers()
+    {
+        $this->userModel = new UserModel();
+        $this->officeModel = new OfficeModel(); 
+    
+        $searchTerm = $this->request->getVar('search');
+        $officeId = $this->request->getVar('office');
+    
+        // Prepare the query
+        $this->userModel->select('users.*, offices.office_name')
+                        ->join('offices', 'users.office_id = offices.office_id', 'left')
+                        ->where('users.role', 'office user');
+    
+        if (!empty($searchTerm)) {
+            $this->userModel->like('users.username', $searchTerm)
+                            ->orLike('users.email', $searchTerm);
+        }
+    
+        if (!empty($officeId)) {
+            $this->userModel->where('users.office_id', $officeId);
+        }
+    
+        $data['users'] = $this->userModel->findAll();
+    
+        // Fetch all offices for the dropdown
+        $data['offices'] = $this->officeModel->select('office_id, office_name')->distinct()->findAll();
+    
+        return view('Admin/AdminManageUser', $data);
+    }
+    
+    public function getOfficeList(){
+        $officeModel = new OfficeModel();
+        $offices = $officeModel->select([
+            'office_id',
+            'office_name'
+        ])->where('status', 'active')->findAll();
+
+        return $this->response->setJSON($offices);
+    }
+
+    public function getGuestList() {
+        $userModel = new UserModel();
+        $guests = $userModel->select([
+                'user_id',
+                'first_name',
+                'last_name'
+            ])
+            ->where('role', 'guest')
+            ->findAll();
+        return $this->response->setJSON($guests);
+    }
+    
     
 }

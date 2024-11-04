@@ -42,6 +42,36 @@
   background-color: #dc3545; /* Red */
   color: #fff; /* White text for better readability */
 }
+
+/* Style for Select2 dropdown */
+.select2-container--default .select2-selection--single {
+            background-color: #FFFFFF;
+            border: 1px solid #C9C8C8;
+            border-radius: 4px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            padding: 7px 12px;
+            height: auto;
+        }
+
+        /* Adjust padding for Select2 selection */
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            padding-left: 0;
+        }
+
+        /* Style for the dropdown options */
+        .select2-container--default .select2-results__option {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            background-color: #FFFFFF;
+            padding: 7px 12px;
+        }
+
+        /* Change background on hover */
+        .select2-container--default .select2-results__option--highlighted {
+            background-color: #C9C8C8;
+            color: #FFFFFF;
+        }
 </style>
 </head>
 <body>
@@ -135,21 +165,17 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="editSenderOfficeId">Sender</label>
-                            <select class="form-control" id="editSenderOfficeId" name="sender_id" required>
+                            <select class="form-control searchable-dropdown" id="editSenderOfficeId" name="sender_id" required>
                                 <option value="">Select Sender</option>
-                                <?php foreach ($guestUsersNames as $user_id => $user_name): ?>
-                                    <option value="<?= $user_id ?>"><?= $user_name ?></option>
-                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="editRecipientOfficeId">Recipient</label>
-                            <select class="form-control" id="editRecipientOfficeId" name="recipient_office_id" required>
-                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
-                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
-                                <?php endforeach; ?>
+                            <select class="form-control searchable-dropdown" id="editRecipientOfficeId" name="recipient_office_id" required>
+                                <option value="">Select Recipient</option>
                             </select>
                         </div>
+
                     </div>
                     <div class="form-row">
                     <div class="form-group col-md-6">
@@ -206,110 +232,163 @@
     </div>
 </div>
 
-<div class="modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addDocumentModalLabel">Add Document</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-            <?php if (is_array(session('errors'))) : ?>
-                    <div class="alert alert-danger" role="alert">
-                        <ul>
-                            <?php foreach (session('errors') as $error) : ?>
-                                <li><?= esc($error) ?></li>
-                            <?php endforeach ?>
-                        </ul>
-                    </div>
-                <?php endif ?>
+<div class=" modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addDocumentModalLabel">Add Document</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php if (session()->has('errors')): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <ul>
+                                <?php foreach (session('errors') as $error): ?>
+                                    <li><?= esc($error) ?></li>
+                                <?php endforeach ?>
+                            </ul>
+                        </div>
+                    <?php endif ?>
 
+                    <?php if (session()->has('error')): ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?= session('error') ?>
+                        </div>
+                    <?php endif ?>
 
-                <?php if (session()->has('error')) : ?>
-                    <div class="alert alert-danger" role="alert">
-                        <?= session('error') ?>
-                    </div>
-                <?php endif ?>
+                    <form id="addDocumentForm" action="<?= site_url('documents/saveOffice') ?>" method="post"
+                        enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="form-group col-12 d-flex flex-column">
+                                <label for="sender_office_id">Sender</label>
+                                <select name="sender_office_id" class="form-custom-select searchable-dropdown-1" required>
+                                    <option></option> <!-- Placeholder option -->
+                                </select>
+                            </div>
 
-                <form id="addDocumentForm" action="<?= site_url('documents/save') ?>" method="post" enctype="multipart/form-data">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="sender_office_id">Sender</label>
-                            <select class="form-control" id="sender_office_id" name="sender_office_id" required>
-                                <option value="" disabled selected>Select Sender</option>
-                                <?php foreach ($guestUsersNames as $user_id => $user_name): ?>
-                                    <option value="<?= $user_id ?>"><?= $user_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group col-md-4">
-                            <label for="recipient_office_id">Recipient</label>
-                            <select class="form-control" id="recipient_office_id" name="recipient_office_id" required>
-                                <option value="" disabled selected>Select Recipient</option>
-                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
-                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="classification">Classification</label>
-                            <select class="form-control" id="classification" name="classification" required>
-                                <option value="" disabled selected>Select Classification</option>
-                                <?php foreach ($classificationsDropdown as $classification): ?>
-                                    <option value="<?= $classification ?>"><?= $classification ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="sub-classification">Sub-Classification</label>
-                            <select id="sub-classification" name="sub_classification" class="form-control" required>
-                                <option value="" disabled selected>Select Sub-Classification</option>
-                                <?php foreach ($subClassificationsDropdown as $subClassification): ?>
-                                    <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="date_of_document">Date of Document</label>
-                            <input type="text" class="form-control" id="date_of_document" name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="attachment">Attachment (PDF)</label>
-                            <input type="file" class="form-control-file" id="attachment" name="attachment" accept=".pdf" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="action">Action</label>
-                            <input type="text" class="form-control" id="action" name="action">
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
+                            <div class="form-group col-12 d-flex flex-column">
+                                <label for="recipient_office_id">Recipient</label>
+                                <select class="form-custom-select searchable-dropdown"" name=" recipient_office_id"
+                                    required>
+                                    <option></option> <!-- Placeholder option -->
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="classification">Classification</label>
+                                    <select class="form-control" id="classification" name="classification" required>
+                                        <option value="" disabled selected>Select Classification</option>
+                                        <?php foreach ($classificationsDropdown as $classification): ?>
+                                            <option value="<?= $classification ?>"><?= $classification ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="sub-classification">Sub-Classification</label>
+                                    <select id="sub-classification" name="sub_classification" class="form-control"
+                                        required>
+                                        <option value="" disabled selected>Select Sub-Classification</option>
+                                        <?php foreach ($subClassificationsDropdown as $subClassification): ?>
+                                            <option value="<?= $subClassification ?>"><?= $subClassification ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="action">Action</label>
+                                    <input type="text" class="form-control" id="action" name="action">
+                                </div>
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="date_of_document">Date of Document</label>
+                                    <input type="text" class="form-control" id="date_of_document"
+                                        name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" name="description"
+                                        rows="3"></textarea>
+                                </div>
+                                <div class="form-group col-12">
+                                    <label for="attachment">Attachment (PDF)</label>
+                                    <input type="file" class="form-control-file" id="attachment" name="attachment"
+                                        accept=".pdf" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2 on all elements with the class 'searchable-dropdown'
+            $('.searchable-dropdown').select2({
+                placeholder: "Select an option",
+                allowClear: true,
+                width: 'resolve',
+                dropdownParent: $('#addDocumentModal')
+            });
+
+            // Fetch office list from the server and populate each searchable-dropdown
+            $.ajax({
+                url: '/officelist', // Replace with your API endpoint
+                method: 'GET',
+                success: function (data) {
+                    // Populate each dropdown
+                    $('.searchable-dropdown').each(function () {
+                        const $dropdown = $(this);
+
+                        // Add options to each dropdown
+                        data.forEach(function (office) {
+                            $dropdown.append(new Option(office.office_name, office.office_id));
+                        });
+
+
+                    });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('.searchable-dropdown-1').select2({
+                placeholder: "Select an option",
+                allowClear: true,
+                width: 'resolve',
+                dropdownParent: $('#addDocumentModal')
+            });
+
+                $.ajax({
+                url: '/getGuestList', // URL for fetching guest users
+                method: 'GET',
+                success: function (data) {
+                    const $senderDropdown = $('[name="sender_office_id"]');
+                    
+                    data.forEach(function (guest) {
+                        const fullName = `${guest.first_name} ${guest.last_name}`;
+                        $senderDropdown.append(new Option(fullName, guest.user_id));
+                    });
+                },
+                error: function (err) {
+                    console.log("Error fetching guest users:", err);
+                }
+            });
+        });
+    </script>
+
 
 <script>
 $(document).ready(function() {
@@ -366,9 +445,7 @@ $('#editDocumentForm').on('submit', function(e) {
             processData: false,
             contentType: false,
             success: function(response) {
-                // Handle success response
                 $('#editDocumentModal').modal('hide');
-                // Reload or update the document list
                 window.location.reload();
             },
             error: function(xhr, status, error) {
