@@ -31,6 +31,24 @@ class Filters extends BaseConfig
     ];
 
     public array $filters = [
-        'authfilter' => ['before' => ['dashboard', 'index', 'indexloggedin']],
-    ];
+        'authfilter' => ['before' => [
+            'dashboard',
+            'archived',
+            'all',
+            'viewtransactions',
+            'manageoffice',
+            'manageuser',
+            'manageguest',
+            'managedocument',
+            'maintenance',
+            'tracking',
+            'officetracking',
+            'manageofficedocument',
+            'document-status-chart',
+            'delete',
+            'search',
+            'kiosk',
+            'adminkiosk',
+        ]],
+        ];
 }

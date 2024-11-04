@@ -14,40 +14,40 @@ $routes->get('activitytracker', 'AdminController::activitytracker');
 $routes->post('login', 'AdminController::login');
 $routes->get('logout', 'AdminController::logout');
 $routes->get('dashboard', 'AdminController::admindashboard', ['filter' => 'role:admin']);
-$routes->get('archived', 'AdminController::archived', ['filter' => 'role:office user']);
-$routes->get('all', 'AdminController::alldocuments', ['filter' => 'role:office user']);
-$routes->get('viewtransactions', 'AdminController::admintransactions', ['filter' => 'role:office user']);
-$routes->get('manageoffice', 'AdminController::adminmanageoffice', ['filter' => 'role:office user']);
+$routes->get('archived', 'AdminController::archived', ['filter' => 'role:admin']);
+$routes->get('all', 'AdminController::alldocuments', ['filter' => 'role:admin']);
+$routes->get('viewtransactions', 'AdminController::admintransactions', ['filter' => 'role:admin']);
+$routes->get('manageoffice', 'AdminController::adminmanageoffice', ['filter' => 'role:admin']);
 $routes->match(['get', 'post'], 'register', 'AdminController::register');
 $routes->post('offices/save', 'AdminController::save');
-$routes->get('manageuser', 'AdminController::manageuser', ['filter' => 'role:office user']);
+$routes->get('manageuser', 'AdminController::manageuser', ['filter' => 'role:admin']);
 $routes->post('users/save', 'AdminController::saveOfficeUser');
-$routes->get('manageguest', 'AdminController::manageguest', ['filter' => 'role:office user']);
+$routes->get('manageguest', 'AdminController::manageguest', ['filter' => 'role:admin']);
 $routes->post('saveguest', 'AdminController::saveguest');
-$routes->get('managedocument', 'AdminController::managedocument', ['filter' => 'role:office user']);
-$routes->get('maintenance', 'AdminController::maintenance', ['filter' => 'role:office user']);
+$routes->get('managedocument', 'AdminController::managedocument', ['filter' => 'role:admin']);
+$routes->get('maintenance', 'AdminController::maintenance', ['filter' => 'role:admin']);
 $routes->post('classifications/save', 'AdminController::saveClassification', ['as' => 'saveClassification']);
 $routes->post('sub-classifications/save', 'AdminController::saveSubClassification');
 $routes->post('documents/getSubClassifications', 'AdminController::getSubClassifications');
-$routes->get('tracking', 'AdminController::tracking', ['filter' => 'role:office user']);
-$routes->get('officetracking', 'AdminController::officetracking', ['filter' => 'role:office user']);
+$routes->get('tracking', 'AdminController::tracking', ['filter' => 'role:admin']);
+$routes->get('officetracking', 'AdminController::officetracking', ['filter' => 'role:admin']);
 $routes->post('documents/save', 'AdminController::saveDocument');
 $routes->post('documents/saveOffice', 'AdminController::saveOfficeDocument');
-$routes->get('manageofficedocument', 'AdminController::manageofficedocument', ['filter' => 'role:office user']);
+$routes->get('manageofficedocument', 'AdminController::manageofficedocument', ['filter' => 'role:admin']);
 $routes->get('test-insert', 'AdminController::testInsert');
-$routes->get('document-status-chart', 'AdminController::documentStatusChart', ['filter' => 'role:office user']);
+$routes->get('document-status-chart', 'AdminController::documentStatusChart', ['filter' => 'role:admin']);
 $routes->post('documents/deleteDocument', 'AdminController::deleteDocument');
 $routes->post('admin/update-document-deleted-status/(:num)/(:any)', 'AdminController::updateDocumentDeletedStatus/$1/$2');
-$routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentpermanent/$1', ['filter' => 'role:office user']);
+$routes->get('admin/delete-document/(:num)', 'AdminController::deleteDocumentpermanent/$1', ['filter' => 'role:admin']);
 $routes->post('admin/delete-document/(:num)', 'AdminController::deleteDocumentPermanent/$1');
 $routes->post('admin/delete-user/(:num)', 'AdminController::deleteUser/$1');
 $routes->post('users/update', 'AdminController::updateUser');
-$routes->get('delete/(:num)', 'AdminController::delete/$1', ['filter' => 'role:office user']);
+$routes->get('delete/(:num)', 'AdminController::delete/$1', ['filter' => 'role:admin']);
 $routes->post('updateguest', 'AdminController::updateGuestUser');
 $routes->post('documents/updateDocument', 'AdminController::updateDocument');
 $routes->post('documents/updateGuestDocument', 'AdminController::updateGuestDocument');
 $routes->post('documents/getDocument', 'AdminController::getDocument');
-$routes->get('search', 'AdminController::search', ['filter' => 'role:office user']);
+$routes->get('search', 'AdminController::search', ['filter' => 'role:admin']);
 $routes->match(['get', 'post'], 'admin/transactions/download', 'AdminController::download_all_rows');
 $routes->get('document/aging', 'AdminController::aging');
 $routes->get('office-processing-time', 'AdminController::officeProcessingTime');
@@ -69,12 +69,6 @@ $routes->get('/delete-user/(:num)', 'AdminController::deleteUser/$1');
 $routes->get('user/manage', 'AdminController::manageUsers');
 $routes->get('officelist', 'AdminController::getOfficeList');
 $routes->get('getGuestList', 'AdminController::getGuestList');
-
-
-
-
-
-
 
 
 

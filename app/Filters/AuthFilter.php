@@ -14,12 +14,10 @@ class AuthFilter implements FilterInterface
     {
         $jwtService = new JWTServices();
         
-        // Retrieve the JWT token from session
         $session = session();
         $token = $session->get('jwt_token');
 
         if ($token) {
-            // Decode the token and log the result
             $decoded = $jwtService->decodeToken($token);
 
             if ($decoded) {
