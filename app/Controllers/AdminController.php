@@ -191,7 +191,7 @@ class AdminController extends BaseController
     public function login()
     {
         $userModel = new UserModel();
-        $jwtService = new JWTServices(); // Assuming JWTServices is in Controllers or the correct path
+        $jwtService = new JWTServices(); 
     
         if ($this->request->getMethod() === 'post') {
             $emailOrUsername = $this->request->getPost('emailOrUsername');
@@ -503,6 +503,7 @@ public function register()
                 ->from('documents')
                 ->groupBy('title');
         })
+        ->orderBy('documents.date_of_document', 'DESC')
         ->findAll();
         
         $classificationModel = new ClassificationModel();
@@ -562,6 +563,7 @@ public function register()
                 ->from('documents')
                 ->groupBy('title');
         })
+        ->orderBy('documents.date_of_document', 'DESC')
         ->findAll();
 
         $classificationModel = new ClassificationModel();
