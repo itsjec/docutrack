@@ -32,10 +32,9 @@
 
         .image-section {
             flex: 1;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-image: url('assets/images/no-access.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .content-section {
@@ -74,11 +73,19 @@
         a:hover {
             background-color: #55003b;
         }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="image-section"></div>
+        <div class="image-section">
+            <img src="assets/images/no-access.png" alt="Access Denied">
+        </div>
         <div class="content-section">
             <h1>Access Denied</h1>
             <p>You are not authorized to access this page. Please check your login credentials or contact the administrator for access.</p>
