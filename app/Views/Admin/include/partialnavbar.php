@@ -2,7 +2,7 @@
       <div class="navbar-brand-wrapper d-flex justify-content-center" style="background: linear-gradient(135deg, #9220b9, #C36EB8);">
         <div class="navbar-brand-inner-wrapper d-flex justify-content-between align-items-center w-100">
           <a class="navbar-brand brand-logo" href="<?= site_url('dashboard') ?>"><img src="assets/images/logo.png"/></a>
-          <a class="navbar-brand brand-logo-mini" href="<?= site_url('dashboard') ?>"><img src="assets/images/logo.png" alt="logo"/></a>
+          <a class="navbar-brand brand-logo-mini" href="<?= site_url('dashboard') ?>"><img src="assets/images/mobile-logo1.png" alt="logo"/></a>
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
             <span class="typcn typcn-th-menu"></span>
           </button>

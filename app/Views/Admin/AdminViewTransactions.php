@@ -92,7 +92,7 @@
                 $('#previewModal').modal('show');
 
                 $('#downloadButton').off('click').on('click', function() {
-                    window.location.href = 'https://docutrack.online/admin/transactions/download';
+                    window.location.href = 'https://docutrack.calapancityapps.com/admin/transactions/download';
                 });
 
                 $('#printButton').off('click').on('click', function() {

@@ -35,10 +35,59 @@ class AdminController extends BaseController
 
     public function activitytracker()
     {
-
-        return view('Admin/AdminActivityTracker');
+        $documentModel = new DocumentModel();
+        $documents = $documentModel
+            ->select('documents.document_id, documents.title, documents.tracking_number, documents.status, documents.date_of_document, 
+                      sender.office_name AS sender_office_name, documents.sender_office_id, sender_id, 
+                      users.first_name, users.last_name, documents.date_completed') // Include date_completed
+            ->join('offices sender', 'sender.office_id = documents.sender_office_id', 'left')
+            ->join('users', 'users.user_id = documents.sender_id', 'left')
+            ->where('documents.status !=', 'deleted')
+            ->orderBy('documents.date_of_document', 'DESC')
+            ->findAll();
+    
+        // Get the database connection
+        $db = \Config\Database::connect();
+    
+        $documentsWithHistory = [];
+    
+        foreach ($documents as $document) {
+            // Fetch document history for each document
+            $history = $db->table('document_history')
+                ->select('document_history.status, document_history.date_changed, document_history.office_id, offices.office_name, users.first_name AS modified_first_name, users.last_name AS modified_last_name')
+                ->join('offices', 'document_history.office_id = offices.office_id')
+                ->join('users', 'document_history.user_id = users.user_id')
+                ->where('document_history.document_id', $document['document_id'])
+                ->orderBy('document_history.date_changed')
+                ->get()
+                ->getResultArray();
+    
+            // Organize the history by office
+            $historyByOffice = [];
+            foreach ($history as $record) {
+                $officeName = htmlspecialchars($record['office_name']);
+                $historyByOffice[$officeName][] = [
+                    'status' => htmlspecialchars($record['status']),
+                    'date_changed' => $record['date_changed'],
+                    'modified_first_name' => htmlspecialchars($record['modified_first_name']),
+                    'modified_last_name' => htmlspecialchars($record['modified_last_name']),
+                ];
+            }
+    
+            // Append document data along with its organized history
+            $document['history'] = $historyByOffice;
+            $document['office_name'] = htmlspecialchars($document['sender_office_name']);
+            $documentsWithHistory[] = $document;
+        }
+    
+        $data = [
+            'documents' => $documentsWithHistory,
+        ];
+    
+        return view('Admin/AdminActivityTracker', $data);
     }
-
+    
+    
     public function officetracking()
     {
         return view('Admin/AdminOfficeTracking');

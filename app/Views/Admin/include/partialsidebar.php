@@ -38,7 +38,7 @@
                     <a class="nav-link" href="<?= site_url('managedocument') ?>">Manage Client Documents</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= site_url('viewtransactions') ?>">View Transactions</a>
+                    <a class="nav-link" href="<?= site_url('viewtransactions') ?>">Transaction Log</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= site_url('archived') ?>">Archived Documents</a>
@@ -48,6 +48,12 @@
                 </li>
             </ul>
         </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="<?= site_url('activitytracker') ?>">
+            <i class="typcn typcn-time menu-icon"></i> 
+            <span class="menu-title">Activity Tracker</span>
+        </a>
     </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#office-collapse" aria-expanded="false" aria-controls="office-collapse">
