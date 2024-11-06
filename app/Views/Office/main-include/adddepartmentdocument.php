@@ -106,7 +106,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-8">
-                                <h4 class="card-title">Manage Department Document</h4>
+                                <h4 class="card-title">Manage Department Documents</h4>
                                 <p class="card-description">Track and update documents.</p>
                             </div>
                             <div class="col-4 text-right">
