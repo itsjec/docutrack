@@ -160,9 +160,11 @@
                                                     <i class="mdi mdi-delete"></i> Delete
                                                 </button>
                                                 <button type="button" class="btn btn-sm btn-info view-btn"
-                                                    data-document-url="<?= base_url('uploads/' . $document['attachment']) ?>">
+                                                    data-document-url="<?= site_url('file/' . $document['attachment']) ?>">
                                                     <i class="mdi mdi-eye"></i> View
                                                 </button>
+
+
 
                                             </td>
                                         </tr>

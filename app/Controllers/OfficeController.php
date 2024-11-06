@@ -1242,7 +1242,7 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
     
         $attachment = $this->request->getFile('attachment');
         $attachmentName = $attachment->getRandomName();
-        $attachment->move(ROOTPATH . '/uploads', $attachmentName);
+        $attachment->move(ROOTPATH . 'public/uploads', $attachmentName);
     
         $trackingNumber = 'TR-' . uniqid();
     

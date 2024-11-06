@@ -176,3 +176,6 @@ $routes->post('/qr-code/generate', 'QrCodeController::generate');
 
 $routes->match(['get', 'post'], 'qr-codes', 'QrCodeGeneratorController::index');
 
+
+
+$routes->get('file/(:segment)', 'FileController::serve/$1');
