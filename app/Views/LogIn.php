@@ -18,13 +18,13 @@
   <title>DocuTrack Onlisne </title>
 
   <!-- Manifest -->
-  <link rel="manifest" href="/assets2/manifest.json">
+  <link rel="manifest" href="/manifest.json">
 
   <!-- Favicon and PWA icons -->
-  <link rel="icon" sizes="192x192" href="/assets2/icons/icon-192x192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="/assets2/icons/icon-192x192.png">
-  <link rel="icon" sizes="512x512" href="/assets2/icons/icon-512x512.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="/assets2/icons/icon-512x512.png">
+  <link rel="icon" sizes="192x192" href="/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
+  <link rel="icon" sizes="512x512" href="/icons/icon-512x512.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
   <meta name="theme-color" content="#007bff">
   <style>
     #particles-js {
@@ -120,7 +120,7 @@
   <script>
    if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/assets2/service-worker.js')
+        navigator.serviceWorker.register('/service-worker.js')
             .then(function(registration) {
                 console.log('Service Worker registered with scope: ', registration.scope);
             }, function(err) {
