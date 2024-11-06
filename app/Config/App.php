@@ -16,9 +16,11 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    //public string $baseURL = 'http://localhost:8080/';
+    // public string $baseURL = 'http://localhost:8080/';
+      public string $baseURL = 'https://docutrack.calapancityapps.com/';
+    // public string $baseURL = 'http://localhost:8080/';
     //public string $baseURL = 'https://docutrack.online/';
-    public string $baseURL = 'https://docutrack.calapancityapps.com/';
+    // public string $baseURL = 'http://192.168.96.186/docutrack/public/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -168,7 +170,7 @@ class App extends BaseConfig
      * Enables the Response's Content Secure Policy to restrict the sources that
      * can be used for images, scripts, CSS files, audio, video, etc. If enabled,
      * the Response object will populate default values for the policy from the
-     * `ContentSecurityPolicy.php` file. Controllers can always add to those
+     * ContentSecurityPolicy.php file. Controllers can always add to those
      * restrictions at run time.
      *
      * For a better understanding of CSP, see these documents:

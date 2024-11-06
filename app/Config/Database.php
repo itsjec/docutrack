@@ -27,9 +27,12 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
+        // 'username'     => 'root',
         'username'     => 'u459583612_misnimda',
         'password'     => '!!calapanMISadmin11',
+        // 'password'     => '',
         'database'     => 'u459583612_docutrack2',
+        // 'database'     => 'docutrack',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
