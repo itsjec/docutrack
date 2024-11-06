@@ -16,7 +16,8 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'https://docutrack.calapancityapps.com/';
+    // public string $baseURL = 'http://localhost:8080/';
+      public string $baseURL = 'https://docutrack.calapancityapps.com/';
     // public string $baseURL = 'http://localhost:8080/';
     //public string $baseURL = 'https://docutrack.online/';
     // public string $baseURL = 'http://192.168.96.186/docutrack/public/';
