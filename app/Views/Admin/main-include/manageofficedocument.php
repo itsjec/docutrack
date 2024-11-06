@@ -363,7 +363,7 @@
                                 <div class="form-group col-12 col-md-6">
                                     <label for="date_of_document">Date of Document</label>
                                     <input type="text" class="form-control" id="date_of_document"
-                                        name="date_of_document" value="<?= date('Y-m-d') ?>" readonly>
+                                        name="date_of_document" value="<?= date('Y-m-d H:i:s') ?>" readonly>
                                 </div>
                                 <div class="form-group col-12">
                                     <label for="description">Description</label>

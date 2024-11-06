@@ -884,7 +884,7 @@ public function register()
             'status' => 'pending',
             'classification' => $this->request->getPost('classification'),
             'sub_classification' => $this->request->getPost('sub_classification'),
-            'date_of_document' => date('Y-m-d', strtotime($this->request->getPost('date_of_document'))),
+            'date_of_document' => date('Y-m-d H:i:s', strtotime($this->request->getPost('date_of_document'))),
             'attachment' => $attachmentName,
             'action' => $this->request->getPost('action'),
             'description' => $this->request->getPost('description'),
