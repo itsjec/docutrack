@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DocuTrack Onlisne </title>
+  <title>DocuTrack Online </title>
 
   <!-- Manifest -->
   <link rel="manifest" href="/manifest.json">
