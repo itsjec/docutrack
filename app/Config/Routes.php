@@ -179,3 +179,8 @@ $routes->match(['get', 'post'], 'qr-codes', 'QrCodeGeneratorController::index');
 
 
 $routes->get('file/(:segment)', 'FileController::serve/$1');
+
+
+$routes->get('notification', 'NotificationController::index');
+$routes->post('notification/generate_token', 'NotificationController::generate_token');
+$routes->post('notification/send_notification', 'NotificationController::send_notification');
