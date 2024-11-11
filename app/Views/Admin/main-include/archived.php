@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="archived">
                         <thead>
                             <tr>
                                 <th>Title</th>

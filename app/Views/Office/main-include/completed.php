@@ -38,8 +38,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-body">
+            <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Completed Documents</h4>
+                        <p class="card-description">Completed documents are those that have been fully processed, reviewed, and finalized, ready for storage or distribution</p>
+                    </div>
+                </div>
             <div class="table-responsive pt-3">
-                <table class="table table-striped project-orders-table">
+                <table class="table table-striped project-orders-table" id="completed">
                     <thead>
                         <tr>
                             <th>Tracking Number</th>
@@ -102,6 +109,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

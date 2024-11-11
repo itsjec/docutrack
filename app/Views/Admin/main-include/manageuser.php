@@ -20,11 +20,13 @@
                         <p class="card-description">Track and update users.</p>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add Department User</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                        <i class="mdi mdi-account-plus" style="font-size: 20px; margin-right: 8px;"></i> Add Department User
+                    </button>
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id ="myUserTable">
                         <thead>
                             <tr>
                                 <th>Username</th>
@@ -53,13 +55,13 @@
                                         data-email="<?= esc($user['email']) ?>"
                                         data-username="<?= esc($user['username']) ?>"
                                         data-password="<?= esc($user['password']) ?>">
-                                        <i class="fas fa-pencil-alt"></i> Edit
+                                        <i class="mdi mdi-pencil"></i> Edit
                                     </a>
                                     <a href="#" class="btn btn-sm <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'btn-success' : 'btn-danger' ?> deactivate-btn" 
                                         data-toggle="modal" 
                                         data-target="#<?= isset($user['status']) && $user['status'] == 'deactivate' ? 'activateUserModal_' . esc($user['user_id']) : 'deactivateUserModal_' . esc($user['user_id']) ?>"
                                         data-userid="<?= esc($user['user_id']) ?>">
-                                        <i class="fas <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'fa-check' : 'fa-times' ?>"></i>
+                                        <i class="mdi <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'mdi-check' : 'mdi-close' ?>"></i>
                                         <?= isset($user['status']) && $user['status'] == 'deactivate' ? 'Activate' : 'Deactivate' ?>
                                     </a>
                                 </td>

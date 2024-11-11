@@ -115,7 +115,7 @@
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="adddepartment">
                                 <thead>
                                     <tr>
                                         <th>Version No.</th>

@@ -45,7 +45,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="table-responsive pt-3">
-                <table class="table table-striped project-orders-table">
+                <table class="table table-striped project-orders-table" id="index">
                     <thead>
                         <tr>
                             <th>Tracking Number</th>

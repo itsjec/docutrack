@@ -39,8 +39,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <div class="card-body">
+            <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Pending Documents</h4>
+                        <p class="card-description"> Documents awaiting action, approval, or completion before moving to the next stage.</p>
+                    </div>
+                </div>
             <div class="table-responsive pt-3">
-                <table class="table table-striped project-orders-table">
+                <table class="table table-striped project-orders-table" id="pending">
                     <thead>
                         <tr>
                             <th>Tracking Number</th>
@@ -93,6 +100,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

@@ -39,8 +39,15 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="table-responsive pt-3">
-                <table class="table table-striped project-orders-table">
+            <div class="card-body">
+                <div class="row">
+                        <div class="col-8">
+                            <h4 class="card-title">Deleted Documents</h4>
+                            <p class="card-description">Track and manage documents.</p>
+                        </div>
+                    </div>
+                <div class="table-responsive pt-3">
+                <table class="table table-striped project-orders-table" id="history">
                     <thead>
                         <tr>
                             <th>Tracking Number</th>
@@ -82,6 +89,7 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

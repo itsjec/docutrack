@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="manageofficeguest">
                         <thead>
                             <tr>
                                 <th>First Name</th>

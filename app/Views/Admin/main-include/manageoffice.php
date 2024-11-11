@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="manageoffice">
                         <thead>
                             <tr>
                                 <th>Department Name</th>

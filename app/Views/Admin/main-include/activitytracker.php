@@ -140,7 +140,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="activitytracker">
                             <thead>
                                 <tr>
                                     <th>Title</th>
@@ -192,83 +192,83 @@
                                             <h4>Processing Report</h4>
                                             <hr>
                                             <?php if (isset($document['history']) && !empty($document['history'])): ?>
-    <?php foreach ($document['history'] as $officeName => $records): ?>
-        <h5><?= htmlspecialchars($officeName) ?></h5> <!-- Display office name -->
-        <?php 
-        // Variables to store dates for each processing stage
-        $receivedDate = null;
-        $pendingDate = null;
-        $onProcessDate = null;
-        $dateOfDocument = strtotime($document['date_of_document']); // Document creation date
+                                            <?php foreach ($document['history'] as $officeName => $records): ?>
+                                                <h5><?= htmlspecialchars($officeName) ?></h5> <!-- Display office name -->
+                                                <?php 
+                                                // Variables to store dates for each processing stage
+                                                $receivedDate = null;
+                                                $pendingDate = null;
+                                                $onProcessDate = null;
+                                                $dateOfDocument = strtotime($document['date_of_document']); // Document creation date
 
-        foreach ($records as $record):
-            $status = htmlspecialchars($record['status']);
-            $dateChangedTimestamp = strtotime($record['date_changed']);
-            $processingTime = 0;  // Initialize processing time
+                                                foreach ($records as $record):
+                                                    $status = htmlspecialchars($record['status']);
+                                                    $dateChangedTimestamp = strtotime($record['date_changed']);
+                                                    $processingTime = 0;  // Initialize processing time
 
-            if ($status === 'pending') {
-                // Store the timestamp of the most recent "pending" status
-                $pendingDate = $dateChangedTimestamp;
-            } 
-            elseif ($status === 'received') {
-                // For "received", check if it's the first "received" or if there's a prior "pending"
-                if ($receivedDate === null) {
-                    // First "received" starts from date_of_document or pending date if it exists
-                    $startDate = $pendingDate ?? $dateOfDocument;
-                    $processingTime = $dateChangedTimestamp - $startDate;
-                    $receivedDate = $dateChangedTimestamp;
-                } else {
-                    // Subsequent "received" statuses start from the last "pending" status
-                    $startDate = $pendingDate ?? $dateOfDocument;
-                    $processingTime = $dateChangedTimestamp - $startDate;
-                    $receivedDate = $dateChangedTimestamp;
-                }
-            } 
-            elseif ($status === 'on process' && isset($receivedDate)) {
-                // "On process" time calculated from the last "received" status
-                $onProcessDate = $dateChangedTimestamp;
-                $processingTime = $onProcessDate - $receivedDate;
-            } 
-            elseif ($status === 'completed' && isset($onProcessDate)) {
-                // "Completed" time calculated from the last "on process" status
-                $completedDate = $dateChangedTimestamp;
-                $processingTime = $completedDate - $onProcessDate;
-            }
+                                                    if ($status === 'pending') {
+                                                        // Store the timestamp of the most recent "pending" status
+                                                        $pendingDate = $dateChangedTimestamp;
+                                                    } 
+                                                    elseif ($status === 'received') {
+                                                        // For "received", check if it's the first "received" or if there's a prior "pending"
+                                                        if ($receivedDate === null) {
+                                                            // First "received" starts from date_of_document or pending date if it exists
+                                                            $startDate = $pendingDate ?? $dateOfDocument;
+                                                            $processingTime = $dateChangedTimestamp - $startDate;
+                                                            $receivedDate = $dateChangedTimestamp;
+                                                        } else {
+                                                            // Subsequent "received" statuses start from the last "pending" status
+                                                            $startDate = $pendingDate ?? $dateOfDocument;
+                                                            $processingTime = $dateChangedTimestamp - $startDate;
+                                                            $receivedDate = $dateChangedTimestamp;
+                                                        }
+                                                    } 
+                                                    elseif ($status === 'on process' && isset($receivedDate)) {
+                                                        // "On process" time calculated from the last "received" status
+                                                        $onProcessDate = $dateChangedTimestamp;
+                                                        $processingTime = $onProcessDate - $receivedDate;
+                                                    } 
+                                                    elseif ($status === 'completed' && isset($onProcessDate)) {
+                                                        // "Completed" time calculated from the last "on process" status
+                                                        $completedDate = $dateChangedTimestamp;
+                                                        $processingTime = $completedDate - $onProcessDate;
+                                                    }
 
-            // Format the processing time
-            $days = floor($processingTime / (60 * 60 * 24));
-            $hours = floor(($processingTime % (60 * 60 * 24)) / (60 * 60));
-            $minutes = floor(($processingTime % (60 * 60)) / 60);
-            $formattedTime = "{$days} days, {$hours} hours, {$minutes} minutes";
-            ?>
+                                                    // Format the processing time
+                                                    $days = floor($processingTime / (60 * 60 * 24));
+                                                    $hours = floor(($processingTime % (60 * 60 * 24)) / (60 * 60));
+                                                    $minutes = floor(($processingTime % (60 * 60)) / 60);
+                                                    $formattedTime = "{$days} days, {$hours} hours, {$minutes} minutes";
+                                                    ?>
 
-            <div>
-                <strong><?= $status ?></strong>
-            </div>
-            <div class="progress-card">
-                <div class="progress-circle 
-                    <?= htmlspecialchars($status) === 'received' ? 'progress-5min' : (htmlspecialchars($status) === 'on process' ? 'progress-15min' : 'progress-30min') ?>">
-                </div>
-                <p>
-                    <?php
-                    $firstName = htmlspecialchars($record['modified_first_name']);
-                    $lastName = htmlspecialchars($record['modified_last_name']);
-                    $dateChanged = date('h:i A', strtotime($record['date_changed'])) . ' on ' . date('F d, Y', strtotime($record['date_changed']));
-                    ?>
+                                                    <div>
+                                                        <strong><?= $status ?></strong>
+                                                    </div>
+                                                    <div class="progress-card">
+                                                        <div class="progress-circle 
+                                                            <?= htmlspecialchars($status) === 'received' ? 'progress-5min' : (htmlspecialchars($status) === 'on process' ? 'progress-15min' : 'progress-30min') ?>">
+                                                        </div>
+                                                        <p>
+                                                            <?php
+                                                            $firstName = htmlspecialchars($record['modified_first_name']);
+                                                            $lastName = htmlspecialchars($record['modified_last_name']);
+                                                            $dateChanged = date('h:i A', strtotime($record['date_changed'])) . ' on ' . date('F d, Y', strtotime($record['date_changed']));
+                                                            ?>
 
-                    <strong><?= htmlspecialchars($status) ?></strong>
-                    <br>
-                    Additional Details: <?= "{$firstName} {$lastName} {$status} the document at {$dateChanged}." ?>
-                    <br>
-                    Processing Time: <?= $formattedTime ?>
-                </p>
-            </div>
-            <hr> <!-- Adding a separator between statuses -->
-        <?php endforeach; ?>
-    <?php endforeach; ?>
-<?php else: ?>
-    <p>No history available for this document.</p>
-<?php endif; ?>
+                                                            <strong><?= htmlspecialchars($status) ?></strong>
+                                                            <br>
+                                                            Additional Details: <?= "{$firstName} {$lastName} {$status} the document at {$dateChanged}." ?>
+                                                            <br>
+                                                            Processing Time: <?= $formattedTime ?>
+                                                        </p>
+                                                    </div>
+                                                    <hr> <!-- Adding a separator between statuses -->
+                                                <?php endforeach; ?>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
+                                            <p>No history available for this document.</p>
+                                        <?php endif; ?>
 
                                 <?php endforeach; ?>
                             </tbody>

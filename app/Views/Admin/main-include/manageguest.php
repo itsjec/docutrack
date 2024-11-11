@@ -19,11 +19,14 @@
                         <p class="card-description">Track and update users.</p>
                     </div>
                     <div class="col-4 text-right">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">Add Client</button>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
+                            <i class="mdi mdi-account-plus" style="font-size: 20px; margin-right: 8px;"></i> Add Client
+                        </button>
                     </div>
+
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="myClientTable">
                         <thead>
                             <tr>
                                 <th>First Name</th>

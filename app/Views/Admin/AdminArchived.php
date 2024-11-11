@@ -37,7 +37,24 @@
 </div>
     <!-- page-body-wrapper ends -->
   </div>
-  <!-- container-scroller -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
+
+  <script>
+    let table = new DataTable('#archived', {
+        "paging": true,          
+        "pageLength": 5,         
+        "lengthMenu": [5],       
+        "info": true,            
+        "lengthChange": false,
+        "searching": false,   
+    });
+</script>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function() {

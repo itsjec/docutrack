@@ -108,12 +108,13 @@
                                 <p class="card-description">Track and update documents.</p>
                             </div>
                             <div class="col-4 text-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#addDocumentModal">Add
-                                    Document</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addDocumentModal">
+                                    <i class="mdi mdi-file-document" style="font-size: 20px; margin-right: 8px;"></i> Add Document
+                                </button>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-striped" id="manageofficedocument">
                                 <thead>
                                     <tr>
                                         <th>Version No.</th>
