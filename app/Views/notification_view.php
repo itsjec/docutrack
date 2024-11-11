@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Push Notification</title>
+    <title>Push Notifications</title>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-messaging.js"></script>
 </head>
 
 <body>
-    <h1>Push Notification Example</h1>
+    <h1>Push Notification Examplessssssssss</h1>
 
     <button onclick="generateToken()">Generate Token</button>
     <button onclick="sendNotification()">Send Notification</button>
