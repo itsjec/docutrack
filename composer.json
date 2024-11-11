@@ -15,7 +15,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "firebase/php-jwt": "^6.10",
-        "google/apiclient": "*",
+        "google/apiclient": "^2.18",
         "laminas/laminas-escaper": "^2.9",
         "psr/log": "^1.1",
         "simplesoftwareio/simple-qrcode": "^4.2"

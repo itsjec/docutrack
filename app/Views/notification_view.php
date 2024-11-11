@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1>Push Notification Examplessssssssss</h1>
+    <h1>Push Notification Examplesssssssssssasasasa</h1>
 
     <button onclick="generateToken()">Generate Token</button>
     <button onclick="sendNotification()">Send Notification</button>
