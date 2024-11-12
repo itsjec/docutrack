@@ -10,14 +10,15 @@
 </head>
 
 <body>
-    <h1>Push Notification Examplesssssssssssasasasa</h1>
+    <h1>Push Notification Example</h1>
 
     <button onclick="generateToken()">Generate Token</button>
+    <button onclick="copyToken()">Copy Token</button>
     <button onclick="sendNotification()">Send Notification</button>
 
     <br><br>
     <label for="token">FCM Token:</label>
-    <input type="text" id="token" placeholder="Enter FCM token here" />
+    <input type="text" id="token" placeholder="Enter FCM token here" readonly />
 
     <script>
         // Firebase configuration (replace with your actual Firebase config)
@@ -51,42 +52,57 @@
             requestPermission();
         }
 
-        // Send push notification (when clicking "Send Notification" button)
+        // Copy token to clipboard (when clicking "Copy Token" button)
+        function copyToken() {
+            var tokenInput = document.getElementById('token');
+            if (tokenInput.value) {
+                tokenInput.select();
+                tokenInput.setSelectionRange(0, 99999); // For mobile devices
+                navigator.clipboard.writeText(tokenInput.value)
+                    .then(() => {
+                        alert('Token copied to clipboard!');
+                    })
+                    .catch((err) => {
+                        console.error('Failed to copy token: ', err);
+                    });
+            } else {
+                alert('Please generate a token first!');
+            }
+        }
+
         // Send push notification (when clicking "Send Notification" button)
         function sendNotification() {
-    var token = document.getElementById('token').value;
-    if (!token) {
-        alert('Please generate a token first!');
-        return;
-    }
+            var token = document.getElementById('token').value;
+            if (!token) {
+                alert('Please generate a token first!');
+                return;
+            }
 
-    // Log the token to the console for debugging
-    console.log('FCM Token:', token);
+            // Log the token to the console for debugging
+            console.log('FCM Token:', token);
 
-    // Send the token to the server
-    fetch('/notification/send_notification', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: token })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.status === 'success') {
-            alert('Notification sent successfully!');
-        } else {
-            alert('Failed to send notification: ' + data.message);
-            console.error('Detailed response:', data.error);
+            // Send the token to the server
+            fetch('/notification/send_notification', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ token: token })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Notification sent successfully!');
+                } else {
+                    alert('Failed to send notification: ' + data.message);
+                    console.error('Detailed response:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending notification.');
+            });
         }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error sending notification.');
-    });
-}
-
-
     </script>
 </body>
 
