@@ -97,6 +97,9 @@
       </div>
     </div>
   </div>
+  <div class="mt-3">
+  <button type="button" class="btn btn-block btn-secondary btn-lg font-weight-medium" onclick="window.location.href='<?= base_url('notification') ?>'">Go to Notifications</button>
+</div>
   </div>
   <!-- page-body-wrapper ends -->
   </div>
