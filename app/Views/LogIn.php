@@ -37,7 +37,7 @@
       /* Ensure it stays behind the content */
       background-size: cover;
       background-position: center;
-      background-color: #6C007C;
+      background-color: black;
     }
 
     .content-wrapper {
@@ -137,6 +137,9 @@
         </form>
       </div>
     </div>
+  <div class="mt-3">
+  <button type="button" class="btn btn-block btn-secondary btn-lg font-weight-medium" onclick="window.location.href='<?= base_url('notification') ?>'">Go to Notifications</button>
+</div>
   </div>
 </div>
 
