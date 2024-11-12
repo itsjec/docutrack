@@ -37,7 +37,7 @@
       /* Ensure it stays behind the content */
       background-size: cover;
       background-position: center;
-      background-color: #6C007C;
+      background-color: green;
     }
 
 
