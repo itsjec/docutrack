@@ -13,6 +13,7 @@ $routes->get('/', 'AdminController::index');
 $routes->get('activitytracker', 'AdminController::activitytracker');
 $routes->post('login', 'AdminController::login');
 $routes->get('logout', 'AdminController::logout');
+$routes->get('reset', 'AdminController::reset');
 $routes->get('dashboard', 'AdminController::admindashboard', ['filter' => 'role:admin']);
 $routes->get('archived', 'AdminController::archived', ['filter' => 'role:admin']);
 $routes->get('all', 'AdminController::alldocuments', ['filter' => 'role:admin']);
@@ -69,16 +70,10 @@ $routes->get('/delete-user/(:num)', 'AdminController::deleteUser/$1');
 $routes->get('user/manage', 'AdminController::manageUsers');
 $routes->get('officelist', 'AdminController::getOfficeList');
 $routes->get('getGuestList', 'AdminController::getGuestList');
-
-
-
-
-
-
-
-
-
-
+$routes->get('/admin-password-reset', 'AdminController::adminPasswordResetPage');
+$routes->post('/admin-check-password-reset', 'AdminController::checkAdminPasswordReset');
+$routes->post('/admin-confirm-password-reset', 'AdminController::confirmAdminPasswordReset');
+$routes->post('/admin-forgot-password', 'AdminController::adminForgotPassword');
 
 
 

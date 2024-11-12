@@ -11,6 +11,7 @@ use App\Models\ClassificationModel;
 use App\Models\DocumentHistoryModel;
 use SimpleSoftwareIO\QrCode\Generator;
 use DateTime;
+use CodeIgniter\I18n\Time;
 
 class AdminController extends BaseController
 {
@@ -33,6 +34,10 @@ class AdminController extends BaseController
         return view('Admin/AdminTracking');
     }
 
+    public function reset(){
+        return view('Reset');
+    }
+
     public function activitytracker()
     {
         $documentModel = new DocumentModel();
@@ -46,13 +51,11 @@ class AdminController extends BaseController
             ->orderBy('documents.date_of_document', 'DESC')
             ->findAll();
     
-        // Get the database connection
         $db = \Config\Database::connect();
     
         $documentsWithHistory = [];
     
         foreach ($documents as $document) {
-            // Fetch document history for each document
             $history = $db->table('document_history')
                 ->select('document_history.status, document_history.date_changed, document_history.office_id, offices.office_name, users.first_name AS modified_first_name, users.last_name AS modified_last_name')
                 ->join('offices', 'document_history.office_id = offices.office_id')
@@ -1753,5 +1756,190 @@ public function fetchVersionsByTitle()
         return $this->response->setJSON($guests);
     }
     
-    
+    public function adminForgotPassword()
+    {
+        try {
+            helper(['form']);
+
+            $rules = [
+                'email' => 'required|valid_email'
+            ];
+
+            if (!$this->validate($rules)) {
+                return $this->response->setJSON(['message' => 'Email is not valid.', 'status' => 'error']);
+            }
+
+            $email = $this->request->getVar('email');
+
+            $userModel = new UserModel();
+
+            $user = $userModel->select('
+                    user_id,
+                    email,
+                    CONCAT(first_name, " ", last_name) as fullname,
+                ')->where('email', $email)
+                ->first();
+
+            if (!$user) {
+                return $this->response->setJSON(['message' => 'Email not found.', 'status' => 'error']);
+            }
+
+            $resetToken = bin2hex(random_bytes(32));
+
+            $userModel->update($user['user_id'], (object) ['reset_token' => $resetToken]);
+
+            $resetLink = base_url("/admin-password-reset?token=$resetToken");
+
+            $res = $this->sendResetEmail($user['fullname'], $user['email'], $resetLink);
+            if (!$res) {
+                throw new \Exception("Failed to send reset email.");
+            }
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Password reset email sent.']);
+
+        } catch (\Throwable $th) {
+            log_message('error', $th->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to send reset email.']);
+        }
+    }
+
+    private function sendResetEmail($name, $email, $resetLink)
+    {
+        try {
+            $subject = 'DocuTrack Password Reset';
+            $message = "
+                <html>
+                <head>
+                    <title>DocuTrack Password Reset</title>
+                </head>
+                <body>
+                    <p>Dear " . htmlspecialchars($name) . ",</p>
+                    <p>You've requested to reset your password for your DocuTrack account. To proceed, please click the link below:</p>
+                    <p><a href='" . htmlspecialchars($resetLink) . "' style='background-color: #4CAF50; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Reset Your Password</a></p>
+                    <p>If you didn't initiate this request, please disregard this email.</p>
+                    <p>For assistance, contact the MIS Department.</p>
+                    <p>Sincerely,<br>DocuTrack Admin</p>
+                </body>
+                </html>
+            ";
+
+            $emailService = \Config\Services::email();
+            $emailService->setTo($email);
+            $emailService->setFrom('docutrackonline@gmail.com', 'DocuTrack Online');
+            $emailService->setSubject($subject);
+            $emailService->setMessage($message);
+            $emailService->setMailType('html');
+
+            if (!$emailService->send()) {
+                log_message('error', $emailService->printDebugger(['headers', 'subject', 'body']));
+                return false;
+            }
+
+            return true;
+        } catch (\Throwable $th) {
+            log_message('error', $th->getMessage());
+            return false;
+        }
+    }
+
+    public function adminPasswordResetPage()
+    {
+        $resetToken = $this->request->getGet('token');
+
+        if (!$resetToken) {
+            return view('errors/html/error_404');
+        }
+
+        $userModel = new UserModel();
+        $user = $userModel->select(['user_id', 'reset_token'])->where('reset_token', $resetToken)->first();
+
+        if (!$user || $user['reset_token'] != $resetToken) {
+            return view('errors/html/error_404');
+        }
+        return view('AdminPage/newpassword', ['user_id' => $user['user_id']]);
+    }
+
+    public function checkAdminPasswordReset()
+    {
+        try {
+            $user_id = $this->request->getVar('user_id');
+            $password = $this->request->getVar('password');
+            $reset_token = $this->request->getVar('token');
+
+            if (!$user_id || !$password || !$reset_token) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+            }
+
+            $userModel = new UserModel();
+            $user = $userModel->select(['user_id', 'email', 'reset_token'])->where(['user_id' => $user_id, 'reset_token' => $reset_token])->first();
+
+            if (!$user || $user['reset_token'] != $reset_token) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+            }
+
+            // Generate and send OTP
+            $otp = rand(100000, 999999); // Generate a 6-digit OTP
+            // Store OTP in session for verification later
+            session()->set('otp', $otp);
+
+            $this->sendOtp($user['email'], $otp);
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
+        } catch (\Throwable $th) {
+            log_message('error', $th->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to send OTP.']);
+        }
+    }
+
+    private function sendAdminOtp($email, $otp)
+    {
+        $emailService = \Config\Services::email();
+        $emailService->setTo($email);
+        $emailService->setFrom('docutrackonline@gmail.com', 'DocuTrack Online');
+        $emailService->setSubject('Your OTP Code');
+        $emailService->setMessage("Your OTP code is: $otp");
+        return $emailService->send();
+    }
+
+    public function confirmAdminPasswordReset()
+    {
+        try {
+            $inputOtp = $this->request->getVar('otp');
+            $sessionOtp = session()->get('otp');
+
+            $user_id = $this->request->getVar('user_id');
+            $password = $this->request->getVar('password');
+            $reset_token = $this->request->getVar('token');
+
+            if (!$user_id || !$password || !$reset_token || !$sessionOtp || !$inputOtp) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+            }
+
+            if ($sessionOtp != $inputOtp) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid OTP.']);
+            }
+
+            $userModel = new UserModel();
+
+            $user = $userModel->select(['user_id', 'reset_token'])->where(['user_id' => $user_id, 'reset_token' => $reset_token])->first();
+
+            if (!$user || $user['reset_token'] != $reset_token) {
+                return $this->response->setJSON(['status' => 'error', 'message' => 'Invalid request.']);
+            }
+
+            $data = [
+                'password' => password_hash($password, PASSWORD_DEFAULT),
+                'reset_token' => null,
+            ];
+
+            $userModel->update($user_id, $data);
+
+            return $this->response->setJSON(['status' => 'success', 'message' => 'Password reset successfully.']);
+        } catch (\Throwable $th) {
+            log_message('error', $th->getMessage());
+            return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to reset password.']);
+        }
+    }
+
+
+
 }

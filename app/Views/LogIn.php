@@ -40,7 +40,6 @@
       background-color: #6C007C;
     }
 
-
     .content-wrapper {
       min-height: 100vh;
       display: flex;
@@ -92,14 +91,60 @@
             <div class="text-center mt-4 font-weight-light">
               Don't have an account? <a href="register" class="text-primary">Create</a>
             </div>
+            <!-- Link for forgot password -->
+            <div class="text-center mt-4 font-weight-light">
+              <a href="#" data-toggle="modal" data-target="#forgotPasswordModal" class="text-primary">Forgot Password?</a>
+            </div>
+
           </form>
         </div>
       </div>
     </div>
   </div>
+
+<!-- Forgot Password Modal -->
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" role="dialog" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgotPasswordModalLabel">Reset Your Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Error and Success Message -->
+        <?php if (session()->has('error')): ?>
+          <div class="alert alert-danger" role="alert">
+            <?= session('error') ?>
+          </div>
+        <?php endif; ?>
+        
+        <?php if (session()->has('message')): ?>
+          <div class="alert alert-success" role="alert">
+            <?= session('message') ?>
+          </div>
+        <?php endif; ?>
+
+        <form action="<?= site_url('admin-forgot-password') ?>" method="POST">
+          <div class="form-group">
+            <label for="emailAddress">Email Address</label>
+            <input type="email" class="form-control" id="emailAddress" name="email" placeholder="Enter your email" required>
+          </div>
+          <div class="mt-3">
+            <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <!-- page-body-wrapper ends -->
-  </div>
+</div>
+
+
+
+</body>
+</html>
+
   <!-- container-scroller -->
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>
