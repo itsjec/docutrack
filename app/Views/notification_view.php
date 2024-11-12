@@ -18,7 +18,7 @@
 
     <br><br>
     <label for="token">FCM Token:</label>
-    <input type="text" id="token" placeholder="Enter FCM token here" readonly />
+    <input type="text" id="token" placeholder="Enter FCM token here"  />
 
     <script>
         // Firebase configuration (replace with your actual Firebase config)
