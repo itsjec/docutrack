@@ -126,10 +126,10 @@
           </div>
         <?php endif; ?>
 
-        <form action="<?= site_url('admin-forgot-password') ?>" method="POST">
+        <form id="forgotPasswordForm">
           <div class="form-group">
             <label for="emailAddress">Email Address</label>
-            <input type="email" class="form-control" id="emailAddress" name="email" placeholder="Enter your email" required>
+            <input type="email" class="form-control" id="forgotEmail" name="email" placeholder="Enter your email" required>
           </div>
           <div class="mt-3">
             <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
@@ -177,6 +177,28 @@
     });
 }
 
+  </script>
+  <script>
+    document.getElementById('forgotPasswordForm').onsubmit = function(event) {
+        event.preventDefault();
+        const email = document.getElementById('forgotEmail').value;
+
+        fetch('<?= base_url('/admin-forgot-password') ?>', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ email: email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('A password reset link has been sent to your email.');
+                closeModal('forgotPasswordModal');
+            } else {
+                alert(data.message || 'Failed to send reset link.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    };
   </script>
 </body>
 

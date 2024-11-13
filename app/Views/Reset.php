@@ -129,17 +129,16 @@
             </div>
           <?php endif; ?>
 
-          <form action="<?= site_url('auth/reset_password/' . $token) ?>" method="POST">
-            <input type="hidden" name="token" value="<?= $token ?>">
-
+          <form id="resetPasswordForm" method="POST">
+          <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
             <div class="form-group">
               <label for="newPassword">New Password</label>
               <input type="password" class="form-control form-control-lg" id="newPassword" name="newPassword" placeholder="Enter new password" required>
             </div>
 
             <div class="form-group">
-              <label for="confirmPassword">Confirm Password</label>
-              <input type="password" class="form-control form-control-lg" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password" required>
+              <label for="confirmNewPassword">Confirm Password</label>
+              <input type="password" class="form-control form-control-lg" id="confirmNewPassword" name="confirmNewPassword" placeholder="Confirm new password" required>
             </div>
 
             <div class="mt-3">
@@ -183,35 +182,90 @@
 
   <script>
     $(document).ready(function() {
-      $('form').submit(function(event) {
-        event.preventDefault();  
-
-        $('#otpPasswordModal').css('display', 'flex');
-      });
 
       $('#closeModal').click(function() {
         $('#otpPasswordModal').css('display', 'none');
       });
-
-      $('#otpPasswordForm').submit(function(event) {
-        event.preventDefault();
-        const otp = $('#otpInput').val();
-
-        $.ajax({
-          url: '<?= site_url("auth/verify_otp") ?>',
-          type: 'POST',
-          data: { otp: otp },
-          success: function(response) {
-            if (response.success) {
-              alert('OTP Verified, Password Reset Successful');
-              window.location.href = '<?= site_url("login") ?>';
-            } else {
-              alert('Invalid OTP');
-            }
-          }
-        });
-      });
     });
+  </script>
+
+  <script>
+           document.getElementById('resetPasswordForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const user_id = document.getElementById('user_id').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmNewPassword').value;
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+
+            if (confirmPassword != newPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+
+            fetch('<?= base_url('/admin-check-password-reset') ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+                },
+                body: new URLSearchParams({
+                    user_id: user_id,
+                    password: newPassword,
+                    token: token
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Show the OTP modal
+                        document.getElementById('otpPasswordModal').style.display = 'flex';
+                    } else {
+                        alert(data.message || 'Reset Password Failed. Please try again later.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        document.getElementById('otpPasswordForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            const user_id = document.getElementById('user_id').value;
+            const otpInput = document.getElementById('otpInput').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('token');
+
+
+            fetch('<?= base_url('/admin-confirm-password-reset') ?>', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+                },
+                body: new URLSearchParams({
+                    user_id: user_id,
+                    password: newPassword,
+                    token: token,
+                    otp: otpInput
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'error') {
+                        alert(data.message || 'Reset Password Failed. Please try again later.');
+                    }
+
+                    if (data.status ==='success') {
+                        alert('Password reset successfully. You can now login with your new password.');
+                        window.location.href = '<?= base_url()?>';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
   </script>
 
 </body>

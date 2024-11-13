@@ -1786,7 +1786,7 @@ public function fetchVersionsByTitle()
 
             $resetToken = bin2hex(random_bytes(32));
 
-            $userModel->update($user['user_id'], (object) ['reset_token' => $resetToken]);
+            $userModel->update($user['user_id'], ['reset_token' => $resetToken]);
 
             $resetLink = base_url("/admin-password-reset?token=$resetToken");
 
@@ -1797,7 +1797,8 @@ public function fetchVersionsByTitle()
             return $this->response->setJSON(['status' => 'success', 'message' => 'Password reset email sent.']);
 
         } catch (\Throwable $th) {
-            log_message('error', $th->getMessage());
+            log_message('error', $th->getMessage() . ": " . $th->getLine());
+            log_message('error', json_encode($th->getTrace()));
             return $this->response->setJSON(['status' => 'error', 'message' => 'Failed to send reset email.']);
         }
     }
@@ -1855,7 +1856,7 @@ public function fetchVersionsByTitle()
         if (!$user || $user['reset_token'] != $resetToken) {
             return view('errors/html/error_404');
         }
-        return view('AdminPage/newpassword', ['user_id' => $user['user_id']]);
+        return view('Reset', ['user_id' => $user['user_id']]);
     }
 
     public function checkAdminPasswordReset()
@@ -1881,7 +1882,7 @@ public function fetchVersionsByTitle()
             // Store OTP in session for verification later
             session()->set('otp', $otp);
 
-            $this->sendOtp($user['email'], $otp);
+            $this->sendAdminOtp($user['email'], $otp);
 
             return $this->response->setJSON(['status' => 'success', 'message' => 'OTP sent to your email.']);
         } catch (\Throwable $th) {
