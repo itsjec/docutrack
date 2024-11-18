@@ -95,19 +95,37 @@
 
       console.log('Window loaded, tracking number:', trackingNumber);
 
-      // Check if the tracking number exists
-      if (trackingNumber) {
-        console.log('Tracking number found:', trackingNumber);
+      // Request permission for Firebase messaging and generate the token
+      messaging.requestPermission()
+        .then(() => messaging.getToken())
+        .then((token) => {
+          console.log('Generated FCM Token:', token);
 
-        // Firebase messaging code
-        console.log('Requesting permission for Firebase messaging...');
-        messaging.requestPermission()
-          .then(() => messaging.getToken())
-          .then((token) => {
-            console.log('Generated FCM Token:', token);
+          // Send the token to the server for storage at '/notification/store_token'
+          fetch('/notification/store_token', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ token: token })
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.status === 'success') {
+                console.log('Token stored successfully!');
+              } else {
+                console.error('Failed to store token: ' + data.message);
+              }
+            })
+            .catch(error => {
+              console.error('Error storing token:', error);
+            });
 
-            // Send both the tracking number and token to the server
-            fetch(`/store-document-token`, {
+          // If tracking number exists, send both tracking number and token to the server for document storage
+          if (trackingNumber) {
+            console.log('Tracking number found:', trackingNumber);
+
+            fetch('/store-document-token', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -126,14 +144,15 @@
               .catch(error => {
                 console.error('Error in storing document:', error);
               });
-          })
-          .catch((err) => {
-            console.log('Permission denied or error occurred:', err);
-          });
-      } else {
-        console.warn('No tracking number found in the query parameters.');
-      }
+          } else {
+            console.warn('No tracking number found in the query parameters.');
+          }
+        })
+        .catch((err) => {
+          console.log('Permission denied or error occurred:', err);
+        });
     };
+
 
 
   </script>
