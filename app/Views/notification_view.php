@@ -18,7 +18,7 @@
 
     <br><br>
     <label for="token">FCM Token:</label>
-    <input type="text" id="token" placeholder="Enter FCM token here"  />
+    <input type="text" id="token" placeholder="Enter FCM token here" />
 
     <script>
         // Firebase configuration (replace with your actual Firebase config)
@@ -41,12 +41,37 @@
                 .then(() => messaging.getToken())
                 .then((token) => {
                     document.getElementById('token').value = token;
+                    console.log('Generated FCM Token:', token);
+
+                    // Automatically send the token to the server for storage
+                    fetch('/notification/store_token', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ token: token })
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.status === 'success') {
+                                console.log('Token stored successfully!');
+                            } else {
+                                console.error('Failed to store token: ' + data.message);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error storing token:', error);
+                        });
                 })
                 .catch((err) => {
-                    console.log('Permission denied', err);
+                    console.log('Permission denied or error occurred:', err);
                 });
         }
 
+        // Automatically call requestPermission when the page is loaded
+        window.onload = function () {
+            requestPermission();
+        };
         // Generate FCM token (when clicking "Generate Token" button)
         function generateToken() {
             requestPermission();
@@ -89,19 +114,19 @@
                 },
                 body: JSON.stringify({ token: token })
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    alert('Notification sent successfully!');
-                } else {
-                    alert('Failed to send notification: ' + data.message);
-                    console.error('Detailed response:', data.error);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error sending notification.');
-            });
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Notification sent successfully!');
+                    } else {
+                        alert('Failed to send notification: ' + data.message);
+                        console.error('Detailed response:', data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error sending notification.');
+                });
         }
     </script>
 </body>

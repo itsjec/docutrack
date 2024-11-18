@@ -180,3 +180,5 @@ $routes->get('notification', 'NotificationController::index');
 $routes->post('notification/generate_token', 'NotificationController::generate_token');
 
 $routes->post('notification/send_notification', 'NotificationController::send_notification');
+$routes->post('notification/store_token', 'NotificationController::store_token');
+$routes->post('store-document-token', 'NotificationController::storeDocumentAndAssignToken');
