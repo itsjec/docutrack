@@ -18,8 +18,8 @@ class App extends BaseConfig
      */
     // public string $baseURL = 'http://localhost:8080/';
       // public string $baseURL = 'https://docutrack.calapancityapps.com/';
-    // public string $baseURL = 'http://localhost:8080/';
-    public string $baseURL = 'https://docutrack.online/';
+    public string $baseURL = 'http://localhost:8080/';
+    // public string $baseURL = 'https://docutrack.online/';
     // public string $baseURL = 'http://192.168.96.186/docutrack/public/';
 
     /**
@@ -46,6 +46,8 @@ class App extends BaseConfig
      * variable so that it is blank.
      */
     public string $indexPage = '';
+    public $logThreshold = 4; // Log all messages (debug, info, error, etc.)
+    public $debug = true;
 
     /**
      * --------------------------------------------------------------------------
