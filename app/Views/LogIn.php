@@ -8,6 +8,8 @@
   <!-- base:css -->
   <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="assets2/css/style.css" />
+
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -37,7 +39,7 @@
       /* Ensure it stays behind the content */
       background-size: cover;
       background-position: center;
-      background-color: black;
+      background-color: purple;
     }
 
     .content-wrapper {
@@ -138,12 +140,12 @@
       </div>
     </div>
   <div class="mt-3">
-  <button type="button" class="btn btn-block btn-secondary btn-lg font-weight-medium" onclick="window.location.href='<?= base_url('notification') ?>'">Go to Notifications</button>
 </div>
   </div>
 </div>
 
 
+<button type="button" class="btn btn-block btn-secondary btn-lg font-weight-medium" onclick="window.location.href='<?= base_url('notification') ?>'">Go to Notifications</button>
 
 </body>
 </html>
