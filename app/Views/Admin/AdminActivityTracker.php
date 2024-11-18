@@ -68,6 +68,22 @@
       alert("Calendar icon clicked!");
     });
   });
+
+    // Initialize collapse behavior on page load
+    $(document).ready(function() {
+        // Ensure only one collapse section is open at a time
+        $('.nav-item a[data-toggle="collapse"]').on('click', function() {
+            var target = $(this).attr('href');
+            var expanded = $(this).attr('aria-expanded') === 'true';
+            
+            // If the collapse is already open, close it
+            if (expanded) {
+                $(target).collapse('hide');
+            } else {
+                $(target).collapse('show');
+            }
+        });
+    });
 </script>
   <script src="assets/js/off-canvas.js"></script>
   <script src="assets/js/hoverable-collapse.js"></script>

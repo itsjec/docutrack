@@ -32,6 +32,12 @@
     background-color: #dc3545; /* Red */
     color: #fff; /* White text for better readability */
   }
+
+  #qrCodeContainer img {
+    width: 250px; /* Adjust this to make the QR code larger */
+    height: 250px; /* Adjust the height accordingly */
+}
+
 </style>
 
 <div class="content-wrapper">
@@ -86,17 +92,6 @@
                                         Send Out
                                         <i class="typcn typcn-arrow-sorted-down btn-icon-append"></i>
                                     </button>
-
-                                    <button type="button" class="btn btn-sm btn-primary view-btn"
-                                            data-toggle="modal" 
-                                            data-target="#viewDocumentModal"
-                                            data-document-id="<?= esc($document->document_id) ?>"
-                                            data-title="<?= esc($document->title) ?>"
-                                            data-tracking-number="<?= esc($document->tracking_number) ?>"
-                                        >
-                                            View
-                                            <i class="typcn typcn-eye btn-icon-append"></i>
-                                        </button>
                                     
                                         <button type="button" class="btn btn-danger btn-sm btn-icon-text delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document->document_id ?>" data-document-title="<?= $document->title ?>" data-tracking-number="<?= $document->tracking_number ?>">
                                             Delete

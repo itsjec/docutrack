@@ -964,7 +964,6 @@ public function updateDocumentCompletedStatus($documentId, $newStatus)
             return $this->response->setJSON(['error' => 'No URL provided']);
         }
     
-        // Initialize QR Code Generator
         $qrcode = new \SimpleSoftwareIO\QrCode\Generator;
     
         // Generate QR code

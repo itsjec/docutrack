@@ -6,7 +6,8 @@
             <div class="badge badge-danger">new</div>
         </a>
     </li>
-    
+
+    <!-- Add User Section -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#addUser" aria-expanded="false" aria-controls="addUser">
             <i class="typcn typcn-user-outline menu-icon"></i>
@@ -25,6 +26,7 @@
         </div>
     </li>
 
+    <!-- Add Document Section -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#addDocument" aria-expanded="false" aria-controls="addDocument">
             <i class="typcn typcn-document-add menu-icon"></i>
@@ -43,6 +45,7 @@
         </div>
     </li>
 
+    <!-- Document Section -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#documents" aria-expanded="false" aria-controls="documents">
             <i class="typcn typcn-folder-open menu-icon"></i> 
@@ -70,6 +73,7 @@
         </div>
     </li>
 
+    <!-- History Section -->
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('history') ?>">
             <i class="typcn typcn-arrow-back-outline menu-icon"></i>
@@ -77,6 +81,7 @@
         </a>
     </li>
 
+    <!-- Settings Section -->
     <li class="nav-item">
         <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="settings">
             <i class="typcn typcn-cog-outline menu-icon"></i>
@@ -98,6 +103,7 @@
         </div>
     </li>
 
+    <!-- Log Out Section -->
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('/') ?>">
             <i class="typcn typcn-power-outline menu-icon"></i>
