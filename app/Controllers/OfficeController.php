@@ -392,61 +392,63 @@ class OfficeController extends BaseController
 
 
     public function updateDocumentStatus($documentId, $newStatus)
-    {
-        $documentModel = new DocumentModel();
-        $workflowModel = new DocumentHistoryModel();
-        $timeProcessingModel = new TimeProcessingModel();
-        $notificationModel = new NotificationModel();
-        $tokenModel = new TokenModel();
+{
+    $documentModel = new DocumentModel();
+    $workflowModel = new DocumentHistoryModel();
+    $timeProcessingModel = new TimeProcessingModel();
+    $notificationModel = new NotificationModel();
+    $tokenModel = new TokenModel();
 
-        log_message('info', "Updating document (ID: $documentId) status to: $newStatus");
+    log_message('info', "Updating document (ID: $documentId) status to: $newStatus");
 
-        $document = $documentModel->find($documentId);
+    $document = $documentModel->find($documentId);
 
-        // Update the document status
-        $documentModel->update($documentId, ['status' => $newStatus]);
+    // Update the document status
+    $documentModel->update($documentId, ['status' => $newStatus]);
 
-        $userId = session()->get('user_id');
-        $officeId = session()->get('office_id');
+    $userId = session()->get('user_id');
+    $officeId = session()->get('office_id');
 
-        // Insert a record into the document history
-        $historyData = [
+    // Insert a record into the document history
+    $historyData = [
+        'document_id' => $documentId,
+        'user_id' => $userId,
+        'office_id' => $officeId,
+        'status' => $newStatus,
+        'date_changed' => date('Y-m-d H:i:s'),
+        'date_completed' => null
+    ];
+    $workflowModel->insert($historyData);
+
+    // If the new status is 'received', insert into the time processing table and send a notification
+    if ($newStatus === 'received') {
+        $timeProcessingData = [
             'document_id' => $documentId,
-            'user_id' => $userId,
             'office_id' => $officeId,
-            'status' => $newStatus,
-            'date_changed' => date('Y-m-d H:i:s'),
-            'date_completed' => null
+            'received_timestamp' => date('Y-m-d H:i:s'),
+            'completed_timestamp' => null
         ];
-        $workflowModel->insert($historyData);
+        $timeProcessingModel->insert($timeProcessingData);
 
-        // If the new status is 'received', insert into the time processing table and send a notification
-        if ($newStatus === 'received') {
-            $timeProcessingData = [
-                'document_id' => $documentId,
-                'office_id' => $officeId,
-                'received_timestamp' => date('Y-m-d H:i:s'),
-                'completed_timestamp' => null
-            ];
-            $timeProcessingModel->insert($timeProcessingData);
+        // Check the notification table for the user_id associated with this document
+        $notification = $notificationModel->where('document_id', $documentId)->first();
+        if ($notification) {
+            $associatedUserId = $notification['user_id'];
 
-            // Check the notification table for the user_id associated with this document
-            $notification = $notificationModel->where('document_id', $documentId)->first();
-            if ($notification) {
-                $associatedUserId = $notification['user_id'];
+            // Find the token for the associated user
+            $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+            if ($tokenEntry) {
+                $token = $tokenEntry['token'];
 
-                // Find the token for the associated user
-                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
-                if ($tokenEntry) {
-                    $token = $tokenEntry['token'];
+                // Include the document title in the notification
+                $documentTitle = $document['title'];
+                $message = "Document '{$documentTitle}' Received";
 
-                    // Call the send_notification method to send the notification
-                    $this->send_notification($token, 'Document Received', 'Yung document mo ay nareceive na ng CMO');
-                }
+                // Call the send_notification method to send the notification
+                $this->send_notification($token, $message, 'Yung document mo ay nareceive na ng CMO');
             }
         }
-
-
+    }
         return redirect()->back();
     }
 
