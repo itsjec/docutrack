@@ -56,6 +56,7 @@
   });
 
   $(document).ready(function() {
+    // Report Form Submission
     $('#reportForm').on('submit', function(event) {
         event.preventDefault();
 
@@ -76,43 +77,102 @@
                 table += '<th>Date Completed</th>';
                 table += '</tr></thead>';
                 table += '<tbody>';
+
                 for (var i = 0; i < data.length; i++) {
+                    var time = data[i].processing_time || 0;
+                    var formattedTime = '';
+
+                    if (time >= 1440) {
+                        var days = Math.floor(time / 1440);
+                        formattedTime = days + ' day' + (days > 1 ? 's' : '');
+                    } else if (time >= 60) {
+                        var hours = Math.floor(time / 60);
+                        formattedTime = hours + ' hr' + (hours > 1 ? 's' : '');
+                    } else {
+                        formattedTime = time + ' min';
+                    }
+
+                    var progress = 0;
+                    var color = 'blue';
+
+                    if (time < 5) {
+                        progress = 20;
+                        color = 'blue';
+                    } else if (time <= 10) {
+                        progress = 40;
+                        color = 'green';
+                    } else if (time <= 30) {
+                        progress = 60;
+                        color = 'yellow';
+                    } else if (time <= 60) {
+                        progress = 80;
+                        color = 'orange';
+                    } else if (time > 60) {
+                        progress = 100;
+                        color = 'red';
+                    }
+
+                    var progressHtml = `
+                        <div class="d-flex align-items-center">
+                            <span class="mr-2">${formattedTime || '0 min'}</span>
+                            <div class="progress flex-grow-1" style="height: 20px;">
+                                <div class="progress-bar" role="progressbar" style="width: ${progress}%; background-color: ${color};"></div>
+                            </div>
+                        </div>
+                    `;
+
                     table += '<tr>';
                     table += '<td>' + data[i].tracking_number + '</td>';
                     table += '<td>' + data[i].title + '</td>';
                     table += '<td>' + data[i].sender + '</td>';
                     table += '<td>' + data[i].current_office + '</td>';
-                    table += '<td>' + data[i].processing_time + '</td>';
+                    table += '<td>' + progressHtml + '</td>';
                     table += '<td>' + data[i].date_completed + '</td>';
                     table += '</tr>';
                 }
+
                 table += '</tbody></table>';
 
                 $('#previewModal .modal-body').html(table);
                 $('#previewModal').modal('show');
 
+                // Handle download button click
                 $('#downloadButton').off('click').on('click', function() {
                     window.location.href = 'https://docutrack.calapancityapps.com/admin/transactions/download';
                 });
 
+                // Handle print button click
                 $('#printButton').off('click').on('click', function() {
                     var printContents = $('#previewModal .modal-body').html();
                     var printWindow = window.open('', '', 'height=600,width=800');
                     printWindow.document.write('<html><head><title>Print Report</title>');
                     printWindow.document.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />');
-                    printWindow.document.write('</head><body >');
+                    printWindow.document.write('</head><body>');
                     printWindow.document.write(printContents);
                     printWindow.document.write('</body></html>');
                     printWindow.document.close();
                     printWindow.print();
                 });
+
+                // Close modal event handler to reset modal content
+                $('#previewModal').on('hidden.bs.modal', function () {
+                    $('#previewModal .modal-body').empty(); // Optional: reset the modal body content
+                });
+
             },
             error: function(xhr, status, error) {
                 console.error('AJAX Error:', error);
             }
         });
     });
+
+    // Manual close button (if needed)
+    $('#closeButton').on('click', function() {
+        $('#previewModal').modal('hide'); // This explicitly hides the modal
+    });
 });
+
+
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -151,4 +211,3 @@
 </body>
 
 </html>
-

@@ -903,34 +903,22 @@ public function register()
     }
     
 
-    public function updateDocumentStatus($documentId, $newStatus)
-    {
-        $workflowModel = new DocumentHistoryModel();
-
-        $userId = session()->get('user_id');
-
-        $officeId = session()->get('office_id');
-
-        $data = [
-            'document_id' => $documentId,
-            'user_id' => $userId,
-            'office_id' => $officeId,
-            'status' => $newStatus,
-            'date_changed' => date('Y-m-d H:i:s'),
-            'is_admin_view' => 0,
-            'is_completed' => ($newStatus == 'completed') ? 1 : 0
-        ];
-
-        $workflowModel->insert($data);
-
-        return redirect()->back();
-    }
-
     public function admintransactions()
     {
+        // Get the filter values from the GET request
+        $startDate = $this->request->getGet('start_date');
+        $endDate = $this->request->getGet('end_date');
+        $statusFilter = $this->request->getGet('status'); // e.g., 'received'
+        $departmentFilter = $this->request->getGet('department'); // e.g., 'Mayor\'s Office'
+    
         $db = db_connect();
     
-        $query = $db->query("
+        // Query to get distinct statuses from the documents table
+        $statusQuery = $db->query("SELECT DISTINCT status FROM documents");
+        $statuses = $statusQuery->getResultArray(); // Fetch statuses as an array
+    
+        // Build the base query for fetching documents
+        $query = "
             SELECT 
                 d.document_id,
                 d.tracking_number, 
@@ -949,22 +937,37 @@ public function register()
                 u.last_name AS sender_last_name,
                 tp.received_timestamp,
                 tp.completed_timestamp,
-                o2.office_name AS completed_office_name -- Fetching office_name for the completed office
+                o2.office_name AS completed_office_name
             FROM documents d
             JOIN document_history dh ON d.document_id = dh.document_id
             LEFT JOIN offices o1 ON d.recipient_id = o1.office_id
             LEFT JOIN document_timeprocessing tp ON d.document_id = tp.document_id AND dh.office_id = tp.office_id
             LEFT JOIN users u ON d.sender_id = u.user_id
-            LEFT JOIN users u2 ON dh.user_id = u2.user_id -- Join to get the office_id of the user who completed the document
-            LEFT JOIN offices o2 ON u2.office_id = o2.office_id -- Join to get the office_name of the completed office
-            WHERE dh.status = 'completed'
-        ");
+            LEFT JOIN users u2 ON dh.user_id = u2.user_id
+            LEFT JOIN offices o2 ON u2.office_id = o2.office_id
+            WHERE dh.status = 'completed'"; // Default filter
     
-        if (!$query) {
+        // Apply filters dynamically based on user input
+        if ($startDate && $endDate) {
+            $query .= " AND dh.date_completed BETWEEN '$startDate' AND '$endDate'";
+        }
+    
+        if ($statusFilter) {
+            $query .= " AND d.status = '$statusFilter'";
+        }
+    
+        if ($departmentFilter) {
+            $query .= " AND o1.office_name = '$departmentFilter'";
+        }
+    
+        // Execute the query to fetch documents
+        $queryResult = $db->query($query);
+        
+        if (!$queryResult) {
             return 'Error: Unable to fetch completed documents';
         }
     
-        $documents = $query->getResult();
+        $documents = $queryResult->getResult();
         $senderDetails = [];
     
         foreach ($documents as $document) {
@@ -1009,15 +1012,19 @@ public function register()
             ];
         }
     
+        // Fetch the department list for the dropdown
+        $officeModel = new OfficeModel();
+        $departments = $officeModel->findAll();
+    
         $data = [
             'documents' => $documents,
             'senderDetails' => $senderDetails,
+            'departments' => $departments, // Pass the department list to the view
+            'statuses' => $statuses, // Pass statuses to the view
         ];
     
         return view('Admin/AdminViewTransactions', $data);
     }
-    
-    
     
     public function archived()
     {
@@ -1353,6 +1360,7 @@ public function register()
         $statusFilter = $this->request->getVar('status');
         $sortOption = $this->request->getVar('sort');
         
+        
         $db = \Config\Database::connect();
         $query = $db->table('documents');
         
@@ -1392,80 +1400,101 @@ public function register()
         
         return view('Admin/AdminKiosk', $data);
     }
-    
+
     public function download_all_rows()
-{
-    $db = db_connect();
+    {
+        $db = db_connect();
 
-    $startDate = $this->request->getPost('start_date');
-    $endDate = $this->request->getPost('end_date');
+        // Get the start date, end date, and department from POST data
+        $startDate = $this->request->getPost('start_date');
+        $endDate = $this->request->getPost('end_date');
+        $department = $this->request->getPost('department');  // Get the department ID from the form
 
-    $query = $db->table('documents')
-        ->select('documents.document_id, documents.tracking_number, documents.title, documents.sender_id, documents.sender_office_id,
-            documents.recipient_id, documents.status, document_history.user_id, document_history.office_id as current_office_id,
-            document_history.status as history_status, document_history.date_changed, document_history.date_completed,
-            offices.office_name as sender_office_name, users.first_name as sender_first_name, users.last_name as sender_last_name,
-            tp.received_timestamp, tp.completed_timestamp')
-        ->join('document_history', 'documents.document_id = document_history.document_id')
-        ->join('offices', 'documents.sender_office_id = offices.office_id', 'left')
-        ->join('document_timeprocessing tp', 'documents.document_id = tp.document_id AND document_history.office_id = tp.office_id', 'left')
-        ->join('users', 'documents.sender_id = users.user_id', 'left')
-        ->where('document_history.status', 'completed');
+        // Start building the query
+        $query = $db->table('documents')
+            ->select('
+                documents.document_id,
+                documents.tracking_number,
+                documents.title,
+                documents.sender_id,
+                documents.sender_office_id,
+                documents.recipient_id,
+                documents.status,
+                document_history.user_id,
+                document_history.office_id as current_office_id,
+                document_history.status as history_status,
+                document_history.date_changed,
+                document_history.date_completed,
+                offices.office_name as sender_office_name,
+                users.first_name as sender_first_name,
+                users.last_name as sender_last_name,
+                tp.received_timestamp,
+                tp.completed_timestamp,
+                TIMESTAMPDIFF(MINUTE, tp.received_timestamp, tp.completed_timestamp) AS processing_time_minutes  -- Calculating processing time
+            ')
+            ->join('document_history', 'documents.document_id = document_history.document_id')
+            ->join('offices', 'documents.sender_office_id = offices.office_id', 'left')
+            ->join('document_timeprocessing tp', 'documents.document_id = tp.document_id AND document_history.office_id = tp.office_id', 'left')
+            ->join('users', 'documents.sender_id = users.user_id', 'left')
+            ->where('document_history.status', 'completed');  // Filter by completed status
 
-    if (!empty($startDate) && !empty($endDate)) {
-        $query->where('document_history.date_completed >=', $startDate)
-              ->where('document_history.date_completed <=', $endDate);
-    }
-
-    $documents = $query->get()->getResultArray();
-
-    $response = [];
-    foreach ($documents as $document) {
-        $receivedTimestamp = new \DateTime($document['received_timestamp']);
-        $completedTimestamp = new \DateTime($document['completed_timestamp']);
-        
-        $interval = $receivedTimestamp->diff($completedTimestamp);
-        $processingTimeMinutes = $interval->days * 24 * 60 + $interval->h * 60 + $interval->i;
-
-        $recipient_office_name = '';
-        if ($document['recipient_id'] !== null) {
-            $officeModel = new \App\Models\OfficeModel();
-            $office = $officeModel->find($document['recipient_id']);
-            if ($office) {
-                $recipient_office_name = $office['office_name'];
-            }
+        if (!empty($startDate) && !empty($endDate)) {
+            $query->where('document_history.date_completed >=', $startDate)
+                ->where('document_history.date_completed <=', $endDate);
         }
 
-        $response[] = [
-            'tracking_number' => $document['tracking_number'],
-            'title' => $document['title'],
-            'sender' => $document['sender_office_name'] ? $document['sender_office_name'] : $document['sender_first_name'] . ' ' . $document['sender_last_name'],
-            'current_office' => $recipient_office_name,
-            'processing_time' => $processingTimeMinutes,
-            'date_completed' => date('F j, Y', strtotime($document['date_completed']))
-        ];
+        // Add department filter if a department is selected
+        if (!empty($department)) {
+            $query->where('documents.sender_office_id', $department);  // Filter by sender's office ID
+        }
+
+        // Execute the query
+        $documents = $query->get()->getResultArray();
+
+        $response = [];
+        foreach ($documents as $document) {
+            // Get recipient office name
+            $recipient_office_name = '';
+            if ($document['recipient_id'] !== null) {
+                $officeModel = new \App\Models\OfficeModel();
+                $office = $officeModel->find($document['recipient_id']);
+                if ($office) {
+                    $recipient_office_name = $office['office_name'];
+                }
+            }
+
+            // Prepare response data
+            $response[] = [
+                'tracking_number' => $document['tracking_number'],
+                'title' => $document['title'],
+                'sender' => $document['sender_office_name'] ? $document['sender_office_name'] : $document['sender_first_name'] . ' ' . $document['sender_last_name'],
+                'current_office' => $recipient_office_name,
+                'processing_time' => $document['processing_time_minutes'],  // Use pre-computed processing time
+                'date_completed' => date('F j, Y', strtotime($document['date_completed']))
+            ];
+        }
+
+        // If the request is AJAX, return JSON response
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON($response);
+        }
+
+        // Prepare CSV data
+        $csvData = "Tracking Number,Title,Sender,Current Office,Processing Time (minutes),Date Completed\n";
+        foreach ($response as $document) {
+            $csvData .= $document['tracking_number'] . ',' . $document['title'] . ',' ;
+            $csvData .= strip_tags($document['sender']) . ',' ;
+            $csvData .= strip_tags($document['current_office']) . ',' ;
+            $csvData .= strip_tags($document['processing_time']) . ',' ;
+            $csvData .= $document['date_completed'] . "\n";
+        }
+
+        // Output the CSV file
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="document_transactions.csv"');
+        echo $csvData;
+        exit();
     }
-
-
-    if ($this->request->isAJAX()) {
-        return $this->response->setJSON($response);
-    }
-
-    $csvData = "Tracking Number,Title,Sender,Current Office,Processing Time (minutes),Date Completed\n";
-    foreach ($response as $document) {
-        $csvData .= $document['tracking_number'] . ',' . $document['title'] . ',';
-        $csvData .= strip_tags($document['sender']) . ',';
-        $csvData .= strip_tags($document['current_office']) . ',';
-        $csvData .= strip_tags($document['processing_time']) . ',';
-        $csvData .= $document['date_completed'] . "\n";
-    }
-
-    header('Content-Type: text/csv');
-    header('Content-Disposition: attachment; filename="document_transactions.csv"');
-    echo $csvData;
-    exit();
-}
-
     
     public function getDocumentAges()
     {
