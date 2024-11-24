@@ -76,38 +76,35 @@
       alert("Calendar icon clicked!");
     });
   });
-  $('#viewDocumentModal').on('show.bs.modal', function (event) {
+
+// View Document Modal (for QR code generation)
+$('#viewDocumentModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
-    
-    // Retrieve data attributes from the button
     var trackingNumber = button.data('tracking-number');
-    
     var modal = $(this);
-    
-    // Set values in modal
+
     modal.find('#view-tracking-number').text(trackingNumber);
     modal.find('#qrCodeContainer').html(''); // Clear QR code container
-    
-    // Generate QR code URL
+
     var url = '<?= base_url('/track?number=') ?>' + encodeURIComponent(trackingNumber);
-    
-    console.log('Generating QR Code for URL:', url); // Log URL for debugging
-    
-    // Fetch QR code and update the modal content
+
+    console.log('Generating QR Code for URL:', url);
+
+    // AJAX to generate and display QR code
     $.ajax({
-        url: '<?= site_url('generate-qr-code') ?>', // The route for generating QR codes
+        url: '<?= site_url('generate-qr-code') ?>',
         type: 'POST',
-        data: {url: url},
+        data: { url: url },
         dataType: 'json',
-        success: function(response) {
-            console.log('QR Code Response:', response); // Log response for debugging
-            if(response.qrCode) {
+        success: function (response) {
+            console.log('QR Code Response:', response);
+            if (response.qrCode) {
                 modal.find('#qrCodeContainer').html(response.qrCode);
             } else {
                 console.error('QR Code not received');
             }
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.error('AJAX Error:', textStatus, errorThrown);
         }
     });
