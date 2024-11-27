@@ -436,9 +436,9 @@ class OfficeController extends BaseController
                     $token = $tokenEntry['token'];
 
                     $documentTitle = $document['title'];
-                    $message = "Your Document titled '{$documentTitle}' is Received";
+                    $message = "Your Document titled '{$documentTitle}' has been marked as Received";
 
-                    $this->send_notification($token, $message, "Scan your document QR Code to view details.");
+                    $this->send_notification($token, $message, "Document Received.");
                 }
             }
         }
@@ -462,36 +462,10 @@ class OfficeController extends BaseController
                         $documentTitle = $document['title'];
                         $message = "Your document titled '{$documentTitle}' is currently on process.";
             
-                        $this->send_notification($token, $message, "Scan your document QR Code to view details.");
+                        $this->send_notification($token, $message, "Document On Process.");
                     }
                 }
             }
-            
-        if ($newStatus === 'deleted') {
-            $timeProcessingData = [
-                'document_id' => $documentId,
-                'office_id' => $officeId,
-                'received_timestamp' => date('Y-m-d H:i:s'),
-                'completed_timestamp' => null
-            ];
-            $timeProcessingModel->insert($timeProcessingData);
-
-            $notification = $notificationModel->where('document_id', $documentId)->first();
-            if ($notification) {
-                $associatedUserId = $notification['user_id'];
-
-                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
-                if ($tokenEntry) {
-                    $token = $tokenEntry['token'];
-
-                    $documentTitle = $document['title'];
-                    $message = "Document '{$documentTitle}' Received";
-
-                    $this->send_notification($token, $message, 'Yung document mo ay deleted na ng CMO');
-                }
-            }
-        }
-        return redirect()->back();
     }
 
     private function send_notification($token, $title, $body)
@@ -621,7 +595,7 @@ class OfficeController extends BaseController
                 if ($tokenEntry) {
                     $token = $tokenEntry['token'];
                     $documentTitle = $document['title'];
-                    $message = "Your document titled '{$documentTitle}' has been marked as completed by the City Mayor's Office.";
+                    $message = "Your document titled '{$documentTitle}' has been marked as completed.";
     
                     $this->send_notification($token, $message, 'Document Completed');
                 } else {
@@ -640,25 +614,58 @@ class OfficeController extends BaseController
     {
         $documentModel = new DocumentModel();
         $workflowModel = new DocumentHistoryModel();
-
+        $notificationModel = new NotificationModel();
+        $tokenModel = new TokenModel();
+    
+        // Update document status
         $documentModel->update($documentId, ['status' => $newStatus]);
-
+    
+        // Check if document exists
+        $document = $documentModel->find($documentId);
+        if (!$document) {
+            log_message('error', "Document not found: {$documentId}");
+            throw new \Exception("Document not found.");
+        }
+    
         $userId = session()->get('user_id');
         $officeId = session()->get('office_id');
-
+    
+        // Log the status change in workflow history
         $data = [
             'document_id' => $documentId,
             'user_id' => $userId,
             'office_id' => $officeId,
             'status' => $newStatus,
             'date_changed' => date('Y-m-d H:i:s'),
-            'date_deleted' => $newStatus === 'deleted' ? date('Y-m-d H:i:s') : null
+            'date_deleted' => $newStatus === 'deleted' ? date('Y-m-d H:i:s') : null,
         ];
         $workflowModel->insert($data);
-
+    
+        if ($newStatus === 'deleted') {
+            $notification = $notificationModel->where('document_id', $documentId)->first();
+            if ($notification) {
+                $associatedUserId = $notification['user_id'];
+    
+                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+                if ($tokenEntry) {
+                    $token = $tokenEntry['token'];
+                    $documentTitle = $document['title'];
+    
+                    $message = "Your document titled '{$documentTitle}' has been deleted.";
+    
+                    $this->send_notification($token, $message, 'Document Deleted');
+                } else {
+                    log_message('error', "Token entry not found for user ID: {$associatedUserId}");
+                }
+            } else {
+                log_message('error', "Notification not found for document ID: {$documentId}");
+            }
+        }
+    
+        // Redirect back to the previous page
         return redirect()->back();
     }
-
+    
     public function updateDocumentRecipientAndStatus($documentId, $newRecipientId, $newStatus)
     {
         $documentModel = new DocumentModel();
