@@ -403,13 +403,11 @@ class OfficeController extends BaseController
 
         $document = $documentModel->find($documentId);
 
-        // Update the document status
         $documentModel->update($documentId, ['status' => $newStatus]);
 
         $userId = session()->get('user_id');
         $officeId = session()->get('office_id');
 
-        // Insert a record into the document history
         $historyData = [
             'document_id' => $documentId,
             'user_id' => $userId,
@@ -420,7 +418,6 @@ class OfficeController extends BaseController
         ];
         $workflowModel->insert($historyData);
 
-        // If the new status is 'received', insert into the time processing table and send a notification
         if ($newStatus === 'received') {
             $timeProcessingData = [
                 'document_id' => $documentId,
@@ -430,22 +427,18 @@ class OfficeController extends BaseController
             ];
             $timeProcessingModel->insert($timeProcessingData);
 
-            // Check the notification table for the user_id associated with this document
             $notification = $notificationModel->where('document_id', $documentId)->first();
             if ($notification) {
                 $associatedUserId = $notification['user_id'];
 
-                // Find the token for the associated user
                 $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
                 if ($tokenEntry) {
                     $token = $tokenEntry['token'];
 
-                    // Include the document title in the notification
                     $documentTitle = $document['title'];
-                    $message = "Document '{$documentTitle}' Received";
+                    $message = "Your Document titled '{$documentTitle}' is Received";
 
-                    // Call the send_notification method to send the notification
-                    $this->send_notification($token, $message, 'Yung document mo ay nareceive na ng CMO');
+                    $this->send_notification($token, $message, "Your document '{$documentTitle}' is already receceived.");
                 }
             }
         }
@@ -457,26 +450,26 @@ class OfficeController extends BaseController
                 'completed_timestamp' => null
             ];
             $timeProcessingModel->insert($timeProcessingData);
-
-            // Check the notification table for the user_id associated with this document
+            $officeModel = new OfficeModel();
+            $office = $officeModel->where('office_id', $officeId)->first(); 
+            $officeName = $office ? $office['name'] : 'Unknown Office';
+        
             $notification = $notificationModel->where('document_id', $documentId)->first();
             if ($notification) {
                 $associatedUserId = $notification['user_id'];
-
-                // Find the token for the associated user
+        
                 $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
                 if ($tokenEntry) {
                     $token = $tokenEntry['token'];
-
-                    // Include the document title in the notification
+        
                     $documentTitle = $document['title'];
-                    $message = "Document '{$documentTitle}' on process";
-
-                    // Call the send_notification method to send the notification
-                    $this->send_notification($token, $message, 'Yung document mo ay on process na ng CMO');
+                    $message = "Your document titled '{$documentTitle}' is currently on process on {$officeName}.";
+        
+                    $this->send_notification($token, $message, "Your document titled '{$documentTitle}' is currently on process on {$officeName}.");
                 }
             }
         }
+        
         if ($newStatus === 'completed') {
             $timeProcessingData = [
                 'document_id' => $documentId,
