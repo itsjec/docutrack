@@ -45,8 +45,8 @@ class NotificationController extends BaseController
             'message' => [
                 'token' => $token,
                 'notification' => [
-                    'title' => 'Test Notification',
-                    'body' => 'This is a test push notification.',
+                    'title' => 'Trial',
+                    'body' => 'Hello.',
                 ],
                 'android' => [
                     'priority' => 'high',

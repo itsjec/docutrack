@@ -155,20 +155,39 @@
                                                     <i class="mdi mdi-pencil"></i> Edit
                                                 </button>
                                                 <button type="button" class="btn btn-sm btn-info view-btn"
+                                                    data-toggle="modal" data-target="#pdfViewModal"
                                                     data-document-url="<?= site_url('file/' . $document['attachment']) ?>">
                                                     <i class="mdi mdi-eye"></i> View
                                                 </button>
 
-
-
                                             </td>
                                         </tr>
-                                        <tr class="pdf-row" style="display: none;">
+                                        <!-- <tr class="pdf-row" style="display: none;">
                                             <td colspan="100%">
                                                 <iframe class="pdf-viewer" style="width: 100%; height: 500px;"
                                                     src=""></iframe>
                                             </td>
-                                        </tr>
+                                        </tr> -->
+                                        <div class="modal fade" id="pdfViewModal" tabindex="-1" role="dialog"
+                                            aria-labelledby="pdfViewModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-lg" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <!-- <h5 class="modal-title" id="pdfViewModalLabel">Document Versions
+                                                        </h5> -->
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <iframe class="pdf-viewer" style="width: 100%; height: 80vh;"
+                                                            src=""></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -180,22 +199,28 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Document Versions</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="documentVersionsBody">
-                    <!-- Versions will be dynamically added here -->
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const pdfModal = document.getElementById('pdfViewModal');
+            const pdfViewer = pdfModal.querySelector('.pdf-viewer');
+
+            document.querySelectorAll('.view-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const pdfUrl = this.getAttribute('data-document-url');
+                    if (pdfViewer) {
+                        pdfViewer.src = pdfUrl; 
+                    }
+                });
+            });
+
+            pdfModal.addEventListener('hidden.bs.modal', function () {
+                if (pdfViewer) {
+                    pdfViewer.src = '';
+                }
+            });
+        });
+    </script>
 
 
     <div class="modal fade" id="editDocumentModal" tabindex="-1" role="dialog" aria-labelledby="editDocumentModalLabel"

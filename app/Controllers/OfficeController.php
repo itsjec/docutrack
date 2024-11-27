@@ -440,13 +440,99 @@ class OfficeController extends BaseController
                 if ($tokenEntry) {
                     $token = $tokenEntry['token'];
 
+                    // Include the document title in the notification
+                    $documentTitle = $document['title'];
+                    $message = "Document '{$documentTitle}' Received";
+
                     // Call the send_notification method to send the notification
-                    $this->send_notification($token, 'Document Received', 'Yung document mo ay nareceive na ng CMO');
+                    $this->send_notification($token, $message, 'Yung document mo ay nareceive na ng CMO');
                 }
             }
         }
+        if ($newStatus === 'on process') {
+            $timeProcessingData = [
+                'document_id' => $documentId,
+                'office_id' => $officeId,
+                'received_timestamp' => date('Y-m-d H:i:s'),
+                'completed_timestamp' => null
+            ];
+            $timeProcessingModel->insert($timeProcessingData);
 
+            // Check the notification table for the user_id associated with this document
+            $notification = $notificationModel->where('document_id', $documentId)->first();
+            if ($notification) {
+                $associatedUserId = $notification['user_id'];
 
+                // Find the token for the associated user
+                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+                if ($tokenEntry) {
+                    $token = $tokenEntry['token'];
+
+                    // Include the document title in the notification
+                    $documentTitle = $document['title'];
+                    $message = "Document '{$documentTitle}' on process";
+
+                    // Call the send_notification method to send the notification
+                    $this->send_notification($token, $message, 'Yung document mo ay on process na ng CMO');
+                }
+            }
+        }
+        if ($newStatus === 'completed') {
+            $timeProcessingData = [
+                'document_id' => $documentId,
+                'office_id' => $officeId,
+                'received_timestamp' => date('Y-m-d H:i:s'),
+                'completed_timestamp' => null
+            ];
+            $timeProcessingModel->insert($timeProcessingData);
+
+            // Check the notification table for the user_id associated with this document
+            $notification = $notificationModel->where('document_id', $documentId)->first();
+            if ($notification) {
+                $associatedUserId = $notification['user_id'];
+
+                // Find the token for the associated user
+                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+                if ($tokenEntry) {
+                    $token = $tokenEntry['token'];
+
+                    // Include the document title in the notification
+                    $documentTitle = $document['title'];
+                    $message = "Document '{$documentTitle}' Received";
+
+                    // Call the send_notification method to send the notification
+                    $this->send_notification($token, $message, 'Yung document mo ay completed na ng CMO');
+                }
+            }
+        }
+        if ($newStatus === 'deleted') {
+            $timeProcessingData = [
+                'document_id' => $documentId,
+                'office_id' => $officeId,
+                'received_timestamp' => date('Y-m-d H:i:s'),
+                'completed_timestamp' => null
+            ];
+            $timeProcessingModel->insert($timeProcessingData);
+
+            // Check the notification table for the user_id associated with this document
+            $notification = $notificationModel->where('document_id', $documentId)->first();
+            if ($notification) {
+                $associatedUserId = $notification['user_id'];
+
+                // Find the token for the associated user
+                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+                if ($tokenEntry) {
+                    $token = $tokenEntry['token'];
+
+                    // Include the document title in the notification
+                    $documentTitle = $document['title'];
+                    $message = "Document '{$documentTitle}' Received";
+
+                    // Call the send_notification method to send the notification
+                    $this->send_notification($token, $message, 'Yung document mo ay deleted na ng CMO');
+                }
+            }
+        }
         return redirect()->back();
     }
 
