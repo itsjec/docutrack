@@ -69,7 +69,7 @@
             const docId = $(this).data("document-id");
             console.log("Document ID:", docId);
             $.ajax({
-                url: 'documents/update-document-completed-status/' + docId + '/completed',
+                url: 'documents/update-document-status/' + docId + '/completed',
                 type: 'POST',
                 success: function(response) {
                     console.log(response);

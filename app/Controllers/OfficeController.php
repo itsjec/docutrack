@@ -470,7 +470,7 @@ class OfficeController extends BaseController
 
                     // Include the document title in the notification
                     $documentTitle = $document['title'];
-                    $message = "Document '{$documentTitle}' Received";
+                    $message = "Document '{$documentTitle}' on process";
 
                     // Call the send_notification method to send the notification
                     $this->send_notification($token, $message, 'Yung document mo ay on process na ng CMO');
@@ -510,7 +510,7 @@ class OfficeController extends BaseController
                 'document_id' => $documentId,
                 'office_id' => $officeId,
                 'received_timestamp' => date('Y-m-d H:i:s'),
-                'created_timestamp' => null
+                'completed_timestamp' => null
             ];
             $timeProcessingModel->insert($timeProcessingData);
 
