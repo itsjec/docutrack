@@ -442,30 +442,23 @@ class OfficeController extends BaseController
                 }
             }
         }
-            if ($newStatus === 'on process') {
-                $timeProcessingData = [
-                    'document_id' => $documentId,
-                    'office_id' => $officeId,
-                    'received_timestamp' => null,
-                    'completed_timestamp' => null
-                ];
-                $timeProcessingModel->insert($timeProcessingData);
-            
-                $notification = $notificationModel->where('document_id', $documentId)->first();
-                if ($notification) {
-                    $associatedUserId = $notification['user_id'];
-            
-                    $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
-                    if ($tokenEntry) {
-                        $token = $tokenEntry['token'];
-            
-                        $documentTitle = $document['title'];
-                        $message = "Your document titled '{$documentTitle}' is currently on process.";
-            
-                        $this->send_notification($token, $message, "Document On Process.");
-                    }
+        if ($newStatus === 'on process') {
+            $notification = $notificationModel->where('document_id', $documentId)->first();
+            if ($notification) {
+                $associatedUserId = $notification['user_id'];
+        
+                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+                if ($tokenEntry) {
+                    $token = $tokenEntry['token'];
+        
+                    $documentTitle = $document['title'];
+                    $message = "Your document titled '{$documentTitle}' is currently on process.";
+        
+                    $this->send_notification($token, $message, "Document On Process.");
                 }
             }
+        }
+ 
     }
 
     private function send_notification($token, $title, $body)
