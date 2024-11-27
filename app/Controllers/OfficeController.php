@@ -438,38 +438,38 @@ class OfficeController extends BaseController
                     $documentTitle = $document['title'];
                     $message = "Your Document titled '{$documentTitle}' is Received";
 
-                    $this->send_notification($token, $message, "Your document '{$documentTitle}' is already receceived.");
+                    $this->send_notification($token, $message, "Your document '{$documentTitle}' is already received.");
                 }
             }
         }
-        if ($newStatus === 'on process') {
-            $timeProcessingData = [
-                'document_id' => $documentId,
-                'office_id' => $officeId,
-                'received_timestamp' => date('Y-m-d H:i:s'),
-                'completed_timestamp' => null
-            ];
-            $timeProcessingModel->insert($timeProcessingData);
-            $officeModel = new OfficeModel();
-            $office = $officeModel->where('office_id', $officeId)->first(); 
-            $officeName = $office ? $office['name'] : 'Unknown Office';
-        
-            $notification = $notificationModel->where('document_id', $documentId)->first();
-            if ($notification) {
-                $associatedUserId = $notification['user_id'];
-        
-                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
-                if ($tokenEntry) {
-                    $token = $tokenEntry['token'];
-        
-                    $documentTitle = $document['title'];
-                    $message = "Your document titled '{$documentTitle}' is currently on process on {$officeName}.";
-        
-                    $this->send_notification($token, $message, "Your document titled '{$documentTitle}' is currently on process on {$officeName}.");
+            if ($newStatus === 'on process') {
+                $timeProcessingData = [
+                    'document_id' => $documentId,
+                    'office_id' => $officeId,
+                    'received_timestamp' => null,
+                    'completed_timestamp' => null
+                ];
+                $timeProcessingModel->insert($timeProcessingData);
+                $officeModel = new OfficeModel();
+                $office = $officeModel->where('office_id', $officeId)->first(); 
+                $officeName = $office ? $office['name'] : 'Unknown Office';
+            
+                $notification = $notificationModel->where('document_id', $documentId)->first();
+                if ($notification) {
+                    $associatedUserId = $notification['user_id'];
+            
+                    $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+                    if ($tokenEntry) {
+                        $token = $tokenEntry['token'];
+            
+                        $documentTitle = $document['title'];
+                        $message = "Your document titled '{$documentTitle}' is currently on process on {$officeName}.";
+            
+                        $this->send_notification($token, $message, "Your document titled '{$documentTitle}' is currently on process on {$officeName}.");
+                    }
                 }
             }
-        }
-        
+
         if ($newStatus === 'completed') {
             $timeProcessingData = [
                 'document_id' => $documentId,
