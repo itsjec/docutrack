@@ -1,7 +1,7 @@
 
 <div id="particles-js"></div>
 
-<div class="banner" style="background-color: black">
+<div class="banner">
             <div class="content">
                 <h1><?= $document['title'] ?></h1>
                 <div class="row mb-3">
