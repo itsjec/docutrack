@@ -116,7 +116,7 @@
       "lengthMenu": [5],
       "info": true,
       "lengthChange": false,
-      "searching": true,
+      "searching": false,
     });
   </script>
 
