@@ -200,7 +200,7 @@
             event.preventDefault(); 
 
             $.ajax({
-                url: '<?= site_url('saveguest') ?>',
+                url: '<?= site_url('saveofficeguest') ?>',
                 type: 'POST',
                 data: $(this).serialize(),
                 success: function(response) {

@@ -109,6 +109,11 @@
     });
 });
 
+$('#viewDocumentModal').off('click').on('click', function () {
+                console.log("Cancel clicked");
+                $('#viewDocumentModal').modal('hide');
+            });
+
 </script>
   <!-- base:js -->
   <script src="assets/vendors/js/vendor.bundle.base.js"></script>

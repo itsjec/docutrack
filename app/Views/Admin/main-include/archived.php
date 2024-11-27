@@ -59,10 +59,9 @@
             </div>
             <div class="modal-body">
                 Are you sure you want to delete the document?
-                <br>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelDeleteBtn">Cancel</button>
                 <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
             </div>
         </div>
@@ -70,8 +69,51 @@
 </div>
 
 
+
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+    var documentIdToDelete = null;
+
+    // Open the confirmation modal and set the document ID to be deleted
+    $('.delete-btn').click(function () {
+        documentIdToDelete = $(this).data('document-id');
+        $('#deleteDocumentModal').modal('show');
+    });
+
+    $('#delete-btn').click(function () {
+        if (documentIdToDelete !== null) {
+            $.ajax({
+                url: '<?= site_url('documents/deleteDocument') ?>',  
+                type: 'POST',
+                data: {
+                    documentId: documentIdToDelete
+                },
+                success: function (response) {
+                    if (response.success) {
+                        $('#deleteDocumentModal .modal-body').html('<p class="text-success">Document deleted successfully.</p>');
+                        setTimeout(function () {
+                            $('#deleteDocumentModal').modal('hide');
+                            location.reload();  // Reload page after deletion
+                        }, 2000);
+                    } else {
+                        $('#deleteDocumentModal .modal-body').html('<p class="text-danger">Failed to delete the document.</p>');
+                    }
+                },
+                error: function () {
+                    $('#deleteDocumentModal .modal-body').html('<p class="text-danger">An error occurred while deleting the document.</p>');
+                }
+            });
+        }
+    });
+
+    $('#cancelDeleteBtn').click(function () {
+        $('#deleteDocumentModal').modal('hide');
+    });
+});
+
+</script>
 
 </body>
 </html>

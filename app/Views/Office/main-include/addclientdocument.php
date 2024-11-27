@@ -42,8 +42,6 @@
   background-color: #dc3545; /* Red */
   color: #fff; /* White text for better readability */
 }
-
-
 .custom-select {
             font-family: 'Poppins', sans-serif;
             font-size: 14px;
@@ -102,7 +100,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="addclient">
                         <thead>
                             <tr>
                             <th>Version No.</th>
@@ -139,19 +137,9 @@
                                     data-description="<?= $document['description'] ?>">
                                     <i class="mdi mdi-pencil"></i> Edit
                                 </button>
-                                <button type="button" class="btn btn-sm btn-danger delete-btn" data-toggle="modal" data-target="#deleteDocumentModal" data-document-id="<?= $document['document_id'] ?>">
-                                    <i class="mdi mdi-delete"></i> Delete
+                                <button type="button" class="btn btn-sm btn-info view-btn" data-document-url="<?= site_url('file/' . $document['attachment']) ?>">
+                                    <i class="mdi mdi-eye"></i> View
                                 </button>
-                                <button type="button" class="btn btn-sm btn-info view-btn" 
-                                        data-document-url="<?= base_url($document['attachment']) ?>"> 
-                                    <i class="mdi mdi-eye"></i> View 
-                                </button>
-
-                                </td>
-                            </tr>
-                            <tr class="pdf-row" style="display: none;">
-                                <td colspan="100%">
-                                    <iframe class="pdf-viewer" style="width: 100%; height: 500px;" src=""></iframe>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -164,6 +152,22 @@
         </div>
     </div>
 </div>
+
+    <div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel">Document Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <iframe class="pdf-viewer" style="width: 100%; height: 500px;" src=""></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -204,24 +208,20 @@
                         <div class="form-group col-md-4">
                             <label for="editTitle">Title</label>
                             <input type="text" class="form-control" id="editTitle" name="title" placeholder="Enter title" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editSenderOfficeId">Sender</label>
-                            <select class="form-control" id="editSenderOfficeId" name="sender_id" required>
-                                <option value="">Select Sender</option>
-                                <?php foreach ($guestUsersNames as $user_id => $user_name): ?>
-                                    <option value="<?= $user_id ?>"><?= $user_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="editRecipientOfficeId">Recipient</label>
-                            <select class="form-control" id="editRecipientOfficeId" name="recipient_office_id" required>
-                                <?php foreach ($officesDropdown as $office_id => $office_name): ?>
-                                    <option value="<?= $office_id ?>"><?= $office_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
+                        </div> <div class="form-group col-12 d-flex flex-column">
+                                <label for="sender_office_id">Sender</label>
+                                <select name="sender_office_id" class="form-custom-select searchable-dropdown-1" required>
+                                    <option></option> <!-- Placeholder option -->
+                                </select>
+                            </div>
+
+                            <div class="form-group col-12 d-flex flex-column">
+                                <label for="recipient_office_id">Recipient</label>
+                                <select class="form-custom-select searchable-dropdown"" name=" recipient_office_id"
+                                    required>
+                                    <option></option> <!-- Placeholder option -->
+                                </select>
+                            </div>
                     </div>
                     <div class="form-row">
                     <div class="form-group col-md-6">
@@ -306,7 +306,7 @@
                                 </select>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-12 col-md-6">
+                            <div class="form-group col-12 col-md-6">
                                     <label for="classification">Classification</label>
                                     <select class="form-control" id="classification" name="classification" required>
                                         <option value="" disabled selected>Select Classification</option>
@@ -355,7 +355,17 @@
         </div>
     </div>
 
+
     <script>
+        // When a view button is clicked
+        $('.view-btn').on('click', function() {
+            var pdfUrl = $(this).data('document-url'); // Get the URL from the data attribute
+            $('#pdfModal .pdf-viewer').attr('src', pdfUrl); // Set the iframe src to the PDF URL
+            $('#pdfModal').modal('show'); // Show the modal
+        });
+    </script>
+
+<script>
         $(document).ready(function () {
             // Initialize Select2 on all elements with the class 'searchable-dropdown'
             $('.searchable-dropdown').select2({

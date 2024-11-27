@@ -154,11 +154,6 @@
                                                     data-description="<?= $document['description'] ?>">
                                                     <i class="mdi mdi-pencil"></i> Edit
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-danger delete-btn"
-                                                    data-toggle="modal" data-target="#deleteDocumentModal"
-                                                    data-document-id="<?= $document['document_id'] ?>">
-                                                    <i class="mdi mdi-delete"></i> Delete
-                                                </button>
                                                 <button type="button" class="btn btn-sm btn-info view-btn"
                                                     data-document-url="<?= site_url('file/' . $document['attachment']) ?>">
                                                     <i class="mdi mdi-eye"></i> View
@@ -280,27 +275,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog"
-        aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete the document?
-                    <br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class=" modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel"
         aria-hidden="true">
@@ -400,18 +374,19 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            // Initialize Select2 on all elements with the class 'searchable-dropdown'
             $('.searchable-dropdown').select2({
                 placeholder: "Select an option",
                 allowClear: true,
                 width: 'resolve',
-                dropdownParent: $('#addDocumentModal')
+                dropdownParent: $('#addDocumentModal') // Ensure this modal exists and is loaded
             });
 
-            // Fetch office list from the server and populate each searchable-dropdown
+
             $.ajax({
                 url: '/officelist', // Replace with your API endpoint
                 method: 'GET',
@@ -434,9 +409,6 @@
             });
         });
     </script>
-
-
-
     <script>
         $(document).ready(function () {
             $('.delete-btn').click(function () {

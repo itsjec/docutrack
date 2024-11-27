@@ -291,7 +291,7 @@ class AdminController extends BaseController
                             return redirect()->to('index');
                         case 'guest':
                         default:
-                            return redirect()->to('indexloggedin');
+                            return redirect()->to('adminkiosk');
                     }
                 } else {
                     // Log failed login attempt
@@ -1074,19 +1074,24 @@ public function register()
     public function deleteDocument()
     {
         $documentModel = new DocumentModel();
-
+    
         if ($this->request->isAJAX()) {
             $documentId = $this->request->getPost('documentId');
 
-            $result = $documentModel->delete($documentId);
-
+            $data = [
+                'status' => 'deleted',  
+            ];
+    
+            $result = $documentModel->update($documentId, $data);
+    
             if ($result) {
                 return $this->response->setJSON(['success' => true]);
             } else {
-                return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
+                return $this->response->setJSON(['success' => false, 'message' => 'Failed to update document status.']);
             }
         }
     }
+    
 
     public function updateDocumentDeletedStatus($documentId, $newStatus)
     {
@@ -1742,20 +1747,23 @@ public function fetchVersionsByTitle()
         $officeId = $this->request->getVar('office');
     
         // Prepare the query
-        $this->userModel->select('users.*, offices.office_name')
-                        ->join('offices', 'users.office_id = offices.office_id', 'left')
-                        ->where('users.role', 'office user');
+        $query = $this->userModel->select('users.*, offices.office_name')
+                                 ->join('offices', 'users.office_id = offices.office_id', 'left')
+                                 ->where('users.role', 'office user')
+                                 ->orderBy('users.user_id', 'DESC'); // Sorting by user_id in descending order
     
         if (!empty($searchTerm)) {
-            $this->userModel->like('users.username', $searchTerm)
-                            ->orLike('users.email', $searchTerm);
+            $query->groupStart() // Group conditions for OR logic
+                  ->like('users.username', $searchTerm)
+                  ->orLike('users.email', $searchTerm)
+                  ->groupEnd();
         }
     
         if (!empty($officeId)) {
-            $this->userModel->where('users.office_id', $officeId);
+            $query->where('users.office_id', $officeId);
         }
     
-        $data['users'] = $this->userModel->findAll();
+        $data['users'] = $query->get()->getResult(); // Execute the query and fetch the results
     
         // Fetch all offices for the dropdown
         $data['offices'] = $this->officeModel->select('office_id, office_name')->distinct()->findAll();
@@ -1763,6 +1771,8 @@ public function fetchVersionsByTitle()
         return view('Admin/AdminManageUser', $data);
     }
     
+    
+
     public function getOfficeList(){
         $officeModel = new OfficeModel();
         $offices = $officeModel->select([
@@ -1970,6 +1980,21 @@ public function fetchVersionsByTitle()
         }
     }
 
+    public function deletepermanently()
+    {
+        $documentModel = new DocumentModel();
 
+        if ($this->request->isAJAX()) {
+            $documentId = $this->request->getPost('documentId');
+
+            $result = $documentModel->delete($documentId);
+
+            if ($result) {
+                return $this->response->setJSON(['success' => true]);
+            } else {
+                return $this->response->setJSON(['success' => false, 'message' => 'Failed to delete document.']);
+            }
+        }
+    }
 
 }

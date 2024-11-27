@@ -268,26 +268,28 @@
     </div>
 
     <div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog"
-        aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to delete the document?
-                    <br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
-                </div>
+    aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteDocumentModalLabel">Delete Document</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the document?
+                <br>
+            </div>
+            <div class="modal-footer">
+                <!-- Cancel button with id 'cancelDeleteBtn' -->
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Confirm</button>
             </div>
         </div>
     </div>
+</div>
+
 
     <div class=" modal fade" id="addDocumentModal" tabindex="-1" role="dialog" aria-labelledby="addDocumentModalLabel"
         aria-hidden="true">
@@ -326,15 +328,15 @@
                             <div class="form-group col-12 d-flex flex-column">
                                 <label for="sender_office_id">Sender</label>
                                 <select name="sender_office_id" class="form-custom-select searchable-dropdown" required>
-                                    <option></option> <!-- Placeholder option -->
+                                    <option></option> 
                                 </select>
                             </div>
 
                             <div class="form-group col-12 d-flex flex-column">
                                 <label for="recipient_office_id">Recipient</label>
-                                <select class="form-custom-select searchable-dropdown"" name=" recipient_office_id"
+                                <select class="form-custom-select searchable-dropdown" name=" recipient_office_id"
                                     required>
-                                    <option></option> <!-- Placeholder option -->
+                                    <option></option> 
                                 </select>
                             </div>
                             <div class="form-row">
@@ -421,35 +423,57 @@
             });
         });
     </script>
+    </script>
 
     <script>
-        $(document).ready(function () {
-            $('.delete-btn').click(function () {
-                var documentId = $(this).data('document-id');
+$(document).ready(function () {
+    $('.delete-btn').click(function () {
+        var documentId = $(this).data('document-id');
 
-                console.log("doc id is: ", documentId);
+        console.log("doc id is: ", documentId);
 
-                $('#confirmDeleteBtn').off('click').on('click', function () {
-                    console.log("it worked");
-                    $.ajax({
-                        url: '<?= site_url('documents/deleteDocument') ?>',
-                        type: 'POST',
-                        data: { documentId: documentId },
-                        success: function (response) {
-                            if (response.success) {
-                                console.log('Document deleted successfully');
-                            } else {
-                                console.error('Error deleting document:', response.message);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error('Error deleting document:', error);
-                        }
-                    });
+        // Open the confirmation modal
+        $('#deleteDocumentModal').modal('show');
 
-                    $('#deleteConfirmationModal').modal('hide');
-                });
+        // Set up the confirm button click event
+        $('#confirmDeleteBtn').off('click').on('click', function () {
+            console.log("Deleting document...");
+
+            // Make the AJAX request to delete the document
+            $.ajax({
+                url: '<?= site_url('documents/deleteDocument') ?>',
+                type: 'POST',
+                data: { documentId: documentId },
+                success: function (response) {
+                    if (response.success) {
+                        console.log('Document deleted successfully');
+                        
+                        // Display success message inside the modal
+                        $('#deleteDocumentModal .modal-body').html('<p class="text-success">Document was moved to archives.</p>');
+                        
+                        // Optionally, close the modal after 2 seconds
+                        setTimeout(function() {
+                            $('#deleteDocumentModal').modal('hide');
+                            location.reload(); // Reload the page after deletion
+                        }, 2000);
+                    } else {
+                        console.error('Error deleting document:', response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error deleting document:', error);
+                }
             });
+        });
+
+        // Set up the cancel button click event to just hide the modal
+        $('#cancelDeleteBtn').off('click').on('click', function () {
+            console.log("Cancel clicked");
+            $('#deleteDocumentModal').modal('hide');
+        });
+    });
+});
+
 
             $('.edit-btn').on('click', function () {
                 var documentId = $(this).data('documentid');
@@ -491,6 +515,12 @@
                 $('#editDocumentModal').modal('show');
             });
 
+            // Remove backdrop when the modal is hidden
+            $('#editDocumentModal').on('hidden.bs.modal', function () {
+                $('.modal-backdrop').remove();  // Manually remove the backdrop
+            });
+
+            // Handle form submission with AJAX
             $('#editDocumentForm').on('submit', function (e) {
                 e.preventDefault();
 
@@ -514,7 +544,6 @@
                 });
             });
 
-        });
     </script>
 
     </script>

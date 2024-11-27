@@ -51,7 +51,7 @@
                 </div>
                 </div>
 
-                <!-- Delete Modal -->
+                <!-- Modal: Delete Office -->
                 <div class="modal fade" id="deleteOfficeModal" tabindex="-1" role="dialog" aria-labelledby="deleteOfficeModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -75,31 +75,36 @@
                     </div>
                 </div>
 
-                <div class="modal fade" id="editOfficeModal" tabindex="-1" role="dialog" aria-labelledby="editOfficeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editOfficeModalLabel">Edit Office Name</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+
+
+        <!-- Modal: Edit Office -->
+        <div class="modal fade" id="editOfficeModal" tabindex="-1" role="dialog" aria-labelledby="editOfficeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editOfficeModalLabel">Edit Office Name</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editOfficeForm" action="<?= base_url('updateOfficeName') ?>" method="post">
+                            <input type="hidden" id="editOfficeId" name="officeId">
+                            <div class="form-group">
+                                <label for="editOfficeName">Office Name</label>
+                                <input type="text" class="form-control" id="editOfficeName" name="officeName" placeholder="Enter office name" required>
                             </div>
-                            <div class="modal-body">
-                            <form id="editOfficeForm" action="<?= base_url('updateOfficeName') ?>" method="post">
-                                <input type="hidden" id="editOfficeId" name="officeId">
-                                <div class="form-group">
-                                    <label for="editOfficeName">Office Name</label>
-                                    <input type="text" class="form-control" id="editOfficeName" name="officeName" placeholder="Enter office name" required>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                            </form>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">Close
+                        </button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
+            </div>
+        </div>
+
 
                 <div class="modal fade" id="addOfficeModal" tabindex="-1" role="dialog" aria-labelledby="addOfficeModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">

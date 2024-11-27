@@ -82,6 +82,12 @@
                 });
             });
 
+                    
+            $('#receiveDocumentModal').off('click').on('click', function () {
+                console.log("Cancel clicked");
+                $('#receiveDocumentModal').modal('hide');
+            });
+
             // View Document Modal (for QR code generation)
             $('#viewDocumentModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget); // Button that triggered the modal

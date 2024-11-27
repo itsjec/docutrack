@@ -133,6 +133,11 @@
                                     data-description="<?= $document['description'] ?>">
                                     <i class="mdi mdi-pencil"></i> Edit
                                 </button>
+                                <button type="button" class="btn btn-sm btn-danger delete-btn"
+                                                    data-toggle="modal" data-target="#deleteDocumentModal"
+                                                    data-document-id="<?= $document['document_id'] ?>">
+                                                    <i class="mdi mdi-delete"></i> Delete
+                                </button>
 
                                 </td>
                             </tr>
@@ -214,7 +219,8 @@
 </div>
 
 
-<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog" aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteDocumentModal" tabindex="-1" role="dialog"
+    aria-labelledby="deleteDocumentModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -228,8 +234,8 @@
                 <br>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-danger" id="delete-btn">Confirm</button>
+                <button type="button" class="btn btn-secondary" id="cancelDeleteBtn" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Confirm</button>
             </div>
         </div>
     </div>
@@ -456,6 +462,55 @@ $('#editDocumentForm').on('submit', function(e) {
             }
         });
     });
+
+    $(document).ready(function () {
+    $('.delete-btn').click(function () {
+        var documentId = $(this).data('document-id');
+
+        console.log("doc id is: ", documentId);
+
+        // Open the confirmation modal
+        $('#deleteDocumentModal').modal('show');
+
+        // Set up the confirm button click event
+        $('#confirmDeleteBtn').off('click').on('click', function () {
+            console.log("Deleting document...");
+
+            // Make the AJAX request to delete the document
+            $.ajax({
+                url: '<?= site_url('documents/deleteDocument') ?>',
+                type: 'POST',
+                data: { documentId: documentId },
+                success: function (response) {
+                    if (response.success) {
+                        console.log('Document deleted successfully');
+                        
+                        // Display success message inside the modal
+                        $('#deleteDocumentModal .modal-body').html('<p class="text-success">Document was moved to archives.</p>');
+                        
+                        // Optionally, close the modal after 2 seconds
+                        setTimeout(function() {
+                            $('#deleteDocumentModal').modal('hide');
+                            location.reload(); // Reload the page after deletion
+                        }, 2000);
+                    } else {
+                        console.error('Error deleting document:', response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error deleting document:', error);
+                }
+            });
+        });
+
+        // Set up the cancel button click event to just hide the modal
+        $('#cancelDeleteBtn').off('click').on('click', function () {
+            console.log("Cancel clicked");
+            $('#deleteDocumentModal').modal('hide');
+        });
+    });
+});
+
 
 </script>
 

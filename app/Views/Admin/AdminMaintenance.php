@@ -100,31 +100,46 @@
     });
 
     $(document).ready(function () {
+    // Open the delete modal and populate the hidden input with the classificationId
     $('.delete-btn').click(function () {
         var classificationId = $(this).data('office-id');
         $('#deleteOfficeId').val(classificationId);
         $('#deleteOfficeModal').modal('show');
     });
+
+    // Ensure the modal closes when the "No" button is clicked
+    $('#deleteOfficeModal .btn-secondary').click(function () {
+        $('#deleteOfficeModal').modal('hide'); // Close the modal manually
+    });
 });
 
+
 $(document).ready(function () {
+    // Open the edit modal and populate the form fields with the data
     $('.edit-subclassification-btn').click(function () {
         var subClassificationId = $(this).data('subclassification-id');
         var classificationName = $(this).data('classification');
         var subClassificationName = $(this).data('subclassification');
 
+        // Populate form fields with the data
         $('#editClassificationId').val(subClassificationId);
         $('#editClassification').val(classificationName);
         $('#editSubclassification').val(subClassificationName);
 
+        // Pre-select the appropriate classification option in the dropdown
         $('#editSubClassificationModal').find('#classification option').filter(function() {
             return $(this).text() == classificationName;
         }).prop('selected', true);
 
+        // Show the modal
         $('#editSubClassificationModal').modal('show');
     });
-});
 
+    // Ensure the modal is closed when "Close" button is clicked
+    $('#editSubClassificationModal .btn-secondary').click(function () {
+        $('#editSubClassificationModal').modal('hide'); // Close the modal manually
+    });
+});
 
 
 </script>

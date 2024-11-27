@@ -61,23 +61,6 @@
 </div>
     <!-- page-body-wrapper ends -->
   </div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
-  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.bootstrap5.js"></script>
-
-  <script>
-    let table = new DataTable('#adddepartment', {
-        "paging": true,          
-        "pageLength": 5,         
-        "lengthMenu": [5],       
-        "info": true,            
-        "lengthChange": false,
-        "searching": false,   
-    });
-</script>
   <script>
         $('#addDocumentBtn').click(function () {
             $('#addDocumentModal').modal('show');
@@ -117,8 +100,7 @@
         success: function(response) {
             var versions = JSON.parse(response);
             var modalBody = $('#documentVersionsBody');
-            modalBody.empty(); // Clear existing content
-
+            modalBody.empty(); 
             versions.forEach(function(version) {
                 var card = $('<div class="col-md-3">');
                 var innerCard = $('<div class="card">');
@@ -138,9 +120,6 @@
         }
     });
 });
-
-
-
     </script>
 
 <script>

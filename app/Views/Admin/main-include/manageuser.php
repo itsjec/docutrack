@@ -118,6 +118,7 @@
 </div>
 
 
+<!-- Edit User Modal -->
 <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -150,7 +151,7 @@
                         <input type="password" class="form-control" id="editPassword" name="password" placeholder="Enter new password">
                     </div>
                     
-                    <!-- Picture Upload Field -->
+                    <!-- Profile Picture Upload Field -->
                     <div class="form-group">
                         <label for="editProfilePicture">Profile Picture</label>
                         <input type="file" class="form-control-file" id="editProfilePicture" name="profilePicture" accept="image/*" onchange="previewImage(event)">
@@ -166,6 +167,7 @@
         </div>
     </div>
 </div>
+
 
 
 <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
@@ -337,23 +339,44 @@
         });
     });
 
-    function previewImage(event) {
-        const imagePreview = document.getElementById('imagePreview');
-        const file = event.target.files[0];
+    $(document).ready(function () {
+        $('.edit-btn').click(function () {
+            var userId = $(this).data('user-id');
+            var officeId = $(this).data('office-id');
+            var username = $(this).data('username');
+            var email = $(this).data('email');
+            var profilePicture = $(this).data('profile-picture');
 
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
+            $('#editUserId').val(userId);
+            $('#editOfficeId').val(officeId);
+            $('#editUsername').val(username);
+            $('#editEmail').val(email); 
+            if (profilePicture) {
+                $('#imagePreview').attr('src', profilePicture).show(); 
+            } else {
+                $('#imagePreview').hide(); 
             }
-            reader.readAsDataURL(file);
-        } else {
-            imagePreview.src = '#';
-            imagePreview.style.display = 'none';
-        }
+
+            $('#editUserModal').modal('show');
+        });
+
+        $('#editUserModal').on('hidden.bs.modal', function () {
+            $('.modal-backdrop').remove();  
+        });
+    });
+
+
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('imagePreview');
+            output.src = reader.result;
+            output.style.display = 'block'; 
+        };
+        reader.readAsDataURL(event.target.files[0]);
     }
 </script>
 
+</script>
 </body>
 </html>

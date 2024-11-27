@@ -97,7 +97,6 @@
                     </div>
                 <?php endif ?>
 
-                <!-- Your form here -->
 
                 <form id="addDocumentForm" action="<?= site_url('documents/saveOffice') ?>" method="post" enctype="multipart/form-data">
                     <div class="form-row">

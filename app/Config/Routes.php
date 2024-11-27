@@ -74,6 +74,8 @@ $routes->get('/admin-password-reset', 'AdminController::adminPasswordResetPage')
 $routes->post('/admin-check-password-reset', 'AdminController::checkAdminPasswordReset');
 $routes->post('/admin-confirm-password-reset', 'AdminController::confirmAdminPasswordReset');
 $routes->post('/admin-forgot-password', 'AdminController::adminForgotPassword');
+$routes->post('documents/deleteDocument', 'AdminController::deleteDocument');
+
 
 
 
@@ -126,7 +128,7 @@ $routes->get('manageclient', 'OfficeController::manageclient', ['filter' => 'rol
 $routes->post('officeusers/update', 'OfficeController::updateOfficeUser');
 $routes->post('officeusers/save', 'OfficeController::saveOfficeUser');
 $routes->get('manageofficeguest', 'OfficeController::manageguest', ['filter' => 'role:office user']);
-$routes->post('saveguest', 'OfficeController::saveguest');
+$routes->post('saveofficeguest', 'OfficeController::saveofficeguest');
 $routes->post('updateofficeguest', 'OfficeController::updateUser');
 $routes->post('user/activateUser', 'OfficeController::activateguestUser');
 $routes->post('user/deactivateUser', 'OfficeController::deactivateguestUser');

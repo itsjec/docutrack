@@ -1851,7 +1851,7 @@ class OfficeController extends BaseController
         return view('Office/ManageGuest', $data);
     }
 
-    public function saveguest()
+    public function saveofficeguest()
     {
         $userModel = new UserModel();
 

@@ -10,7 +10,7 @@
                     <?php if (!empty($user['picture_path'])): ?>
                         <img id="previewImage" src="<?= $user['picture_path'] ?>" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
                     <?php else: ?>
-                        <img id="previewImage" src="/uploads/placeholder.jpg" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
+                        <img id="previewImage" src="/icons/default1.png" alt="Profile Picture" style="width: 100%; height: 100%; object-fit: cover;">
                     <?php endif; ?>
                 </div>
                 </div>

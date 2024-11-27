@@ -49,9 +49,11 @@ $('#addOfficeBtn').click(function () {
 });
 
 </script>
+<!-- jQuery (should be placed before Bootstrap JS) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Bootstrap JS (make sure to use Bootstrap 4) -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
   <script>
   document.addEventListener("DOMContentLoaded", function() {
     // Get current date
@@ -72,6 +74,7 @@ $('#addOfficeBtn').click(function () {
 
 <script>
     $(document).ready(function () {
+        // Open the edit modal and populate the form fields with the office details
         $('.edit-btn').click(function () {
             var officeId = $(this).data('office-id');
             var officeName = $(this).data('office-name');
@@ -79,17 +82,61 @@ $('#addOfficeBtn').click(function () {
             $('#editOfficeId').val(officeId);
             $('#editOfficeName').val(officeName);
 
+            // Show the edit modal
             $('#editOfficeModal').modal('show');
+        });
+
+        // Handle the form submission for updating office name (close modal after submission)
+        $('#editOfficeForm').submit(function (e) {
+            e.preventDefault(); // Prevent form from submitting the default way
+
+            var officeId = $('#editOfficeId').val();
+            var officeName = $('#editOfficeName').val();
+
+            // Example AJAX call to update office name
+            $.ajax({
+                url: '<?= base_url('updateOfficeName') ?>',
+                type: 'POST',
+                data: {
+                    officeId: officeId,
+                    officeName: officeName
+                },
+                success: function (response) {
+                    // On success, show success message inside the modal
+                    $('#editOfficeModal .modal-body').html('<p class="text-success">Office Name Updated Successfully!</p>');
+
+                    // Optionally, close the modal after 2 seconds
+                    setTimeout(function() {
+                        $('#editOfficeModal').modal('hide');
+                        location.reload(); // Reload the page after update
+                    }, 2000);
+                },
+                error: function (error) {
+                    // Handle error if necessary
+                    alert('An error occurred while updating the office name.');
+                }
+            });
+        });
+
+        $('#editOfficeModal .btn-secondary').click(function () {
+            $('#editOfficeModal').modal('hide'); // Close the modal manually
         });
     });
 
-    $(document).ready(function () {
+$(document).ready(function () {
+    // Open the modal when "Delete" button is clicked
     $('.delete-btn').click(function () {
         var officeId = $(this).data('office-id');
-        $('#deleteOfficeId').val(officeId);
-        $('#deleteOfficeModal').modal('show');
+        $('#deleteOfficeId').val(officeId); // Set officeId in the hidden input
+        $('#deleteOfficeModal').modal('show'); // Show the delete confirmation modal
     });
+
+    $('#deleteOfficeModal .btn-secondary').click(function () {
+        $('#deleteOfficeModal').modal('hide'); // Close the modal manually
+    });
+
 });
+
 
 $(document).ready(function() {
         $('#addOfficeForm').submit(function(e) {

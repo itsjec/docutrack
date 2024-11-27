@@ -4,28 +4,19 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
   <!-- base:css -->
   <link rel="stylesheet" href="assets/vendors/typicons/typicons.css">
   <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-  <!-- endinject -->
+  
   <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/vertical-layout-light/style.css">
   <link rel="stylesheet" href="assets/css/style.css">
-  <!-- endinject -->
-
   
-    <!-- Include jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Include Select2 -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    
 </head>
 <body>
-  <div class="container-scroller">
+<div class="container-scroller">
   <?php include ('include/partialnavbar.php'); ?>
       <!-- partial:partials/_settings-panel.html -->
       <div class="container-fluid page-body-wrapper">
@@ -46,48 +37,70 @@
         <!-- main-panel ends -->
         </div>
 </div>
-    <!-- page-body-wrapper ends -->
-  </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
 
+  <!-- Include jQuery and Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Get current date
-    const currentDate = new Date();
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const formattedDate = monthNames[currentDate.getMonth()] + " " + currentDate.getDate();
-    
-    // Update the date in the element
-    document.getElementById("currentDateText").textContent = formattedDate;
-
-    // Add click event listener to the calendar icon
-    document.getElementById("calendarIcon").addEventListener("click", function() {
-      // Handle calendar icon click event here
-      alert("Calendar icon clicked!");
+    // DataTable Initialization
+    let table = new DataTable('#addclient', {
+        paging: true,          
+        pageLength: 5,         
+        lengthMenu: [5],       
+        info: true,            
+        lengthChange: false,
+        searching: false,
     });
-  });
+    // Set current date in an element
+    document.addEventListener("DOMContentLoaded", function() {
+      const currentDate = new Date();
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      const formattedDate = monthNames[currentDate.getMonth()] + " " + currentDate.getDate();
+      document.getElementById("currentDateText").textContent = formattedDate;
+
+      // Handle calendar icon click
+      document.getElementById("calendarIcon").addEventListener("click", function() {
+        alert("Calendar icon clicked!");
+      });
+    });
   </script>
 
-  <!-- base:js -->
-  <!--<script src="assets/vendors/js/vendor.bundle.base.js"></script>-->
-  <!-- endinject -->
-  <!-- Plugin js for this page-->
-  <!--<script src="assets/vendors/chart.js/Chart.min.js"></script>-->
-  <!-- End plugin js for this page-->
-  <!-- inject:js -->
-  <!--<script src="assets/js/off-canvas.js"></script>
-  <script src="assets/js/hoverable-collapse.js"></script>
-  <script src="assets/js/template.js"></script>
-  <script src="assets/js/settings.js"></script>
-  <script src="assets/js/todolist.js"></script>-->
-  <!-- endinject -->
-  <!-- Custom js for this page-->
- <!-- <script src="assets/js/dashboard.js"></script>-->
-  <!-- End custom js for this page-->
+<script>
+$(document).ready(function() {
+    $('#classification').change(function() {
+        var classification = $(this).val();
+        var subClassificationSelect = $('#sub-classification');
 
+        subClassificationSelect.html('<option value="" disabled selected>Loading...</option>');
+
+        $.ajax({
+            url: '<?= site_url('documents/getSubClassifications') ?>',
+            type: 'POST',
+            dataType: 'json',
+            data: { classification: classification },
+            success: function(response) {
+                subClassificationSelect.html('<option value="" disabled selected>Select Sub-Classification</option>');
+                $.each(response, function(index, subClassification) {
+                    subClassificationSelect.append('<option value="' + subClassification.sub_classification + '">' + subClassification.sub_classification + '</option>');
+                });
+            },
+            error: function() {
+                subClassificationSelect.html('<option value="" disabled selected>Error loading sub-classifications</option>');
+            }
+        });
+    });
+});
+
+    $(document).ready(function() {
+        function displaySuccessModal(trackingNumber) {
+            $('#trackingNumber').text(trackingNumber);
+            $('#successModal').modal('show');
+        }
+    });
+    </script>
 </body>
-
 </html>
-

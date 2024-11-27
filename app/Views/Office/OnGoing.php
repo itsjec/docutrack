@@ -81,6 +81,10 @@
                 }
             });
         });
+        $('#receiveDocumentModal').off('click').on('click', function () {
+                console.log("Cancel clicked");
+                $('#receiveDocumentModal').modal('hide');
+            });
 
         $('#viewDocumentModal').on('show.bs.modal', function(event) {
             const button = $(event.relatedTarget);

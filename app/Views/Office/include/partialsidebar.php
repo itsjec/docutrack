@@ -1,4 +1,10 @@
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+
 <ul class="nav">
+    <!-- Dashboard -->
     <li class="nav-item">
         <a class="nav-link" href="<?= site_url('index') ?>">
             <i class="typcn typcn-chart-bar-outline menu-icon"></i>
@@ -111,3 +117,19 @@
         </a>
     </li>
 </ul>
+
+<script>
+    $(document).ready(function () {
+        // Track open and close of sidebar collapses
+        $('.nav-link[data-toggle="collapse"]').on('click', function () {
+            var target = $(this).attr('href');  // Get the target collapse ID
+            var isExpanded = $(target).hasClass('show');  // Check if it's already open
+
+            // If it's not already open, close all collapses and open the clicked one
+            if (!isExpanded) {
+                $('.collapse').removeClass('show');  // Close all collapses
+                $(target).addClass('show');  // Open the clicked collapse
+            }
+        });
+    });
+</script>

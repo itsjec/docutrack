@@ -80,6 +80,10 @@ $(document).ready(function() {
           }
       });
   });
+  $('#receiveDocumentModal').off('click').on('click', function () {
+                console.log("Cancel clicked");
+                $('#receiveDocumentModal').modal('hide');
+            });
 
 });
 
