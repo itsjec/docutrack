@@ -438,7 +438,7 @@ class OfficeController extends BaseController
                     $documentTitle = $document['title'];
                     $message = "Your Document titled '{$documentTitle}' is Received";
 
-                    $this->send_notification($token, $message, "Your document '{$documentTitle}' is already received.");
+                    $this->send_notification($token, $message, "Scan your document QR Code to view details.");
                 }
             }
         }
@@ -450,9 +450,6 @@ class OfficeController extends BaseController
                     'completed_timestamp' => null
                 ];
                 $timeProcessingModel->insert($timeProcessingData);
-                $officeModel = new OfficeModel();
-                $office = $officeModel->where('office_id', $officeId)->first(); 
-                $officeName = $office ? $office['name'] : 'Unknown Office';
             
                 $notification = $notificationModel->where('document_id', $documentId)->first();
                 if ($notification) {
@@ -463,41 +460,13 @@ class OfficeController extends BaseController
                         $token = $tokenEntry['token'];
             
                         $documentTitle = $document['title'];
-                        $message = "Your document titled '{$documentTitle}' is currently on process on {$officeName}.";
+                        $message = "Your document titled '{$documentTitle}' is currently on process.";
             
-                        $this->send_notification($token, $message, "Your document titled '{$documentTitle}' is currently on process on {$officeName}.");
+                        $this->send_notification($token, $message, "Scan your document QR Code to view details.");
                     }
                 }
             }
-
-        if ($newStatus === 'completed') {
-            $timeProcessingData = [
-                'document_id' => $documentId,
-                'office_id' => $officeId,
-                'received_timestamp' => date('Y-m-d H:i:s'),
-                'completed_timestamp' => null
-            ];
-            $timeProcessingModel->insert($timeProcessingData);
-
-            // Check the notification table for the user_id associated with this document
-            $notification = $notificationModel->where('document_id', $documentId)->first();
-            if ($notification) {
-                $associatedUserId = $notification['user_id'];
-
-                // Find the token for the associated user
-                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
-                if ($tokenEntry) {
-                    $token = $tokenEntry['token'];
-
-                    // Include the document title in the notification
-                    $documentTitle = $document['title'];
-                    $message = "Document '{$documentTitle}' Received";
-
-                    // Call the send_notification method to send the notification
-                    $this->send_notification($token, $message, 'Yung document mo ay completed na ng CMO');
-                }
-            }
-        }
+            
         if ($newStatus === 'deleted') {
             $timeProcessingData = [
                 'document_id' => $documentId,
@@ -507,21 +476,17 @@ class OfficeController extends BaseController
             ];
             $timeProcessingModel->insert($timeProcessingData);
 
-            // Check the notification table for the user_id associated with this document
             $notification = $notificationModel->where('document_id', $documentId)->first();
             if ($notification) {
                 $associatedUserId = $notification['user_id'];
 
-                // Find the token for the associated user
                 $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
                 if ($tokenEntry) {
                     $token = $tokenEntry['token'];
 
-                    // Include the document title in the notification
                     $documentTitle = $document['title'];
                     $message = "Document '{$documentTitle}' Received";
 
-                    // Call the send_notification method to send the notification
                     $this->send_notification($token, $message, 'Yung document mo ay deleted na ng CMO');
                 }
             }
@@ -529,7 +494,6 @@ class OfficeController extends BaseController
         return redirect()->back();
     }
 
-    // Example method for sending notification
     private function send_notification($token, $title, $body)
     {
         // Add your Firebase notification sending logic here
@@ -602,34 +566,40 @@ class OfficeController extends BaseController
     }
 
 
-
-
     public function updateDocumentCompletedStatus($documentId, $newStatus)
     {
         $documentModel = new DocumentModel();
         $workflowModel = new DocumentHistoryModel();
         $timeProcessingModel = new TimeProcessingModel();
-
+        $notificationModel = new NotificationModel();
+        $tokenModel = new TokenModel();
+    
+        $document = $documentModel->find($documentId);
+        if (!$document) {
+            log_message('error', "Document not found: {$documentId}");
+            throw new \Exception("Document not found.");
+        }
+    
         $documentModel->update($documentId, ['status' => $newStatus]);
-
+    
         $userId = session()->get('user_id');
         $officeId = session()->get('office_id');
-
+    
         $historyData = [
             'document_id' => $documentId,
             'user_id' => $userId,
             'office_id' => $officeId,
             'status' => $newStatus,
             'date_changed' => date('Y-m-d H:i:s'),
-            'date_completed' => date('Y-m-d H:i:s')
+            'date_completed' => ($newStatus === 'completed') ? date('Y-m-d H:i:s') : null,
         ];
         $workflowModel->insert($historyData);
-
+    
         $existingTimeProcessing = $timeProcessingModel
             ->where('document_id', $documentId)
             ->where('office_id', $officeId)
             ->first();
-
+    
         if ($existingTimeProcessing) {
             $timeProcessingModel->update($existingTimeProcessing['id'], ['completed_timestamp' => date('Y-m-d H:i:s')]);
         } else {
@@ -637,13 +607,34 @@ class OfficeController extends BaseController
                 'document_id' => $documentId,
                 'office_id' => $officeId,
                 'received_timestamp' => null,
-                'completed_timestamp' => date('Y-m-d H:i:s')
+                'completed_timestamp' => ($newStatus === 'completed') ? date('Y-m-d H:i:s') : null,
             ];
             $timeProcessingModel->insert($timeProcessingData);
         }
-
+    
+        if ($newStatus === 'completed') {
+            $notification = $notificationModel->where('document_id', $documentId)->first();
+            if ($notification) {
+                $associatedUserId = $notification['user_id'];
+                $tokenEntry = $tokenModel->where('id', $associatedUserId)->first();
+    
+                if ($tokenEntry) {
+                    $token = $tokenEntry['token'];
+                    $documentTitle = $document['title'];
+                    $message = "Your document titled '{$documentTitle}' has been marked as completed by the City Mayor's Office.";
+    
+                    $this->send_notification($token, $message, 'Document Completed');
+                } else {
+                    log_message('error', "Token entry not found for user ID: {$associatedUserId}");
+                }
+            } else {
+                log_message('error', "Notification not found for document ID: {$documentId}");
+            }
+        }
+    
         return redirect()->back();
     }
+    
 
     public function updateDocumentDeletedStatus($documentId, $newStatus)
     {
